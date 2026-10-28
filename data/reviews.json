@@ -30,7 +30,10 @@
         "status": "pass",
         "detail": "workflow_dispatch -> fastify/workflows reusable-release.yml, protected release environment, npm publish --provenance --access public, actions pinned to commit SHAs, no NPM_TOKEN.",
         "sources": [
-          { "label": "release.yml", "url": "https://github.com/fastify/deepmerge/blob/main/.github/workflows/release.yml" }
+          {
+            "label": "release.yml",
+            "url": "https://github.com/fastify/deepmerge/blob/main/.github/workflows/release.yml"
+          }
         ]
       },
       {
@@ -39,7 +42,10 @@
         "status": "pass",
         "detail": "SLSA v1 attestation for 3.2.4: builder actions/runner/github-hosted, source fastify/deepmerge, workflow .github/workflows/release.yml, ref refs/heads/main.",
         "sources": [
-          { "label": "npm attestation", "url": "https://registry.npmjs.org/-/npm/v1/attestations/@fastify%2fdeepmerge@3.2.4" }
+          {
+            "label": "npm attestation",
+            "url": "https://registry.npmjs.org/-/npm/v1/attestations/@fastify%2fdeepmerge@3.2.4"
+          }
         ]
       },
       {
@@ -110,7 +116,10 @@
         "status": "warn",
         "detail": "release.yml runs on push to main after all lint/test/typecheck jobs, then pnpm release (semantic-release). Authenticates with secrets.NPM_TOKEN.",
         "sources": [
-          { "label": "release.yml", "url": "https://github.com/RebeccaStevens/deepmerge-ts/blob/main/.github/workflows/release.yml" }
+          {
+            "label": "release.yml",
+            "url": "https://github.com/RebeccaStevens/deepmerge-ts/blob/main/.github/workflows/release.yml"
+          }
         ]
       },
       {
@@ -185,7 +194,10 @@
         "status": "fail",
         "detail": "ci.yml runs lint, build, test:types and vitest with coverage. No release or publish job.",
         "sources": [
-          { "label": "ci.yml", "url": "https://github.com/unjs/defu/blob/main/.github/workflows/ci.yml" }
+          {
+            "label": "ci.yml",
+            "url": "https://github.com/unjs/defu/blob/main/.github/workflows/ci.yml"
+          }
         ]
       },
       {
@@ -247,7 +259,10 @@
         "status": "fail",
         "detail": "No .github directory in the repository; no workflows of any kind. Release is manual.",
         "sources": [
-          { "label": "repository", "url": "https://github.com/voodoocreation/ts-deepmerge" }
+          {
+            "label": "repository",
+            "url": "https://github.com/voodoocreation/ts-deepmerge"
+          }
         ]
       },
       {
@@ -311,8 +326,14 @@
         "status": "fail",
         "detail": "Prototype-poisoning guard bypass, CVSS 4.0 8.7 / CVSS 3.1 7.5, CWE-1321. Published 2026-09-18, status Deferred. Reproduced in 4.3.1.",
         "sources": [
-          { "label": "NVD", "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93753" },
-          { "label": "issue #273", "url": "https://github.com/TehShrike/deepmerge/issues/273" }
+          {
+            "label": "NVD",
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93753"
+          },
+          {
+            "label": "issue #273",
+            "url": "https://github.com/TehShrike/deepmerge/issues/273"
+          }
         ]
       },
       {
@@ -327,7 +348,10 @@
         "status": "fail",
         "detail": "npm audit reports 0 vulnerabilities for 4.3.1. The OSV record contains only a GIT range, so package-version matching returns nothing.",
         "sources": [
-          { "label": "OSV record", "url": "https://api.osv.dev/v1/vulns/CVE-2026-93753" }
+          {
+            "label": "OSV record",
+            "url": "https://api.osv.dev/v1/vulns/CVE-2026-93753"
+          }
         ]
       },
       {
@@ -725,7 +749,10 @@
         "status": "pass",
         "detail": "OIDC trusted publishing (id-token: write) from a protected npm Publish environment, build and publish split into separate jobs, --ignore-scripts in the publish job, actions pinned to commit SHAs.",
         "sources": [
-          { "label": "npm-publish.yaml", "url": "https://github.com/assistant-ui/assistant-ui/blob/main/.github/workflows/npm-publish.yaml" }
+          {
+            "label": "npm-publish.yaml",
+            "url": "https://github.com/assistant-ui/assistant-ui/blob/main/.github/workflows/npm-publish.yaml"
+          }
         ]
       },
       {
@@ -1471,5 +1498,707 @@
         "detail": "No declarations."
       }
     ]
+  },
+  {
+    "id": "rev-2026-10-neo4j-bloom-dagre",
+    "package_id": "pkg-neo4j-bloom-dagre",
+    "requirement_id": "req-nvl-graph",
+    "reviewed_at": "2026-10-28",
+    "reviewed_version": "3.1.1",
+    "reviewer": "opencode",
+    "recommendation": "hold",
+    "risk": "medium",
+    "score": 63,
+    "summary": "The dagre layout engine for the NVL suite is MIT, install-script free and free of recorded advisories, but 3.1.1 ships with no npm attestation, no publish-workflow evidence and only three versions ever published on a repository with a single star, so it cannot clear the release-integrity bar without exact version pinning and a recorded provenance gap.",
+    "reasoning": [
+      "This package is the dagre layout engine used by the NVL suite, so its fitness is judged on whether it can be trusted as a pinned layout dependency, not on its own API surface.",
+      "3.1.1 was published 2026-09-02, roughly eight weeks before this review, which satisfies the requirement's 'release within 12 months' maintenance clause on its own.",
+      "No npm attestation exists for 3.1.1: npm_provenance is false and the provenance note records that no attestation was found, so the release-integrity constraint is not satisfied literally.",
+      "The requirement permits missing provenance only if exact versions are pinned and the gap is recorded, which makes this a conditional hold rather than an outright rejection.",
+      "The disallowed-install-script hard failure does not apply: has_install_script is false and install_scripts is empty for 3.1.1.",
+      "No advisories are recorded against 3.1.1, and the runtime surface is a single dependency, @dagrejs/graphlib 4.0.5.",
+      "Maturity is the weakest dimension for a high-criticality requirement: only three versions have ever been published, and the neo-technology/dagre repository shows one star, zero forks and zero open issues.",
+      "All three npm maintainer identities are Neo4j automation or organisation accounts (neo4j-bloom-publisher, neo4j-bloom-reader2, neo4j-organization); no named individual maintainer is visible in the dossier.",
+      "Bundled TypeScript types and a dual ESM/CJS build reduce integration friction, which is relevant because the requirement warns the suite is CJS-heavy.",
+      "The package declares no peer dependency and no engines field, so React 18/19 support and Node support are inherited from the consuming NVL package rather than asserted by this package.",
+      "Version compatibility with the other three NVL packages cannot be confirmed because the dossier records no sibling versions and no peer ranges.",
+      "The dossier contains no publish-workflow or CI evidence for the repository, so CI publishing is unverified rather than demonstrated; that is recorded as info and is not counted as a pass."
+    ],
+    "caveats": [
+      "Provenance gap: there is no attestation on 3.1.1. If this package is used, pin the exact version 3.1.1 and record the gap, as the requirement allows.",
+      "Install size was not measured; only the 1378 KB unpacked tarball size is known, so the real installed footprint is unknown.",
+      "The licence of the single runtime dependency, @dagrejs/graphlib 4.0.5, was not measured, so 'permissive licence across the full dependency tree' is unverified for this package.",
+      "Repository signal is thin: one star, zero forks and three total published versions indicate a Neo4j-controlled fork rather than a broadly scrutinised upstream, so external review of the layout code is minimal.",
+      "Maintainer accounts are automation-style rather than named humans, which complicates security escalation and ownership questions.",
+      "The requirement notes flag possible duplication of dagre (this package plus a transitive @dagrejs/dagre pulled in by layout-workers). The dossier does not measure the sibling dependency tree, so whether both engines ship and how they diverge is unconfirmed.",
+      "No engines field is declared, so supported Node versions are unstated and must be checked against the application runtime.",
+      "CI publishing and the advisory response process could not be verified from the dossier and should be confirmed before adoption.",
+      "Adoption of this package does not by itself establish compatibility across the NVL suite; that must be validated against concrete versions of the other three candidates."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "info",
+        "detail": "The dossier contains no workflow, CI or release-pipeline evidence for neo-technology/dagre. Registry metadata shows three total versions with a last publish of 2026-09-02T21:55:31Z. CI publishing was not measured, so it is neither confirmed nor treated as a pass.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-bloom%2Fdagre"
+          },
+          {
+            "label": "GitHub repository",
+            "url": "https://github.com/neo-technology/dagre"
+          }
+        ]
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "npm_provenance is false. The provenance note states that no npm attestation was found when the facts were collected, so 3.1.1 has no verifiable link between the published tarball and a source commit.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-bloom%2Fdagre"
+          },
+          {
+            "label": "npm package page",
+            "url": "https://www.npmjs.com/package/@neo4j-bloom/dagre"
+          }
+        ]
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "The dossier's vulnerability set is empty for 3.1.1, so no high or critical advisory is recorded against this package. This reflects collected advisory data only and does not imply the absence of undisclosed issues.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-bloom%2Fdagre"
+          }
+        ]
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance and maturity",
+        "status": "warn",
+        "detail": "3.1.1 was published 2026-09-02 and the repository was pushed 2026-09-07 with zero open issues, which meets the 12-month release clause. However only three versions have ever been published, and the repository has one star, zero forks and zero open issues, which is a very thin maturity and community-scrutiny signal.",
+        "sources": [
+          {
+            "label": "npm download stats",
+            "url": "https://api.npmjs.org/downloads/point/last-week/@neo4j-bloom%2Fdagre"
+          },
+          {
+            "label": "GitHub repository API",
+            "url": "https://api.github.com/repos/neo-technology/dagre"
+          }
+        ]
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "warn",
+        "detail": "One runtime dependency, @dagrejs/graphlib 4.0.5. Unpacked size is 1378 KB. Install size was not measured, and the transitive licence of graphlib was not measured, so the footprint and licence-tree checks are incomplete.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-bloom%2Fdagre"
+          },
+          {
+            "label": "npm tarball",
+            "url": "https://registry.npmjs.org/@neo4j-bloom/dagre/-/dagre-3.1.1.tgz"
+          }
+        ]
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Types are bundled with the package and the build is dual-format (ESM and CJS), which suits both CJS-heavy and modern bundler consumers. Type correctness was not exercised in the dossier.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-bloom%2Fdagre"
+          }
+        ]
+      },
+      {
+        "key": "behaviour",
+        "label": "Runtime behaviour and compatibility",
+        "status": "info",
+        "detail": "The package is a dagre layout engine. No peer_dependencies, optional_dependencies, engines, os or cpu fields are declared, so React 18/19 support and host-runtime support are not asserted here. No runtime behaviour or layout output was measured in the dossier.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-bloom%2Fdagre"
+          }
+        ]
+      },
+      {
+        "key": "license",
+        "label": "License",
+        "status": "pass",
+        "detail": "MIT for @neo4j-bloom/dagre 3.1.1, matching the MIT licence reported for the GitHub repository. Licences of transitive dependencies were not measured.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-bloom%2Fdagre"
+          },
+          {
+            "label": "GitHub repository API",
+            "url": "https://api.github.com/repos/neo-technology/dagre"
+          }
+        ]
+      }
+    ],
+    "generated_by": {
+      "kind": "ai",
+      "tool": "opencode",
+      "agent": "package-review",
+      "model": "opencode/deepseek-v4.1-flash-free",
+      "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/40629232415",
+      "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/2",
+      "dossier_sha256": "dc7b0b2a54e02b8d4705ac0ffdf3b44c9497de623428e3583c5a7ac9355baeaf",
+      "generated_at": "2026-10-28T03:58:35.843Z"
+    }
+  },
+  {
+    "id": "rev-2026-10-neo4j-nvl-interaction-handlers",
+    "package_id": "pkg-neo4j-nvl-interaction-handlers",
+    "requirement_id": "req-nvl-graph",
+    "reviewed_at": "2026-10-28",
+    "reviewed_version": "2.0.0",
+    "reviewer": "opencode",
+    "recommendation": "hold",
+    "risk": "medium",
+    "score": 65,
+    "summary": "Hold: @neo4j-nvl/interaction-handlers@2.0.0 is recently released, org-maintained and carries no recorded advisories, but missing npm provenance, a null repository, a non-SPDX licence string and unmeasured React 18/19 support leave several hard constraints of the high-criticality NVL requirement unverified.",
+    "reasoning": [
+      "Maintenance is the strongest signal: 2.0.0 was published 2026-09-15 and the registry shows a last publish of 2026-10-26, well inside the 12-month activity constraint, with 17,183 weekly downloads and maintainers under the neo4j organization accounts (neo4j-bloom-reader2, neo4j-bloom-publisher, neo4j-organization).",
+      "Release integrity is weak: npm_provenance is false and the dossier records that no npm attestation was found, so there is no cryptographic link between the tarball and a source commit. The requirement anticipates this case and permits exact version pinning plus a recorded gap, which is why this is a documented gap rather than an automatic rejection.",
+      "Source availability is a finding, not an assumed pass: repository and repo are both null and there is no GitHub data or CI workflow evidence in the dossier, so the publish pipeline, review history and release process cannot be inspected at all.",
+      "The licence field is the literal string \"SEE LICENSE IN 'LICENSE.txt'\" rather than an SPDX identifier, and the referenced file was not read in this dossier, so the requirement's 'permissive license across the full dependency tree' constraint is unverified rather than satisfied.",
+      "No vulnerability was recorded: the dossier's vulnerabilities list is empty. That list is the only advisory evidence available here, and with no repository and no per-dependency scan detail it cannot be treated as a clean bill of health for the three-dependency tree.",
+      "No install scripts are declared (has_install_script false, install_scripts empty), so the 'no install scripts' constraint is met for this package as measured; transitive scripts in lodash, concaveman and @neo4j-nvl/base were not measured.",
+      "Fit for the NVL task is plausible but unproven: the package is the interaction-handler layer of the suite and pins @neo4j-nvl/base 2.0.0, consistent with a 2.0.0 suite, but it ships CommonJS only and the dossier records no peer_dependencies or engines, so React 18/19 support is not demonstrated and no runtime behaviour testing was done.",
+      "Footprint is modest but incomplete: 3 runtime dependencies (lodash 4.18.1, concaveman 1.2.1, @neo4j-nvl/base 2.0.0) and 222 KB unpacked; install_size_kb is null because install size was explicitly not measured.",
+      "Score 65 reflects security 21/30, release integrity 9/25, maintenance 18/20, fit 10/15 and footprint 7/10: a usable, actively shipped package whose unverified constraints keep it below the adopt band for a high-criticality requirement."
+    ],
+    "caveats": [
+      "Licence is unverified. \"SEE LICENSE IN 'LICENSE.txt'\" is not an SPDX identifier; read LICENSE.txt in the 2.0.0 tarball and confirm it is permissive before any adoption, including for the transitive tree.",
+      "No npm provenance and no repository. Pin 2.0.0 exactly (no ranges) per the requirement's provenance-gap clause, and re-check for a published attestation and repository on each cadence.",
+      "CommonJS only. Verify the application's bundler and Node/React interop before relying on it; the dossier records no ESM entry.",
+      "React 18/19 support is unmeasured: no peer_dependencies or engines were recorded, and no render test was run against either React major.",
+      "The dependency pins look unusual and were not resolved in this dossier (lodash 4.18.1, concaveman 1.2.1). Confirm the resolved versions and their advisory status from a real lockfile rather than trusting the manifest strings.",
+      "Install size was not measured; 222 KB is the unpacked package only and says nothing about the full NVL install once base, React binding and layout workers are added.",
+      "Version coupling: this package hard-pins @neo4j-nvl/base 2.0.0, so it must be upgraded in lockstep with the other suite packages. Mismatched sibling versions are the most likely runtime failure.",
+      "378 published versions with a 2.0.0 current release is a high churn history; treat minor-looking updates as potentially breaking and pin deliberately.",
+      "The dossier contains no GitHub issue, PR or contributor data, so open-issue load, bus factor within the maintainer set and patch responsiveness are unknown."
+    ],
+    "evidence": [
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "warn",
+        "detail": "npm_provenance is false and the dossier notes that no npm attestation was found for the published tarball, so tarball-to-commit provenance is unavailable. The requirement's fallback (exact pinning plus a recorded gap) applies.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Finteraction-handlers"
+          },
+          {
+            "label": "2.0.0 tarball",
+            "url": "https://registry.npmjs.org/@neo4j-nvl/interaction-handlers/-/interaction-handlers-2.0.0.tgz"
+          }
+        ]
+      },
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "warn",
+        "detail": "No repository is declared (repo and repository are null) and the dossier contains no GitHub or workflow data, so whether publishing is CI-driven, whether OIDC is used and how versions are cut could not be observed. Absence of evidence, not evidence of a manual publish.",
+        "sources": [
+          {
+            "label": "npm package page",
+            "url": "https://www.npmjs.com/package/@neo4j-nvl/interaction-handlers"
+          },
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Finteraction-handlers"
+          }
+        ]
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "The dossier records an empty vulnerabilities array for 2.0.0, with no unfixed high or critical advisory listed. No per-advisory detail, OSV query output or per-dependency scan is included, so this covers the package as collected and not its whole dependency tree.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Finteraction-handlers"
+          }
+        ]
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "2.0.0 published 2026-09-15; last publish 2026-10-26; 378 versions published in total; 17,183 weekly downloads; maintainers are three neo4j organization accounts. No issue-tracker or PR activity could be measured because no repository is published.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Finteraction-handlers"
+          },
+          {
+            "label": "npm weekly downloads",
+            "url": "https://api.npmjs.org/downloads/point/last-week/@neo4j-nvl%2Finteraction-handlers"
+          }
+        ]
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "warn",
+        "detail": "3 runtime dependencies: lodash 4.18.1, concaveman 1.2.1 and @neo4j-nvl/base 2.0.0. No install script is declared and no optional or peer dependencies are recorded. Install size was not measured; 222 KB is the unpacked package size only. The lodash pin string was not resolved against a lockfile.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Finteraction-handlers"
+          }
+        ]
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "info",
+        "detail": "Registry metadata reports types as bundled. No type-resolution probe or compile test was run in this pass, so strict-mode behaviour and NVL graph type inference are unverified.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Finteraction-handlers"
+          }
+        ]
+      },
+      {
+        "key": "behaviour",
+        "label": "Runtime and React fit",
+        "status": "info",
+        "detail": "Formats list only cjs; no peer_dependencies or engines are recorded, so React 18 and 19 support is not demonstrated. This is the interaction-handler layer of the NVL suite and pins @neo4j-nvl/base 2.0.0. No interaction, render or performance test was run for this dossier.",
+        "sources": [
+          {
+            "label": "npm package page",
+            "url": "https://www.npmjs.com/package/@neo4j-nvl/interaction-handlers"
+          }
+        ]
+      },
+      {
+        "key": "license",
+        "label": "License",
+        "status": "warn",
+        "detail": "The licence field is \"SEE LICENSE IN 'LICENSE.txt'\" rather than an SPDX identifier, and that file was not inspected in this dossier. Permissiveness, and therefore the requirement's whole-tree licence constraint, is unverified for this package and its dependencies.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Finteraction-handlers"
+          },
+          {
+            "label": "2.0.0 tarball",
+            "url": "https://registry.npmjs.org/@neo4j-nvl/interaction-handlers/-/interaction-handlers-2.0.0.tgz"
+          }
+        ]
+      }
+    ],
+    "generated_by": {
+      "kind": "ai",
+      "tool": "opencode",
+      "agent": "package-review",
+      "model": "opencode/deepseek-v4.1-flash-free",
+      "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/40629232415",
+      "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/2",
+      "dossier_sha256": "7c06975e32dd5389131103fba94f6e403ab15eda964dee5701267d948072df09",
+      "generated_at": "2026-10-28T03:58:35.875Z"
+    }
+  },
+  {
+    "id": "rev-2026-10-neo4j-nvl-layout-workers",
+    "package_id": "pkg-neo4j-nvl-layout-workers",
+    "requirement_id": "req-nvl-graph",
+    "reviewed_at": "2026-10-28",
+    "reviewed_version": "2.0.0",
+    "reviewer": "opencode",
+    "recommendation": "hold",
+    "risk": "medium",
+    "score": 62,
+    "summary": "Hold: @neo4j-nvl/layout-workers@2.0.0 is small, recently released, install-script free and free of recorded advisories, but it publishes no repository, no npm attestation, no TypeScript declarations and a non-SPDX licence pointer, so the licence and release-integrity constraints of the high-criticality NVL requirement stay unverified until LICENSE.txt is read and an exact version is pinned.",
+    "reasoning": [
+      "This is the worker-side layout component of the NVL graph-visualisation suite, so it is judged as a pinned layout dependency beneath the React binding, not as a standalone library with an API the application imports directly.",
+      "Maintenance is the strongest dimension: 2.0.0 was published 2026-09-15 and the registry records a last publish of 2026-10-26, both inside the requirement's 12-month activity clause, with 17,449 weekly downloads and three Neo4j-controlled maintainer accounts (neo4j-bloom-reader2, neo4j-bloom-publisher, neo4j-organization).",
+      "Release integrity is the weakest dimension: npm_provenance is false and the dossier records that no npm attestation was found, so there is no verifiable link between the 2.0.0 tarball and a source commit. The requirement anticipates this case and permits exact pinning plus a recorded gap, which is why this is a documented gap rather than an automatic rejection.",
+      "Source availability is a finding, not an assumed pass: repository, repo and homepage are all null and the dossier carries no GitHub data and no workflow or CI evidence, so the publish pipeline, review history and release process cannot be inspected at all.",
+      "The licence field is the literal string \"SEE LICENSE IN 'LICENSE.txt'\" rather than an SPDX identifier, and the referenced file was not read in this dossier, so 'permissive license across the full dependency tree' is unverified for this package and for its two dependencies.",
+      "No advisory is recorded: the dossier's vulnerabilities list is empty for 2.0.0. That list is the only advisory evidence available, and with no repository and no per-dependency scan detail it cannot be read as a clean bill of health for bin-pack 1.0.2 or @dagrejs/dagre 3.1.1.",
+      "The install-script constraint is met as measured for this package (has_install_script false, install_scripts empty, 31 KB unpacked), but the two runtime dependencies were not inspected, so the tree-wide 'no install scripts' requirement is only partly evidenced.",
+      "Fit is plausible but unproven: the package ships a dual ESM/CJS build, which suits the CJS-heavy suite the requirement warns about, and it is small enough to import into a worker, but types are 'none', no peer_dependencies or engines are declared, and no layout output or worker message behaviour was measured.",
+      "Version discipline needs care: 393 versions have been published while the reviewed release is 2.0.0, and a publish on 2026-10-26 postdates this version, so the suite must be pinned to an exact set and checked for a consistent 2.0.0 line across the React binding, interaction handlers and layout engine.",
+      "Score 62 reflects security 22/30, release integrity 8/25, maintenance 17/20, fit 8/15 and footprint 7/10: an actively shipped, org-owned package whose unverified licence, source and provenance keep it below the adopt band for a high-criticality requirement."
+    ],
+    "caveats": [
+      "Licence is unverified. \"SEE LICENSE IN 'LICENSE.txt'\" is not an SPDX identifier; read LICENSE.txt inside the 2.0.0 tarball and confirm it is permissive before adoption, and do the same for bin-pack 1.0.2 and @dagrejs/dagre 3.1.1.",
+      "No npm provenance and no repository. Pin 2.0.0 exactly with no range, record the provenance gap as the requirement allows, and re-check for an attestation and published source at each 90-day cadence.",
+      "Registry metadata is internally inconsistent with the reviewed release: last_publish is 2026-10-26 while the reviewed version was published 2026-09-15. Identify what was published after 2.0.0 and confirm the suite's other packages resolve to a compatible version before locking.",
+      "Types are not shipped ('none'), so a TypeScript consumer gets no declarations from this package and any typing around worker messages or layout options must be supplied locally.",
+      "No peer_dependencies and no engines are declared, so React 18/19 support and the supported Node range are inherited from the consuming NVL package rather than asserted here; neither major was tested in this dossier.",
+      "Layout behaviour under load was not measured. Worker-based layout is the most likely source of jank or message-protocol mismatch in a graph view, and nothing in the dossier exercises a real graph.",
+      "Install size was not measured; only the 31 KB unpacked tarball size is known, so the resolved install footprint once dependencies are added is unknown.",
+      "bin-pack is pinned at 1.0.2 with no range; its publish date, advisory status and maintenance state were not measured here, so the dependency tree is a smaller but real unknown.",
+      "Dagre duplication: this package depends on @dagrejs/dagre 3.1.1, while the same batch also contains a Neo4j-published dagre package. The dossier does not show the other package's metadata, so whether the suite ships two layout engines and how their outputs differ is unconfirmed; that is a suite-level question, not a verdict on the sibling.",
+      "Maintainer identities are automation or organisation accounts rather than named humans, which complicates escalation if a layout or worker defect needs an urgent fix, and no issue-tracker, PR or contributor data is available to assess responsiveness."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "info",
+        "detail": "The dossier contains no workflow, CI or release-pipeline evidence, and no repository is published in the npm metadata, so CI publishing is unverified rather than demonstrated. Registry data shows 393 total versions with a last publish of 2026-10-26T13:33:37Z, which is consistent with automated releases but does not prove them.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Flayout-workers"
+          },
+          {
+            "label": "npm package page",
+            "url": "https://www.npmjs.com/package/@neo4j-nvl/layout-workers"
+          }
+        ]
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "npm_provenance is false and the provenance note records that no npm attestation was found, so the 2.0.0 tarball has no verifiable link to a source commit. The requirement's fallback of exact pinning plus a recorded gap applies.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Flayout-workers"
+          },
+          {
+            "label": "npm package page",
+            "url": "https://www.npmjs.com/package/@neo4j-nvl/layout-workers"
+          }
+        ]
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "The dossier's vulnerability set is empty for 2.0.0, so no high or critical advisory is recorded against this package. This reflects collected advisory data only; neither runtime dependency was scanned, and absence of recorded advisories is not proof of absence.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Flayout-workers"
+          }
+        ]
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "2.0.0 published 2026-09-15, last publish 2026-10-26, 17,449 weekly downloads and three Neo4j-controlled maintainer accounts, so the 'release within 12 months' clause is met. Open issues, PRs, stars and contributor activity were not measured because no repository is published.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Flayout-workers"
+          },
+          {
+            "label": "npm download stats",
+            "url": "https://api.npmjs.org/downloads/point/last-week/@neo4j-nvl%2Flayout-workers"
+          }
+        ]
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "warn",
+        "detail": "Two runtime dependencies (bin-pack 1.0.2 and @dagrejs/dagre 3.1.1) and 31 KB unpacked. Install size was not measured and the licences and advisory status of both dependencies were not measured, so the footprint and licence-tree checks are incomplete.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Flayout-workers"
+          },
+          {
+            "label": "npm tarball",
+            "url": "https://registry.npmjs.org/@neo4j-nvl/layout-workers/-/layout-workers-2.0.0.tgz"
+          }
+        ]
+      },
+      {
+        "key": "install_scripts",
+        "label": "Install scripts",
+        "status": "info",
+        "detail": "The package itself declares no install scripts: has_install_script is false and install_scripts is empty. The two runtime dependencies were not inspected in this dossier, so the requirement's tree-wide 'no install scripts' constraint is only partly evidenced.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Flayout-workers"
+          }
+        ]
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "warn",
+        "detail": "types is 'none': no declarations are shipped and no @types package is recorded. The package builds in both ESM and CJS, so it can be imported, but the exported layout and worker surfaces are untyped for a TypeScript application.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Flayout-workers"
+          }
+        ]
+      },
+      {
+        "key": "behaviour",
+        "label": "Runtime behaviour and compatibility",
+        "status": "info",
+        "detail": "Dual ESM/CJS formats suit bundlers that still consume CommonJS, but no engines, peer_dependencies, optional_dependencies, os or cpu fields are declared, so React 18/19 support and the Node range are inherited from the consuming NVL package. No layout output, worker message protocol or performance measurement exists in the dossier.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Flayout-workers"
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "label": "Source availability",
+        "status": "warn",
+        "detail": "repository, repo and homepage are all null in the published metadata, so there is no source of truth to review. The publish pipeline, licence file, issue history and the actual layout code cannot be inspected from this dossier.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Flayout-workers"
+          },
+          {
+            "label": "npm package page",
+            "url": "https://www.npmjs.com/package/@neo4j-nvl/layout-workers"
+          }
+        ]
+      },
+      {
+        "key": "license",
+        "label": "License",
+        "status": "warn",
+        "detail": "The licence field is \"SEE LICENSE IN 'LICENSE.txt'\", not an SPDX identifier, and the referenced file was not read in this dossier. Permissiveness is therefore unverified for this package, and the licences of bin-pack 1.0.2 and @dagrejs/dagre 3.1.1 were not measured at all.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Flayout-workers"
+          },
+          {
+            "label": "npm tarball",
+            "url": "https://registry.npmjs.org/@neo4j-nvl/layout-workers/-/layout-workers-2.0.0.tgz"
+          }
+        ]
+      }
+    ],
+    "generated_by": {
+      "kind": "ai",
+      "tool": "opencode",
+      "agent": "package-review",
+      "model": "opencode/deepseek-v4.1-flash-free",
+      "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/40629232415",
+      "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/2",
+      "dossier_sha256": "d6a1df37b7aede60b712b6d5a5aa94fec0fab773ebb2551115eb6b26553d13a7",
+      "generated_at": "2026-10-28T03:58:35.908Z"
+    }
+  },
+  {
+    "id": "rev-2026-10-neo4j-nvl-react",
+    "package_id": "pkg-neo4j-nvl-react",
+    "requirement_id": "req-nvl-graph",
+    "reviewed_at": "2026-10-28",
+    "reviewed_version": "2.0.0",
+    "reviewer": "opencode",
+    "recommendation": "hold",
+    "risk": "medium",
+    "score": 62,
+    "summary": "Actively published, org-owned React binding whose NVL dependencies are pinned in lockstep at 2.0.0, but the review cannot be completed from the available evidence: there is no repository, no provenance attestation, a non-SPDX licence string with no licence text, no TypeScript declarations, a CJS-only build, and a React 18 peer range that only admits exactly 18.0.0.",
+    "reasoning": [
+      "Version alignment inside the suite is good: @neo4j-nvl/react 2.0.0 depends on exactly @neo4j-nvl/base 2.0.0 and @neo4j-nvl/interaction-handlers 2.0.0, so the two NVL packages it pulls in cannot drift onto mismatched majors.",
+      "The declared React peer range is \"18.0.0 || ^19.0.0\". The 18.x arm is a single exact version, so applications on React 18.1, 18.2 or 18.3 sit outside the declared range and npm 7+ will require an override or --legacy-peer-deps. The requirement asks for React 18 and 19 support, and only 18.0.0 is actually declared.",
+      "The licence field is the non-SPDX string \"SEE LICENSE IN 'LICENSE.txt'\" and the dossier does not capture that file, so the constraint of a permissive licence across the full dependency tree cannot be confirmed. This is an unresolved constraint, not a pass.",
+      "No npm attestation exists for 2.0.0 (npm_provenance is false). The requirement permits that only if exact versions are pinned and the gap is recorded, which makes pinning mandatory rather than optional for this package.",
+      "No repository URL is published (repository and github are both null), so neither the source nor the build that produced the tarball can be reviewed. 390 published versions are consistent with automated publishing, but no CI pipeline was measured and none can be inferred safely.",
+      "Three runtime dependencies: lodash 4.18.1, @neo4j-nvl/base 2.0.0 and @neo4j-nvl/interaction-handlers 2.0.0. The package is 82 KB unpacked, and install size was not measured.",
+      "The package declares no install script and an empty install_scripts list, which satisfies the no-install-scripts constraint for this package; the three dependencies were not checked for scripts.",
+      "No TypeScript declarations are published (types is none) and only CommonJS is shipped, so a TypeScript React application would need its own ambient declarations and bundler interop.",
+      "It is actively maintained: last publish 2026-10-26, 390 versions, and all three maintainer accounts (neo4j-organization, neo4j-bloom-publisher, neo4j-bloom-reader2) are Neo4j-branded. Weekly downloads of 16,333 are modest and include CI traffic.",
+      "The dossier records an empty vulnerability list for @neo4j-nvl/react 2.0.0, but advisories for lodash 4.18.1 and the two NVL dependencies were not collected, so the tree is unscanned rather than clean."
+    ],
+    "caveats": [
+      "No repository is published to npm, so there is no source of truth to review and no commit-to-tarball link. Treat this as an open supply-chain finding until upstream publishes one.",
+      "The licence is unverified. If LICENSE.txt turns out to be proprietary or copyleft, this package fails a hard constraint of the requirement. Have legal confirm the text before any adoption.",
+      "Typical React 18 applications (18.1-18.3) fall outside the declared peer range; plan for package.json overrides and re-test on the exact React version in use.",
+      "No TypeScript declarations: expect a local .d.ts shim, and note that prop and event typings will not track upstream changes.",
+      "CommonJS only, with no ESM entry. Bundler interop, tree-shaking and SSR behaviour were not measured, so validate them against the application's build before adoption.",
+      "lodash is pinned to 4.18.1, and advisory status for that exact version was not collected in this dossier. Scan the installed tree rather than only the top-level package before pinning.",
+      "Registry facts disagree internally: latest_version 2.0.0 is recorded as published 2026-09-15, while last_publish is 2026-10-26T13:33:19.898Z. Confirm which version is current before pinning.",
+      "Install size was not measured. The binding is thin, but @neo4j-nvl/base and @neo4j-nvl/interaction-handlers are pulled in whole, so the real browser cost is unknown.",
+      "16,333 weekly downloads is a thin adoption signal for a high-criticality graph UI; vendor support, not community support, is the maintenance guarantee."
+    ],
+    "evidence": [
+      {
+        "key": "source",
+        "label": "Source availability",
+        "status": "fail",
+        "detail": "No repository field in the published metadata: repository and github are both null. The homepage points at the vendor documentation, not to source. Source and build provenance cannot be reviewed.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Freact"
+          },
+          {
+            "label": "npm package page",
+            "url": "https://www.npmjs.com/package/@neo4j-nvl/react"
+          }
+        ]
+      },
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "info",
+        "detail": "Not measured. There is no repository to inspect and no attestation to read, so CI publishing can be neither confirmed nor ruled out. 390 published versions are consistent with automation but are not evidence of it.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Freact"
+          }
+        ]
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "npm_provenance is false: no attestation was found for 2.0.0 when these facts were collected. Under this requirement the gap is acceptable only with exact version pinning and a recorded exception.",
+        "sources": [
+          {
+            "label": "npm package page",
+            "url": "https://www.npmjs.com/package/@neo4j-nvl/react"
+          }
+        ]
+      },
+      {
+        "key": "license",
+        "label": "License",
+        "status": "warn",
+        "detail": "License is the non-SPDX string \"SEE LICENSE IN 'LICENSE.txt'\". The licence text is not in the dossier, so permissiveness for this package, let alone the tree, is unconfirmed.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Freact"
+          }
+        ]
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "info",
+        "detail": "The dossier's vulnerability list for @neo4j-nvl/react 2.0.0 is empty. The transitive tree (lodash 4.18.1, @neo4j-nvl/base 2.0.0, @neo4j-nvl/interaction-handlers 2.0.0) was not advisory-scanned, so this covers the top-level package only.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Freact"
+          }
+        ]
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "warn",
+        "detail": "3 runtime dependencies: lodash 4.18.1, @neo4j-nvl/base 2.0.0, @neo4j-nvl/interaction-handlers 2.0.0. 82 KB unpacked; install size and browser bundle cost were not measured.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Freact"
+          }
+        ]
+      },
+      {
+        "key": "install_scripts",
+        "label": "Install scripts",
+        "status": "pass",
+        "detail": "has_install_script is false and install_scripts is empty for this package. The three dependencies were not checked for preinstall, install or postinstall hooks.",
+        "sources": [
+          {
+            "label": "npm tarball",
+            "url": "https://registry.npmjs.org/@neo4j-nvl/react/-/react-2.0.0.tgz"
+          }
+        ]
+      },
+      {
+        "key": "compatibility",
+        "label": "Suite and React compatibility",
+        "status": "warn",
+        "detail": "Direct NVL dependencies are pinned to the same 2.0.0 as this package, so the suite slice is aligned. The React peer range \"18.0.0 || ^19.0.0\" admits only exactly React 18.0.0 on the 18.x line, excluding 18.1-18.3; the 19.x arm is a proper caret range.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Freact"
+          }
+        ]
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "fail",
+        "detail": "types is none: no bundled or resolvable declarations. formats is cjs only, so there is no ESM entry either.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Freact"
+          }
+        ]
+      },
+      {
+        "key": "behaviour",
+        "label": "Runtime behaviour",
+        "status": "info",
+        "detail": "CommonJS only, no engines field. Rendering behaviour, performance and bundle impact for a graph canvas were not measured in this dossier.",
+        "sources": [
+          {
+            "label": "npm tarball",
+            "url": "https://registry.npmjs.org/@neo4j-nvl/react/-/react-2.0.0.tgz"
+          }
+        ]
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "2.0.0 published 2026-09-15; last publish 2026-10-26; 390 versions; 16,333 weekly downloads; maintainers are neo4j-organization, neo4j-bloom-publisher and neo4j-bloom-reader2.",
+        "sources": [
+          {
+            "label": "npm registry metadata",
+            "url": "https://registry.npmjs.org/@neo4j-nvl%2Freact"
+          },
+          {
+            "label": "npm downloads",
+            "url": "https://api.npmjs.org/downloads/point/last-week/@neo4j-nvl%2Freact"
+          }
+        ]
+      }
+    ],
+    "generated_by": {
+      "kind": "ai",
+      "tool": "opencode",
+      "agent": "package-review",
+      "model": "opencode/deepseek-v4.1-flash-free",
+      "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/40629232415",
+      "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/2",
+      "dossier_sha256": "8418352e2565ea48eab16494b317321a03c0ae30d0390b3ab4870301c88a66b0",
+      "generated_at": "2026-10-28T03:58:35.940Z"
+    }
   }
 ]
