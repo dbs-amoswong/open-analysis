@@ -13,7 +13,9 @@
     "review:prepare": "node scripts/prepare-request.mjs",
     "review:collect": "node scripts/collect.mjs",
     "review:verify": "node scripts/verify-review.mjs",
-    "review:publish": "node scripts/publish-review.mjs"
+    "review:publish": "node scripts/publish-review.mjs",
+    "review:suite": "node scripts/collect-suite.mjs",
+    "review:verify-suite": "node scripts/verify-suite.mjs"
   },
   "engines": {
     "node": ">=20.11"

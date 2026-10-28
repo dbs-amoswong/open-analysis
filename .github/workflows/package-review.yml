@@ -12,6 +12,11 @@ on:
       version:
         description: Optional exact version applied to packages without one
         required: false
+      mode:
+        description: Review mode
+        type: choice
+        options: [batch, separate]
+        default: batch
   issues:
     types: [labeled]
 
@@ -33,6 +38,7 @@ jobs:
       PACKAGES: ${{ inputs.packages }}
       REQUIREMENT: ${{ inputs.requirement }}
       VERSION: ${{ inputs.version }}
+      REVIEW_MODE: ${{ inputs.mode }}
       ISSUE_BODY: ${{ github.event.issue.body }}
       ISSUE_NUMBER: ${{ github.event.issue.number }}
       ISSUE_URL: ${{ github.event.issue.html_url }}
@@ -133,7 +139,7 @@ jobs:
             echo "::endgroup::"
           done
 
-      - name: Verify and add drafts
+      - name: Verify drafts
         if: steps.prepare.outputs.skip != 'true'
         run: |
           set -euo pipefail
@@ -142,9 +148,44 @@ jobs:
             key=$(basename "$review" .json)
             echo "::group::Verify $key"
             node scripts/verify-review.mjs --review "$review" --dossier "ai/dossiers/$key.json"
-            node scripts/publish-review.mjs --review "$review" --dossier "ai/dossiers/$key.json" --request "ai/requests/$key.json"
             echo "::endgroup::"
           done
+
+      - name: Add drafts to the working tree
+        if: steps.prepare.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          for review in ai/reviews/*.json; do
+            [ -e "$review" ] || { echo "No reviews were written"; exit 1; }
+            key=$(basename "$review" .json)
+            node scripts/publish-review.mjs --review "$review" --dossier "ai/dossiers/$key.json" --request "ai/requests/$key.json"
+          done
+
+      - name: Build suite context
+        if: steps.prepare.outputs.skip != 'true' && steps.prepare.outputs.mode == 'batch' && steps.prepare.outputs.count != '1'
+        run: node scripts/collect-suite.mjs --request ai/request.json --dossiers ai/dossiers --reviews ai/reviews --out ai/suite/input.json
+
+      - name: Draft suite review with OpenCode
+        if: steps.prepare.outputs.skip != 'true' && steps.prepare.outputs.mode == 'batch' && steps.prepare.outputs.count != '1'
+        continue-on-error: true
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          COMMANDCODE_API_KEY: ${{ secrets.COMMANDCODE_API_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p ai/suite
+          opencode run --standalone \
+            --agent suite-review \
+            --model "$OPENCODE_MODEL" \
+            --title "Suite review: $REQUIREMENT" \
+            "Read ai/suite/input.json and the reviews in ai/reviews/. Write ai/suite/review.json only. Follow the suite-review agent instructions exactly."
+
+      - name: Verify suite review
+        if: steps.prepare.outputs.skip != 'true' && steps.prepare.outputs.mode == 'batch' && steps.prepare.outputs.count != '1'
+        continue-on-error: true
+        run: node scripts/verify-suite.mjs
 
       - name: Upload the dossiers and drafts
         if: steps.prepare.outputs.skip != 'true'
@@ -171,13 +212,18 @@ jobs:
           set -euo pipefail
 
           COUNT="${{ steps.prepare.outputs.count }}"
+          if [ "$COUNT" = "1" ]; then
+            PKG_LABEL="1 package"
+          else
+            PKG_LABEL="${COUNT} packages"
+          fi
           BRANCH="review/${REQUIREMENT}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
 
           git config user.name "opencode-review-bot"
           git config user.email "opencode-review-bot@users.noreply.github.com"
           git checkout -b "$BRANCH"
           git add data
-          git commit -m "review: draft ${COUNT} package(s) for ${REQUIREMENT}"
+          git commit -m "review: draft ${PKG_LABEL} for ${REQUIREMENT}"
 
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push -u origin "$BRANCH"
@@ -203,10 +249,19 @@ jobs:
           $SKIPPED_LIST"
           fi
 
+          SUITE_NOTES=$(node -e 'const fs=require("fs"); if(!fs.existsSync("ai/suite/review.ok")) process.exit(0); const s=JSON.parse(fs.readFileSync("ai/suite/review.json","utf8")); const lines=[`**${s.recommendation}** — ${s.summary}`]; if(s.compatibility?.length){lines.push("","**Compatibility**",...s.compatibility.map(x=>`- ${x}`));} if(s.shared_risks?.length){lines.push("","**Shared risks**",...s.shared_risks.map(x=>`- ${x}`));} if(s.per_package?.length){lines.push("","**Per package**"); for(const p of s.per_package) lines.push(`- \`${p.name}\`: ${p.note}`);} if(s.decision_note) lines.push("",s.decision_note); process.stdout.write(lines.join("\n"));' 2>/dev/null || true)
+
+          if [ -n "$SUITE_NOTES" ]; then
+            BODY="$BODY
+
+          ### Suite review
+          $SUITE_NOTES"
+          fi
+
           PR_URL=$(gh pr create \
             --base main \
             --head "$BRANCH" \
-            --title "review: ${COUNT} package(s) for ${REQUIREMENT}" \
+            --title "review: ${PKG_LABEL} for ${REQUIREMENT}" \
             --body "$BODY")
 
           echo "Opened $PR_URL"

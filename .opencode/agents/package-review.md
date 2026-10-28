@@ -100,6 +100,10 @@ Each evidence item:
   maintenance 20, fit 15, footprint 10. 80–100 adopt, 60–79 hold, 0–59 avoid.
 - Keep the reasoning specific to this requirement. The same package may be
   adopted for one task and rejected for another.
+- If `request.batch_packages` is present, those packages are part of the same
+  request. Review only the package in your dossier. You may mention a sibling
+  when the dossier shows a direct dependency, peer dependency, or shared
+  maintainer, but do not assign a verdict to a sibling.
 - Prefer `hold` or `avoid` when the evidence is incomplete. Silence is not a pass.
 
 When you are done, verify that the output file is valid JSON and that its

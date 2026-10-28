@@ -223,9 +223,23 @@ The request path is an issue, not a JSON edit:
    every package in exactly one whitelist bucket. The AI never edits
    `data/decisions.json`.
 
+The form also asks for a **review mode**:
+
+- **Batch** treats the packages as a related suite. In addition to the
+  per-package reviews, it builds `ai/suite/input.json` (direct relationships,
+  shared dependencies, shared maintainers, licences, scopes) and runs a second
+  agent that writes suite notes into the PR. The suite pass is best-effort: if
+  it fails, the individual reviews still open.
+- **Separate** reviews each package independently. It still runs one OpenCode
+  session per package, but skips the shared-context and suite pass. Choose this
+  when the packages have no meaningful relationship.
+
+Both modes open **one pull request**. For one PR per package, submit one issue
+per package instead — the current JSON arrays are not safe for several
+independent PRs touching the same file at once.
+
 If one draft fails verification, the workflow stops before opening the PR;
-fix the request or the draft and re-run. For independent PRs, submit one issue
-per package instead of a batch.
+fix the request or the draft and re-run.
 
 Maintainers can also run the workflow manually from **Actions → package-review
 → Run workflow** with a comma-separated package list and a requirement.

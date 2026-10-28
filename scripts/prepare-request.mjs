@@ -152,6 +152,12 @@ const requirementInput = firstLine(
     process.env.REQUIREMENT ||
     sectionValue(sections, ["Requirement ID or slug", "Requirement"])
 );
+const modeInput = firstLine(
+  (typeof args.mode === "string" && args.mode) ||
+    process.env.REVIEW_MODE ||
+    sectionValue(sections, ["Review mode"])
+);
+const mode = /^separate/i.test(modeInput) ? "separate" : "batch";
 const useCase = sectionValue(sections, ["What are you trying to do?", "Use case"]);
 const alternatives = sectionValue(sections, ["Alternatives considered", "Alternatives"]);
 const disclosure = sectionValue(sections, ["Disclosure", "Disclosures"]);
@@ -272,6 +278,7 @@ async function main() {
     skipped: skipped.map((item) => ({ name: item.name, reason: item.skip_reason })),
     requirement_id: requirement.id,
     requirement_slug: requirement.slug,
+    mode,
     issue_number: Number.isInteger(issueNumber) && issueNumber > 0 ? issueNumber : null,
     issue_url: issueURL || null,
     requester: requester || null,
@@ -291,11 +298,13 @@ async function main() {
     rm(REQUESTS_DIR, { recursive: true, force: true }),
     rm(path.join(AI_DIR, "dossiers"), { recursive: true, force: true }),
     rm(path.join(AI_DIR, "reviews"), { recursive: true, force: true }),
+    rm(path.join(AI_DIR, "suite"), { recursive: true, force: true }),
   ]);
 
   if (pending.length === 0) {
     await setOutput("skip", "true");
     await setOutput("count", "0");
+    await setOutput("mode", mode);
     console.log(`Skipping: ${request.skip_reason}`);
     for (const item of skipped) console.log(`  = ${item.name}: ${item.skip_reason}`);
     return;
@@ -310,16 +319,26 @@ async function main() {
       package: item.name,
       version: item.version,
       package_id: item.package_id,
-      batch: pending.length > 1,
+      batch: mode === "batch" && pending.length > 1,
       batch_size: pending.length,
+      ...(mode === "batch" && pending.length > 1
+        ? {
+            batch_packages: pending.map((entry) => ({
+              name: entry.name,
+              version: entry.version,
+              package_id: entry.package_id,
+            })),
+          }
+        : {}),
     });
   }
 
   await setOutput("skip", "false");
   await setOutput("count", String(pending.length));
+  await setOutput("mode", mode);
 
   console.log(
-    `Request: ${pending.length} package(s) for ${requirement.id}${
+    `Request: ${pending.length} package(s) for ${requirement.id} in ${mode} mode${
       skipped.length ? `, ${skipped.length} skipped` : ""
     }`
   );

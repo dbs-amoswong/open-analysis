@@ -33,6 +33,21 @@ body:
       description: Optional. Leave blank unless every package should use the same exact version.
       placeholder: "1.2.3"
 
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Review mode
+      description: |
+        Batch treats the packages as a related suite and adds suite notes to the
+        PR. Separate reviews each package independently and skips suite notes.
+        Both modes open one pull request.
+      options:
+        - Batch — related suite, with suite notes
+        - Separate — independent reviews, no suite notes
+      default: 0
+    validations:
+      required: true
+
   - type: input
     id: requirement
     attributes:

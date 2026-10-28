@@ -376,6 +376,7 @@ async function collect(request) {
       install_scripts: scripts,
       deprecated: manifest.deprecated || null,
       engines: manifest.engines || null,
+      dependencies: manifest.dependencies || {},
       peer_dependencies: manifest.peerDependencies || null,
       optional_dependencies: manifest.optionalDependencies || null,
       os: manifest.os || null,
