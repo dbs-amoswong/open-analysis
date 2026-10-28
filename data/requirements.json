@@ -73,5 +73,31 @@
       "URL allowlisting beyond scheme checks"
     ],
     "notes": "No package in this category publishes SLSA provenance to npm, so the release-integrity constraint is waived for this requirement and replaced with exact version pinning, automated advisory alerts and a 90-day review. DOMPurify publishes SLSA provenance and Sigstore signatures on GitHub release artifacts, but not on the npm tarball. sanitize-html's standalone repository is archived; the package now lives in the Apostrophe monorepo. Testing used a 25-vector corpus in headless Chrome; the unsanitized control executed 11 vectors and every tested sanitizer executed none."
+  },
+  {
+    "id": "req-nvl-graph",
+    "slug": "nvl-graph",
+    "title": "Graph visualization with the NVL suite",
+    "summary": "Render and interact with graph data in a React application using the NVL suite: the React binding, layout workers, interaction handlers and the dagre layout engine. Assess maturity, maintenance, licence, security and version compatibility across the suite, and identify alternatives if the suite fails a hard constraint.",
+    "owner": "dbs-amoswong",
+    "criticality": "high",
+    "status": "active",
+    "created_at": "2026-10-28",
+    "review_cadence_days": 90,
+    "constraints": [
+      "Permissive license across the full dependency tree",
+      "React 18 and 19 supported",
+      "No install scripts in the dependency tree",
+      "No unfixed high or critical advisories",
+      "Actively maintained (release within 12 months)",
+      "Compatible versions across the NVL suite",
+      "If npm provenance is unavailable, pin exact versions and record the gap"
+    ],
+    "out_of_scope": [
+      "Backend graph database and query language",
+      "Visual design and theming",
+      "Detailed benchmark against every non-NVL graph library"
+    ],
+    "notes": "The four candidates are intended to be used together, so review them as one batch with suite notes. At the time of the request three of the four publish no repository in their npm metadata; treat source availability as a review finding, not an assumed pass. The suite is CJS-heavy, so check the application's bundler and React version before adopting. The dagre layout engine appears both as @neo4j-bloom/dagre and as the transitive @dagrejs/dagre used by layout-workers; check whether that duplication is intentional."
   }
 ]
