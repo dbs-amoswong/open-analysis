@@ -59,7 +59,7 @@
   <div class="table-wrap">
     <table class="data-table data-table-wide" data-filterable data-filter-target="candidates">
       <thead><tr>
-        <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>CI</th><th>Advisories</th><th>Reviewed</th>
+        <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>Build vs buy</th><th>Advisories</th><th>Reviewed</th>
       </tr></thead>
       <tbody><tr data-search="@fastify/deepmerge adopt low adopted" data-group="adopt">
   <td>
@@ -73,7 +73,7 @@
   <td class="num">3.7M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td><div class="badges"><span class="mini mini-ok" title="workflow_dispatch -&gt; fastify/workflows reusable-release.yml, protected release environment, npm publish --provenance --access public, actions pinned to commit SHAs, no NPM_TOKEN.">CI <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 80/100. The merge API is simple; the semantics are not. Zero-dependency packages already cover it, so a DIY implementation buys little beyond the first week.">Buy 80</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="Reproduced variants 1-4 against 3.2.4; all blocked. OSV package query returns no advisories.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="deepmerge-ts adopt low adopted" data-group="adopt">
@@ -88,7 +88,7 @@
   <td class="num">14M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: BSD-3-Clause (permissive)"><span class="license-mark" aria-hidden="true">©</span>BSD-3-Clause</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td><div class="badges"><span class="mini mini-warn" title="release.yml runs on push to main after all lint/test/typecheck jobs, then pnpm release (semantic-release). Authenticates with secrets.NPM_TOKEN.">CI <span class="ev ev-warn" aria-label="Warn">!</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 74/100. Cycles, Map/Set and type-level inference are where a DIY merge stops being a day&#39;s work.">Buy 74</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="All four bypass variants blocked; __proto__ is retained as an own key rather than applied as a prototype.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="defu hold medium hold" data-group="hold">
@@ -103,7 +103,7 @@
   <td class="num">29M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-bad" title="ci.yml runs lint, build, test:types and vitest with coverage. No release or publish job.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 67/100. Defaults merging is a small function; only the edge cases justify a package.">Evaluate 67</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="All four bypass variants blocked.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="merge-anything hold medium hold" data-group="hold">
@@ -118,7 +118,7 @@
   <td class="num">1.3M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-bad" title="Only .github/workflows/test.yml; no publish job, no provenance.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 61/100. The capability is a commodity, but this package&#39;s 472 KB tree is a real integration cost.">Evaluate 61</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="All four bypass variants blocked.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="@75lb/deep-merge hold medium hold" data-group="hold">
@@ -133,7 +133,7 @@
   <td class="num">383k</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 67/100. A merge helper is small; its lodash dependency is the reason to question the buy.">Evaluate 67</span></td>
   <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CVE —</span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="ts-deepmerge avoid high rejected" data-group="avoid">
@@ -148,7 +148,7 @@
   <td class="num">2.3M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: ISC (permissive)"><span class="license-mark" aria-hidden="true">©</span>ISC</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-bad" title="No .github directory in the repository; no workflows of any kind. Release is manual.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 67/100. A thin recursive merge is easy to draft; getting optionality, arrays and special objects right is the tail.">Evaluate 67</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="All four bypass variants blocked.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="@corex/deepmerge avoid medium rejected" data-group="avoid">
@@ -163,7 +163,7 @@
   <td class="num">384k</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 70/100. The capability is a commodity; source availability, not build effort, is the problem.">Buy 70</span></td>
   <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CVE —</span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="merge-deep avoid high rejected" data-group="avoid">
@@ -178,7 +178,7 @@
   <td class="num">1.2M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 58/100. A small merge function is buildable; the 13-package dependency tree makes the buy side unattractive.">Evaluate 58</span></td>
   <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CVE —</span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="lodash.merge avoid high rejected" data-group="avoid">
@@ -193,7 +193,7 @@
   <td class="num">73M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 70/100. Merge semantics look trivial and are not; prototype and inherited-property handling is the hard part.">Buy 70</span></td>
   <td><div class="badges"><span class="mini mini-warn" title="GHSA-h726-x36v-rx45 (prototype pollution) fixed in 4.6.2. The parent lodash package has six advisories on 4.17.15 including CVE-2026-2950 and CVE-2026-4800.">CVE <span class="ev ev-warn" aria-label="Warn">!</span></span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="@stackline/deepmerge avoid high rejected" data-group="avoid">
@@ -208,7 +208,7 @@
   <td class="num">246</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 70/100. The capability is a commodity. The package is unvetted, not unbuildable.">Buy 70</span></td>
   <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CVE —</span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="deepmerge avoid critical dropped" data-group="avoid">
@@ -223,7 +223,7 @@
   <td class="num">59M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-bad" title="No GitHub Actions workflows; only a legacy .travis.yml. Releases are manual.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 80/100. The capability is a commodity. This package is rejected for the CVE, not because building is the better option.">Buy 80</span></td>
   <td><div class="badges"><span class="mini mini-bad" title="Prototype-poisoning guard bypass, CVSS 4.0 8.7 / CVSS 3.1 7.5, CWE-1321. Published 2026-09-18, status Deferred. Reproduced in 4.3.1.">CVE <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="deep-extend avoid critical rejected" data-group="avoid">
@@ -238,12 +238,13 @@
   <td class="num">27M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 67/100. A basic extend is a few dozen lines; the security history shows what the edge cases cost.">Evaluate 67</span></td>
   <td><div class="badges"><span class="mini mini-bad" title="CVE-2018-3750, prototype pollution, CVSS critical, fixed only in 0.5.1.">CVE <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
   <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr></tbody>
     </table>
   </div>
+  <p class="table-note">Build vs buy scores the capability, not this package. A rejected package can still be a capability worth buying from a maintained alternative.</p>
 </section>
 
 <div class="two-col">

@@ -139,6 +139,33 @@ export function provenanceBadge(pkg) {
   return `<span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span>`;
 }
 
+const BVB = {
+  buy: { label: "Buy", tone: "info" },
+  evaluate: { label: "Evaluate", tone: "warn" },
+  build: { label: "Build", tone: "neutral" },
+};
+
+export function buildVsBuyBadge(pkg) {
+  const bvb = pkg.build_vs_buy;
+  if (!bvb) return '<span class="muted">—</span>';
+  const cfg = BVB[bvb.verdict] ?? BVB.evaluate;
+  return `<span class="bvb bvb-${cfg.tone}" title="Build vs buy ${bvb.score}/100. ${esc(bvb.rationale)}">${cfg.label} ${bvb.score}</span>`;
+}
+
+function bvbScale(value) {
+  return `<span class="bvb-scale" aria-label="${value} of 5">${[1, 2, 3, 4, 5]
+    .map((i) => `<span class="bvb-dot${i <= value ? " is-on" : ""}"></span>`)
+    .join("")}</span>`;
+}
+
+function bvbRow(label, value, hint) {
+  return `<div class="bvb-row" title="${esc(hint)}">
+    <span class="bvb-label">${esc(label)}</span>
+    ${bvbScale(value)}
+    <span class="bvb-num">${value}/5</span>
+  </div>`;
+}
+
 function scoreBar(score) {
   const tone = score >= 80 ? "ok" : score >= 60 ? "warn" : "bad";
   return `<span class="score" title="Score ${score} of 100"><span class="score-num">${score}</span><span class="score-track"><span class="score-fill score-${tone}" style="width:${Math.max(2, score)}%"></span></span></span>`;
@@ -495,7 +522,7 @@ export function renderRequirement(model, req) {
   <td class="num">${esc(fmtCompact(pkg.weekly_downloads))}</td>
   <td class="nowrap">${licenseBadge(pkg)}</td>
   <td class="nowrap">${provenanceBadge(pkg)}</td>
-  <td><div class="badges">${miniBadge(review, "publish_pipeline", "CI")}</div></td>
+  <td class="nowrap">${buildVsBuyBadge(pkg)}</td>
   <td><div class="badges">${miniBadge(review, "cve", "CVE")}</div></td>
   <td class="nowrap">${esc(fmtDate(review.reviewed_at))}<br><span class="muted small">${reviewStatePill(review)}</span></td>
 </tr>`)
@@ -584,11 +611,12 @@ ${
   <div class="table-wrap">
     <table class="data-table data-table-wide" data-filterable data-filter-target="candidates">
       <thead><tr>
-        <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>CI</th><th>Advisories</th><th>Reviewed</th>
+        <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>Build vs buy</th><th>Advisories</th><th>Reviewed</th>
       </tr></thead>
       <tbody>${candidateRows}</tbody>
     </table>
   </div>
+  ${candidates.length ? '<p class="table-note">Build vs buy scores the capability, not this package. A rejected package can still be a capability worth buying from a maintained alternative.</p>' : ""}
 </section>
 
 <div class="two-col">
@@ -654,9 +682,9 @@ export function renderPackagesIndex(model) {
   <td>${r ? recPill(r.recommendation) : '<span class="muted">—</span>'}</td>
   <td>${r ? riskPill(r.risk) : "—"}</td>
   <td>${r ? scoreBar(r.score) : "—"}</td>
+  <td class="nowrap">${buildVsBuyBadge(pkg)}</td>
   <td class="nowrap">${licenseBadge(pkg)}</td>
   <td class="nowrap">${provenanceBadge(pkg)}</td>
-  <td class="num">${esc(fmtCompact(pkg.weekly_downloads))}</td>
   <td>${r ? reviewStatePill(r) : "—"}</td>
 </tr>`;
     })
@@ -686,7 +714,7 @@ ${pageHeader({
 <section class="panel">
   <div class="table-wrap">
     <table class="data-table" id="packages-table" data-filterable>
-      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>License</th><th>Provenance</th><th class="num">Downloads/wk</th><th>Review</th></tr></thead>
+      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>Build vs buy</th><th>License</th><th>Provenance</th><th>Review</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>
   </div>
@@ -827,6 +855,19 @@ ${
     </div>
   </section>
 </div>
+
+<section class="panel">
+  <div class="panel-head"><h2>Build vs buy</h2>${buildVsBuyBadge(pkg)}</div>
+  <p class="prose">${esc(pkg.build_vs_buy.rationale)}</p>
+  <div class="bvb-grid">
+    ${bvbRow("Scope to rebuild", pkg.build_vs_buy.scope, "How much surface a DIY implementation would have to cover.")}
+    ${bvbRow("Intrinsic difficulty", pkg.build_vs_buy.difficulty, "Edge cases, adversarial input, browser behaviour and accessibility.")}
+    ${bvbRow("Commodity", pkg.build_vs_buy.commodity, "5 means undifferentiated infrastructure; 1 means core to the product.")}
+    ${bvbRow("Integration cost", pkg.build_vs_buy.integration, "5 means a light footprint and easy replacement; 1 means heavy dependencies or lock-in.")}
+  </div>
+  <p class="bvb-effort"><strong>Estimated build effort:</strong> ${esc(pkg.build_vs_buy.effort)}</p>
+  <p class="table-note">Capability-level score. It does not override the recommendation or risk verdict above.</p>
+</section>
 
 ${
   alternatives.length
@@ -1058,6 +1099,22 @@ ${pageHeader({
     </dl>
   </div>
   <p class="prose muted">A dual licence is classified by its most permissive arm, because that is the arm you can choose. DOMPurify's MPL-2.0 OR Apache-2.0 therefore reads as permissive.</p>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Build vs buy</h2><span class="muted small">0-100 per package</span></div>
+  <p class="prose">A high score means buying is the better use of time. The score is independent of the security verdict: a vulnerable package can still represent a capability you should buy from a maintained implementation. It assumes the capability is needed at all.</p>
+  <div class="bvb-grid">
+    ${bvbRow("Scope to rebuild", 5, "How much surface a DIY implementation would have to cover. Weight 35%.")}
+    ${bvbRow("Intrinsic difficulty", 5, "Edge cases, adversarial input, browser behaviour and accessibility. Weight 30%.")}
+    ${bvbRow("Commodity", 3, "5 means undifferentiated infrastructure; 1 means core to the product. Weight 20%.")}
+    ${bvbRow("Integration cost", 2, "5 means a light footprint and easy replacement; 1 means heavy dependencies or lock-in. Weight 15%.")}
+  </div>
+  <div class="scale">
+    <span class="scale-item"><strong>70-100</strong> Buy</span>
+    <span class="scale-item"><strong>50-69</strong> Evaluate</span>
+    <span class="scale-item"><strong>0-49</strong> Build</span>
+  </div>
 </section>
 
 <section class="panel">

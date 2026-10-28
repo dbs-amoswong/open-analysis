@@ -55,7 +55,7 @@
   <div class="table-wrap">
     <table class="data-table data-table-wide" data-filterable data-filter-target="candidates">
       <thead><tr>
-        <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>CI</th><th>Advisories</th><th>Reviewed</th>
+        <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>Build vs buy</th><th>Advisories</th><th>Reviewed</th>
       </tr></thead>
       <tbody><tr data-search="@assistant-ui/react adopt medium adopted" data-group="adopt">
   <td>
@@ -69,7 +69,7 @@
   <td class="num">1.2M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td><div class="badges"><span class="mini mini-ok" title="OIDC trusted publishing (id-token: write) from a protected npm Publish environment, build and publish split into separate jobs, --ignore-scripts in the publish job, actions pinned to commit SHAs.">CI <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 83/100. Rebuilding the runtime means owning streaming, tool UI, branching, scroll and accessibility; the 135 KB is mostly that runtime, not the components.">Buy 83</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="OSV package query returns no advisories for 0.15.31.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="@assistant-ui/store adopt medium adopted" data-group="adopt">
@@ -84,7 +84,7 @@
   <td class="num">1.1M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td><div class="badges"><span class="mini mini-ok" title="Same monorepo OIDC trusted publishing workflow as @assistant-ui/react.">CI <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 76/100. A small external store is buildable, but it is tightly coupled to tap and the runtime; replacing it alone is not a clean cut.">Buy 76</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="OSV package query returns no advisories for 0.3.22.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="@assistant-ui/core adopt medium adopted" data-group="adopt">
@@ -99,7 +99,7 @@
   <td class="num">1.0M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td><div class="badges"><span class="mini mini-ok" title="Same monorepo OIDC trusted publishing workflow as @assistant-ui/react.">CI <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 86/100. The runtime is the expensive layer: message parts, adapters and state transitions across providers.">Buy 86</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="OSV package query returns no advisories for 0.3.31.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="@assistant-ui/tap adopt medium adopted" data-group="adopt">
@@ -114,7 +114,7 @@
   <td class="num">1.3M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td><div class="badges"><span class="mini mini-ok" title="Same monorepo OIDC trusted publishing workflow.">CI <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 89/100. Reimplementing React&#39;s hook semantics outside React is a research project, not a sprint.">Buy 89</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="OSV package query returns no advisories for 0.9.24.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="@assistant-ui/react-markdown adopt medium adopted" data-group="adopt">
@@ -129,12 +129,13 @@
   <td class="num">564k</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td><div class="badges"><span class="mini mini-ok" title="Same monorepo OIDC trusted publishing workflow as @assistant-ui/react.">CI <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 70/100. The integration is straightforward; streaming, plugin composition and sanitisation are the tail.">Buy 70</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="OSV package query returns no advisories for 0.14.24.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr></tbody>
     </table>
   </div>
+  <p class="table-note">Build vs buy scores the capability, not this package. A rejected package can still be a capability worth buying from a maintained alternative.</p>
 </section>
 
 <div class="two-col">

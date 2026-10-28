@@ -55,7 +55,7 @@
   <div class="table-wrap">
     <table class="data-table data-table-wide" data-filterable data-filter-target="candidates">
       <thead><tr>
-        <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>CI</th><th>Advisories</th><th>Reviewed</th>
+        <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>Build vs buy</th><th>Advisories</th><th>Reviewed</th>
       </tr></thead>
       <tbody><tr data-search="dompurify adopt medium adopted" data-group="adopt">
   <td>
@@ -69,7 +69,7 @@
   <td class="num">45M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MPL-2.0 OR Apache-2.0 (permissive)"><span class="license-mark" aria-hidden="true">©</span>MPL-2.0 / Apache-2.0</span></td>
   <td class="nowrap"><span class="prov prov-release" title="SLSA attestation on GitHub release artifacts; the npm tarball itself is unattested"><span class="prov-mark" aria-hidden="true">✓</span>release</span></td>
-  <td><div class="badges"><span class="mini mini-bad" title="No npm publish workflow and no publish script anywhere in the repository. GitHub releases are created manually by Cure53 maintainers (cure53, x00mario); sign-release.yml and slsa-provenance.yml then sign and attest the release assets. The 3.4.17 npm publish followed the GitHub release by four minutes under the single npm account cure53 (npm 9.2.0).">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 97/100. Never build a sanitizer. The bypass corpus and the 33-advisory history are the product.">Buy 97</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="OSV returns 0 advisories for 3.4.17. The most recent fixes (CVE-2026-116804 CRITICAL, CVE-2026-116803 HIGH) landed in 3.4.17 on 2026-10-22.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="sanitize-html adopt medium adopted" data-group="adopt">
@@ -84,7 +84,7 @@
   <td class="num">11M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-bad" title="Monorepo CI runs tests only; no npm publish job. No provenance on any of 128 versions.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 97/100. Parser-based sanitisation is a multi-year adversarial target; the buy is obvious.">Buy 97</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="OSV returns 0 advisories for 2.18.1, which fixes the October 2026 iframe-recursion and SMIL-prefix issues.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="rehype-sanitize adopt medium adopted" data-group="adopt">
@@ -99,7 +99,7 @@
   <td class="num">6.4M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-bad" title="CI runs tests only; npm publishing is manual and no version carries provenance.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 86/100. Schema-based sanitisation is small in code and expensive in correctness; buy the engine.">Buy 86</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="OSV returns no advisories for rehype-sanitize or its engine hast-util-sanitize.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="isomorphic-dompurify hold medium hold" data-group="hold">
@@ -114,7 +114,7 @@
   <td class="num">4.6M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 84/100. You are buying DOMPurify&#39;s engine plus a DOM shim; building either is out of scope.">Buy 84</span></td>
   <td><div class="badges"><span class="mini mini-ok" title="No wrapper-specific advisories; underlying DOMPurify 3.4.17 and jsdom are clean at review time.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="xss hold medium hold" data-group="hold">
@@ -129,7 +129,7 @@
   <td class="num">4.9M</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 90/100. The capability is security-critical; the package choice is what is in question, not build-vs-buy.">Buy 90</span></td>
   <td><div class="badges"><span class="mini mini-neutral" title="No advisories in OSV. No independent advisory coverage or audit was found, so this is absence of evidence rather than evidence of safety.">CVE <span class="ev ev-neutral" aria-label="Info">i</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="insane avoid critical rejected" data-group="avoid">
@@ -144,7 +144,7 @@
   <td class="num">82k</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 83/100. Sanitiser capability is a buy; this package is rejected on maintenance.">Buy 83</span></td>
   <td><div class="badges"><span class="mini mini-bad" title="GHSA-w455-mfq9-hf74 (CVE-2020-26303), ReDoS, no fixed version.">CVE <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr><tr data-search="sanitizer avoid critical rejected" data-group="avoid">
@@ -159,12 +159,13 @@
   <td class="num">201k</td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: Apache-2.0 (permissive)"><span class="license-mark" aria-hidden="true">©</span>Apache-2.0</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 86/100. Sanitiser capability is a buy; this implementation is simply abandoned.">Buy 86</span></td>
   <td><div class="badges"><span class="mini mini-neutral" title="No OSV advisories, but no advisory coverage either.">CVE <span class="ev ev-neutral" aria-label="Info">i</span></span></div></td>
   <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
 </tr></tbody>
     </table>
   </div>
+  <p class="table-note">Build vs buy scores the capability, not this package. A rejected package can still be a capability worth buying from a maintained alternative.</p>
 </section>
 
 <div class="two-col">

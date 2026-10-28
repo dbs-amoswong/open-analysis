@@ -18,6 +18,19 @@ const DAY_MS = 86400000;
 
 const PERMISSIVE_LICENSES = ["MIT", "ISC", "BSD-2-CLAUSE", "BSD-3-CLAUSE", "APACHE-2.0", "0BSD", "UNLICENSE", "CC0-1.0"];
 
+const BVB_WEIGHTS = { scope: 0.35, difficulty: 0.3, commodity: 0.2, integration: 0.15 };
+
+export function computeBuildVsBuy(bvb) {
+  const weighted =
+    BVB_WEIGHTS.scope * bvb.scope +
+    BVB_WEIGHTS.difficulty * bvb.difficulty +
+    BVB_WEIGHTS.commodity * bvb.commodity +
+    BVB_WEIGHTS.integration * bvb.integration;
+  const score = Math.round((weighted / 5) * 100);
+  const verdict = score >= 70 ? "buy" : score >= 50 ? "evaluate" : "build";
+  return { ...bvb, score, verdict };
+}
+
 export function licenseCategory(license) {
   const raw = String(license ?? "").toUpperCase();
   if (!raw) return "unknown";
@@ -109,6 +122,18 @@ export async function loadModel({ today = todayISO() } = {}) {
     if (p.provenance_note !== undefined && !isNonEmptyString(p.provenance_note)) {
       err(`${at}.provenance_note: expected non-empty string when present`);
     }
+    if (!p.build_vs_buy || typeof p.build_vs_buy !== "object") {
+      err(`${at}.build_vs_buy: required`);
+    } else {
+      for (const key of ["scope", "difficulty", "commodity", "integration"]) {
+        const value = p.build_vs_buy[key];
+        if (!Number.isInteger(value) || value < 1 || value > 5) {
+          err(`${at}.build_vs_buy.${key}: expected integer 1-5`);
+        }
+      }
+      if (!isNonEmptyString(p.build_vs_buy.effort)) err(`${at}.build_vs_buy.effort: required`);
+      if (!isNonEmptyString(p.build_vs_buy.rationale)) err(`${at}.build_vs_buy.rationale: required`);
+    }
     if (p.install_size_kb !== null && typeof p.install_size_kb !== "number") {
       err(`${at}.install_size_kb: expected number or null`);
     }
@@ -116,7 +141,12 @@ export async function loadModel({ today = todayISO() } = {}) {
     if (seen.has(key)) err(`${at}: duplicate package ${key}`);
     seen.add(key);
     if (p.repo && !/^https:\/\//.test(p.repo)) err(`${at}.repo: expected https URL`);
-    pkgById.set(p.id, { ...p, license_category: licenseCategory(p.license), reviews: [] });
+    pkgById.set(p.id, {
+      ...p,
+      license_category: licenseCategory(p.license),
+      build_vs_buy: computeBuildVsBuy(p.build_vs_buy),
+      reviews: [],
+    });
   }
 
   const reqById = new Map();
@@ -389,6 +419,11 @@ export async function loadModel({ today = todayISO() } = {}) {
       "weak-copyleft": model.packages.filter((p) => p.license_category === "weak-copyleft").length,
       "strong-copyleft": model.packages.filter((p) => p.license_category === "strong-copyleft").length,
       unknown: model.packages.filter((p) => p.license_category === "unknown").length,
+    },
+    build_vs_buy: {
+      buy: model.packages.filter((p) => p.build_vs_buy.verdict === "buy").length,
+      evaluate: model.packages.filter((p) => p.build_vs_buy.verdict === "evaluate").length,
+      build: model.packages.filter((p) => p.build_vs_buy.verdict === "build").length,
     },
     unclassified: model.requirements.reduce(
       (n, r) => n + (r.decision ? 0 : r.candidates.length),

@@ -20,7 +20,15 @@
       "cjs"
     ],
     "notes": "CommonJS entry point with bundled .d.ts. Default import works from ESM via Node interop. Org-owned by the Fastify project.",
-    "npm_provenance": true
+    "npm_provenance": true,
+    "build_vs_buy": {
+      "scope": 3,
+      "difficulty": 4,
+      "commodity": 5,
+      "integration": 5,
+      "effort": "1-2 weeks for a basic merge; months for hardened edge cases",
+      "rationale": "The merge API is simple; the semantics are not. Zero-dependency packages already cover it, so a DIY implementation buys little beyond the first week."
+    }
   },
   {
     "id": "pkg-deepmerge-ts",
@@ -43,7 +51,15 @@
       "dual"
     ],
     "notes": "Dual ESM/CJS with an exports map. Best-in-class type inference; handles circular references and merges Map/Set.",
-    "npm_provenance": true
+    "npm_provenance": true,
+    "build_vs_buy": {
+      "scope": 3,
+      "difficulty": 4,
+      "commodity": 5,
+      "integration": 3,
+      "effort": "1-2 weeks for a basic merge; months for cycles, Map/Set and type inference",
+      "rationale": "Cycles, Map/Set and type-level inference are where a DIY merge stops being a day's work."
+    }
   },
   {
     "id": "pkg-defu",
@@ -66,7 +82,15 @@
       "dual"
     ],
     "notes": "Implements defaults semantics: existing target values win, so it is not a general-purpose overwrite merge. Part of the unjs ecosystem.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 2,
+      "difficulty": 3,
+      "commodity": 5,
+      "integration": 5,
+      "effort": "days for the happy path",
+      "rationale": "Defaults merging is a small function; only the edge cases justify a package."
+    }
   },
   {
     "id": "pkg-ts-deepmerge",
@@ -89,7 +113,15 @@
       "dual"
     ],
     "notes": "Small and type-friendly, but the repository contains no .github directory at all, so releases are not CI-driven.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 2,
+      "difficulty": 3,
+      "commodity": 5,
+      "integration": 5,
+      "effort": "days for the happy path; weeks for special objects",
+      "rationale": "A thin recursive merge is easy to draft; getting optionality, arrays and special objects right is the tail."
+    }
   },
   {
     "id": "pkg-deepmerge",
@@ -112,7 +144,15 @@
       "cjs"
     ],
     "notes": "Ships index.d.ts but declares no types/typings field, so TypeScript does not resolve it; most consumers install @types/deepmerge. Affected by CVE-2026-93753 with no fix released.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 3,
+      "difficulty": 4,
+      "commodity": 5,
+      "integration": 5,
+      "effort": "days to weeks",
+      "rationale": "The capability is a commodity. This package is rejected for the CVE, not because building is the better option."
+    }
   },
   {
     "id": "pkg-lodash-merge",
@@ -136,7 +176,15 @@
       "cjs"
     ],
     "notes": "Sub-package of lodash, frozen since 2019. No bundled types; requires @types/lodash.merge.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 2,
+      "difficulty": 4,
+      "commodity": 5,
+      "integration": 4,
+      "effort": "days to weeks",
+      "rationale": "Merge semantics look trivial and are not; prototype and inherited-property handling is the hard part."
+    }
   },
   {
     "id": "pkg-deep-extend",
@@ -159,7 +207,15 @@
       "cjs"
     ],
     "notes": "Not updated since 2018. Historical critical prototype-pollution advisory CVE-2018-3750.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 2,
+      "difficulty": 3,
+      "commodity": 5,
+      "integration": 5,
+      "effort": "days",
+      "rationale": "A basic extend is a few dozen lines; the security history shows what the edge cases cost."
+    }
   },
   {
     "id": "pkg-merge-anything",
@@ -182,7 +238,15 @@
       "esm"
     ],
     "notes": "ESM-only with one runtime dependency (is-what) and no published type declarations. Replaces arrays instead of concatenating.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 2,
+      "difficulty": 3,
+      "commodity": 5,
+      "integration": 3,
+      "effort": "days",
+      "rationale": "The capability is a commodity, but this package's 472 KB tree is a real integration cost."
+    }
   },
   {
     "id": "pkg-merge-deep",
@@ -206,7 +270,15 @@
       "cjs"
     ],
     "notes": "Three direct dependencies expand to 13 installed packages. No release since 2021.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 2,
+      "difficulty": 3,
+      "commodity": 5,
+      "integration": 2,
+      "effort": "days",
+      "rationale": "A small merge function is buildable; the 13-package dependency tree makes the buy side unattractive."
+    }
   },
   {
     "id": "pkg-stackline-deepmerge",
@@ -229,7 +301,15 @@
       "dual"
     ],
     "notes": "New fork that markets itself as a drop-in deepmerge 4 replacement with CVE-2026-93753 fixed. Single maintainer, near-zero adoption, not independently reviewed.",
-    "npm_provenance": true
+    "npm_provenance": true,
+    "build_vs_buy": {
+      "scope": 2,
+      "difficulty": 4,
+      "commodity": 5,
+      "integration": 4,
+      "effort": "days to weeks",
+      "rationale": "The capability is a commodity. The package is unvetted, not unbuildable."
+    }
   },
   {
     "id": "pkg-corex-deepmerge",
@@ -252,7 +332,15 @@
       "dual"
     ],
     "notes": "No repository URL published to npm, so provenance and source review are impossible. No release since 2023.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 2,
+      "difficulty": 4,
+      "commodity": 5,
+      "integration": 4,
+      "effort": "days to weeks",
+      "rationale": "The capability is a commodity; source availability, not build effort, is the problem."
+    }
   },
   {
     "id": "pkg-75lb-deep-merge",
@@ -275,7 +363,15 @@
       "esm"
     ],
     "notes": "Depends on lodash and typical, reintroducing the dependency tree this task is trying to avoid. ESM-only.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 2,
+      "difficulty": 4,
+      "commodity": 5,
+      "integration": 3,
+      "effort": "days to weeks",
+      "rationale": "A merge helper is small; its lodash dependency is the reason to question the buy."
+    }
   },
   {
     "id": "pkg-assistant-ui-react",
@@ -300,7 +396,15 @@
       "esm"
     ],
     "notes": "Main entry point for the assistant-ui suite. ESM-only with bundled types and React 18/19 peers. Measured 54.5 MB install and ~135 KB gzip for a minimal runtime plus thread primitive bundle. 0.x versioning with roughly 30 releases per quarter.",
-    "npm_provenance": true
+    "npm_provenance": true,
+    "build_vs_buy": {
+      "scope": 5,
+      "difficulty": 5,
+      "commodity": 3,
+      "integration": 2,
+      "effort": "3-6 months for parity across streaming, tool UI, branching, scroll and accessibility",
+      "rationale": "Rebuilding the runtime means owning streaming, tool UI, branching, scroll and accessibility; the 135 KB is mostly that runtime, not the components."
+    }
   },
   {
     "id": "pkg-assistant-ui-core",
@@ -325,7 +429,15 @@
       "esm"
     ],
     "notes": "Required runtime beneath @assistant-ui/react; installed automatically. Declares @assistant-ui/store and @assistant-ui/tap as required peers. Ships src and source maps, hence the 9.9 MB unpacked size. Measured 21.7 MB install with React.",
-    "npm_provenance": true
+    "npm_provenance": true,
+    "build_vs_buy": {
+      "scope": 5,
+      "difficulty": 5,
+      "commodity": 3,
+      "integration": 3,
+      "effort": "3-6 months for parity",
+      "rationale": "The runtime is the expensive layer: message parts, adapters and state transitions across providers."
+    }
   },
   {
     "id": "pkg-assistant-ui-tap",
@@ -350,7 +462,15 @@
       "esm"
     ],
     "notes": "React hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked. Required peer of core and store; not intended as a direct application dependency.",
-    "npm_provenance": true
+    "npm_provenance": true,
+    "build_vs_buy": {
+      "scope": 4,
+      "difficulty": 5,
+      "commodity": 4,
+      "integration": 5,
+      "effort": "months; React hook semantics are subtle",
+      "rationale": "Reimplementing React's hook semantics outside React is a research project, not a sprint."
+    }
   },
   {
     "id": "pkg-assistant-ui-react-markdown",
@@ -375,7 +495,15 @@
       "esm"
     ],
     "notes": "Optional markdown renderer built on react-markdown 10.1. Adds about 87 packages and ~72 KB gzip to the bundle. Raw HTML is not enabled by default. Family alternatives: react-streamdown and react-syntax-highlighter. Measured 63.2 MB install with React.",
-    "npm_provenance": true
+    "npm_provenance": true,
+    "build_vs_buy": {
+      "scope": 3,
+      "difficulty": 4,
+      "commodity": 4,
+      "integration": 3,
+      "effort": "1-2 weeks with react-markdown; longer for streaming plugins",
+      "rationale": "The integration is straightforward; streaming, plugin composition and sanitisation are the tail."
+    }
   },
   {
     "id": "pkg-assistant-ui-store",
@@ -400,7 +528,15 @@
       "esm"
     ],
     "notes": "Required peer of @assistant-ui/core and @assistant-ui/react; installed automatically. Zero dependencies. Added to this review because the other four packages cannot be used without it.",
-    "npm_provenance": true
+    "npm_provenance": true,
+    "build_vs_buy": {
+      "scope": 3,
+      "difficulty": 4,
+      "commodity": 4,
+      "integration": 5,
+      "effort": "1-2 weeks",
+      "rationale": "A small external store is buildable, but it is tightly coupled to tap and the runtime; replacing it alone is not a clean cut."
+    }
   },
   {
     "id": "pkg-dompurify",
@@ -428,7 +564,15 @@
     "npm_provenance": false,
     "provenance_note": "SLSA v1 attestation and Sigstore signatures are attached to GitHub release artifacts. The four dist files shipped in the npm tarball (purify.js, purify.min.js, purify.cjs.js, purify.es.mjs) are byte-identical to the attested SHA-256 subjects, but the npm tarball itself is unattested.",
     "release_provenance": true,
-    "signed_release": true
+    "signed_release": true,
+    "build_vs_buy": {
+      "scope": 5,
+      "difficulty": 5,
+      "commodity": 5,
+      "integration": 4,
+      "effort": "do not build; years of adversarial testing",
+      "rationale": "Never build a sanitizer. The bypass corpus and the 33-advisory history are the product."
+    }
   },
   {
     "id": "pkg-sanitize-html",
@@ -453,7 +597,15 @@
       "cjs"
     ],
     "notes": "Parser-based, server-first sanitizer. Default allowedTags excludes img and svg, so allowlists must be configured deliberately. The standalone repository is archived; development continues in the Apostrophe monorepo. No bundled types.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 5,
+      "difficulty": 5,
+      "commodity": 5,
+      "integration": 4,
+      "effort": "do not build; years of adversarial testing",
+      "rationale": "Parser-based sanitisation is a multi-year adversarial target; the buy is obvious."
+    }
   },
   {
     "id": "pkg-isomorphic-dompurify",
@@ -476,7 +628,15 @@
       "cjs"
     ],
     "notes": "Runs DOMPurify on jsdom for server-side use. Pulls 27.4 MB and 28 packages, so its exposure includes jsdom's own advisory stream. Single-maintainer wrapper.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 4,
+      "difficulty": 5,
+      "commodity": 5,
+      "integration": 2,
+      "effort": "do not build; you are buying the engine and a DOM shim",
+      "rationale": "You are buying DOMPurify's engine plus a DOM shim; building either is out of scope."
+    }
   },
   {
     "id": "pkg-xss",
@@ -499,7 +659,15 @@
       "cjs"
     ],
     "notes": "Whitelist sanitizer that HTML-escapes disallowed tags instead of stripping them, so blocked markup becomes visible text. No OSV advisories, but no independent advisory coverage either; 70 open issues.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 4,
+      "difficulty": 5,
+      "commodity": 5,
+      "integration": 4,
+      "effort": "do not build",
+      "rationale": "The capability is security-critical; the package choice is what is in question, not build-vs-buy."
+    }
   },
   {
     "id": "pkg-rehype-sanitize",
@@ -524,7 +692,15 @@
       "esm"
     ],
     "notes": "Schema-based sanitizer for the unified/rehype pipeline. Built on hast-util-sanitize 5.0.2. Stable but no release since 2023, and it only applies to HAST, not raw HTML strings.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 3,
+      "difficulty": 5,
+      "commodity": 5,
+      "integration": 5,
+      "effort": "weeks to get a correct schema; the engine is the hard part",
+      "rationale": "Schema-based sanitisation is small in code and expensive in correctness; buy the engine."
+    }
   },
   {
     "id": "pkg-insane",
@@ -547,7 +723,15 @@
       "cjs"
     ],
     "notes": "Abandoned since 2016. Carries an unfixed ReDoS advisory (GHSA-w455-mfq9-hf74) and has no type declarations.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 3,
+      "difficulty": 5,
+      "commodity": 5,
+      "integration": 4,
+      "effort": "do not build",
+      "rationale": "Sanitiser capability is a buy; this package is rejected on maintenance."
+    }
   },
   {
     "id": "pkg-sanitizer",
@@ -570,6 +754,14 @@
       "cjs"
     ],
     "notes": "Google Caja's HTML sanitizer, last released in 2015. Zero dependencies but abandoned for a decade.",
-    "npm_provenance": false
+    "npm_provenance": false,
+    "build_vs_buy": {
+      "scope": 3,
+      "difficulty": 5,
+      "commodity": 5,
+      "integration": 5,
+      "effort": "do not build",
+      "rationale": "Sanitiser capability is a buy; this implementation is simply abandoned."
+    }
   }
 ]

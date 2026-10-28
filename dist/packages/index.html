@@ -47,7 +47,7 @@
 <section class="panel">
   <div class="table-wrap">
     <table class="data-table" id="packages-table" data-filterable>
-      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>License</th><th>Provenance</th><th class="num">Downloads/wk</th><th>Review</th></tr></thead>
+      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>Build vs buy</th><th>License</th><th>Provenance</th><th>Review</th></tr></thead>
       <tbody><tr data-search="@fastify/deepmerge mit adopt commonjs entry point with bundled .d.ts. default import works from esm via node interop. org-owned by the fastify project." data-group="adopt">
   <td class="pkg-cell">
     <a class="pkg-link" href="pkg-fastify-deepmerge.html">@fastify/deepmerge</a>
@@ -58,9 +58,9 @@
   <td><span class="pill pill-ok">Adopt</span></td>
   <td><span class="pill pill-ok">Low risk</span></td>
   <td><span class="score" title="Score 92 of 100"><span class="score-num">92</span><span class="score-track"><span class="score-fill score-ok" style="width:92%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 80/100. The merge API is simple; the semantics are not. Zero-dependency packages already cover it, so a DIY implementation buys little beyond the first week.">Buy 80</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td class="num">3.7M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="deepmerge-ts bsd-3-clause adopt dual esm/cjs with an exports map. best-in-class type inference; handles circular references and merges map/set." data-group="adopt">
   <td class="pkg-cell">
@@ -72,9 +72,9 @@
   <td><span class="pill pill-ok">Adopt</span></td>
   <td><span class="pill pill-ok">Low risk</span></td>
   <td><span class="score" title="Score 88 of 100"><span class="score-num">88</span><span class="score-track"><span class="score-fill score-ok" style="width:88%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 74/100. Cycles, Map/Set and type-level inference are where a DIY merge stops being a day&#39;s work.">Buy 74</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: BSD-3-Clause (permissive)"><span class="license-mark" aria-hidden="true">©</span>BSD-3-Clause</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td class="num">14M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="dompurify mpl-2.0 or apache-2.0 adopt browser-first dom sanitizer. dual mpl-2.0/apache-2.0; choose apache-2.0. publishes slsa provenance and sigstore signatures on github release artifacts, but npm tarballs carry no provenance. 11.7 kb gzip." data-group="adopt">
   <td class="pkg-cell">
@@ -86,9 +86,9 @@
   <td><span class="pill pill-ok">Adopt</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 88 of 100"><span class="score-num">88</span><span class="score-track"><span class="score-fill score-ok" style="width:88%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 97/100. Never build a sanitizer. The bypass corpus and the 33-advisory history are the product.">Buy 97</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MPL-2.0 OR Apache-2.0 (permissive)"><span class="license-mark" aria-hidden="true">©</span>MPL-2.0 / Apache-2.0</span></td>
   <td class="nowrap"><span class="prov prov-release" title="SLSA attestation on GitHub release artifacts; the npm tarball itself is unattested"><span class="prov-mark" aria-hidden="true">✓</span>release</span></td>
-  <td class="num">45M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="@assistant-ui/react mit adopt main entry point for the assistant-ui suite. esm-only with bundled types and react 18/19 peers. measured 54.5 mb install and ~135 kb gzip for a minimal runtime plus thread primitive bundle. 0.x versioning with roughly 30 releases per quarter." data-group="adopt">
   <td class="pkg-cell">
@@ -100,9 +100,9 @@
   <td><span class="pill pill-ok">Adopt</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 83/100. Rebuilding the runtime means owning streaming, tool UI, branching, scroll and accessibility; the 135 KB is mostly that runtime, not the components.">Buy 83</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td class="num">1.2M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="@assistant-ui/store mit adopt required peer of @assistant-ui/core and @assistant-ui/react; installed automatically. zero dependencies. added to this review because the other four packages cannot be used without it." data-group="adopt">
   <td class="pkg-cell">
@@ -114,9 +114,9 @@
   <td><span class="pill pill-ok">Adopt</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 76/100. A small external store is buildable, but it is tightly coupled to tap and the runtime; replacing it alone is not a clean cut.">Buy 76</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td class="num">1.1M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="@assistant-ui/core mit adopt required runtime beneath @assistant-ui/react; installed automatically. declares @assistant-ui/store and @assistant-ui/tap as required peers. ships src and source maps, hence the 9.9 mb unpacked size. measured 21.7 mb install with react." data-group="adopt">
   <td class="pkg-cell">
@@ -128,9 +128,9 @@
   <td><span class="pill pill-ok">Adopt</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 82 of 100"><span class="score-num">82</span><span class="score-track"><span class="score-fill score-ok" style="width:82%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 86/100. The runtime is the expensive layer: message parts, adapters and state transitions across providers.">Buy 86</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td class="num">1.0M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="sanitize-html mit adopt parser-based, server-first sanitizer. default allowedtags excludes img and svg, so allowlists must be configured deliberately. the standalone repository is archived; development continues in the apostrophe monorepo. no bundled types." data-group="adopt">
   <td class="pkg-cell">
@@ -142,9 +142,9 @@
   <td><span class="pill pill-ok">Adopt</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 80 of 100"><span class="score-num">80</span><span class="score-track"><span class="score-fill score-ok" style="width:80%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 97/100. Parser-based sanitisation is a multi-year adversarial target; the buy is obvious.">Buy 97</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">11M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="@assistant-ui/tap mit adopt react hook engine reimplemented so hooks can run outside a react tree. zero dependencies, 752 kb unpacked. required peer of core and store; not intended as a direct application dependency." data-group="adopt">
   <td class="pkg-cell">
@@ -156,9 +156,9 @@
   <td><span class="pill pill-ok">Adopt</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 79 of 100"><span class="score-num">79</span><span class="score-track"><span class="score-fill score-warn" style="width:79%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 89/100. Reimplementing React&#39;s hook semantics outside React is a research project, not a sprint.">Buy 89</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td class="num">1.3M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="rehype-sanitize mit adopt schema-based sanitizer for the unified/rehype pipeline. built on hast-util-sanitize 5.0.2. stable but no release since 2023, and it only applies to hast, not raw html strings." data-group="adopt">
   <td class="pkg-cell">
@@ -170,9 +170,9 @@
   <td><span class="pill pill-ok">Adopt</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 78 of 100"><span class="score-num">78</span><span class="score-track"><span class="score-fill score-warn" style="width:78%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 86/100. Schema-based sanitisation is small in code and expensive in correctness; buy the engine.">Buy 86</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">6.4M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="@assistant-ui/react-markdown mit adopt optional markdown renderer built on react-markdown 10.1. adds about 87 packages and ~72 kb gzip to the bundle. raw html is not enabled by default. family alternatives: react-streamdown and react-syntax-highlighter. measured 63.2 mb install with react." data-group="adopt">
   <td class="pkg-cell">
@@ -184,9 +184,9 @@
   <td><span class="pill pill-ok">Adopt</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 76 of 100"><span class="score-num">76</span><span class="score-track"><span class="score-fill score-warn" style="width:76%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 70/100. The integration is straightforward; streaming, plugin composition and sanitisation are the tail.">Buy 70</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td class="num">564k</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="isomorphic-dompurify mit hold runs dompurify on jsdom for server-side use. pulls 27.4 mb and 28 packages, so its exposure includes jsdom&#39;s own advisory stream. single-maintainer wrapper." data-group="hold">
   <td class="pkg-cell">
@@ -198,9 +198,9 @@
   <td><span class="pill pill-warn">Hold</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 72 of 100"><span class="score-num">72</span><span class="score-track"><span class="score-fill score-warn" style="width:72%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 84/100. You are buying DOMPurify&#39;s engine plus a DOM shim; building either is out of scope.">Buy 84</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">4.6M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="defu mit hold implements defaults semantics: existing target values win, so it is not a general-purpose overwrite merge. part of the unjs ecosystem." data-group="hold">
   <td class="pkg-cell">
@@ -212,9 +212,9 @@
   <td><span class="pill pill-warn">Hold</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 71 of 100"><span class="score-num">71</span><span class="score-track"><span class="score-fill score-warn" style="width:71%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 67/100. Defaults merging is a small function; only the edge cases justify a package.">Evaluate 67</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">29M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="merge-anything mit hold esm-only with one runtime dependency (is-what) and no published type declarations. replaces arrays instead of concatenating." data-group="hold">
   <td class="pkg-cell">
@@ -226,9 +226,9 @@
   <td><span class="pill pill-warn">Hold</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 66 of 100"><span class="score-num">66</span><span class="score-track"><span class="score-fill score-warn" style="width:66%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 61/100. The capability is a commodity, but this package&#39;s 472 KB tree is a real integration cost.">Evaluate 61</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">1.3M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="xss mit hold whitelist sanitizer that html-escapes disallowed tags instead of stripping them, so blocked markup becomes visible text. no osv advisories, but no independent advisory coverage either; 70 open issues." data-group="hold">
   <td class="pkg-cell">
@@ -240,9 +240,9 @@
   <td><span class="pill pill-warn">Hold</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 64 of 100"><span class="score-num">64</span><span class="score-track"><span class="score-fill score-warn" style="width:64%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 90/100. The capability is security-critical; the package choice is what is in question, not build-vs-buy.">Buy 90</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">4.9M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="@75lb/deep-merge mit hold depends on lodash and typical, reintroducing the dependency tree this task is trying to avoid. esm-only." data-group="hold">
   <td class="pkg-cell">
@@ -254,9 +254,9 @@
   <td><span class="pill pill-warn">Hold</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 55 of 100"><span class="score-num">55</span><span class="score-track"><span class="score-fill score-bad" style="width:55%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 67/100. A merge helper is small; its lodash dependency is the reason to question the buy.">Evaluate 67</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">383k</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="ts-deepmerge isc avoid small and type-friendly, but the repository contains no .github directory at all, so releases are not ci-driven." data-group="avoid">
   <td class="pkg-cell">
@@ -268,9 +268,9 @@
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-bad">High risk</span></td>
   <td><span class="score" title="Score 62 of 100"><span class="score-num">62</span><span class="score-track"><span class="score-fill score-warn" style="width:62%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 67/100. A thin recursive merge is easy to draft; getting optionality, arrays and special objects right is the tail.">Evaluate 67</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: ISC (permissive)"><span class="license-mark" aria-hidden="true">©</span>ISC</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">2.3M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="@corex/deepmerge mit avoid no repository url published to npm, so provenance and source review are impossible. no release since 2023." data-group="avoid">
   <td class="pkg-cell">
@@ -282,9 +282,9 @@
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
   <td><span class="score" title="Score 45 of 100"><span class="score-num">45</span><span class="score-track"><span class="score-fill score-bad" style="width:45%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 70/100. The capability is a commodity; source availability, not build effort, is the problem.">Buy 70</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">384k</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="merge-deep mit avoid three direct dependencies expand to 13 installed packages. no release since 2021." data-group="avoid">
   <td class="pkg-cell">
@@ -296,9 +296,9 @@
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-bad">High risk</span></td>
   <td><span class="score" title="Score 35 of 100"><span class="score-num">35</span><span class="score-track"><span class="score-fill score-bad" style="width:35%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 58/100. A small merge function is buildable; the 13-package dependency tree makes the buy side unattractive.">Evaluate 58</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">1.2M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="lodash.merge mit avoid sub-package of lodash, frozen since 2019. no bundled types; requires @types/lodash.merge." data-group="avoid">
   <td class="pkg-cell">
@@ -310,9 +310,9 @@
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-bad">High risk</span></td>
   <td><span class="score" title="Score 30 of 100"><span class="score-num">30</span><span class="score-track"><span class="score-fill score-bad" style="width:30%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 70/100. Merge semantics look trivial and are not; prototype and inherited-property handling is the hard part.">Buy 70</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">73M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="@stackline/deepmerge mit avoid new fork that markets itself as a drop-in deepmerge 4 replacement with cve-2026-93753 fixed. single maintainer, near-zero adoption, not independently reviewed." data-group="avoid">
   <td class="pkg-cell">
@@ -324,9 +324,9 @@
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-bad">High risk</span></td>
   <td><span class="score" title="Score 25 of 100"><span class="score-num">25</span><span class="score-track"><span class="score-fill score-bad" style="width:25%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 70/100. The capability is a commodity. The package is unvetted, not unbuildable.">Buy 70</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
-  <td class="num">246</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="insane mit avoid abandoned since 2016. carries an unfixed redos advisory (ghsa-w455-mfq9-hf74) and has no type declarations." data-group="avoid">
   <td class="pkg-cell">
@@ -338,9 +338,9 @@
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-bad">Critical risk</span></td>
   <td><span class="score" title="Score 20 of 100"><span class="score-num">20</span><span class="score-track"><span class="score-fill score-bad" style="width:20%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 83/100. Sanitiser capability is a buy; this package is rejected on maintenance.">Buy 83</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">82k</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="deepmerge mit avoid ships index.d.ts but declares no types/typings field, so typescript does not resolve it; most consumers install @types/deepmerge. affected by cve-2026-93753 with no fix released." data-group="avoid">
   <td class="pkg-cell">
@@ -352,9 +352,9 @@
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-bad">Critical risk</span></td>
   <td><span class="score" title="Score 18 of 100"><span class="score-num">18</span><span class="score-track"><span class="score-fill score-bad" style="width:18%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 80/100. The capability is a commodity. This package is rejected for the CVE, not because building is the better option.">Buy 80</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">59M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="sanitizer apache-2.0 avoid google caja&#39;s html sanitizer, last released in 2015. zero dependencies but abandoned for a decade." data-group="avoid">
   <td class="pkg-cell">
@@ -366,9 +366,9 @@
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-bad">Critical risk</span></td>
   <td><span class="score" title="Score 18 of 100"><span class="score-num">18</span><span class="score-track"><span class="score-fill score-bad" style="width:18%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 86/100. Sanitiser capability is a buy; this implementation is simply abandoned.">Buy 86</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: Apache-2.0 (permissive)"><span class="license-mark" aria-hidden="true">©</span>Apache-2.0</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">201k</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr><tr data-search="deep-extend mit avoid not updated since 2018. historical critical prototype-pollution advisory cve-2018-3750." data-group="avoid">
   <td class="pkg-cell">
@@ -380,9 +380,9 @@
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-bad">Critical risk</span></td>
   <td><span class="score" title="Score 15 of 100"><span class="score-num">15</span><span class="score-track"><span class="score-fill score-bad" style="width:15%"></span></span></span></td>
+  <td class="nowrap"><span class="bvb bvb-warn" title="Build vs buy 67/100. A basic extend is a few dozen lines; the security history shows what the edge cases cost.">Evaluate 67</span></td>
   <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
-  <td class="num">27M</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr></tbody>
     </table>

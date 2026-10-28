@@ -120,11 +120,23 @@ Facts about the artifact, not opinions.
 | `release_provenance` | optional; `true` when GitHub release artifacts are attested but the npm tarball is not |
 | `signed_release` | optional; `true` when release artifacts carry Sigstore signatures |
 | `provenance_note` | optional explanation shown on the package page |
+| `build_vs_buy` | `scope`, `difficulty`, `commodity`, `integration` (1–5), `effort`, `rationale`; score and verdict are derived |
 | `notes` | one or two sentences of context |
 
 Licence category is derived from the SPDX string, not stored by hand: permissive (MIT, ISC, BSD, Apache-2.0, 0BSD), weak copyleft (MPL, LGPL), strong copyleft (GPL, AGPL). A dual licence is classified by its most permissive arm, because that is the arm you can choose.
 
 The board distinguishes two provenance states. **`npm`** means the registry tarball itself is attested and can be verified automatically. **`release`** means only the GitHub release artifacts are attested; this is DOMPurify's case, where the four `dist` files in the npm tarball hash-match the attested subjects byte-for-byte, but `npm install` cannot verify that for you.
+
+Every package also carries a **build-vs-buy** assessment. Four sub-scores from 1 to 5 are stored, and the 0–100 score plus verdict are derived:
+
+| Sub-score | Weight | 5 means | 1 means |
+|---|---:|---|---|
+| `scope` | 35% | large surface to rebuild | trivial to write |
+| `difficulty` | 30% | adversarial, edge-case-heavy | straightforward |
+| `commodity` | 20% | undifferentiated infrastructure | core to the product |
+| `integration` | 15% | light footprint, easy to swap | heavy deps or lock-in |
+
+Bands: **70–100 Buy**, **50–69 Evaluate**, **0–49 Build**. The score is independent of the security verdict — a vulnerable package can still represent a capability you should buy from a maintained implementation — and it assumes the capability is needed at all. `effort` and `rationale` hold the human judgement.
 
 ### `reviews.json`
 
