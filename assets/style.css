@@ -433,6 +433,7 @@ p { margin: 0; }
 .digest-card strong { font-size: 1.05rem; color: var(--text-strong); }
 .digest-ok { border-left: 3px solid var(--ok); }
 .digest-bad { border-left: 3px solid var(--bad); }
+.digest-warn { border-left: 3px solid var(--warn); }
 .digest-kicker { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; color: var(--muted); }
 .digest-foot { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
 
@@ -448,6 +449,9 @@ p { margin: 0; }
   background: linear-gradient(180deg, var(--surface-2), var(--surface));
   box-shadow: var(--shadow);
 }
+.verdict-approved { border-left-color: var(--ok); }
+.verdict-denied { border-left-color: var(--bad); }
+.verdict-pending { border-left-color: var(--warn); }
 .verdict-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
 .verdict-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; color: var(--muted); margin-right: 4px; }
 .verdict h2 { font-size: 1.55rem; margin: 0 0 6px; }

@@ -34,6 +34,7 @@ export function computeBuildVsBuy(bvb) {
 export function licenseCategory(license) {
   const raw = String(license ?? "").toUpperCase();
   if (!raw) return "unknown";
+  if (/SEE LICENSE|UNLICENSED|PROPRIETARY|COMMERCIAL/.test(raw)) return "proprietary";
   if (raw.includes(" OR ")) {
     const choices = raw.split(/\s+OR\s+/).map((part) => part.replace(/[()]/g, "").trim());
     if (choices.some((choice) => PERMISSIVE_LICENSES.includes(choice))) return "permissive";
@@ -418,6 +419,7 @@ export async function loadModel({ today = todayISO() } = {}) {
       permissive: model.packages.filter((p) => p.license_category === "permissive").length,
       "weak-copyleft": model.packages.filter((p) => p.license_category === "weak-copyleft").length,
       "strong-copyleft": model.packages.filter((p) => p.license_category === "strong-copyleft").length,
+      proprietary: model.packages.filter((p) => p.license_category === "proprietary").length,
       unknown: model.packages.filter((p) => p.license_category === "unknown").length,
     },
     build_vs_buy: {

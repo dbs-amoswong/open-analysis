@@ -98,6 +98,6 @@
       "Visual design and theming",
       "Detailed benchmark against every non-NVL graph library"
     ],
-    "notes": "The four candidates are intended to be used together, so review them as one batch with suite notes. At the time of the request three of the four publish no repository in their npm metadata; treat source availability as a review finding, not an assumed pass. The suite is CJS-heavy, so check the application's bundler and React version before adopting. The dagre layout engine appears both as @neo4j-bloom/dagre and as the transitive @dagrejs/dagre used by layout-workers; check whether that duplication is intentional."
+    "notes": "Verified at review: all four NVL packages publish no repository, carry no provenance across 390 versions, and ship bundled code. LICENSE.txt is proprietary (Aura or commercial Neo4j only). @neo4j-bloom/dagre is MIT but an unnecessary fork; layout-workers uses @dagrejs/dagre. Open-source alternatives: Cytoscape.js, Sigma.js, @antv/g6, React Flow."
   }
 ]

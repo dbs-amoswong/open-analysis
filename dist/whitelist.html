@@ -28,7 +28,7 @@
   <p class="eyebrow">Whitelist</p>
   <h1>What you may use, and what must go</h1>
   <p class="lede">The enforcement view. Adopted packages are approved; dropped packages are in use but scheduled for removal; everything else is not permitted for the requirement.</p>
-  <div class="head-meta"><span class="chip">10 adopted</span><span class="chip">1 to drop</span><span class="chip">8 rejected</span></div>
+  <div class="head-meta"><span class="chip">10 adopted</span><span class="chip">1 to drop</span><span class="chip">13 rejected</span></div>
 </header>
 
 <div class="toolbar">
@@ -260,7 +260,7 @@
 </section><section class="panel whitelist-section" data-bucket="rejected">
   <div class="panel-head">
     <h2><span class="dot dot-bad" aria-hidden="true"></span>Rejected</h2>
-    <span class="count-badge">8</span>
+    <span class="count-badge">13</span>
   </div>
   <p class="section-blurb">Reviewed and not permitted for this requirement.</p>
   <div class="table-wrap">
@@ -354,6 +354,61 @@
   <td class="reason-cell" title="Google Caja&#39;s HTML sanitizer, last released in 2015. Zero dependencies, but abandoned for a decade and unsuitable for a security-critical path.">Google Caja&#39;s HTML sanitizer, last released in 2015. Zero dependencies, but abandoned for a decade and unsuitable for a security-critical path.</td>
   <td class="nowrap">25 Jan 2027</td>
   <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@neo4j-nvl/react rejected avoid. proprietary licence, no published repository, no provenance, and a package that node cannot load in either module system. the react binding is small; the cost is a 53 mb tree and a legal constraint." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-neo4j-nvl-react.html">@neo4j-nvl/react</a>
+    <span class="version">2.0.0</span>
+  </td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td class="nowrap"><span class="license license-bad" title="Declared license: SEE LICENSE IN &#39;LICENSE.txt&#39; (proprietary)"><span class="license-mark" aria-hidden="true">©</span>Proprietary</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Avoid. Proprietary licence, no published repository, no provenance, and a package that Node cannot load in either module system. The React binding is small; the cost is a 53 MB tree and a legal constraint.">Avoid. Proprietary licence, no published repository, no provenance, and a package that Node cannot load in either module system. The React binding is small; the cost is a 53 MB tree and a legal constraint.</td>
+  <td class="nowrap">26 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@neo4j-nvl/base rejected avoid. the renderer behind the suite: proprietary licence, no source, no provenance, 13 pinned dependencies including a segment analytics sdk, and it touches document at import time." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-neo4j-nvl-base.html">@neo4j-nvl/base</a>
+    <span class="version">2.0.0</span>
+  </td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td class="nowrap"><span class="license license-bad" title="Declared license: SEE LICENSE IN &#39;LICENSE.txt&#39; (proprietary)"><span class="license-mark" aria-hidden="true">©</span>Proprietary</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Avoid. The renderer behind the suite: proprietary licence, no source, no provenance, 13 pinned dependencies including a Segment analytics SDK, and it touches document at import time.">Avoid. The renderer behind the suite: proprietary licence, no source, no provenance, 13 pinned dependencies including a Segment analytics SDK, and it touches document at import time.</td>
+  <td class="nowrap">26 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@neo4j-nvl/layout-workers rejected avoid as part of the suite. small and technically the cleanest package, but it carries the same proprietary licence, no source and no provenance. it depends on upstream @dagrejs/dagre, not the neo4j fork." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-neo4j-nvl-layout-workers.html">@neo4j-nvl/layout-workers</a>
+    <span class="version">2.0.0</span>
+  </td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td class="nowrap"><span class="license license-bad" title="Declared license: SEE LICENSE IN &#39;LICENSE.txt&#39; (proprietary)"><span class="license-mark" aria-hidden="true">©</span>Proprietary</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Avoid as part of the suite. Small and technically the cleanest package, but it carries the same proprietary licence, no source and no provenance. It depends on upstream @dagrejs/dagre, not the Neo4j fork.">Avoid as part of the suite. Small and technically the cleanest package, but it carries the same proprietary licence, no source and no provenance. It depends on upstream @dagrejs/dagre, not the Neo4j fork.</td>
+  <td class="nowrap">26 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@neo4j-nvl/interaction-handlers rejected avoid. a 222 kb interaction layer over the proprietary renderer, with the same licence, source and provenance gaps and the same bundler-only packaging." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-neo4j-nvl-interaction-handlers.html">@neo4j-nvl/interaction-handlers</a>
+    <span class="version">2.0.0</span>
+  </td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td class="nowrap"><span class="license license-bad" title="Declared license: SEE LICENSE IN &#39;LICENSE.txt&#39; (proprietary)"><span class="license-mark" aria-hidden="true">©</span>Proprietary</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Avoid. A 222 KB interaction layer over the proprietary renderer, with the same licence, source and provenance gaps and the same bundler-only packaging.">Avoid. A 222 KB interaction layer over the proprietary renderer, with the same licence, source and provenance gaps and the same bundler-only packaging.</td>
+  <td class="nowrap">26 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@neo4j-bloom/dagre rejected not needed. mit and public, but a 1-star fork of dagrejs/dagre pinned at 3.1.1 while upstream is 3.1.3, and it is not used by the nvl layout-workers package. use @dagrejs/dagre directly." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-neo4j-bloom-dagre.html">@neo4j-bloom/dagre</a>
+    <span class="version">3.1.1</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Not needed. MIT and public, but a 1-star fork of dagrejs/dagre pinned at 3.1.1 while upstream is 3.1.3, and it is not used by the NVL layout-workers package. Use @dagrejs/dagre directly.">Not needed. MIT and public, but a 1-star fork of dagrejs/dagre pinned at 3.1.1 while upstream is 3.1.3, and it is not used by the NVL layout-workers package. Use @dagrejs/dagre directly.</td>
+  <td class="nowrap">26 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
 </tr></tbody>
     </table>
   </div>
@@ -363,7 +418,7 @@
 </main>
 <footer class="site-footer">
   <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
-  <p>24 packages · 4 active requirements · 3 decisions</p>
+  <p>29 packages · 4 active requirements · 4 decisions</p>
 </footer>
 <script src="app.js" defer></script>
 </body>

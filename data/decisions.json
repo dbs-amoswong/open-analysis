@@ -4,8 +4,15 @@
     "requirement_id": "req-deep-merge",
     "status": "approved",
     "primary_package_id": "pkg-fastify-deepmerge",
-    "adopted": ["pkg-fastify-deepmerge", "pkg-deepmerge-ts"],
-    "hold": ["pkg-defu", "pkg-merge-anything", "pkg-75lb-deep-merge"],
+    "adopted": [
+      "pkg-fastify-deepmerge",
+      "pkg-deepmerge-ts"
+    ],
+    "hold": [
+      "pkg-defu",
+      "pkg-merge-anything",
+      "pkg-75lb-deep-merge"
+    ],
     "rejected": [
       "pkg-ts-deepmerge",
       "pkg-merge-deep",
@@ -51,13 +58,43 @@
     "requirement_id": "req-html-sanitize",
     "status": "approved",
     "primary_package_id": "pkg-dompurify",
-    "adopted": ["pkg-dompurify", "pkg-sanitize-html", "pkg-rehype-sanitize"],
-    "hold": ["pkg-isomorphic-dompurify", "pkg-xss"],
-    "rejected": ["pkg-insane", "pkg-sanitizer"],
+    "adopted": [
+      "pkg-dompurify",
+      "pkg-sanitize-html",
+      "pkg-rehype-sanitize"
+    ],
+    "hold": [
+      "pkg-isomorphic-dompurify",
+      "pkg-xss"
+    ],
+    "rejected": [
+      "pkg-insane",
+      "pkg-sanitizer"
+    ],
     "dropped": [],
     "rationale": "Use DOMPurify wherever a browser DOM is available, because parsing with the real DOM is the strongest defence against mutation XSS. Use sanitize-html for Node and SSR, where jsdom would add 27 MB for the same outcome. Use rehype-sanitize when content already flows through remark/rehype, which is the case for the assistant-ui react-markdown pipeline. Keep isomorphic-dompurify on hold: it is correct, but only worth its jsdom footprint if you need DOMPurify specifically on the server. Keep xss on hold: it is fast and safe in the harness, but its escape-not-strip model and lack of independent advisory coverage make it a weaker default. insane and sanitizer are abandoned and must not be used. No package in this category publishes npm provenance, so pin exact versions, subscribe to advisories for the chosen sanitizer, and re-review every 90 days. A 25-vector headless-Chrome corpus executed 11 vectors unsanitized and zero after every tested sanitizer.",
     "decided_at": "2026-10-27",
     "decided_by": "platform-security",
     "expires_at": "2027-01-25"
+  },
+  {
+    "id": "dec-nvl-graph",
+    "requirement_id": "req-nvl-graph",
+    "status": "denied",
+    "primary_package_id": "pkg-neo4j-nvl-react",
+    "adopted": [],
+    "hold": [],
+    "rejected": [
+      "pkg-neo4j-nvl-react",
+      "pkg-neo4j-nvl-base",
+      "pkg-neo4j-nvl-layout-workers",
+      "pkg-neo4j-nvl-interaction-handlers",
+      "pkg-neo4j-bloom-dagre"
+    ],
+    "dropped": [],
+    "rationale": "The NVL suite fails the requirement's hard licence constraint. LICENSE.txt limits use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement; it is proprietary client software, not an OSI licence. The four NVL packages also publish no repository, carry no provenance across 390 versions, ship bundled code that cannot be reviewed, and cannot be loaded by Node in either module system because ESM syntax sits in .js files under commonjs packages with extensionless imports. The React peer range '18.0.0 || ^19.0.0' excludes React 18.2/18.3, and base pulls a Segment analytics SDK plus 43 MB of dependencies. @neo4j-bloom/dagre is MIT but is a 1-star fork of @dagrejs/dagre at 3.1.1, it is not used by layout-workers, and upstream is 3.1.3 — use @dagrejs/dagre directly if a dagre layout is needed. Open-source alternatives to evaluate for the graph surface: Cytoscape.js, Sigma.js, @antv/g6 and React Flow. Exception path: if the organisation holds an Aura or Neo4j Subscription agreement and accepts proprietary terms, revisit as a documented policy exception; even then, the Node/SSR packaging gap and the React 18 peer range remain.",
+    "decided_at": "2026-10-28",
+    "decided_by": "platform-security",
+    "expires_at": "2027-01-26"
   }
 ]

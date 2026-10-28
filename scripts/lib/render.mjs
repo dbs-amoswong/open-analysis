@@ -118,15 +118,21 @@ const LICENSE_TONE = {
   permissive: "ok",
   "weak-copyleft": "warn",
   "strong-copyleft": "bad",
+  proprietary: "bad",
   unknown: "neutral",
 };
 
 const licenseLabel = (license) =>
   String(license ?? "").replace(/\s+OR\s+/g, " / ").replace(/[()]/g, "");
 
+const licenseText = (license) => {
+  const raw = String(license ?? "");
+  return /SEE LICENSE|UNLICENSED|PROPRIETARY|COMMERCIAL/i.test(raw) ? "Proprietary" : licenseLabel(raw);
+};
+
 export function licenseBadge(pkg) {
   const tone = LICENSE_TONE[pkg.license_category] ?? "neutral";
-  return `<span class="license license-${tone}" title="Declared license: ${esc(pkg.license)} (${esc(pkg.license_category)})"><span class="license-mark" aria-hidden="true">©</span>${esc(licenseLabel(pkg.license))}</span>`;
+  return `<span class="license license-${tone}" title="Declared license: ${esc(pkg.license)} (${esc(pkg.license_category)})"><span class="license-mark" aria-hidden="true">©</span>${esc(licenseText(pkg.license))}</span>`;
 }
 
 export function provenanceBadge(pkg) {
@@ -311,6 +317,12 @@ function decisionDigest(model, root) {
   const primary = decision.primary;
   const dropped = decision.dropped;
   const fallback = decision.adopted.filter((id) => id !== decision.primary_package_id);
+  const digest =
+    decision.status === "approved"
+      ? { label: "Adopt", tone: "digest-ok" }
+      : decision.status === "denied"
+        ? { label: "Rejected", tone: "digest-bad" }
+        : { label: "Pending", tone: "digest-warn" };
 
   return `<section class="panel decision-digest">
   <div class="panel-head">
@@ -318,12 +330,12 @@ function decisionDigest(model, root) {
     ${decisionStatusPill(decision.status)}
   </div>
   <div class="digest-grid">
-    <div class="digest-card digest-ok">
-      <span class="digest-kicker">Adopt</span>
+    <div class="digest-card ${digest.tone}">
+      <span class="digest-kicker">${digest.label}</span>
       <strong>${pkgLink(primary, root)}</strong>
-      <span class="muted">${esc(primary.latest_version)} · ${esc(primary.license)}</span>
+      <span class="muted">${esc(primary.latest_version)} · ${licenseBadge(primary)}</span>
       ${
-        fallback.length
+        decision.status === "approved" && fallback.length
           ? `<span class="digest-foot">Also adopted: ${fallback.map((id) => esc(model.packages.find((p) => p.id === id)?.name ?? id)).join(", ")}</span>`
           : ""
       }
@@ -508,6 +520,16 @@ ${pageHeader({
 export function renderRequirement(model, req) {
   const decision = req.decision;
   const candidates = req.candidates;
+  const primaryLink = decision?.primary
+    ? `<a href="../packages/${esc(decision.primary.id)}.html">${esc(decision.primary.name)}</a>`
+    : "—";
+  const verdictTitle = !decision
+    ? ""
+    : decision.status === "approved"
+      ? `Adopt ${primaryLink}`
+      : decision.status === "denied"
+        ? `Do not adopt ${primaryLink}`
+        : `Pending: ${primaryLink}`;
 
   const candidateRows = candidates
     .map(({ package: pkg, review, bucket, dropped }) => `<tr data-search="${esc(`${pkg.name} ${review.recommendation} ${review.risk} ${bucket}`.toLowerCase())}" data-group="${esc(review.recommendation)}">
@@ -575,18 +597,25 @@ ${pageHeader({
 
 ${
   decision
-    ? `<section class="verdict">
+    ? `<section class="verdict verdict-${esc(decision.status)}">
   <div class="verdict-main">
     <div class="verdict-top">
       <span class="verdict-label">Decision</span>
       ${decisionStatusPill(decision.status)}${decisionStatePill(decision)}
     </div>
-    <h2>Adopt ${decision.primary ? `<a href="../packages/${esc(decision.primary.id)}.html">${esc(decision.primary.name)}</a>` : "—"}</h2>
+    <h2>${verdictTitle}</h2>
     <p>${esc(decision.primary_review?.summary ?? "")}</p>
     <div class="verdict-meta">
       <span><strong>Re-review by</strong> ${esc(fmtDate(decision.expires_at))}</span>
       <span><strong>Decided</strong> ${esc(fmtDate(decision.decided_at))} by ${esc(decision.decided_by)}</span>
-      <span><strong>Also adopted</strong> ${decision.adopted.length > 1 ? decision.adopted.filter((id) => id !== decision.primary_package_id).map((id) => esc(model.packages.find((p) => p.id === id)?.name ?? id)).join(", ") : "None"}</span>
+      ${
+        decision.status === "approved" && decision.adopted.length > 1
+          ? `<span><strong>Also adopted</strong> ${decision.adopted
+              .filter((id) => id !== decision.primary_package_id)
+              .map((id) => esc(model.packages.find((p) => p.id === id)?.name ?? id))
+              .join(", ")}</span>`
+          : ""
+      }
     </div>
   </div>
   ${
@@ -1096,6 +1125,8 @@ ${pageHeader({
       <dd>Weak copyleft. File-level obligations; review before modifying.</dd>
       <dt>${licenseBadge({ license: "GPL-3.0", license_category: "strong-copyleft" })}</dt>
       <dd>Strong copyleft. Usually disqualifying for distribution.</dd>
+      <dt>${licenseBadge({ license: "SEE LICENSE IN 'LICENSE.txt'", license_category: "proprietary" })}</dt>
+      <dd>Proprietary or custom terms. Not open source; requires legal review.</dd>
     </dl>
   </div>
   <p class="prose muted">A dual licence is classified by its most permissive arm, because that is the arm you can choose. DOMPurify's MPL-2.0 OR Apache-2.0 therefore reads as permissive.</p>

@@ -51,6 +51,17 @@ Five packages. `@assistant-ui/store` is included because it is a required peer o
 
 Seven packages. No sanitizer in the category publishes npm provenance, so the decision waives that constraint explicitly and substitutes exact pinning plus a 90-day cadence. The review includes a 25-vector bypass corpus run in headless Chrome: the unsanitized control executed 11 vectors, every tested sanitizer executed none.
 
+### Graph visualization with the NVL suite
+
+| | |
+|---|---|
+| **Denied** | `@neo4j-nvl/react`, `@neo4j-nvl/base`, `@neo4j-nvl/layout-workers`, `@neo4j-nvl/interaction-handlers` |
+| **Not needed** | `@neo4j-bloom/dagre` — MIT, but a fork of the newer public `@dagrejs/dagre` and unused by the suite |
+| **Why** | Proprietary licence (Neo4j Aura or commercial Neo4j only), no repository, no provenance, Node-incompatible packaging |
+| **Open-source alternatives** | Cytoscape.js, Sigma.js, `@antv/g6`, React Flow |
+
+Five packages. The review verified the licence text, the missing source, the Segment analytics dependency in `base`, the React 18 peer gap, and that the wrappers cannot be loaded by Node in either module system.
+
 ---
 
 ## Structure
@@ -123,7 +134,7 @@ Facts about the artifact, not opinions.
 | `build_vs_buy` | `scope`, `difficulty`, `commodity`, `integration` (1–5), `effort`, `rationale`; score and verdict are derived |
 | `notes` | one or two sentences of context |
 
-Licence category is derived from the SPDX string, not stored by hand: permissive (MIT, ISC, BSD, Apache-2.0, 0BSD), weak copyleft (MPL, LGPL), strong copyleft (GPL, AGPL). A dual licence is classified by its most permissive arm, because that is the arm you can choose.
+Licence category is derived from the SPDX string, not stored by hand: permissive (MIT, ISC, BSD, Apache-2.0, 0BSD), weak copyleft (MPL, LGPL), strong copyleft (GPL, AGPL), and proprietary (`SEE LICENSE IN …`, unlicensed, commercial). A dual licence is classified by its most permissive arm, because that is the arm you can choose.
 
 The board distinguishes two provenance states. **`npm`** means the registry tarball itself is attested and can be verified automatically. **`release`** means only the GitHub release artifacts are attested; this is DOMPurify's case, where the four `dist` files in the npm tarball hash-match the attested subjects byte-for-byte, but `npm install` cannot verify that for you.
 
@@ -218,10 +229,17 @@ The request path is an issue, not a JSON edit:
 
 1. Open an issue with the **Package review request** form. Put one package per
    line; add `@version` to a line for an exact version. Up to 20 packages per
-   request. Use an existing requirement ID or slug; a new requirement still
-   needs a human to add it.
+   request. Pick a requirement from the dropdown, or leave **Auto-select**.
+   Auto-select matches the package names and use case against the existing
+   requirements. If it cannot match confidently, the workflow comments with the
+   available requirement IDs and stops before spending any model tokens. A new
+   requirement still needs a human to add it.
 2. A collaborator checks that the packages are not already reviewed for that
    requirement, then adds the `review-request` label.
+
+The requirement dropdown is static because GitHub issue forms do not support
+dynamic options. When a requirement is added, update the options in
+`.github/ISSUE_TEMPLATE/package-review.yml` as well.
 3. `.github/workflows/package-review.yml` parses the list, collects npm,
    download, OSV, provenance and GitHub facts into `ai/dossiers/<pkg-id>.json`
    per package, and runs OpenCode once per package with the restricted

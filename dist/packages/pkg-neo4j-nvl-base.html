@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@neo4j-nvl/base 2.0.0 · Package Review Board</title>
+<meta name="description" content="Proprietary renderer. Imports @segment/analytics-next unconditionally; analytics needs an explicit API key. Touches document at import time, so no SSR. 13 direct dependencies, several pinned exactly.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link" href="../index.html">Overview</a>
+    <a class="nav-link" href="../requirements/index.html">Requirements</a>
+    <a class="nav-link is-active" href="../packages/index.html" aria-current="page">Packages</a>
+    <a class="nav-link" href="../whitelist.html">Whitelist</a>
+    <a class="nav-link" href="../method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../packages/index.html">Packages</a><span class="crumb-sep">/</span><span aria-current="page">@neo4j-nvl/base</span></nav>
+
+<header class="pkg-head">
+  <div>
+    <p class="eyebrow">npm · SEE LICENSE IN &#39;LICENSE.txt&#39;</p>
+    <h1>@neo4j-nvl/base <span class="version version-lg">2.0.0</span></h1>
+    <p class="lede">Proprietary renderer. Imports @segment/analytics-next unconditionally; analytics needs an explicit API key. Touches document at import time, so no SSR. 13 direct dependencies, several pinned exactly.</p>
+  </div>
+  <div class="pkg-verdict">
+    <span class="pill pill-bad">Avoid</span>
+    <span class="pill pill-bad">Critical risk</span>
+    <span class="score" title="Score 10 of 100"><span class="score-num">10</span><span class="score-track"><span class="score-fill score-bad" style="width:10%"></span></span></span>
+    <span class="pill pill-bad">Rejected</span>
+  </div>
+</header>
+
+
+
+<section class="meta-grid" aria-label="Package metadata">
+  <div><span>Last release</span><strong>15 Sep 2026</strong></div>
+  <div><span>Weekly downloads</span><strong>17,490</strong></div>
+  <div><span>Runtime deps</span><strong>13</strong></div>
+  <div><span>Install size</span><strong>43.8 MB</strong></div>
+  <div><span>Unpacked</span><strong>1.3 MB</strong></div>
+  <div><span>Maintainers</span><strong>neo4j-bloom-reader2, neo4j-bloom-publisher, neo4j-organization</strong></div>
+  <div><span>Types</span><strong>bundled</strong></div>
+  <div><span>Formats</span><strong>esm</strong></div>
+  <div><span>License</span><strong><span class="license license-bad" title="Declared license: SEE LICENSE IN &#39;LICENSE.txt&#39; (proprietary)"><span class="license-mark" aria-hidden="true">©</span>Proprietary</span></strong></div>
+  <div><span>Provenance</span><strong><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></strong></div>
+  <div class="meta-links">
+    <span>Links</span>
+    <strong><span class="muted">No repo</span> · <a href="https://www.npmjs.com/package/@neo4j-nvl/base" rel="noreferrer noopener">npm</a></strong>
+  </div>
+</section>
+
+
+<div class="two-col">
+  <section class="panel">
+    <div class="panel-head"><h2>Verdict</h2><span class="muted small">Reviewed 28 Oct 2026 · next 26 Jan 2027</span></div>
+    <p class="prose">Avoid. The renderer behind the suite: proprietary licence, no source, no provenance, 13 pinned dependencies including a Segment analytics SDK, and it touches document at import time.</p>
+    <div class="review-meta">
+      <span class="pill pill-ok">Current</span>
+      <span class="muted small">Requirement: <a href="../requirements/nvl-graph.html">Graph visualization with the NVL suite</a></span>
+    </div>
+    <h3 class="sub-head">Reasoning</h3>
+    <ol class="reasoning"><li>Same proprietary LICENSE.txt as the rest of the suite; use is limited to Aura or commercial Neo4j.</li><li>No repository metadata and no public source; the bundle is minified.</li><li>@segment/analytics-next is a direct dependency and imported unconditionally. Initialisation requires an explicit API key; no hardcoded key or default network call was found.</li><li>The module touches document at import time, so it cannot be imported during SSR.</li><li>13 direct dependencies pinned exactly, including lodash 4.18.1, mobx 6.15.0 and d3-force 3.0.0. Exact pins mean security updates require suite upgrades.</li><li>43.8 MB install and 79 packages on its own. No OSV advisories and no install scripts.</li></ol>
+    <h3 class="sub-head">Caveats</h3><ul class="caveats"><li>The analytics SDK is a privacy and supply-chain surface even if it stays dormant without a key.</li><li>Pinned dependencies prevent independent patching.</li></ul>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2>Evidence</h2><span class="muted small">9 checks</span></div>
+    <div class="table-wrap">
+      <table class="data-table evidence-table">
+        <thead><tr><th>Check</th><th>Status</th><th>Detail</th></tr></thead>
+        <tbody><tr>
+  <td><code>license</code><br><span class="muted small">Licence</span></td>
+  <td><span class="pill pill-bad">Fail</span></td>
+  <td>LICENSE.txt restricts use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement. npm metadata is &#39;SEE LICENSE IN LICENSE.txt&#39;, not an SPDX licence. This fails the requirement&#39;s permissive-licence constraint.</td>
+</tr><tr>
+  <td><code>source</code><br><span class="muted small">Source availability</span></td>
+  <td><span class="pill pill-bad">Fail</span></td>
+  <td>No repository field in npm metadata and no public source repository found. The published tarball is bundled/minified, so the code cannot be reviewed.</td>
+</tr><tr>
+  <td><code>provenance</code><br><span class="muted small">Provenance</span></td>
+  <td><span class="pill pill-bad">Fail</span></td>
+  <td>0 attested versions in the npm registry; no publish workflow is visible without a repository.</td>
+</tr><tr>
+  <td><code>cve</code><br><span class="muted small">Known advisories</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>OSV returns no advisories for 2.0.0 or its pinned dependencies.</td>
+</tr><tr>
+  <td><code>telemetry</code><br><span class="muted small">Analytics dependency</span></td>
+  <td><span class="pill pill-warn">Warn</span></td>
+  <td>@segment/analytics-next is imported unconditionally; SegmentAnalytics.init(apiKey) is required before tracking. No hardcoded key or endpoint was found in base.mjs.</td>
+</tr><tr>
+  <td><code>ssr</code><br><span class="muted small">SSR compatibility</span></td>
+  <td><span class="pill pill-bad">Fail</span></td>
+  <td>Importing the module in Node fails with &#39;document is not defined&#39;.</td>
+</tr><tr>
+  <td><code>dependencies</code><br><span class="muted small">Dependency footprint</span></td>
+  <td><span class="pill pill-warn">Warn</span></td>
+  <td>13 direct dependencies, 79 packages, 43.8 MB install, 1.3 MB unpacked.</td>
+</tr><tr>
+  <td><code>maintenance</code><br><span class="muted small">Maintenance</span></td>
+  <td><span class="pill pill-warn">Warn</span></td>
+  <td>2.0.0 published 2026-09-15; 39 releases in 90 days; no public repository.</td>
+</tr><tr>
+  <td><code>install_scripts</code><br><span class="muted small">Install scripts</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>No preinstall, install or postinstall scripts in the 90-package tree.</td>
+</tr></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<section class="panel">
+  <div class="panel-head"><h2>Build vs buy</h2><span class="bvb bvb-info" title="Build vs buy 84/100. The renderer is the expensive part; the licence makes this particular buy conditional.">Buy 84</span></div>
+  <p class="prose">The renderer is the expensive part; the licence makes this particular buy conditional.</p>
+  <div class="bvb-grid">
+    <div class="bvb-row" title="How much surface a DIY implementation would have to cover.">
+    <span class="bvb-label">Scope to rebuild</span>
+    <span class="bvb-scale" aria-label="5 of 5"><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span></span>
+    <span class="bvb-num">5/5</span>
+  </div>
+    <div class="bvb-row" title="Edge cases, adversarial input, browser behaviour and accessibility.">
+    <span class="bvb-label">Intrinsic difficulty</span>
+    <span class="bvb-scale" aria-label="5 of 5"><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span></span>
+    <span class="bvb-num">5/5</span>
+  </div>
+    <div class="bvb-row" title="5 means undifferentiated infrastructure; 1 means core to the product.">
+    <span class="bvb-label">Commodity</span>
+    <span class="bvb-scale" aria-label="4 of 5"><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span><span class="bvb-dot is-on"></span><span class="bvb-dot"></span></span>
+    <span class="bvb-num">4/5</span>
+  </div>
+    <div class="bvb-row" title="5 means a light footprint and easy replacement; 1 means heavy dependencies or lock-in.">
+    <span class="bvb-label">Integration cost</span>
+    <span class="bvb-scale" aria-label="1 of 5"><span class="bvb-dot is-on"></span><span class="bvb-dot"></span><span class="bvb-dot"></span><span class="bvb-dot"></span><span class="bvb-dot"></span></span>
+    <span class="bvb-num">1/5</span>
+  </div>
+  </div>
+  <p class="bvb-effort"><strong>Estimated build effort:</strong> 6-12 months for a WebGL graph renderer</p>
+  <p class="table-note">Capability-level score. It does not override the recommendation or risk verdict above.</p>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Alternatives in this requirement</h2></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>Summary</th></tr></thead>
+      <tbody><tr>
+  <td><a href="pkg-neo4j-bloom-dagre.html">@neo4j-bloom/dagre</a> <span class="version">3.1.1</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 45 of 100"><span class="score-num">45</span><span class="score-track"><span class="score-fill score-bad" style="width:45%"></span></span></span></td>
+  <td class="muted small">Not needed. MIT and public, but a 1-star fork of dagrejs/dagre pinned at 3.1.1 while upstream is 3.1.3, and it is not used by the …</td>
+</tr><tr>
+  <td><a href="pkg-neo4j-nvl-layout-workers.html">@neo4j-nvl/layout-workers</a> <span class="version">2.0.0</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 15 of 100"><span class="score-num">15</span><span class="score-track"><span class="score-fill score-bad" style="width:15%"></span></span></span></td>
+  <td class="muted small">Avoid as part of the suite. Small and technically the cleanest package, but it carries the same proprietary licence, no source and…</td>
+</tr><tr>
+  <td><a href="pkg-neo4j-nvl-interaction-handlers.html">@neo4j-nvl/interaction-handlers</a> <span class="version">2.0.0</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 14 of 100"><span class="score-num">14</span><span class="score-track"><span class="score-fill score-bad" style="width:14%"></span></span></span></td>
+  <td class="muted small">Avoid. A 222 KB interaction layer over the proprietary renderer, with the same licence, source and provenance gaps and the same bu…</td>
+</tr><tr>
+  <td><a href="pkg-neo4j-nvl-react.html">@neo4j-nvl/react</a> <span class="version">2.0.0</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 12 of 100"><span class="score-num">12</span><span class="score-track"><span class="score-fill score-bad" style="width:12%"></span></span></span></td>
+  <td class="muted small">Avoid. Proprietary licence, no published repository, no provenance, and a package that Node cannot load in either module system. T…</td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Decision context</h2><span class="pill pill-bad">Denied</span></div>
+  <p class="prose"><strong>@neo4j-nvl/react</strong> is the primary choice for <a href="../requirements/nvl-graph.html">Graph visualization with the NVL suite</a>. This package is classified as <span class="pill pill-bad">Rejected</span>.</p>
+  <p class="prose muted">The NVL suite fails the requirement&#39;s hard licence constraint. LICENSE.txt limits use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement; it is proprietary client software, not an OSI licence. The four NVL packages also publish no repository, carry no provenance across 390 versions, ship bundled code that cannot be reviewed, and cannot be loaded by Node in either module system because ESM syntax sits in .js files under commonjs packages with extensionless imports. The React peer range &#39;18.0.0 || ^19.0.0&#39; excludes React 18.2/18.3, and base pulls a Segment analytics SDK plus 43 MB of dependencies. @neo4j-bloom/dagre is MIT but is a 1-star fork of @dagrejs/dagre at 3.1.1, it is not used by layout-workers, and upstream is 3.1.3 — use @dagrejs/dagre directly if a dagre layout is needed. Open-source alternatives to evaluate for the graph surface: Cytoscape.js, Sigma.js, @antv/g6 and React Flow. Exception path: if the organisation holds an Aura or Neo4j Subscription agreement and accepts proprietary terms, revisit as a documented policy exception; even then, the Node/SSR packaging gap and the React 18 peer range remain.</p>
+</section>
+
+
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>29 packages · 4 active requirements · 4 decisions</p>
+</footer>
+<script src="../app.js" defer></script>
+</body>
+</html>
