@@ -93,6 +93,14 @@ jobs:
             echo "::error::Set the repository variable OPENCODE_MODEL, for example anthropic/claude-sonnet-5-5."
             exit 1
           }
+          case "$OPENCODE_MODEL" in
+            */*) ;;
+            *)
+              echo "::error::OPENCODE_MODEL must be provider/model. Got: [$OPENCODE_MODEL]. Use opencode/deepseek-v4.1-flash-free for the free OpenCode model."
+              exit 1
+              ;;
+          esac
+          echo "Using model: $OPENCODE_MODEL"
 
       - name: Prepare request
         id: prepare
