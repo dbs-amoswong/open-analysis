@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@assistant-ui/tap 0.9.24 · Package Review Board</title>
+<meta name="description" content="React hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked. Required peer of core and store; not intended as a direct application dependency.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link" href="../index.html">Overview</a>
+    <a class="nav-link" href="../requirements/index.html">Requirements</a>
+    <a class="nav-link is-active" href="../packages/index.html" aria-current="page">Packages</a>
+    <a class="nav-link" href="../whitelist.html">Whitelist</a>
+    <a class="nav-link" href="../method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../packages/index.html">Packages</a><span class="crumb-sep">/</span><span aria-current="page">@assistant-ui/tap</span></nav>
+
+<header class="pkg-head">
+  <div>
+    <p class="eyebrow">npm · MIT</p>
+    <h1>@assistant-ui/tap <span class="version version-lg">0.9.24</span></h1>
+    <p class="lede">React hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked. Required peer of core and store; not intended as a direct application dependency.</p>
+  </div>
+  <div class="pkg-verdict">
+    <span class="pill pill-ok">Adopt</span>
+    <span class="pill pill-warn">Medium risk</span>
+    <span class="score" title="Score 79 of 100"><span class="score-num">79</span><span class="score-track"><span class="score-fill score-warn" style="width:79%"></span></span></span>
+    <span class="pill pill-ok">Adopted</span>
+  </div>
+</header>
+
+
+
+<section class="meta-grid" aria-label="Package metadata">
+  <div><span>Last release</span><strong>19 Oct 2026</strong></div>
+  <div><span>Weekly downloads</span><strong>1,264,485</strong></div>
+  <div><span>Runtime deps</span><strong>0</strong></div>
+  <div><span>Install size</span><strong>1.9 MB</strong></div>
+  <div><span>Unpacked</span><strong>752 KB</strong></div>
+  <div><span>Maintainers</span><strong>yonom, okisdev, agentbase-bot</strong></div>
+  <div><span>Types</span><strong>bundled</strong></div>
+  <div><span>Formats</span><strong>esm</strong></div>
+  <div><span>License</span><strong><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></strong></div>
+  <div><span>Provenance</span><strong><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></strong></div>
+  <div class="meta-links">
+    <span>Links</span>
+    <strong><a href="https://github.com/assistant-ui/assistant-ui" rel="noreferrer noopener">Repository</a> · <a href="https://www.npmjs.com/package/@assistant-ui/tap" rel="noreferrer noopener">npm</a></strong>
+  </div>
+</section>
+
+
+<div class="two-col">
+  <section class="panel">
+    <div class="panel-head"><h2>Verdict</h2><span class="muted small">Reviewed 27 Oct 2026 · next 25 Jan 2027</span></div>
+    <p class="prose">React&#39;s hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked, provenance-signed, and required as a peer by core and store. Novel enough to warrant review, but not code you import directly.</p>
+    <div class="review-meta">
+      <span class="pill pill-ok">Current</span>
+      <span class="muted small">Requirement: <a href="../requirements/assistant-ui.html">In-app AI assistant chat interface (React)</a></span>
+    </div>
+    <h3 class="sub-head">Reasoning</h3>
+    <ol class="reasoning"><li>Zero runtime dependencies and a 1.9 MB install measured with React.</li><li>Required peer of both @assistant-ui/core and @assistant-ui/store, so it arrives with the suite regardless.</li><li>Published through the same OIDC pipeline; 55 of 68 versions carry provenance.</li><li>1.26M weekly downloads and active releases, which means the semantics are exercised at scale.</li></ol>
+    <h3 class="sub-head">Caveats</h3><ul class="caveats"><li>It reimplements React hook semantics. Divergence from React&#39;s scheduler or hook rules would be subtle and hard to debug.</li><li>0.x with shim subpath exports (./react-shim, ./standalone-shim) that have no type declarations.</li><li>Do not import it in application code; it exists to power the suite&#39;s external store.</li></ul>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2>Evidence</h2><span class="muted small">6 checks</span></div>
+    <div class="table-wrap">
+      <table class="data-table evidence-table">
+        <thead><tr><th>Check</th><th>Status</th><th>Detail</th></tr></thead>
+        <tbody><tr>
+  <td><code>dependencies</code><br><span class="muted small">Dependency footprint</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>0 runtime dependencies; 1.9 MB install; 752 KB unpacked.</td>
+</tr><tr>
+  <td><code>provenance</code><br><span class="muted small">SLSA provenance</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>Attestation present for 0.9.24; 55 of 68 versions attested.</td>
+</tr><tr>
+  <td><code>cve</code><br><span class="muted small">Known advisories</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>OSV package query returns no advisories for 0.9.24.</td>
+</tr><tr>
+  <td><code>publish_pipeline</code><br><span class="muted small">CI publish pipeline</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>Same monorepo OIDC trusted publishing workflow.</td>
+</tr><tr>
+  <td><code>behaviour</code><br><span class="muted small">Runtime behaviour</span></td>
+  <td><span class="pill pill-warn">Warn</span></td>
+  <td>Reimplements React&#39;s hook engine outside the React tree; 0.x API; shim exports are untyped.</td>
+</tr><tr>
+  <td><code>maintenance</code><br><span class="muted small">Maintenance</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>0.9.24 published 2026-10-19; 68 versions; 1.26M weekly downloads.</td>
+</tr></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<section class="panel">
+  <div class="panel-head"><h2>Alternatives in this requirement</h2></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>Summary</th></tr></thead>
+      <tbody><tr>
+  <td><a href="pkg-assistant-ui-react.html">@assistant-ui/react</a> <span class="version">0.15.31</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="muted small">The entry point and the only package most apps import. Supply chain is strong: OIDC trusted publishing, SLSA provenance, no instal…</td>
+</tr><tr>
+  <td><a href="pkg-assistant-ui-store.html">@assistant-ui/store</a> <span class="version">0.3.22</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="muted small">Required peer of core and react, and the only addition beyond the four requested packages. Zero dependencies, provenance-signed, 1…</td>
+</tr><tr>
+  <td><a href="pkg-assistant-ui-core.html">@assistant-ui/core</a> <span class="version">0.3.31</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 82 of 100"><span class="score-num">82</span><span class="score-track"><span class="score-fill score-ok" style="width:82%"></span></span></span></td>
+  <td class="muted small">Required runtime beneath @assistant-ui/react; you get it automatically. Same pipeline and provenance, only three runtime dependenc…</td>
+</tr><tr>
+  <td><a href="pkg-assistant-ui-react-markdown.html">@assistant-ui/react-markdown</a> <span class="version">0.14.24</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 76 of 100"><span class="score-num">76</span><span class="score-track"><span class="score-fill score-warn" style="width:76%"></span></span></span></td>
+  <td class="muted small">Optional markdown renderer built on react-markdown 10.1. Adopt only if formatted assistant output is needed: it adds about 87 pack…</td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Decision context</h2><span class="pill pill-ok">Approved</span></div>
+  <p class="prose"><strong>@assistant-ui/react</strong> is the primary choice for <a href="../requirements/assistant-ui.html">In-app AI assistant chat interface (React)</a>. This package is classified as <span class="pill pill-ok">Adopted</span>.</p>
+  <p class="prose muted">Adopt @assistant-ui/react as the single direct dependency, plus @assistant-ui/react-markdown only if formatted assistant output is required. @assistant-ui/core, @assistant-ui/tap and @assistant-ui/store arrive transitively and must be allowlisted because they are required peers, not optional extras; @assistant-ui/store was missing from the original four-package list. All five are MIT, provenance-signed, free of install scripts and advisories, and the repository publishes through OIDC trusted publishing with a protected environment. The residual risks are footprint (63 MB full install, about 135 KB gzip) and 0.x churn (roughly 30 releases per quarter), so pin exact versions, import only from @assistant-ui/react, keep rehype-raw disabled, and re-review on the 90-day cadence.</p>
+</section>
+
+
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>24 packages · 3 active requirements · 3 decisions</p>
+</footer>
+<script src="../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Requirements · Package Review Board</title>
+<meta name="description" content="Requirements and the package candidates reviewed against them.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link" href="../index.html">Overview</a>
+    <a class="nav-link is-active" href="../requirements/index.html" aria-current="page">Requirements</a>
+    <a class="nav-link" href="../packages/index.html">Packages</a>
+    <a class="nav-link" href="../whitelist.html">Whitelist</a>
+    <a class="nav-link" href="../method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<header class="page-head">
+  <p class="eyebrow">Requirements</p>
+  <h1>Tasks that drive whitelist decisions</h1>
+  <p class="lede">A requirement captures what we need a package to do and the constraints it must satisfy. Candidates are reviewed against it, then a decision adopts some and drops others.</p>
+  <div class="head-meta"><span class="chip">3 active</span><span class="chip">24 candidates reviewed</span></div>
+</header>
+
+<div class="toolbar">
+  <label class="search">
+    <span class="search-icon" aria-hidden="true">⌕</span>
+    <input type="search" placeholder="Filter requirements…" data-filter-target="requirements-table" aria-label="Filter requirements">
+  </label>
+</div>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table class="data-table" id="requirements-table" data-filterable>
+      <thead><tr><th>Requirement</th><th>Criticality</th><th class="num">Candidates</th><th>Primary</th><th>Decision</th><th>Next review</th></tr></thead>
+      <tbody><tr data-search="deep merge of nested configuration objects platform-security high">
+  <td><a href="deep-merge.html">Deep merge of nested configuration objects</a><br><span class="muted small">Merge layered configuration (defaults, environment file, request overrides) without mutating the inputs. Input…</span></td>
+  <td><span class="pill pill-bad">high</span></td>
+  <td class="num">12</td>
+  <td><a class="pkg-link" href="../packages/pkg-fastify-deepmerge.html">@fastify/deepmerge</a></td>
+  <td><span class="pill pill-ok">Approved</span></td>
+  <td class="nowrap">18 Apr 2027</td>
+</tr><tr data-search="in-app ai assistant chat interface (react) frontend-platform high">
+  <td><a href="assistant-ui.html">In-app AI assistant chat interface (React)</a><br><span class="muted small">Embed a production-grade chat and agent UI in a React application: streaming messages, tool calls, attachments…</span></td>
+  <td><span class="pill pill-bad">high</span></td>
+  <td class="num">5</td>
+  <td><a class="pkg-link" href="../packages/pkg-assistant-ui-react.html">@assistant-ui/react</a></td>
+  <td><span class="pill pill-ok">Approved</span></td>
+  <td class="nowrap">25 Jan 2027</td>
+</tr><tr data-search="sanitize untrusted html before rendering platform-security critical">
+  <td><a href="html-sanitize.html">Sanitize untrusted HTML before rendering</a><br><span class="muted small">Render user- or model-supplied HTML safely. Inputs include LLM output, pasted content and stored rich text. Th…</span></td>
+  <td><span class="pill pill-bad">critical</span></td>
+  <td class="num">7</td>
+  <td><a class="pkg-link" href="../packages/pkg-dompurify.html">dompurify</a></td>
+  <td><span class="pill pill-ok">Approved</span></td>
+  <td class="nowrap">25 Jan 2027</td>
+</tr></tbody>
+    </table>
+  </div>
+  <p class="no-matches" hidden>No requirements match that filter.</p>
+</section>
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>24 packages · 3 active requirements · 3 decisions</p>
+</footer>
+<script src="../app.js" defer></script>
+</body>
+</html>

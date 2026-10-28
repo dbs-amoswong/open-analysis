@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@fastify/deepmerge 3.2.4 · Package Review Board</title>
+<meta name="description" content="CommonJS entry point with bundled .d.ts. Default import works from ESM via Node interop. Org-owned by the Fastify project.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link" href="../index.html">Overview</a>
+    <a class="nav-link" href="../requirements/index.html">Requirements</a>
+    <a class="nav-link is-active" href="../packages/index.html" aria-current="page">Packages</a>
+    <a class="nav-link" href="../whitelist.html">Whitelist</a>
+    <a class="nav-link" href="../method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../packages/index.html">Packages</a><span class="crumb-sep">/</span><span aria-current="page">@fastify/deepmerge</span></nav>
+
+<header class="pkg-head">
+  <div>
+    <p class="eyebrow">npm · MIT</p>
+    <h1>@fastify/deepmerge <span class="version version-lg">3.2.4</span></h1>
+    <p class="lede">CommonJS entry point with bundled .d.ts. Default import works from ESM via Node interop. Org-owned by the Fastify project.</p>
+  </div>
+  <div class="pkg-verdict">
+    <span class="pill pill-ok">Adopt</span>
+    <span class="pill pill-ok">Low risk</span>
+    <span class="score" title="Score 92 of 100"><span class="score-num">92</span><span class="score-track"><span class="score-fill score-ok" style="width:92%"></span></span></span>
+    <span class="pill pill-ok">Adopted</span>
+  </div>
+</header>
+
+
+
+<section class="meta-grid" aria-label="Package metadata">
+  <div><span>Last release</span><strong>22 Oct 2026</strong></div>
+  <div><span>Weekly downloads</span><strong>3,686,550</strong></div>
+  <div><span>Runtime deps</span><strong>0</strong></div>
+  <div><span>Install size</span><strong>36 KB</strong></div>
+  <div><span>Unpacked</span><strong>21 KB</strong></div>
+  <div><span>Maintainers</span><strong>eomm</strong></div>
+  <div><span>Types</span><strong>bundled</strong></div>
+  <div><span>Formats</span><strong>cjs</strong></div>
+  <div><span>License</span><strong><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></strong></div>
+  <div><span>Provenance</span><strong><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></strong></div>
+  <div class="meta-links">
+    <span>Links</span>
+    <strong><a href="https://github.com/fastify/deepmerge" rel="noreferrer noopener">Repository</a> · <a href="https://www.npmjs.com/package/@fastify/deepmerge" rel="noreferrer noopener">npm</a></strong>
+  </div>
+</section>
+
+
+<div class="two-col">
+  <section class="panel">
+    <div class="panel-head"><h2>Verdict</h2><span class="muted small">Reviewed 20 Oct 2026 · next 18 Apr 2027</span></div>
+    <p class="prose">Only candidate that satisfies every constraint: OIDC trusted publishing with SLSA provenance, zero dependencies, bundled types, active maintenance, and not affected by CVE-2026-93753. Also the fastest in the benchmark.</p>
+    <div class="review-meta">
+      <span class="pill pill-ok">Current</span>
+      <span class="muted small">Requirement: <a href="../requirements/deep-merge.html">Deep merge of nested configuration objects</a></span>
+    </div>
+    <h3 class="sub-head">Reasoning</h3>
+    <ol class="reasoning"><li>Publishing is fully CI-driven: workflow_dispatch invokes the Fastify org reusable release workflow, which runs in a protected release environment and publishes with npm publish --provenance --access public over OIDC. No long-lived NPM_TOKEN exists to leak.</li><li>The npm attestation resolves to builder github-hosted, source repo fastify/deepmerge and workflow .github/workflows/release.yml, tying the tarball to a commit.</li><li>Zero runtime dependencies and a 36 KB install, the smallest of the maintained candidates.</li><li>Verified safe against all four CVE-2026-93753 bypass variants, including null-prototype targets and null placeholders.</li><li>3.2.4 released 2026-10-22 with 0 open issues and 0 open PRs; CI enforces 100% line coverage.</li><li>Measured ~860k merges per second on our nested-config workload, roughly 8x deepmerge.</li></ol>
+    <h3 class="sub-head">Caveats</h3><ul class="caveats"><li>Does not detect cycles; circular input causes a stack overflow. Use deepmerge-ts if cyclic graphs are possible.</li><li>Arrays concatenate by default; configure mergeArray to replace instead.</li><li>Single npm maintainer (eomm). Org ownership, a small code surface and 100% coverage mitigate this, but the bus factor is still one.</li><li>CommonJS entry only. Default imports work from ESM via interop; there are no named ESM exports.</li></ul>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2>Evidence</h2><span class="muted small">8 checks</span></div>
+    <div class="table-wrap">
+      <table class="data-table evidence-table">
+        <thead><tr><th>Check</th><th>Status</th><th>Detail</th></tr></thead>
+        <tbody><tr>
+  <td><code>publish_pipeline</code><br><span class="muted small">CI publish pipeline</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>workflow_dispatch -&gt; fastify/workflows reusable-release.yml, protected release environment, npm publish --provenance --access public, actions pinned to commit SHAs, no NPM_TOKEN.<div class="sources"><a href="https://github.com/fastify/deepmerge/blob/main/.github/workflows/release.yml" rel="noreferrer noopener">release.yml</a></div></td>
+</tr><tr>
+  <td><code>provenance</code><br><span class="muted small">SLSA provenance</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>SLSA v1 attestation for 3.2.4: builder actions/runner/github-hosted, source fastify/deepmerge, workflow .github/workflows/release.yml, ref refs/heads/main.<div class="sources"><a href="https://registry.npmjs.org/-/npm/v1/attestations/@fastify%2fdeepmerge@3.2.4" rel="noreferrer noopener">npm attestation</a></div></td>
+</tr><tr>
+  <td><code>cve</code><br><span class="muted small">CVE-2026-93753</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>Reproduced variants 1-4 against 3.2.4; all blocked. OSV package query returns no advisories.</td>
+</tr><tr>
+  <td><code>dependencies</code><br><span class="muted small">Dependency footprint</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>0 runtime dependencies, 1 installed package, 36 KB install / 21 KB unpacked.</td>
+</tr><tr>
+  <td><code>maintenance</code><br><span class="muted small">Maintenance</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>3.2.4 published 2026-10-22; 0 open issues; 0 open PRs; release workflow active.</td>
+</tr><tr>
+  <td><code>types</code><br><span class="muted small">TypeScript types</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>Bundled types/index.d.ts. Strict-mode probe preserves optionality and readonly; conflicting scalars resolve to the right-hand type.</td>
+</tr><tr>
+  <td><code>behaviour</code><br><span class="muted small">Runtime behaviour</span></td>
+  <td><span class="pill pill-neutral">Info</span></td>
+  <td>~860k ops/s. No cycle support. Arrays concat by default. undefined overwrites unless onlyDefinedProperties is set.</td>
+</tr><tr>
+  <td><code>license</code><br><span class="muted small">License</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>MIT.</td>
+</tr></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<section class="panel">
+  <div class="panel-head"><h2>Alternatives in this requirement</h2></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>Summary</th></tr></thead>
+      <tbody><tr>
+  <td><a href="pkg-deepmerge-ts.html">deepmerge-ts</a> <span class="version">8.0.2</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 88 of 100"><span class="score-num">88</span><span class="score-track"><span class="score-fill score-ok" style="width:88%"></span></span></span></td>
+  <td class="muted small">Strong runner-up and the better choice when inputs may be cyclic or contain Map/Set. Best type inference in the field, zero deps, …</td>
+</tr><tr>
+  <td><a href="pkg-defu.html">defu</a> <span class="version">6.1.7</span></td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 71 of 100"><span class="score-num">71</span><span class="score-track"><span class="score-fill score-warn" style="width:71%"></span></span></span></td>
+  <td class="muted small">Well-maintained and fast, but it implements defaults semantics rather than overwrite merge, and it has no publish workflow. Keep i…</td>
+</tr><tr>
+  <td><a href="pkg-merge-anything.html">merge-anything</a> <span class="version">6.0.9</span></td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 66 of 100"><span class="score-num">66</span><span class="score-track"><span class="score-fill score-warn" style="width:66%"></span></span></span></td>
+  <td class="muted small">Reasonable API and active, but ESM-only, one dependency, 472 KB installed, no type declarations and no publish workflow. Hold unle…</td>
+</tr><tr>
+  <td><a href="pkg-75lb-deep-merge.html">@75lb/deep-merge</a> <span class="version">1.1.5</span></td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 55 of 100"><span class="score-num">55</span><span class="score-track"><span class="score-fill score-bad" style="width:55%"></span></span></span></td>
+  <td class="muted small">Actively maintained but pulls in lodash and typical, defeating the zero-dependency constraint. ESM-only and no types. Hold.…</td>
+</tr><tr>
+  <td><a href="pkg-ts-deepmerge.html">ts-deepmerge</a> <span class="version">8.0.0</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 62 of 100"><span class="score-num">62</span><span class="score-track"><span class="score-fill score-warn" style="width:62%"></span></span></span></td>
+  <td class="muted small">Good types and a tiny footprint, but releases are not built or published by CI: the repository has no .github directory at all. Fa…</td>
+</tr><tr>
+  <td><a href="pkg-corex-deepmerge.html">@corex/deepmerge</a> <span class="version">4.0.43</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 45 of 100"><span class="score-num">45</span><span class="score-track"><span class="score-fill score-bad" style="width:45%"></span></span></span></td>
+  <td class="muted small">No repository URL published to npm and no release since 2023. Source and provenance cannot be verified. Avoid.…</td>
+</tr><tr>
+  <td><a href="pkg-merge-deep.html">merge-deep</a> <span class="version">3.0.3</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 35 of 100"><span class="score-num">35</span><span class="score-track"><span class="score-fill score-bad" style="width:35%"></span></span></span></td>
+  <td class="muted small">Three direct dependencies expand to 13 installed packages, no release since 2021, and no types. Avoid.…</td>
+</tr><tr>
+  <td><a href="pkg-lodash-merge.html">lodash.merge</a> <span class="version">4.6.2</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 30 of 100"><span class="score-num">30</span><span class="score-track"><span class="score-fill score-bad" style="width:30%"></span></span></span></td>
+  <td class="muted small">Frozen since 2019 and carries lodash&#39;s ongoing advisory stream. Prototype pollution was fixed in 4.6.2, but there is no path to fu…</td>
+</tr><tr>
+  <td><a href="pkg-stackline-deepmerge.html">@stackline/deepmerge</a> <span class="version">1.1.0</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 25 of 100"><span class="score-num">25</span><span class="score-track"><span class="score-fill score-bad" style="width:25%"></span></span></span></td>
+  <td class="muted small">New single-maintainer fork that markets itself on fixing CVE-2026-93753. It may well be correct, but with 246 weekly downloads, no…</td>
+</tr><tr>
+  <td><a href="pkg-deepmerge.html">deepmerge</a> <span class="version">4.3.1</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 18 of 100"><span class="score-num">18</span><span class="score-track"><span class="score-fill score-bad" style="width:18%"></span></span></span></td>
+  <td class="muted small">Do not use. Affected by CVE-2026-93753 (CVSS 8.7), the fix PR was closed unmerged, no release since March 2023, and npm audit does…</td>
+</tr><tr>
+  <td><a href="pkg-deep-extend.html">deep-extend</a> <span class="version">0.6.0</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 15 of 100"><span class="score-num">15</span><span class="score-track"><span class="score-fill score-bad" style="width:15%"></span></span></span></td>
+  <td class="muted small">Unmaintained since 2018 and the subject of a critical prototype-pollution advisory. Do not use.…</td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Decision context</h2><span class="pill pill-ok">Approved</span></div>
+  <p class="prose"><strong>@fastify/deepmerge</strong> is the primary choice for <a href="../requirements/deep-merge.html">Deep merge of nested configuration objects</a>. This package is classified as <span class="pill pill-ok">Adopted</span>.</p>
+  <p class="prose muted">Adopt @fastify/deepmerge as the primary implementation: it is the only candidate that combines OIDC trusted publishing, SLSA provenance, zero runtime dependencies, bundled types, active maintenance and immunity to CVE-2026-93753. deepmerge-ts is approved as the fallback for cyclic inputs or Map/Set merging, at the cost of a long-lived NPM_TOKEN in its release pipeline. deepmerge is dropped because the vulnerability has no upstream fix and is invisible to npm audit. ts-deepmerge, merge-deep, lodash.merge, @corex/deepmerge, deep-extend and the CVE-fork packages are rejected; defu, merge-anything and @75lb/deep-merge remain on hold and are not approved for this requirement.</p>
+</section>
+
+
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>24 packages · 3 active requirements · 3 decisions</p>
+</footer>
+<script src="../app.js" defer></script>
+</body>
+</html>

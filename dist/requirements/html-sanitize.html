@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sanitize untrusted HTML before rendering · Package Review Board</title>
+<meta name="description" content="Render user- or model-supplied HTML safely. Inputs include LLM output, pasted content and stored rich text. The sanitizer must remove scripts, event handlers, dangerous URL schemes and mutation-XSS vectors while preserving the formatting we allow.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link" href="../index.html">Overview</a>
+    <a class="nav-link is-active" href="../requirements/index.html" aria-current="page">Requirements</a>
+    <a class="nav-link" href="../packages/index.html">Packages</a>
+    <a class="nav-link" href="../whitelist.html">Whitelist</a>
+    <a class="nav-link" href="../method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../requirements/index.html">Requirements</a><span class="crumb-sep">/</span><span aria-current="page">Sanitize untrusted HTML before rendering</span></nav>
+
+<header class="page-head">
+  <p class="eyebrow">Requirement · critical criticality</p>
+  <h1>Sanitize untrusted HTML before rendering</h1>
+  <p class="lede">Render user- or model-supplied HTML safely. Inputs include LLM output, pasted content and stored rich text. The sanitizer must remove scripts, event handlers, dangerous URL schemes and mutation-XSS vectors while preserving the formatting we allow.</p>
+  <div class="head-meta"><span class="chip">Owner: platform-security</span><span class="chip">Cadence: 90 days</span><span class="chip">Created 27 Oct 2026</span><span class="chip">7 candidates</span></div>
+</header>
+
+<section class="verdict">
+  <div class="verdict-main">
+    <div class="verdict-top">
+      <span class="verdict-label">Decision</span>
+      <span class="pill pill-ok">Approved</span><span class="pill pill-ok">Active</span>
+    </div>
+    <h2>Adopt <a href="../packages/pkg-dompurify.html">dompurify</a></h2>
+    <p>Browser-first sanitizer and the de facto standard. It parses untrusted HTML with the same DOM the browser will use, which is why it holds up against mutation XSS. One dependency, 11.7 KB gzip, 45M weekly downloads, and zero executions in our 25-vector browser harness. The gap is release integrity: npm publishes are manual and the tarball is unattested, although the release artifacts are SLSA-attested and Sigstore-signed and the shipped dist files match those hashes.</p>
+    <div class="verdict-meta">
+      <span><strong>Re-review by</strong> 25 Jan 2027</span>
+      <span><strong>Decided</strong> 27 Oct 2026 by platform-security</span>
+      <span><strong>Also adopted</strong> sanitize-html, rehype-sanitize</span>
+    </div>
+  </div>
+  
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Candidate comparison</h2><span class="muted small">Latest review per package</span></div>
+  <div class="table-wrap">
+    <table class="data-table data-table-wide" data-filterable data-filter-target="candidates">
+      <thead><tr>
+        <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>CI</th><th>Advisories</th><th>Reviewed</th>
+      </tr></thead>
+      <tbody><tr data-search="dompurify adopt medium adopted" data-group="adopt">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-dompurify.html">dompurify</a>
+    <span class="version">3.4.17</span>
+    
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 88 of 100"><span class="score-num">88</span><span class="score-track"><span class="score-fill score-ok" style="width:88%"></span></span></span></td>
+  <td class="num">45M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MPL-2.0 OR Apache-2.0 (permissive)"><span class="license-mark" aria-hidden="true">©</span>MPL-2.0 / Apache-2.0</span></td>
+  <td class="nowrap"><span class="prov prov-release" title="SLSA attestation on GitHub release artifacts; the npm tarball itself is unattested"><span class="prov-mark" aria-hidden="true">✓</span>release</span></td>
+  <td><div class="badges"><span class="mini mini-bad" title="No npm publish workflow and no publish script anywhere in the repository. GitHub releases are created manually by Cure53 maintainers (cure53, x00mario); sign-release.yml and slsa-provenance.yml then sign and attest the release assets. The 3.4.17 npm publish followed the GitHub release by four minutes under the single npm account cure53 (npm 9.2.0).">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td><div class="badges"><span class="mini mini-ok" title="OSV returns 0 advisories for 3.4.17. The most recent fixes (CVE-2026-116804 CRITICAL, CVE-2026-116803 HIGH) landed in 3.4.17 on 2026-10-22.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="sanitize-html adopt medium adopted" data-group="adopt">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-sanitize-html.html">sanitize-html</a>
+    <span class="version">2.18.1</span>
+    
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 80 of 100"><span class="score-num">80</span><span class="score-track"><span class="score-fill score-ok" style="width:80%"></span></span></span></td>
+  <td class="num">11M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-bad" title="Monorepo CI runs tests only; no npm publish job. No provenance on any of 128 versions.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td><div class="badges"><span class="mini mini-ok" title="OSV returns 0 advisories for 2.18.1, which fixes the October 2026 iframe-recursion and SMIL-prefix issues.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="rehype-sanitize adopt medium adopted" data-group="adopt">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-rehype-sanitize.html">rehype-sanitize</a>
+    <span class="version">6.0.0</span>
+    
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 78 of 100"><span class="score-num">78</span><span class="score-track"><span class="score-fill score-warn" style="width:78%"></span></span></span></td>
+  <td class="num">6.4M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-bad" title="CI runs tests only; npm publishing is manual and no version carries provenance.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td><div class="badges"><span class="mini mini-ok" title="OSV returns no advisories for rehype-sanitize or its engine hast-util-sanitize.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="isomorphic-dompurify hold medium hold" data-group="hold">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-isomorphic-dompurify.html">isomorphic-dompurify</a>
+    <span class="version">4.6.0</span>
+    
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 72 of 100"><span class="score-num">72</span><span class="score-track"><span class="score-fill score-warn" style="width:72%"></span></span></span></td>
+  <td class="num">4.6M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td><div class="badges"><span class="mini mini-ok" title="No wrapper-specific advisories; underlying DOMPurify 3.4.17 and jsdom are clean at review time.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="xss hold medium hold" data-group="hold">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-xss.html">xss</a>
+    <span class="version">1.0.17</span>
+    
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 64 of 100"><span class="score-num">64</span><span class="score-track"><span class="score-fill score-warn" style="width:64%"></span></span></span></td>
+  <td class="num">4.9M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="No advisories in OSV. No independent advisory coverage or audit was found, so this is absence of evidence rather than evidence of safety.">CVE <span class="ev ev-neutral" aria-label="Info">i</span></span></div></td>
+  <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="insane avoid critical rejected" data-group="avoid">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-insane.html">insane</a>
+    <span class="version">2.6.2</span>
+    
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 20 of 100"><span class="score-num">20</span><span class="score-track"><span class="score-fill score-bad" style="width:20%"></span></span></span></td>
+  <td class="num">82k</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td><div class="badges"><span class="mini mini-bad" title="GHSA-w455-mfq9-hf74 (CVE-2020-26303), ReDoS, no fixed version.">CVE <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="sanitizer avoid critical rejected" data-group="avoid">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-sanitizer.html">sanitizer</a>
+    <span class="version">0.1.3</span>
+    
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 18 of 100"><span class="score-num">18</span><span class="score-track"><span class="score-fill score-bad" style="width:18%"></span></span></span></td>
+  <td class="num">201k</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: Apache-2.0 (permissive)"><span class="license-mark" aria-hidden="true">©</span>Apache-2.0</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="No OSV advisories, but no advisory coverage either.">CVE <span class="ev ev-neutral" aria-label="Info">i</span></span></div></td>
+  <td class="nowrap">27 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+
+<div class="two-col">
+  <section class="panel">
+    <div class="panel-head"><h2>Constraints</h2></div>
+    <ul class="check-list"><li>Removes scripts, event handlers and javascript:/data: URLs</li><li>Resistant to mutation XSS when the output is re-parsed</li><li>Actively maintained with a public security process</li><li>Zero or small dependency tree</li><li>Runs where it is needed: browser DOM or Node</li><li>TypeScript types available</li></ul>
+    <div class="panel-sub"><h3>Out of scope</h3><ul class="muted-list"><li>Markdown authoring</li><li>Content Security Policy</li><li>URL allowlisting beyond scheme checks</li></ul></div>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2>Decision rationale</h2></div>
+    <p class="prose">Use DOMPurify wherever a browser DOM is available, because parsing with the real DOM is the strongest defence against mutation XSS. Use sanitize-html for Node and SSR, where jsdom would add 27 MB for the same outcome. Use rehype-sanitize when content already flows through remark/rehype, which is the case for the assistant-ui react-markdown pipeline. Keep isomorphic-dompurify on hold: it is correct, but only worth its jsdom footprint if you need DOMPurify specifically on the server. Keep xss on hold: it is fast and safe in the harness, but its escape-not-strip model and lack of independent advisory coverage make it a weaker default. insane and sanitizer are abandoned and must not be used. No package in this category publishes npm provenance, so pin exact versions, subscribe to advisories for the chosen sanitizer, and re-review every 90 days. A 25-vector headless-Chrome corpus executed 11 vectors unsanitized and zero after every tested sanitizer.</p>
+  </section>
+</div>
+
+<section class="panel">
+  <div class="panel-head"><h2>Buckets</h2><span class="muted small">Every reviewed package is classified once</span></div>
+  <div class="bucket-grid">
+    <div class="bucket">
+  <div class="bucket-head"><h3>Adopted</h3><span class="count-badge count-ok">3</span></div>
+  <ul class="bucket-list"><li><a href="../packages/pkg-dompurify.html">dompurify</a><span class="pill pill-ok">Adopt</span></li><li><a href="../packages/pkg-sanitize-html.html">sanitize-html</a><span class="pill pill-ok">Adopt</span></li><li><a href="../packages/pkg-rehype-sanitize.html">rehype-sanitize</a><span class="pill pill-ok">Adopt</span></li></ul>
+</div>
+    <div class="bucket">
+  <div class="bucket-head"><h3>On hold</h3><span class="count-badge count-warn">2</span></div>
+  <ul class="bucket-list"><li><a href="../packages/pkg-isomorphic-dompurify.html">isomorphic-dompurify</a><span class="pill pill-warn">Hold</span></li><li><a href="../packages/pkg-xss.html">xss</a><span class="pill pill-warn">Hold</span></li></ul>
+</div>
+    <div class="bucket">
+  <div class="bucket-head"><h3>Dropped</h3><span class="count-badge count-bad">0</span></div>
+  <p class="muted small">Nothing to drop.</p>
+</div>
+    <div class="bucket">
+  <div class="bucket-head"><h3>Rejected</h3><span class="count-badge count-bad">2</span></div>
+  <ul class="bucket-list"><li><a href="../packages/pkg-insane.html">insane</a><span class="pill pill-bad">Avoid</span></li><li><a href="../packages/pkg-sanitizer.html">sanitizer</a><span class="pill pill-bad">Avoid</span></li></ul>
+</div>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Review timeline</h2></div>
+  <ol class="timeline"><li>
+  <span class="timeline-date">27 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-sanitizer.html">sanitizer</a> <span class="pill pill-bad">Avoid</span> <span class="muted">Google Caja&#39;s HTML sanitizer, last released in 2015. Zero dependencies, but abandoned for a decade and unsuitable for a security-critical path.</span></span>
+</li><li>
+  <span class="timeline-date">27 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-insane.html">insane</a> <span class="pill pill-bad">Avoid</span> <span class="muted">Abandoned since 2016 and carries an unfixed ReDoS advisory. Do not use for untrusted input.</span></span>
+</li><li>
+  <span class="timeline-date">27 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-xss.html">xss</a> <span class="pill pill-warn">Hold</span> <span class="muted">Active whitelist sanitizer that HTML-escapes disallowed tags rather than stripping them, so blocked markup appears as visible text. Fast and dependency-light, but it has no independent advisory history and 70 open issues.</span></span>
+</li><li>
+  <span class="timeline-date">27 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-isomorphic-dompurify.html">isomorphic-dompurify</a> <span class="pill pill-warn">Hold</span> <span class="muted">Convenience wrapper that runs DOMPurify on jsdom for server-side use. Output matches DOMPurify, but it pulls 27 MB and 28 packages and inherits jsdom&#39;s exposure. Use only if you specifically need DOMPurify on the server.</span></span>
+</li><li>
+  <span class="timeline-date">27 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-rehype-sanitize.html">rehype-sanitize</a> <span class="pill pill-ok">Adopt</span> <span class="muted">The right choice if content already flows through remark/rehype: it sanitizes the HAST tree against an explicit schema instead of round-tripping through the DOM. Zero advisories, tiny and type-safe, but no release since 2023 and a small community.</span></span>
+</li><li>
+  <span class="timeline-date">27 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-sanitize-html.html">sanitize-html</a> <span class="pill pill-ok">Adopt</span> <span class="muted">Server-first parser sanitizer. Faster than DOMPurify-on-jsdom and far lighter than dragging in jsdom, but its defaults are aggressive: img and svg are removed unless you allow them. Zero executions in the harness; 17 historical advisories, all fixed, and the current release is clean.</span></span>
+</li><li>
+  <span class="timeline-date">27 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-dompurify.html">dompurify</a> <span class="pill pill-ok">Adopt</span> <span class="muted">Browser-first sanitizer and the de facto standard. It parses untrusted HTML with the same DOM the browser will use, which is why it holds up against mutation XSS. One dependency, 11.7 KB gzip, 45M weekly downloads, and zero executions in our 25-vector browser harness. The gap is release integrity: npm publishes are manual and the tarball is unattested, although the release artifacts are SLSA-attested and Sigstore-signed and the shipped dist files match those hashes.</span></span>
+</li></ol>
+</section>
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>24 packages · 3 active requirements · 3 decisions</p>
+</footer>
+<script src="../app.js" defer></script>
+</body>
+</html>

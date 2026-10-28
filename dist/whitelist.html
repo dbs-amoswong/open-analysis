@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whitelist · Package Review Board</title>
+<meta name="description" content="Adopted, on-hold, dropped and rejected packages.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link" href="index.html">Overview</a>
+    <a class="nav-link" href="requirements/index.html">Requirements</a>
+    <a class="nav-link" href="packages/index.html">Packages</a>
+    <a class="nav-link is-active" href="whitelist.html" aria-current="page">Whitelist</a>
+    <a class="nav-link" href="method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<header class="page-head">
+  <p class="eyebrow">Whitelist</p>
+  <h1>What you may use, and what must go</h1>
+  <p class="lede">The enforcement view. Adopted packages are approved; dropped packages are in use but scheduled for removal; everything else is not permitted for the requirement.</p>
+  <div class="head-meta"><span class="chip">10 adopted</span><span class="chip">1 to drop</span><span class="chip">8 rejected</span></div>
+</header>
+
+<div class="toolbar">
+  <label class="search">
+    <span class="search-icon" aria-hidden="true">⌕</span>
+    <input type="search" placeholder="Filter whitelist…" data-filter-target="whitelist" aria-label="Filter whitelist">
+  </label>
+  <div class="segmented" role="group" aria-label="Filter by bucket">
+    <button type="button" class="seg is-active" data-filter-value="all" data-filter-table="whitelist">All</button>
+    <button type="button" class="seg" data-filter-value="adopted" data-filter-table="whitelist">Adopted</button>
+    <button type="button" class="seg" data-filter-value="hold" data-filter-table="whitelist">Hold</button>
+    <button type="button" class="seg" data-filter-value="dropped" data-filter-table="whitelist">Dropped</button>
+    <button type="button" class="seg" data-filter-value="rejected" data-filter-table="whitelist">Rejected</button>
+  </div>
+</div>
+
+<section class="panel whitelist-section" data-bucket="adopted">
+  <div class="panel-head">
+    <h2><span class="dot dot-ok" aria-hidden="true"></span>Adopted</h2>
+    <span class="count-badge">10</span>
+  </div>
+  <p class="section-blurb">Approved for use in the requirements listed. Other packages may not be substituted without a new review.</p>
+  <div class="table-wrap">
+    <table class="data-table" data-filterable data-filter-target="whitelist">
+      <thead><tr><th>Package</th><th>Risk</th><th>License</th><th>Provenance</th><th>Reason</th><th>Decision expires</th><th>Review</th></tr></thead>
+      <tbody><tr data-search="@fastify/deepmerge adopted only candidate that satisfies every constraint: oidc trusted publishing with slsa provenance, zero dependencies, bundled types, active maintenance, and not affected by cve-2026-93753. also the fastest in the benchmark." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-fastify-deepmerge.html">@fastify/deepmerge</a>
+    <span class="version">3.2.4</span>
+  </td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="reason-cell" title="Only candidate that satisfies every constraint: OIDC trusted publishing with SLSA provenance, zero dependencies, bundled types, active maintenance, and not affected by CVE-2026-93753. Also the fastest in the benchmark.">Only candidate that satisfies every constraint: OIDC trusted publishing with SLSA provenance, zero dependencies, bundled types, active maintenance, and not affected by CVE-2026-93753. Also the fastest in the benchmark.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="deepmerge-ts adopted strong runner-up and the better choice when inputs may be cyclic or contain map/set. best type inference in the field, zero deps, active, published with slsa provenance. falls short only on release ergonomics: it authenticates with a long-lived npm_token rather than oidc trusted publishing." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-deepmerge-ts.html">deepmerge-ts</a>
+    <span class="version">8.0.2</span>
+  </td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: BSD-3-Clause (permissive)"><span class="license-mark" aria-hidden="true">©</span>BSD-3-Clause</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="reason-cell" title="Strong runner-up and the better choice when inputs may be cyclic or contain Map/Set. Best type inference in the field, zero deps, active, published with SLSA provenance. Falls short only on release ergonomics: it authenticates with a long-lived NPM_TOKEN rather than OIDC trusted publishing.">Strong runner-up and the better choice when inputs may be cyclic or contain Map/Set. Best type inference in the field, zero deps, active, published with SLSA provenance. Falls short only on release ergonomics: it authent…</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@assistant-ui/react adopted the entry point and the only package most apps import. supply chain is strong: oidc trusted publishing, slsa provenance, no install scripts anywhere in the 183-package tree. the costs are 10 direct dependencies, a 54 mb install, about 135 kb gzip, and 0.x churn of roughly 30 releases per quarter." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-assistant-ui-react.html">@assistant-ui/react</a>
+    <span class="version">0.15.31</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="reason-cell" title="The entry point and the only package most apps import. Supply chain is strong: OIDC trusted publishing, SLSA provenance, no install scripts anywhere in the 183-package tree. The costs are 10 direct dependencies, a 54 MB install, about 135 KB gzip, and 0.x churn of roughly 30 releases per quarter.">The entry point and the only package most apps import. Supply chain is strong: OIDC trusted publishing, SLSA provenance, no install scripts anywhere in the 183-package tree. The costs are 10 direct dependencies, a 54 MB …</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@assistant-ui/core adopted required runtime beneath @assistant-ui/react; you get it automatically. same pipeline and provenance, only three runtime dependencies, but it ships source and source maps, which makes the installed package 9.9 mb unpacked." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-assistant-ui-core.html">@assistant-ui/core</a>
+    <span class="version">0.3.31</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="reason-cell" title="Required runtime beneath @assistant-ui/react; you get it automatically. Same pipeline and provenance, only three runtime dependencies, but it ships source and source maps, which makes the installed package 9.9 MB unpacked.">Required runtime beneath @assistant-ui/react; you get it automatically. Same pipeline and provenance, only three runtime dependencies, but it ships source and source maps, which makes the installed package 9.9 MB unpacke…</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@assistant-ui/tap adopted react&#39;s hook engine reimplemented so hooks can run outside a react tree. zero dependencies, 752 kb unpacked, provenance-signed, and required as a peer by core and store. novel enough to warrant review, but not code you import directly." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-assistant-ui-tap.html">@assistant-ui/tap</a>
+    <span class="version">0.9.24</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="reason-cell" title="React&#39;s hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked, provenance-signed, and required as a peer by core and store. Novel enough to warrant review, but not code you import directly.">React&#39;s hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked, provenance-signed, and required as a peer by core and store. Novel enough to warrant review, but not code you i…</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@assistant-ui/react-markdown adopted optional markdown renderer built on react-markdown 10.1. adopt only if formatted assistant output is needed: it adds about 87 packages and 72 kb gzip. raw html is off by default, so the xss surface is react-markdown&#39;s standard one." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-assistant-ui-react-markdown.html">@assistant-ui/react-markdown</a>
+    <span class="version">0.14.24</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="reason-cell" title="Optional markdown renderer built on react-markdown 10.1. Adopt only if formatted assistant output is needed: it adds about 87 packages and 72 KB gzip. Raw HTML is off by default, so the XSS surface is react-markdown&#39;s standard one.">Optional markdown renderer built on react-markdown 10.1. Adopt only if formatted assistant output is needed: it adds about 87 packages and 72 KB gzip. Raw HTML is off by default, so the XSS surface is react-markdown&#39;s st…</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@assistant-ui/store adopted required peer of core and react, and the only addition beyond the four requested packages. zero dependencies, provenance-signed, 1.1m weekly downloads, same maintainers. you never import it directly." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-assistant-ui-store.html">@assistant-ui/store</a>
+    <span class="version">0.3.22</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="reason-cell" title="Required peer of core and react, and the only addition beyond the four requested packages. Zero dependencies, provenance-signed, 1.1M weekly downloads, same maintainers. You never import it directly.">Required peer of core and react, and the only addition beyond the four requested packages. Zero dependencies, provenance-signed, 1.1M weekly downloads, same maintainers. You never import it directly.</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="dompurify adopted browser-first sanitizer and the de facto standard. it parses untrusted html with the same dom the browser will use, which is why it holds up against mutation xss. one dependency, 11.7 kb gzip, 45m weekly downloads, and zero executions in our 25-vector browser harness. the gap is release integrity: npm publishes are manual and the tarball is unattested, although the release artifacts are slsa-attested and sigstore-signed and the shipped dist files match those hashes." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-dompurify.html">dompurify</a>
+    <span class="version">3.4.17</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MPL-2.0 OR Apache-2.0 (permissive)"><span class="license-mark" aria-hidden="true">©</span>MPL-2.0 / Apache-2.0</span></td>
+  <td class="nowrap"><span class="prov prov-release" title="SLSA attestation on GitHub release artifacts; the npm tarball itself is unattested"><span class="prov-mark" aria-hidden="true">✓</span>release</span></td>
+  <td class="reason-cell" title="Browser-first sanitizer and the de facto standard. It parses untrusted HTML with the same DOM the browser will use, which is why it holds up against mutation XSS. One dependency, 11.7 KB gzip, 45M weekly downloads, and zero executions in our 25-vector browser harness. The gap is release integrity: npm publishes are manual and the tarball is unattested, although the release artifacts are SLSA-attested and Sigstore-signed and the shipped dist files match those hashes.">Browser-first sanitizer and the de facto standard. It parses untrusted HTML with the same DOM the browser will use, which is why it holds up against mutation XSS. One dependency, 11.7 KB gzip, 45M weekly downloads, and z…</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="sanitize-html adopted server-first parser sanitizer. faster than dompurify-on-jsdom and far lighter than dragging in jsdom, but its defaults are aggressive: img and svg are removed unless you allow them. zero executions in the harness; 17 historical advisories, all fixed, and the current release is clean." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-sanitize-html.html">sanitize-html</a>
+    <span class="version">2.18.1</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Server-first parser sanitizer. Faster than DOMPurify-on-jsdom and far lighter than dragging in jsdom, but its defaults are aggressive: img and svg are removed unless you allow them. Zero executions in the harness; 17 historical advisories, all fixed, and the current release is clean.">Server-first parser sanitizer. Faster than DOMPurify-on-jsdom and far lighter than dragging in jsdom, but its defaults are aggressive: img and svg are removed unless you allow them. Zero executions in the harness; 17 his…</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="rehype-sanitize adopted the right choice if content already flows through remark/rehype: it sanitizes the hast tree against an explicit schema instead of round-tripping through the dom. zero advisories, tiny and type-safe, but no release since 2023 and a small community." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-rehype-sanitize.html">rehype-sanitize</a>
+    <span class="version">6.0.0</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="The right choice if content already flows through remark/rehype: it sanitizes the HAST tree against an explicit schema instead of round-tripping through the DOM. Zero advisories, tiny and type-safe, but no release since 2023 and a small community.">The right choice if content already flows through remark/rehype: it sanitizes the HAST tree against an explicit schema instead of round-tripping through the DOM. Zero advisories, tiny and type-safe, but no release since …</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr></tbody>
+    </table>
+  </div>
+</section><section class="panel whitelist-section" data-bucket="hold">
+  <div class="panel-head">
+    <h2><span class="dot dot-warn" aria-hidden="true"></span>On hold</h2>
+    <span class="count-badge">5</span>
+  </div>
+  <p class="section-blurb">Not approved and not banned. Use requires an exception with the reason documented.</p>
+  <div class="table-wrap">
+    <table class="data-table" data-filterable data-filter-target="whitelist">
+      <thead><tr><th>Package</th><th>Risk</th><th>License</th><th>Provenance</th><th>Reason</th><th>Decision expires</th><th>Review</th></tr></thead>
+      <tbody><tr data-search="defu hold well-maintained and fast, but it implements defaults semantics rather than overwrite merge, and it has no publish workflow. keep it for filling defaults only; do not adopt it for this task." data-group="hold">
+  <td>
+    <a class="pkg-link" href="packages/pkg-defu.html">defu</a>
+    <span class="version">6.1.7</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Well-maintained and fast, but it implements defaults semantics rather than overwrite merge, and it has no publish workflow. Keep it for filling defaults only; do not adopt it for this task.">Well-maintained and fast, but it implements defaults semantics rather than overwrite merge, and it has no publish workflow. Keep it for filling defaults only; do not adopt it for this task.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="merge-anything hold reasonable api and active, but esm-only, one dependency, 472 kb installed, no type declarations and no publish workflow. hold unless a specific feature is needed." data-group="hold">
+  <td>
+    <a class="pkg-link" href="packages/pkg-merge-anything.html">merge-anything</a>
+    <span class="version">6.0.9</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Reasonable API and active, but ESM-only, one dependency, 472 KB installed, no type declarations and no publish workflow. Hold unless a specific feature is needed.">Reasonable API and active, but ESM-only, one dependency, 472 KB installed, no type declarations and no publish workflow. Hold unless a specific feature is needed.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@75lb/deep-merge hold actively maintained but pulls in lodash and typical, defeating the zero-dependency constraint. esm-only and no types. hold." data-group="hold">
+  <td>
+    <a class="pkg-link" href="packages/pkg-75lb-deep-merge.html">@75lb/deep-merge</a>
+    <span class="version">1.1.5</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Actively maintained but pulls in lodash and typical, defeating the zero-dependency constraint. ESM-only and no types. Hold.">Actively maintained but pulls in lodash and typical, defeating the zero-dependency constraint. ESM-only and no types. Hold.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="isomorphic-dompurify hold convenience wrapper that runs dompurify on jsdom for server-side use. output matches dompurify, but it pulls 27 mb and 28 packages and inherits jsdom&#39;s exposure. use only if you specifically need dompurify on the server." data-group="hold">
+  <td>
+    <a class="pkg-link" href="packages/pkg-isomorphic-dompurify.html">isomorphic-dompurify</a>
+    <span class="version">4.6.0</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Convenience wrapper that runs DOMPurify on jsdom for server-side use. Output matches DOMPurify, but it pulls 27 MB and 28 packages and inherits jsdom&#39;s exposure. Use only if you specifically need DOMPurify on the server.">Convenience wrapper that runs DOMPurify on jsdom for server-side use. Output matches DOMPurify, but it pulls 27 MB and 28 packages and inherits jsdom&#39;s exposure. Use only if you specifically need DOMPurify on the server.</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="xss hold active whitelist sanitizer that html-escapes disallowed tags rather than stripping them, so blocked markup appears as visible text. fast and dependency-light, but it has no independent advisory history and 70 open issues." data-group="hold">
+  <td>
+    <a class="pkg-link" href="packages/pkg-xss.html">xss</a>
+    <span class="version">1.0.17</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Active whitelist sanitizer that HTML-escapes disallowed tags rather than stripping them, so blocked markup appears as visible text. Fast and dependency-light, but it has no independent advisory history and 70 open issues.">Active whitelist sanitizer that HTML-escapes disallowed tags rather than stripping them, so blocked markup appears as visible text. Fast and dependency-light, but it has no independent advisory history and 70 open issues…</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr></tbody>
+    </table>
+  </div>
+</section><section class="panel whitelist-section" data-bucket="dropped">
+  <div class="panel-head">
+    <h2><span class="dot dot-bad" aria-hidden="true"></span>To be dropped</h2>
+    <span class="count-badge">1</span>
+  </div>
+  <p class="section-blurb">Currently in use but must be removed by the stated deadline.</p>
+  <div class="table-wrap">
+    <table class="data-table" data-filterable data-filter-target="whitelist">
+      <thead><tr><th>Package</th><th>Risk</th><th>License</th><th>Provenance</th><th>Reason</th><th>Decision expires</th><th>Drop deadline</th></tr></thead>
+      <tbody><tr data-search="deepmerge dropped unfixed cve-2026-93753 (cvss 8.7). fix pr closed unmerged; no patched release exists. migrate to @fastify/deepmerge." data-group="dropped">
+  <td>
+    <a class="pkg-link" href="packages/pkg-deepmerge.html">deepmerge</a>
+    <span class="version">4.3.1</span>
+  </td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Unfixed CVE-2026-93753 (CVSS 8.7). Fix PR closed unmerged; no patched release exists. Migrate to @fastify/deepmerge.">Unfixed CVE-2026-93753 (CVSS 8.7). Fix PR closed unmerged; no patched release exists. Migrate to @fastify/deepmerge.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td class="nowrap">31 Dec 2026</td>
+</tr></tbody>
+    </table>
+  </div>
+</section><section class="panel whitelist-section" data-bucket="rejected">
+  <div class="panel-head">
+    <h2><span class="dot dot-bad" aria-hidden="true"></span>Rejected</h2>
+    <span class="count-badge">8</span>
+  </div>
+  <p class="section-blurb">Reviewed and not permitted for this requirement.</p>
+  <div class="table-wrap">
+    <table class="data-table" data-filterable data-filter-target="whitelist">
+      <thead><tr><th>Package</th><th>Risk</th><th>License</th><th>Provenance</th><th>Reason</th><th>Decision expires</th><th>Review</th></tr></thead>
+      <tbody><tr data-search="ts-deepmerge rejected good types and a tiny footprint, but releases are not built or published by ci: the repository has no .github directory at all. fails the release-integrity constraint." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-ts-deepmerge.html">ts-deepmerge</a>
+    <span class="version">8.0.0</span>
+  </td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: ISC (permissive)"><span class="license-mark" aria-hidden="true">©</span>ISC</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Good types and a tiny footprint, but releases are not built or published by CI: the repository has no .github directory at all. Fails the release-integrity constraint.">Good types and a tiny footprint, but releases are not built or published by CI: the repository has no .github directory at all. Fails the release-integrity constraint.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="merge-deep rejected three direct dependencies expand to 13 installed packages, no release since 2021, and no types. avoid." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-merge-deep.html">merge-deep</a>
+    <span class="version">3.0.3</span>
+  </td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Three direct dependencies expand to 13 installed packages, no release since 2021, and no types. Avoid.">Three direct dependencies expand to 13 installed packages, no release since 2021, and no types. Avoid.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="lodash.merge rejected frozen since 2019 and carries lodash&#39;s ongoing advisory stream. prototype pollution was fixed in 4.6.2, but there is no path to future fixes." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-lodash-merge.html">lodash.merge</a>
+    <span class="version">4.6.2</span>
+  </td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Frozen since 2019 and carries lodash&#39;s ongoing advisory stream. Prototype pollution was fixed in 4.6.2, but there is no path to future fixes.">Frozen since 2019 and carries lodash&#39;s ongoing advisory stream. Prototype pollution was fixed in 4.6.2, but there is no path to future fixes.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@corex/deepmerge rejected no repository url published to npm and no release since 2023. source and provenance cannot be verified. avoid." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-corex-deepmerge.html">@corex/deepmerge</a>
+    <span class="version">4.0.43</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="No repository URL published to npm and no release since 2023. Source and provenance cannot be verified. Avoid.">No repository URL published to npm and no release since 2023. Source and provenance cannot be verified. Avoid.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="deep-extend rejected unmaintained since 2018 and the subject of a critical prototype-pollution advisory. do not use." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-deep-extend.html">deep-extend</a>
+    <span class="version">0.6.0</span>
+  </td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Unmaintained since 2018 and the subject of a critical prototype-pollution advisory. Do not use.">Unmaintained since 2018 and the subject of a critical prototype-pollution advisory. Do not use.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@stackline/deepmerge rejected new single-maintainer fork that markets itself on fixing cve-2026-93753. it may well be correct, but with 246 weekly downloads, no independent review and no track record it is not a whitelisting candidate." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-stackline-deepmerge.html">@stackline/deepmerge</a>
+    <span class="version">1.1.0</span>
+  </td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="reason-cell" title="New single-maintainer fork that markets itself on fixing CVE-2026-93753. It may well be correct, but with 246 weekly downloads, no independent review and no track record it is not a whitelisting candidate.">New single-maintainer fork that markets itself on fixing CVE-2026-93753. It may well be correct, but with 246 weekly downloads, no independent review and no track record it is not a whitelisting candidate.</td>
+  <td class="nowrap">18 Apr 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="insane rejected abandoned since 2016 and carries an unfixed redos advisory. do not use for untrusted input." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-insane.html">insane</a>
+    <span class="version">2.6.2</span>
+  </td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Abandoned since 2016 and carries an unfixed ReDoS advisory. Do not use for untrusted input.">Abandoned since 2016 and carries an unfixed ReDoS advisory. Do not use for untrusted input.</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="sanitizer rejected google caja&#39;s html sanitizer, last released in 2015. zero dependencies, but abandoned for a decade and unsuitable for a security-critical path." data-group="rejected">
+  <td>
+    <a class="pkg-link" href="packages/pkg-sanitizer.html">sanitizer</a>
+    <span class="version">0.1.3</span>
+  </td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: Apache-2.0 (permissive)"><span class="license-mark" aria-hidden="true">©</span>Apache-2.0</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Google Caja&#39;s HTML sanitizer, last released in 2015. Zero dependencies, but abandoned for a decade and unsuitable for a security-critical path.">Google Caja&#39;s HTML sanitizer, last released in 2015. Zero dependencies, but abandoned for a decade and unsuitable for a security-critical path.</td>
+  <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+<p class="no-matches" hidden>No whitelist entries match that filter.</p>
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>24 packages · 3 active requirements · 3 decisions</p>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+[
+  {
+    "id": "pkg-fastify-deepmerge",
+    "name": "@fastify/deepmerge",
+    "ecosystem": "npm",
+    "latest_version": "3.2.4",
+    "published_at": "2026-10-22",
+    "repo": "https://github.com/fastify/deepmerge",
+    "registry": "https://www.npmjs.com/package/@fastify/deepmerge",
+    "license": "MIT",
+    "weekly_downloads": 3686550,
+    "runtime_deps": 0,
+    "install_size_kb": 36,
+    "unpacked_size_kb": 21,
+    "maintainers": [
+      "eomm"
+    ],
+    "types": "bundled",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "CommonJS entry point with bundled .d.ts. Default import works from ESM via Node interop. Org-owned by the Fastify project.",
+    "npm_provenance": true
+  },
+  {
+    "id": "pkg-deepmerge-ts",
+    "name": "deepmerge-ts",
+    "ecosystem": "npm",
+    "latest_version": "8.0.2",
+    "published_at": "2026-08-21",
+    "repo": "https://github.com/RebeccaStevens/deepmerge-ts",
+    "registry": "https://www.npmjs.com/package/deepmerge-ts",
+    "license": "BSD-3-Clause",
+    "weekly_downloads": 13619969,
+    "runtime_deps": 0,
+    "install_size_kb": 280,
+    "unpacked_size_kb": 259,
+    "maintainers": [
+      "rebeccastevens"
+    ],
+    "types": "bundled",
+    "formats": [
+      "dual"
+    ],
+    "notes": "Dual ESM/CJS with an exports map. Best-in-class type inference; handles circular references and merges Map/Set.",
+    "npm_provenance": true
+  },
+  {
+    "id": "pkg-defu",
+    "name": "defu",
+    "ecosystem": "npm",
+    "latest_version": "6.1.7",
+    "published_at": "2026-04-07",
+    "repo": "https://github.com/unjs/defu",
+    "registry": "https://www.npmjs.com/package/defu",
+    "license": "MIT",
+    "weekly_downloads": 29321324,
+    "runtime_deps": 0,
+    "install_size_kb": 48,
+    "unpacked_size_kb": 20,
+    "maintainers": [
+      "pi0"
+    ],
+    "types": "bundled",
+    "formats": [
+      "dual"
+    ],
+    "notes": "Implements defaults semantics: existing target values win, so it is not a general-purpose overwrite merge. Part of the unjs ecosystem.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-ts-deepmerge",
+    "name": "ts-deepmerge",
+    "ecosystem": "npm",
+    "latest_version": "8.0.0",
+    "published_at": "2026-05-22",
+    "repo": "https://github.com/voodoocreation/ts-deepmerge",
+    "registry": "https://www.npmjs.com/package/ts-deepmerge",
+    "license": "ISC",
+    "weekly_downloads": 2335439,
+    "runtime_deps": 0,
+    "install_size_kb": 32,
+    "unpacked_size_kb": 13,
+    "maintainers": [
+      "voodoocreation"
+    ],
+    "types": "bundled",
+    "formats": [
+      "dual"
+    ],
+    "notes": "Small and type-friendly, but the repository contains no .github directory at all, so releases are not CI-driven.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-deepmerge",
+    "name": "deepmerge",
+    "ecosystem": "npm",
+    "latest_version": "4.3.1",
+    "published_at": "2023-03-16",
+    "repo": "https://github.com/TehShrike/deepmerge",
+    "registry": "https://www.npmjs.com/package/deepmerge",
+    "license": "MIT",
+    "weekly_downloads": 59481723,
+    "runtime_deps": 0,
+    "install_size_kb": 64,
+    "unpacked_size_kb": 30,
+    "maintainers": [
+      "tehshrike"
+    ],
+    "types": "unresolved",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Ships index.d.ts but declares no types/typings field, so TypeScript does not resolve it; most consumers install @types/deepmerge. Affected by CVE-2026-93753 with no fix released.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-lodash-merge",
+    "name": "lodash.merge",
+    "ecosystem": "npm",
+    "latest_version": "4.6.2",
+    "published_at": "2019-07-10",
+    "repo": "https://github.com/lodash/lodash",
+    "registry": "https://www.npmjs.com/package/lodash.merge",
+    "license": "MIT",
+    "weekly_downloads": 72924041,
+    "runtime_deps": 0,
+    "install_size_kb": 68,
+    "unpacked_size_kb": 53,
+    "maintainers": [
+      "jdalton",
+      "mathias"
+    ],
+    "types": "@types",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Sub-package of lodash, frozen since 2019. No bundled types; requires @types/lodash.merge.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-deep-extend",
+    "name": "deep-extend",
+    "ecosystem": "npm",
+    "latest_version": "0.6.0",
+    "published_at": "2018-05-22",
+    "repo": "https://github.com/unclechu/node-deep-extend",
+    "registry": "https://www.npmjs.com/package/deep-extend",
+    "license": "MIT",
+    "weekly_downloads": 26806300,
+    "runtime_deps": 0,
+    "install_size_kb": null,
+    "unpacked_size_kb": 9,
+    "maintainers": [
+      "unclechu"
+    ],
+    "types": "none",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Not updated since 2018. Historical critical prototype-pollution advisory CVE-2018-3750.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-merge-anything",
+    "name": "merge-anything",
+    "ecosystem": "npm",
+    "latest_version": "6.0.9",
+    "published_at": "2026-09-30",
+    "repo": "https://github.com/mesqueeb/merge-anything",
+    "registry": "https://www.npmjs.com/package/merge-anything",
+    "license": "MIT",
+    "weekly_downloads": 1339189,
+    "runtime_deps": 1,
+    "install_size_kb": 472,
+    "unpacked_size_kb": 35,
+    "maintainers": [
+      "mesqueeb"
+    ],
+    "types": "none",
+    "formats": [
+      "esm"
+    ],
+    "notes": "ESM-only with one runtime dependency (is-what) and no published type declarations. Replaces arrays instead of concatenating.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-merge-deep",
+    "name": "merge-deep",
+    "ecosystem": "npm",
+    "latest_version": "3.0.3",
+    "published_at": "2021-01-11",
+    "repo": "https://github.com/jonschlinkert/merge-deep",
+    "registry": "https://www.npmjs.com/package/merge-deep",
+    "license": "MIT",
+    "weekly_downloads": 1150484,
+    "runtime_deps": 3,
+    "install_size_kb": 296,
+    "unpacked_size_kb": 8,
+    "maintainers": [
+      "jonschlinkert",
+      "doowb"
+    ],
+    "types": "none",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Three direct dependencies expand to 13 installed packages. No release since 2021.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-stackline-deepmerge",
+    "name": "@stackline/deepmerge",
+    "ecosystem": "npm",
+    "latest_version": "1.1.0",
+    "published_at": "2026-10-13",
+    "repo": "https://github.com/alexandroit/stackline-deepmerge",
+    "registry": "https://www.npmjs.com/package/@stackline/deepmerge",
+    "license": "MIT",
+    "weekly_downloads": 246,
+    "runtime_deps": 0,
+    "install_size_kb": null,
+    "unpacked_size_kb": 257,
+    "maintainers": [
+      "aleinfoit"
+    ],
+    "types": "bundled",
+    "formats": [
+      "dual"
+    ],
+    "notes": "New fork that markets itself as a drop-in deepmerge 4 replacement with CVE-2026-93753 fixed. Single maintainer, near-zero adoption, not independently reviewed.",
+    "npm_provenance": true
+  },
+  {
+    "id": "pkg-corex-deepmerge",
+    "name": "@corex/deepmerge",
+    "ecosystem": "npm",
+    "latest_version": "4.0.43",
+    "published_at": "2023-04-12",
+    "repo": null,
+    "registry": "https://www.npmjs.com/package/@corex/deepmerge",
+    "license": "MIT",
+    "weekly_downloads": 383517,
+    "runtime_deps": 0,
+    "install_size_kb": null,
+    "unpacked_size_kb": 17,
+    "maintainers": [
+      "iamvishnusankar"
+    ],
+    "types": "bundled",
+    "formats": [
+      "dual"
+    ],
+    "notes": "No repository URL published to npm, so provenance and source review are impossible. No release since 2023.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-75lb-deep-merge",
+    "name": "@75lb/deep-merge",
+    "ecosystem": "npm",
+    "latest_version": "1.1.5",
+    "published_at": "2026-10-14",
+    "repo": "https://github.com/75lb/deep-merge",
+    "registry": "https://www.npmjs.com/package/@75lb/deep-merge",
+    "license": "MIT",
+    "weekly_downloads": 382724,
+    "runtime_deps": 2,
+    "install_size_kb": null,
+    "unpacked_size_kb": 55,
+    "maintainers": [
+      "75lb"
+    ],
+    "types": "none",
+    "formats": [
+      "esm"
+    ],
+    "notes": "Depends on lodash and typical, reintroducing the dependency tree this task is trying to avoid. ESM-only.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-assistant-ui-react",
+    "name": "@assistant-ui/react",
+    "ecosystem": "npm",
+    "latest_version": "0.15.31",
+    "published_at": "2026-10-22",
+    "repo": "https://github.com/assistant-ui/assistant-ui",
+    "registry": "https://www.npmjs.com/package/@assistant-ui/react",
+    "license": "MIT",
+    "weekly_downloads": 1218978,
+    "runtime_deps": 10,
+    "install_size_kb": 54460,
+    "unpacked_size_kb": 2771,
+    "maintainers": [
+      "yonom",
+      "okisdev",
+      "agentbase-bot"
+    ],
+    "types": "bundled",
+    "formats": [
+      "esm"
+    ],
+    "notes": "Main entry point for the assistant-ui suite. ESM-only with bundled types and React 18/19 peers. Measured 54.5 MB install and ~135 KB gzip for a minimal runtime plus thread primitive bundle. 0.x versioning with roughly 30 releases per quarter.",
+    "npm_provenance": true
+  },
+  {
+    "id": "pkg-assistant-ui-core",
+    "name": "@assistant-ui/core",
+    "ecosystem": "npm",
+    "latest_version": "0.3.31",
+    "published_at": "2026-10-22",
+    "repo": "https://github.com/assistant-ui/assistant-ui",
+    "registry": "https://www.npmjs.com/package/@assistant-ui/core",
+    "license": "MIT",
+    "weekly_downloads": 1022872,
+    "runtime_deps": 3,
+    "install_size_kb": 21656,
+    "unpacked_size_kb": 9865,
+    "maintainers": [
+      "yonom",
+      "okisdev",
+      "agentbase-bot"
+    ],
+    "types": "bundled",
+    "formats": [
+      "esm"
+    ],
+    "notes": "Required runtime beneath @assistant-ui/react; installed automatically. Declares @assistant-ui/store and @assistant-ui/tap as required peers. Ships src and source maps, hence the 9.9 MB unpacked size. Measured 21.7 MB install with React.",
+    "npm_provenance": true
+  },
+  {
+    "id": "pkg-assistant-ui-tap",
+    "name": "@assistant-ui/tap",
+    "ecosystem": "npm",
+    "latest_version": "0.9.24",
+    "published_at": "2026-10-19",
+    "repo": "https://github.com/assistant-ui/assistant-ui",
+    "registry": "https://www.npmjs.com/package/@assistant-ui/tap",
+    "license": "MIT",
+    "weekly_downloads": 1264485,
+    "runtime_deps": 0,
+    "install_size_kb": 1872,
+    "unpacked_size_kb": 752,
+    "maintainers": [
+      "yonom",
+      "okisdev",
+      "agentbase-bot"
+    ],
+    "types": "bundled",
+    "formats": [
+      "esm"
+    ],
+    "notes": "React hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked. Required peer of core and store; not intended as a direct application dependency.",
+    "npm_provenance": true
+  },
+  {
+    "id": "pkg-assistant-ui-react-markdown",
+    "name": "@assistant-ui/react-markdown",
+    "ecosystem": "npm",
+    "latest_version": "0.14.24",
+    "published_at": "2026-10-22",
+    "repo": "https://github.com/assistant-ui/assistant-ui",
+    "registry": "https://www.npmjs.com/package/@assistant-ui/react-markdown",
+    "license": "MIT",
+    "weekly_downloads": 563507,
+    "runtime_deps": 5,
+    "install_size_kb": 63172,
+    "unpacked_size_kb": 426,
+    "maintainers": [
+      "yonom",
+      "okisdev",
+      "agentbase-bot"
+    ],
+    "types": "bundled",
+    "formats": [
+      "esm"
+    ],
+    "notes": "Optional markdown renderer built on react-markdown 10.1. Adds about 87 packages and ~72 KB gzip to the bundle. Raw HTML is not enabled by default. Family alternatives: react-streamdown and react-syntax-highlighter. Measured 63.2 MB install with React.",
+    "npm_provenance": true
+  },
+  {
+    "id": "pkg-assistant-ui-store",
+    "name": "@assistant-ui/store",
+    "ecosystem": "npm",
+    "latest_version": "0.3.22",
+    "published_at": "2026-10-19",
+    "repo": "https://github.com/assistant-ui/assistant-ui",
+    "registry": "https://www.npmjs.com/package/@assistant-ui/store",
+    "license": "MIT",
+    "weekly_downloads": 1100921,
+    "runtime_deps": 0,
+    "install_size_kb": 2956,
+    "unpacked_size_kb": 758,
+    "maintainers": [
+      "yonom",
+      "okisdev",
+      "agentbase-bot"
+    ],
+    "types": "bundled",
+    "formats": [
+      "esm"
+    ],
+    "notes": "Required peer of @assistant-ui/core and @assistant-ui/react; installed automatically. Zero dependencies. Added to this review because the other four packages cannot be used without it.",
+    "npm_provenance": true
+  },
+  {
+    "id": "pkg-dompurify",
+    "name": "dompurify",
+    "ecosystem": "npm",
+    "latest_version": "3.4.17",
+    "published_at": "2026-10-12",
+    "repo": "https://github.com/cure53/DOMPurify",
+    "registry": "https://www.npmjs.com/package/dompurify",
+    "license": "MPL-2.0 OR Apache-2.0",
+    "weekly_downloads": 45309875,
+    "runtime_deps": 1,
+    "install_size_kb": 1652,
+    "unpacked_size_kb": 1578,
+    "maintainers": [
+      "cure53"
+    ],
+    "types": "bundled",
+    "formats": [
+      "esm",
+      "cjs",
+      "umd"
+    ],
+    "notes": "Browser-first DOM sanitizer. Dual MPL-2.0/Apache-2.0; choose Apache-2.0. Publishes SLSA provenance and Sigstore signatures on GitHub release artifacts, but npm tarballs carry no provenance. 11.7 KB gzip.",
+    "npm_provenance": false,
+    "provenance_note": "SLSA v1 attestation and Sigstore signatures are attached to GitHub release artifacts. The four dist files shipped in the npm tarball (purify.js, purify.min.js, purify.cjs.js, purify.es.mjs) are byte-identical to the attested SHA-256 subjects, but the npm tarball itself is unattested.",
+    "release_provenance": true,
+    "signed_release": true
+  },
+  {
+    "id": "pkg-sanitize-html",
+    "name": "sanitize-html",
+    "ecosystem": "npm",
+    "latest_version": "2.18.1",
+    "published_at": "2026-10-14",
+    "repo": "https://github.com/apostrophecms/apostrophe/tree/main/packages/sanitize-html",
+    "registry": "https://www.npmjs.com/package/sanitize-html",
+    "license": "MIT",
+    "weekly_downloads": 11350945,
+    "runtime_deps": 6,
+    "install_size_kb": 4132,
+    "unpacked_size_kb": 83,
+    "maintainers": [
+      "alexgilbert",
+      "boutell",
+      "bodonkey"
+    ],
+    "types": "@types",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Parser-based, server-first sanitizer. Default allowedTags excludes img and svg, so allowlists must be configured deliberately. The standalone repository is archived; development continues in the Apostrophe monorepo. No bundled types.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-isomorphic-dompurify",
+    "name": "isomorphic-dompurify",
+    "ecosystem": "npm",
+    "latest_version": "4.6.0",
+    "published_at": "2026-10-16",
+    "repo": "https://github.com/kkomelin/isomorphic-dompurify",
+    "registry": "https://www.npmjs.com/package/isomorphic-dompurify",
+    "license": "MIT",
+    "weekly_downloads": 4632876,
+    "runtime_deps": 2,
+    "install_size_kb": 27424,
+    "unpacked_size_kb": 25,
+    "maintainers": [
+      "kkomelin"
+    ],
+    "types": "bundled",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Runs DOMPurify on jsdom for server-side use. Pulls 27.4 MB and 28 packages, so its exposure includes jsdom's own advisory stream. Single-maintainer wrapper.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-xss",
+    "name": "xss",
+    "ecosystem": "npm",
+    "latest_version": "1.0.17",
+    "published_at": "2026-10-24",
+    "repo": "https://github.com/leizongmin/js-xss",
+    "registry": "https://www.npmjs.com/package/xss",
+    "license": "MIT",
+    "weekly_downloads": 4914109,
+    "runtime_deps": 2,
+    "install_size_kb": 312,
+    "unpacked_size_kb": 154,
+    "maintainers": [
+      "leizongmin"
+    ],
+    "types": "bundled",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Whitelist sanitizer that HTML-escapes disallowed tags instead of stripping them, so blocked markup becomes visible text. No OSV advisories, but no independent advisory coverage either; 70 open issues.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-rehype-sanitize",
+    "name": "rehype-sanitize",
+    "ecosystem": "npm",
+    "latest_version": "6.0.0",
+    "published_at": "2023-08-26",
+    "repo": "https://github.com/rehypejs/rehype-sanitize",
+    "registry": "https://www.npmjs.com/package/rehype-sanitize",
+    "license": "MIT",
+    "weekly_downloads": 6385820,
+    "runtime_deps": 2,
+    "install_size_kb": 296,
+    "unpacked_size_kb": 20,
+    "maintainers": [
+      "remcohaszing",
+      "wooorm",
+      "kmck"
+    ],
+    "types": "bundled",
+    "formats": [
+      "esm"
+    ],
+    "notes": "Schema-based sanitizer for the unified/rehype pipeline. Built on hast-util-sanitize 5.0.2. Stable but no release since 2023, and it only applies to HAST, not raw HTML strings.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-insane",
+    "name": "insane",
+    "ecosystem": "npm",
+    "latest_version": "2.6.2",
+    "published_at": "2016-09-19",
+    "repo": "https://github.com/bevacqua/insane",
+    "registry": "https://www.npmjs.com/package/insane",
+    "license": "MIT",
+    "weekly_downloads": 82263,
+    "runtime_deps": 2,
+    "install_size_kb": 696,
+    "unpacked_size_kb": null,
+    "maintainers": [
+      "bevacqua"
+    ],
+    "types": "none",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Abandoned since 2016. Carries an unfixed ReDoS advisory (GHSA-w455-mfq9-hf74) and has no type declarations.",
+    "npm_provenance": false
+  },
+  {
+    "id": "pkg-sanitizer",
+    "name": "sanitizer",
+    "ecosystem": "npm",
+    "latest_version": "0.1.3",
+    "published_at": "2015-12-15",
+    "repo": "https://github.com/theSmaw/Caja-HTML-Sanitizer",
+    "registry": "https://www.npmjs.com/package/sanitizer",
+    "license": "Apache-2.0",
+    "weekly_downloads": 200722,
+    "runtime_deps": 0,
+    "install_size_kb": 100,
+    "unpacked_size_kb": null,
+    "maintainers": [
+      "thesmaw"
+    ],
+    "types": "none",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Google Caja's HTML sanitizer, last released in 2015. Zero dependencies but abandoned for a decade.",
+    "npm_provenance": false
+  }
+]

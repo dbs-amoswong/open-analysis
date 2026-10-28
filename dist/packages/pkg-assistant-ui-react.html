@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@assistant-ui/react 0.15.31 · Package Review Board</title>
+<meta name="description" content="Main entry point for the assistant-ui suite. ESM-only with bundled types and React 18/19 peers. Measured 54.5 MB install and ~135 KB gzip for a minimal runtime plus thread primitive bundle. 0.x versioning with roughly 30 releases per quarter.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link" href="../index.html">Overview</a>
+    <a class="nav-link" href="../requirements/index.html">Requirements</a>
+    <a class="nav-link is-active" href="../packages/index.html" aria-current="page">Packages</a>
+    <a class="nav-link" href="../whitelist.html">Whitelist</a>
+    <a class="nav-link" href="../method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../packages/index.html">Packages</a><span class="crumb-sep">/</span><span aria-current="page">@assistant-ui/react</span></nav>
+
+<header class="pkg-head">
+  <div>
+    <p class="eyebrow">npm · MIT</p>
+    <h1>@assistant-ui/react <span class="version version-lg">0.15.31</span></h1>
+    <p class="lede">Main entry point for the assistant-ui suite. ESM-only with bundled types and React 18/19 peers. Measured 54.5 MB install and ~135 KB gzip for a minimal runtime plus thread primitive bundle. 0.x versioning with roughly 30 releases per quarter.</p>
+  </div>
+  <div class="pkg-verdict">
+    <span class="pill pill-ok">Adopt</span>
+    <span class="pill pill-warn">Medium risk</span>
+    <span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span>
+    <span class="pill pill-ok">Adopted</span>
+  </div>
+</header>
+
+
+
+<section class="meta-grid" aria-label="Package metadata">
+  <div><span>Last release</span><strong>22 Oct 2026</strong></div>
+  <div><span>Weekly downloads</span><strong>1,218,978</strong></div>
+  <div><span>Runtime deps</span><strong>10</strong></div>
+  <div><span>Install size</span><strong>54.5 MB</strong></div>
+  <div><span>Unpacked</span><strong>2.8 MB</strong></div>
+  <div><span>Maintainers</span><strong>yonom, okisdev, agentbase-bot</strong></div>
+  <div><span>Types</span><strong>bundled</strong></div>
+  <div><span>Formats</span><strong>esm</strong></div>
+  <div><span>License</span><strong><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></strong></div>
+  <div><span>Provenance</span><strong><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></strong></div>
+  <div class="meta-links">
+    <span>Links</span>
+    <strong><a href="https://github.com/assistant-ui/assistant-ui" rel="noreferrer noopener">Repository</a> · <a href="https://www.npmjs.com/package/@assistant-ui/react" rel="noreferrer noopener">npm</a></strong>
+  </div>
+</section>
+
+
+<div class="two-col">
+  <section class="panel">
+    <div class="panel-head"><h2>Verdict</h2><span class="muted small">Reviewed 27 Oct 2026 · next 25 Jan 2027</span></div>
+    <p class="prose">The entry point and the only package most apps import. Supply chain is strong: OIDC trusted publishing, SLSA provenance, no install scripts anywhere in the 183-package tree. The costs are 10 direct dependencies, a 54 MB install, about 135 KB gzip, and 0.x churn of roughly 30 releases per quarter.</p>
+    <div class="review-meta">
+      <span class="pill pill-ok">Current</span>
+      <span class="muted small">Requirement: <a href="../requirements/assistant-ui.html">In-app AI assistant chat interface (React)</a></span>
+    </div>
+    <h3 class="sub-head">Reasoning</h3>
+    <ol class="reasoning"><li>Publishing uses OIDC trusted publishing from a protected npm Publish environment. The publish job installs only the Changesets CLI with --ignore-scripts and publishes pre-built tarballs, so no package build runs with publishing credentials.</li><li>SLSA provenance for 0.15.31 resolves to assistant-ui/assistant-ui, workflow .github/workflows/npm-publish.yaml, ref refs/heads/main.</li><li>The full installed tree is 183 packages: 178 MIT, one ISC, one BSD-3-Clause and one 0BSD, with zero install or postinstall scripts.</li><li>React 18 and 19 are both declared and tested by a dedicated react18-weekly workflow; types are bundled.</li><li>OSV returns no advisories for any of the suite&#39;s latest versions.</li><li>Measured about 135 KB gzip for a minimal bundle of AssistantRuntimeProvider + ThreadPrimitive + useLocalRuntime, excluding React.</li></ol>
+    <h3 class="sub-head">Caveats</h3><ul class="caveats"><li>ESM-only. require() works on Node 22.12+ (verified on Node 24) but not on older CommonJS runtimes.</li><li>0.x versioning: 460 published versions and about 30 releases in the last 90 days. Pin exact versions and upgrade deliberately; ^0.15.x only permits patches.</li><li>10 direct dependencies including zod, zustand, radix-ui, assistant-cloud and assistant-stream.</li><li>One npm maintainer is an automation account (agentbase-bot). Publishing is gated by the GitHub environment, but the account still holds package access.</li><li>54 MB install standalone and 63 MB for the full suite; most of that is source and source maps that bundlers discard.</li></ul>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2>Evidence</h2><span class="muted small">10 checks</span></div>
+    <div class="table-wrap">
+      <table class="data-table evidence-table">
+        <thead><tr><th>Check</th><th>Status</th><th>Detail</th></tr></thead>
+        <tbody><tr>
+  <td><code>publish_pipeline</code><br><span class="muted small">CI publish pipeline</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>OIDC trusted publishing (id-token: write) from a protected npm Publish environment, build and publish split into separate jobs, --ignore-scripts in the publish job, actions pinned to commit SHAs.<div class="sources"><a href="https://github.com/assistant-ui/assistant-ui/blob/main/.github/workflows/npm-publish.yaml" rel="noreferrer noopener">npm-publish.yaml</a></div></td>
+</tr><tr>
+  <td><code>provenance</code><br><span class="muted small">SLSA provenance</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>SLSA v1 attestation for 0.15.31: builder actions/runner/github-hosted, source assistant-ui/assistant-ui, workflow .github/workflows/npm-publish.yaml.</td>
+</tr><tr>
+  <td><code>cve</code><br><span class="muted small">Known advisories</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>OSV package query returns no advisories for 0.15.31.</td>
+</tr><tr>
+  <td><code>dependencies</code><br><span class="muted small">Dependency footprint</span></td>
+  <td><span class="pill pill-warn">Warn</span></td>
+  <td>10 direct dependencies, 183 packages installed, 54 MB standalone, 63 MB with markdown. Largest contributors: @assistant-ui/core 14 MB, zod 8 MB, react-dom 8 MB, radix-ui 6 MB.</td>
+</tr><tr>
+  <td><code>install_scripts</code><br><span class="muted small">Install scripts</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>No preinstall, install or postinstall scripts in any of the 183 installed packages.</td>
+</tr><tr>
+  <td><code>license</code><br><span class="muted small">License</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>MIT. Tree is entirely permissive: 178 MIT, 1 ISC, 1 BSD-3-Clause, 1 0BSD.</td>
+</tr><tr>
+  <td><code>maintenance</code><br><span class="muted small">Maintenance</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>0.15.31 published 2026-10-22; commits on 2026-10-27; 12.8k stars; 26 open issues; 27 CI workflows including CodeQL.</td>
+</tr><tr>
+  <td><code>types</code><br><span class="muted small">TypeScript types</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>Bundled dist/index.d.ts with exports map.</td>
+</tr><tr>
+  <td><code>behaviour</code><br><span class="muted small">Runtime behaviour</span></td>
+  <td><span class="pill pill-warn">Warn</span></td>
+  <td>ESM-only; ~135 KB gzip minimal bundle; 0.x API surface with roughly 30 releases per quarter.</td>
+</tr><tr>
+  <td><code>telemetry</code><br><span class="muted small">Telemetry</span></td>
+  <td><span class="pill pill-ok">Pass</span></td>
+  <td>Cloud client and telemetry are opt-in: AssistantCloud is only re-exported and must be constructed and passed explicitly. No default network calls found; base endpoint is backend.assistant-api.com.</td>
+</tr></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<section class="panel">
+  <div class="panel-head"><h2>Alternatives in this requirement</h2></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>Summary</th></tr></thead>
+      <tbody><tr>
+  <td><a href="pkg-assistant-ui-store.html">@assistant-ui/store</a> <span class="version">0.3.22</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="muted small">Required peer of core and react, and the only addition beyond the four requested packages. Zero dependencies, provenance-signed, 1…</td>
+</tr><tr>
+  <td><a href="pkg-assistant-ui-core.html">@assistant-ui/core</a> <span class="version">0.3.31</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 82 of 100"><span class="score-num">82</span><span class="score-track"><span class="score-fill score-ok" style="width:82%"></span></span></span></td>
+  <td class="muted small">Required runtime beneath @assistant-ui/react; you get it automatically. Same pipeline and provenance, only three runtime dependenc…</td>
+</tr><tr>
+  <td><a href="pkg-assistant-ui-tap.html">@assistant-ui/tap</a> <span class="version">0.9.24</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 79 of 100"><span class="score-num">79</span><span class="score-track"><span class="score-fill score-warn" style="width:79%"></span></span></span></td>
+  <td class="muted small">React&#39;s hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked, provenance-signed, an…</td>
+</tr><tr>
+  <td><a href="pkg-assistant-ui-react-markdown.html">@assistant-ui/react-markdown</a> <span class="version">0.14.24</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 76 of 100"><span class="score-num">76</span><span class="score-track"><span class="score-fill score-warn" style="width:76%"></span></span></span></td>
+  <td class="muted small">Optional markdown renderer built on react-markdown 10.1. Adopt only if formatted assistant output is needed: it adds about 87 pack…</td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Decision context</h2><span class="pill pill-ok">Approved</span></div>
+  <p class="prose"><strong>@assistant-ui/react</strong> is the primary choice for <a href="../requirements/assistant-ui.html">In-app AI assistant chat interface (React)</a>. This package is classified as <span class="pill pill-ok">Adopted</span>.</p>
+  <p class="prose muted">Adopt @assistant-ui/react as the single direct dependency, plus @assistant-ui/react-markdown only if formatted assistant output is required. @assistant-ui/core, @assistant-ui/tap and @assistant-ui/store arrive transitively and must be allowlisted because they are required peers, not optional extras; @assistant-ui/store was missing from the original four-package list. All five are MIT, provenance-signed, free of install scripts and advisories, and the repository publishes through OIDC trusted publishing with a protected environment. The residual risks are footprint (63 MB full install, about 135 KB gzip) and 0.x churn (roughly 30 releases per quarter), so pin exact versions, import only from @assistant-ui/react, keep rehype-raw disabled, and re-review on the 90-day cadence.</p>
+</section>
+
+
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>24 packages · 3 active requirements · 3 decisions</p>
+</footer>
+<script src="../app.js" defer></script>
+</body>
+</html>

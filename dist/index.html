@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview · Package Review Board</title>
+<meta name="description" content="Package whitelist decisions with the evidence behind each verdict.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link is-active" href="index.html" aria-current="page">Overview</a>
+    <a class="nav-link" href="requirements/index.html">Requirements</a>
+    <a class="nav-link" href="packages/index.html">Packages</a>
+    <a class="nav-link" href="whitelist.html">Whitelist</a>
+    <a class="nav-link" href="method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<header class="page-head">
+  <p class="eyebrow">Whitelist status</p>
+  <h1>Package decisions, backed by evidence.</h1>
+  <p class="lede">Each requirement lists the candidates we reviewed, the verdict for each, and what to adopt or drop. Data is JSON in git; this site is generated from it.</p>
+  <div class="head-meta"><span class="chip">24 packages reviewed</span><span class="chip">3 decisions</span><span class="chip">0 items need attention</span></div>
+</header>
+
+<section class="stats" aria-label="Summary">
+  <div class="stat">
+  <span class="stat-label">Active requirements</span>
+  <span class="stat-value">3</span>
+  <span class="stat-hint">Tasks with a whitelist decision</span>
+</div>
+  <div class="stat stat-ok">
+  <span class="stat-label">Adopted</span>
+  <span class="stat-value">10</span>
+  <span class="stat-hint">Approved for use</span>
+</div>
+  <div class="stat stat-bad">
+  <span class="stat-label">Dropped</span>
+  <span class="stat-value">1</span>
+  <span class="stat-hint">Must be removed</span>
+</div>
+  <div class="stat stat-warn">
+  <span class="stat-label">On hold</span>
+  <span class="stat-value">5</span>
+  <span class="stat-hint">Not approved, not banned</span>
+</div>
+  <div class="stat">
+  <span class="stat-label">Overdue</span>
+  <span class="stat-value">0</span>
+  <span class="stat-hint">Reviews or decisions past due</span>
+</div>
+  <div class="stat">
+  <span class="stat-label">Due soon</span>
+  <span class="stat-value">0</span>
+  <span class="stat-hint">Within the next 30 days</span>
+</div>
+  <div class="stat stat-ok">
+  <span class="stat-label">npm provenance</span>
+  <span class="stat-value">8</span>
+  <span class="stat-hint">1 release-only · 15 none</span>
+</div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Needs attention</h2></div>
+  <div class="empty">
+    <span class="empty-icon" aria-hidden="true">✓</span>
+    <div>
+      <strong>Nothing overdue or expiring.</strong>
+      <p>Next scheduled review is 25 Jan 2027.</p>
+    </div>
+  </div>
+</section>
+<section class="panel decision-digest">
+  <div class="panel-head">
+    <h2>Latest decision</h2>
+    <span class="pill pill-ok">Approved</span>
+  </div>
+  <div class="digest-grid">
+    <div class="digest-card digest-ok">
+      <span class="digest-kicker">Adopt</span>
+      <strong><a class="pkg-link" href="packages/pkg-dompurify.html">dompurify</a></strong>
+      <span class="muted">3.4.17 · MPL-2.0 OR Apache-2.0</span>
+      <span class="digest-foot">Also adopted: sanitize-html, rehype-sanitize</span>
+    </div>
+    
+    <div class="digest-card">
+      <span class="digest-kicker">Requirement</span>
+      <strong><a href="requirements/html-sanitize.html">Sanitize untrusted HTML before rendering</a></strong>
+      <span class="muted">Re-review by 25 Jan 2027</span>
+    </div>
+  </div>
+</section>
+<section class="panel">
+  <div class="panel-head"><h2>Whitelist decisions</h2></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Requirement</th><th>Primary</th><th>Status</th><th>Expires</th><th>Buckets</th></tr></thead>
+      <tbody><tr>
+  <td><a href="requirements/deep-merge.html">Deep merge of nested configuration objects</a></td>
+  <td><a class="pkg-link" href="packages/pkg-fastify-deepmerge.html">@fastify/deepmerge</a></td>
+  <td><span class="pill pill-ok">Approved</span> <span class="pill pill-ok">Active</span></td>
+  <td class="nowrap">18 Apr 2027<br><span class="muted small">in 172 days</span></td>
+  <td class="bucket-counts">
+    <span class="mini mini-ok">2 adopted</span>
+    <span class="mini mini-bad">1 dropped</span>
+    <span class="mini mini-warn">3 hold</span>
+    <span class="mini mini-neutral">6 rejected</span>
+  </td>
+</tr><tr>
+  <td><a href="requirements/assistant-ui.html">In-app AI assistant chat interface (React)</a></td>
+  <td><a class="pkg-link" href="packages/pkg-assistant-ui-react.html">@assistant-ui/react</a></td>
+  <td><span class="pill pill-ok">Approved</span> <span class="pill pill-ok">Active</span></td>
+  <td class="nowrap">25 Jan 2027<br><span class="muted small">in 89 days</span></td>
+  <td class="bucket-counts">
+    <span class="mini mini-ok">5 adopted</span>
+    <span class="mini mini-bad">0 dropped</span>
+    <span class="mini mini-warn">0 hold</span>
+    <span class="mini mini-neutral">0 rejected</span>
+  </td>
+</tr><tr>
+  <td><a href="requirements/html-sanitize.html">Sanitize untrusted HTML before rendering</a></td>
+  <td><a class="pkg-link" href="packages/pkg-dompurify.html">dompurify</a></td>
+  <td><span class="pill pill-ok">Approved</span> <span class="pill pill-ok">Active</span></td>
+  <td class="nowrap">25 Jan 2027<br><span class="muted small">in 89 days</span></td>
+  <td class="bucket-counts">
+    <span class="mini mini-ok">3 adopted</span>
+    <span class="mini mini-bad">0 dropped</span>
+    <span class="mini mini-warn">2 hold</span>
+    <span class="mini mini-neutral">2 rejected</span>
+  </td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+<section class="panel">
+  <div class="panel-head"><h2>Recent reviews</h2><a class="panel-link" href="packages/index.html">All packages</a></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>Reviewed</th><th>Cadence</th></tr></thead>
+      <tbody><tr>
+  <td><a class="pkg-link" href="packages/pkg-dompurify.html">dompurify</a><br><span class="muted small">3.4.17</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 88 of 100"><span class="score-num">88</span><span class="score-track"><span class="score-fill score-ok" style="width:88%"></span></span></span></td>
+  <td class="nowrap">27 Oct 2026</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr>
+  <td><a class="pkg-link" href="packages/pkg-assistant-ui-react.html">@assistant-ui/react</a><br><span class="muted small">0.15.31</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="nowrap">27 Oct 2026</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr>
+  <td><a class="pkg-link" href="packages/pkg-assistant-ui-store.html">@assistant-ui/store</a><br><span class="muted small">0.3.22</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="nowrap">27 Oct 2026</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr>
+  <td><a class="pkg-link" href="packages/pkg-assistant-ui-core.html">@assistant-ui/core</a><br><span class="muted small">0.3.31</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 82 of 100"><span class="score-num">82</span><span class="score-track"><span class="score-fill score-ok" style="width:82%"></span></span></span></td>
+  <td class="nowrap">27 Oct 2026</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr>
+  <td><a class="pkg-link" href="packages/pkg-sanitize-html.html">sanitize-html</a><br><span class="muted small">2.18.1</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 80 of 100"><span class="score-num">80</span><span class="score-track"><span class="score-fill score-ok" style="width:80%"></span></span></span></td>
+  <td class="nowrap">27 Oct 2026</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr>
+  <td><a class="pkg-link" href="packages/pkg-assistant-ui-tap.html">@assistant-ui/tap</a><br><span class="muted small">0.9.24</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 79 of 100"><span class="score-num">79</span><span class="score-track"><span class="score-fill score-warn" style="width:79%"></span></span></span></td>
+  <td class="nowrap">27 Oct 2026</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>24 packages · 3 active requirements · 3 decisions</p>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>

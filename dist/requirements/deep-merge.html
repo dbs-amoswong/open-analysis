@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deep merge of nested configuration objects · Package Review Board</title>
+<meta name="description" content="Merge layered configuration (defaults, environment file, request overrides) without mutating the inputs. Inputs can originate from parsed JSON, so the merge must not allow an attacker to control the prototype of the returned object.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link" href="../index.html">Overview</a>
+    <a class="nav-link is-active" href="../requirements/index.html" aria-current="page">Requirements</a>
+    <a class="nav-link" href="../packages/index.html">Packages</a>
+    <a class="nav-link" href="../whitelist.html">Whitelist</a>
+    <a class="nav-link" href="../method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../requirements/index.html">Requirements</a><span class="crumb-sep">/</span><span aria-current="page">Deep merge of nested configuration objects</span></nav>
+
+<header class="page-head">
+  <p class="eyebrow">Requirement · high criticality</p>
+  <h1>Deep merge of nested configuration objects</h1>
+  <p class="lede">Merge layered configuration (defaults, environment file, request overrides) without mutating the inputs. Inputs can originate from parsed JSON, so the merge must not allow an attacker to control the prototype of the returned object.</p>
+  <div class="head-meta"><span class="chip">Owner: platform-security</span><span class="chip">Cadence: 180 days</span><span class="chip">Created 20 Oct 2026</span><span class="chip">12 candidates</span></div>
+</header>
+
+<section class="verdict">
+  <div class="verdict-main">
+    <div class="verdict-top">
+      <span class="verdict-label">Decision</span>
+      <span class="pill pill-ok">Approved</span><span class="pill pill-ok">Active</span>
+    </div>
+    <h2>Adopt <a href="../packages/pkg-fastify-deepmerge.html">@fastify/deepmerge</a></h2>
+    <p>Only candidate that satisfies every constraint: OIDC trusted publishing with SLSA provenance, zero dependencies, bundled types, active maintenance, and not affected by CVE-2026-93753. Also the fastest in the benchmark.</p>
+    <div class="verdict-meta">
+      <span><strong>Re-review by</strong> 18 Apr 2027</span>
+      <span><strong>Decided</strong> 20 Oct 2026 by platform-security</span>
+      <span><strong>Also adopted</strong> deepmerge-ts</span>
+    </div>
+  </div>
+  <div class="verdict-drop">
+    <span class="verdict-kicker">Drop</span>
+    <strong>deepmerge</strong>
+    <span class="muted">by 31 Dec 2026</span>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Candidate comparison</h2><span class="muted small">Latest review per package</span></div>
+  <div class="table-wrap">
+    <table class="data-table data-table-wide" data-filterable data-filter-target="candidates">
+      <thead><tr>
+        <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>CI</th><th>Advisories</th><th>Reviewed</th>
+      </tr></thead>
+      <tbody><tr data-search="@fastify/deepmerge adopt low adopted" data-group="adopt">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-fastify-deepmerge.html">@fastify/deepmerge</a>
+    <span class="version">3.2.4</span>
+    
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 92 of 100"><span class="score-num">92</span><span class="score-track"><span class="score-fill score-ok" style="width:92%"></span></span></span></td>
+  <td class="num">3.7M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td><div class="badges"><span class="mini mini-ok" title="workflow_dispatch -&gt; fastify/workflows reusable-release.yml, protected release environment, npm publish --provenance --access public, actions pinned to commit SHAs, no NPM_TOKEN.">CI <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td><div class="badges"><span class="mini mini-ok" title="Reproduced variants 1-4 against 3.2.4; all blocked. OSV package query returns no advisories.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="deepmerge-ts adopt low adopted" data-group="adopt">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-deepmerge-ts.html">deepmerge-ts</a>
+    <span class="version">8.0.2</span>
+    
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 88 of 100"><span class="score-num">88</span><span class="score-track"><span class="score-fill score-ok" style="width:88%"></span></span></span></td>
+  <td class="num">14M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: BSD-3-Clause (permissive)"><span class="license-mark" aria-hidden="true">©</span>BSD-3-Clause</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td><div class="badges"><span class="mini mini-warn" title="release.yml runs on push to main after all lint/test/typecheck jobs, then pnpm release (semantic-release). Authenticates with secrets.NPM_TOKEN.">CI <span class="ev ev-warn" aria-label="Warn">!</span></span></div></td>
+  <td><div class="badges"><span class="mini mini-ok" title="All four bypass variants blocked; __proto__ is retained as an own key rather than applied as a prototype.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="defu hold medium hold" data-group="hold">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-defu.html">defu</a>
+    <span class="version">6.1.7</span>
+    
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 71 of 100"><span class="score-num">71</span><span class="score-track"><span class="score-fill score-warn" style="width:71%"></span></span></span></td>
+  <td class="num">29M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-bad" title="ci.yml runs lint, build, test:types and vitest with coverage. No release or publish job.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td><div class="badges"><span class="mini mini-ok" title="All four bypass variants blocked.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="merge-anything hold medium hold" data-group="hold">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-merge-anything.html">merge-anything</a>
+    <span class="version">6.0.9</span>
+    
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 66 of 100"><span class="score-num">66</span><span class="score-track"><span class="score-fill score-warn" style="width:66%"></span></span></span></td>
+  <td class="num">1.3M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-bad" title="Only .github/workflows/test.yml; no publish job, no provenance.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td><div class="badges"><span class="mini mini-ok" title="All four bypass variants blocked.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="@75lb/deep-merge hold medium hold" data-group="hold">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-75lb-deep-merge.html">@75lb/deep-merge</a>
+    <span class="version">1.1.5</span>
+    
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 55 of 100"><span class="score-num">55</span><span class="score-track"><span class="score-fill score-bad" style="width:55%"></span></span></span></td>
+  <td class="num">383k</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CVE —</span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="ts-deepmerge avoid high rejected" data-group="avoid">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-ts-deepmerge.html">ts-deepmerge</a>
+    <span class="version">8.0.0</span>
+    
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 62 of 100"><span class="score-num">62</span><span class="score-track"><span class="score-fill score-warn" style="width:62%"></span></span></span></td>
+  <td class="num">2.3M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: ISC (permissive)"><span class="license-mark" aria-hidden="true">©</span>ISC</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-bad" title="No .github directory in the repository; no workflows of any kind. Release is manual.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td><div class="badges"><span class="mini mini-ok" title="All four bypass variants blocked.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="@corex/deepmerge avoid medium rejected" data-group="avoid">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-corex-deepmerge.html">@corex/deepmerge</a>
+    <span class="version">4.0.43</span>
+    
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 45 of 100"><span class="score-num">45</span><span class="score-track"><span class="score-fill score-bad" style="width:45%"></span></span></span></td>
+  <td class="num">384k</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CVE —</span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="merge-deep avoid high rejected" data-group="avoid">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-merge-deep.html">merge-deep</a>
+    <span class="version">3.0.3</span>
+    
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 35 of 100"><span class="score-num">35</span><span class="score-track"><span class="score-fill score-bad" style="width:35%"></span></span></span></td>
+  <td class="num">1.2M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CVE —</span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="lodash.merge avoid high rejected" data-group="avoid">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-lodash-merge.html">lodash.merge</a>
+    <span class="version">4.6.2</span>
+    
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 30 of 100"><span class="score-num">30</span><span class="score-track"><span class="score-fill score-bad" style="width:30%"></span></span></span></td>
+  <td class="num">73M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td><div class="badges"><span class="mini mini-warn" title="GHSA-h726-x36v-rx45 (prototype pollution) fixed in 4.6.2. The parent lodash package has six advisories on 4.17.15 including CVE-2026-2950 and CVE-2026-4800.">CVE <span class="ev ev-warn" aria-label="Warn">!</span></span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="@stackline/deepmerge avoid high rejected" data-group="avoid">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-stackline-deepmerge.html">@stackline/deepmerge</a>
+    <span class="version">1.1.0</span>
+    
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 25 of 100"><span class="score-num">25</span><span class="score-track"><span class="score-fill score-bad" style="width:25%"></span></span></span></td>
+  <td class="num">246</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CVE —</span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="deepmerge avoid critical dropped" data-group="avoid">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-deepmerge.html">deepmerge</a>
+    <span class="version">4.3.1</span>
+    <span class="inline-flag">drop by 31 Dec 2026</span>
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 18 of 100"><span class="score-num">18</span><span class="score-track"><span class="score-fill score-bad" style="width:18%"></span></span></span></td>
+  <td class="num">59M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-bad" title="No GitHub Actions workflows; only a legacy .travis.yml. Releases are manual.">CI <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td><div class="badges"><span class="mini mini-bad" title="Prototype-poisoning guard bypass, CVSS 4.0 8.7 / CVSS 3.1 7.5, CWE-1321. Published 2026-09-18, status Deferred. Reproduced in 4.3.1.">CVE <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="deep-extend avoid critical rejected" data-group="avoid">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-deep-extend.html">deep-extend</a>
+    <span class="version">0.6.0</span>
+    
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 15 of 100"><span class="score-num">15</span><span class="score-track"><span class="score-fill score-bad" style="width:15%"></span></span></span></td>
+  <td class="num">27M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td><div class="badges"><span class="mini mini-neutral" title="Not assessed">CI —</span></div></td>
+  <td><div class="badges"><span class="mini mini-bad" title="CVE-2018-3750, prototype pollution, CVSS critical, fixed only in 0.5.1.">CVE <span class="ev ev-bad" aria-label="Fail">✕</span></span></div></td>
+  <td class="nowrap">20 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+
+<div class="two-col">
+  <section class="panel">
+    <div class="panel-head"><h2>Constraints</h2></div>
+    <ul class="check-list"><li>Zero runtime dependencies</li><li>CI-published with verifiable provenance</li><li>Bundled or resolvable TypeScript types</li><li>No unfixed high or critical advisories</li><li>Active maintenance (release within 12 months)</li><li>Works from both CommonJS and ESM consumers</li></ul>
+    <div class="panel-sub"><h3>Out of scope</h3><ul class="muted-list"><li>Schema validation</li><li>Diffing or patching</li><li>YAML serialisation</li></ul></div>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2>Decision rationale</h2></div>
+    <p class="prose">Adopt @fastify/deepmerge as the primary implementation: it is the only candidate that combines OIDC trusted publishing, SLSA provenance, zero runtime dependencies, bundled types, active maintenance and immunity to CVE-2026-93753. deepmerge-ts is approved as the fallback for cyclic inputs or Map/Set merging, at the cost of a long-lived NPM_TOKEN in its release pipeline. deepmerge is dropped because the vulnerability has no upstream fix and is invisible to npm audit. ts-deepmerge, merge-deep, lodash.merge, @corex/deepmerge, deep-extend and the CVE-fork packages are rejected; defu, merge-anything and @75lb/deep-merge remain on hold and are not approved for this requirement.</p>
+  </section>
+</div>
+
+<section class="panel">
+  <div class="panel-head"><h2>Buckets</h2><span class="muted small">Every reviewed package is classified once</span></div>
+  <div class="bucket-grid">
+    <div class="bucket">
+  <div class="bucket-head"><h3>Adopted</h3><span class="count-badge count-ok">2</span></div>
+  <ul class="bucket-list"><li><a href="../packages/pkg-fastify-deepmerge.html">@fastify/deepmerge</a><span class="pill pill-ok">Adopt</span></li><li><a href="../packages/pkg-deepmerge-ts.html">deepmerge-ts</a><span class="pill pill-ok">Adopt</span></li></ul>
+</div>
+    <div class="bucket">
+  <div class="bucket-head"><h3>On hold</h3><span class="count-badge count-warn">3</span></div>
+  <ul class="bucket-list"><li><a href="../packages/pkg-defu.html">defu</a><span class="pill pill-warn">Hold</span></li><li><a href="../packages/pkg-merge-anything.html">merge-anything</a><span class="pill pill-warn">Hold</span></li><li><a href="../packages/pkg-75lb-deep-merge.html">@75lb/deep-merge</a><span class="pill pill-warn">Hold</span></li></ul>
+</div>
+    <div class="bucket">
+  <div class="bucket-head"><h3>Dropped</h3><span class="count-badge count-bad">1</span></div>
+  <ul class="bucket-list"><li><a href="../packages/pkg-deepmerge.html">deepmerge</a><span class="pill pill-bad">Avoid</span><span class="muted small">By 31 Dec 2026: Unfixed CVE-2026-93753 (CVSS 8.7). Fix PR closed unmerged; no patched release exists. Migrate to @fastify/deepmerge.</span></li></ul>
+</div>
+    <div class="bucket">
+  <div class="bucket-head"><h3>Rejected</h3><span class="count-badge count-bad">6</span></div>
+  <ul class="bucket-list"><li><a href="../packages/pkg-ts-deepmerge.html">ts-deepmerge</a><span class="pill pill-bad">Avoid</span></li><li><a href="../packages/pkg-merge-deep.html">merge-deep</a><span class="pill pill-bad">Avoid</span></li><li><a href="../packages/pkg-lodash-merge.html">lodash.merge</a><span class="pill pill-bad">Avoid</span></li><li><a href="../packages/pkg-corex-deepmerge.html">@corex/deepmerge</a><span class="pill pill-bad">Avoid</span></li><li><a href="../packages/pkg-deep-extend.html">deep-extend</a><span class="pill pill-bad">Avoid</span></li><li><a href="../packages/pkg-stackline-deepmerge.html">@stackline/deepmerge</a><span class="pill pill-bad">Avoid</span></li></ul>
+</div>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Review timeline</h2></div>
+  <ol class="timeline"><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-deep-extend.html">deep-extend</a> <span class="pill pill-bad">Avoid</span> <span class="muted">Unmaintained since 2018 and the subject of a critical prototype-pollution advisory. Do not use.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-deepmerge.html">deepmerge</a> <span class="pill pill-bad">Avoid</span> <span class="muted">Do not use. Affected by CVE-2026-93753 (CVSS 8.7), the fix PR was closed unmerged, no release since March 2023, and npm audit does not flag it.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-stackline-deepmerge.html">@stackline/deepmerge</a> <span class="pill pill-bad">Avoid</span> <span class="muted">New single-maintainer fork that markets itself on fixing CVE-2026-93753. It may well be correct, but with 246 weekly downloads, no independent review and no track record it is not a whitelisting candidate.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-lodash-merge.html">lodash.merge</a> <span class="pill pill-bad">Avoid</span> <span class="muted">Frozen since 2019 and carries lodash&#39;s ongoing advisory stream. Prototype pollution was fixed in 4.6.2, but there is no path to future fixes.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-merge-deep.html">merge-deep</a> <span class="pill pill-bad">Avoid</span> <span class="muted">Three direct dependencies expand to 13 installed packages, no release since 2021, and no types. Avoid.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-corex-deepmerge.html">@corex/deepmerge</a> <span class="pill pill-bad">Avoid</span> <span class="muted">No repository URL published to npm and no release since 2023. Source and provenance cannot be verified. Avoid.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-ts-deepmerge.html">ts-deepmerge</a> <span class="pill pill-bad">Avoid</span> <span class="muted">Good types and a tiny footprint, but releases are not built or published by CI: the repository has no .github directory at all. Fails the release-integrity constraint.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-75lb-deep-merge.html">@75lb/deep-merge</a> <span class="pill pill-warn">Hold</span> <span class="muted">Actively maintained but pulls in lodash and typical, defeating the zero-dependency constraint. ESM-only and no types. Hold.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-merge-anything.html">merge-anything</a> <span class="pill pill-warn">Hold</span> <span class="muted">Reasonable API and active, but ESM-only, one dependency, 472 KB installed, no type declarations and no publish workflow. Hold unless a specific feature is needed.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-defu.html">defu</a> <span class="pill pill-warn">Hold</span> <span class="muted">Well-maintained and fast, but it implements defaults semantics rather than overwrite merge, and it has no publish workflow. Keep it for filling defaults only; do not adopt it for this task.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-deepmerge-ts.html">deepmerge-ts</a> <span class="pill pill-ok">Adopt</span> <span class="muted">Strong runner-up and the better choice when inputs may be cyclic or contain Map/Set. Best type inference in the field, zero deps, active, published with SLSA provenance. Falls short only on release ergonomics: it authenticates with a long-lived NPM_TOKEN rather than OIDC trusted publishing.</span></span>
+</li><li>
+  <span class="timeline-date">20 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-fastify-deepmerge.html">@fastify/deepmerge</a> <span class="pill pill-ok">Adopt</span> <span class="muted">Only candidate that satisfies every constraint: OIDC trusted publishing with SLSA provenance, zero dependencies, bundled types, active maintenance, and not affected by CVE-2026-93753. Also the fastest in the benchmark.</span></span>
+</li></ol>
+</section>
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>24 packages · 3 active requirements · 3 decisions</p>
+</footer>
+<script src="../app.js" defer></script>
+</body>
+</html>

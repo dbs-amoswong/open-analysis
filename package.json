@@ -1,0 +1,17 @@
+{
+  "name": "package-review-board",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Static package whitelisting database and generated review reports",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs",
+    "validate": "node scripts/validate.mjs",
+    "check": "node scripts/check.mjs",
+    "serve": "node scripts/serve.mjs"
+  },
+  "engines": {
+    "node": ">=20.11"
+  }
+}

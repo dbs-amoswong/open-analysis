@@ -1,0 +1,1475 @@
+[
+  {
+    "id": "rev-2026-10-fastify-deepmerge",
+    "package_id": "pkg-fastify-deepmerge",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "low",
+    "score": 92,
+    "summary": "Only candidate that satisfies every constraint: OIDC trusted publishing with SLSA provenance, zero dependencies, bundled types, active maintenance, and not affected by CVE-2026-93753. Also the fastest in the benchmark.",
+    "reasoning": [
+      "Publishing is fully CI-driven: workflow_dispatch invokes the Fastify org reusable release workflow, which runs in a protected release environment and publishes with npm publish --provenance --access public over OIDC. No long-lived NPM_TOKEN exists to leak.",
+      "The npm attestation resolves to builder github-hosted, source repo fastify/deepmerge and workflow .github/workflows/release.yml, tying the tarball to a commit.",
+      "Zero runtime dependencies and a 36 KB install, the smallest of the maintained candidates.",
+      "Verified safe against all four CVE-2026-93753 bypass variants, including null-prototype targets and null placeholders.",
+      "3.2.4 released 2026-10-22 with 0 open issues and 0 open PRs; CI enforces 100% line coverage.",
+      "Measured ~860k merges per second on our nested-config workload, roughly 8x deepmerge."
+    ],
+    "caveats": [
+      "Does not detect cycles; circular input causes a stack overflow. Use deepmerge-ts if cyclic graphs are possible.",
+      "Arrays concatenate by default; configure mergeArray to replace instead.",
+      "Single npm maintainer (eomm). Org ownership, a small code surface and 100% coverage mitigate this, but the bus factor is still one.",
+      "CommonJS entry only. Default imports work from ESM via interop; there are no named ESM exports."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "pass",
+        "detail": "workflow_dispatch -> fastify/workflows reusable-release.yml, protected release environment, npm publish --provenance --access public, actions pinned to commit SHAs, no NPM_TOKEN.",
+        "sources": [
+          { "label": "release.yml", "url": "https://github.com/fastify/deepmerge/blob/main/.github/workflows/release.yml" }
+        ]
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "pass",
+        "detail": "SLSA v1 attestation for 3.2.4: builder actions/runner/github-hosted, source fastify/deepmerge, workflow .github/workflows/release.yml, ref refs/heads/main.",
+        "sources": [
+          { "label": "npm attestation", "url": "https://registry.npmjs.org/-/npm/v1/attestations/@fastify%2fdeepmerge@3.2.4" }
+        ]
+      },
+      {
+        "key": "cve",
+        "label": "CVE-2026-93753",
+        "status": "pass",
+        "detail": "Reproduced variants 1-4 against 3.2.4; all blocked. OSV package query returns no advisories."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "0 runtime dependencies, 1 installed package, 36 KB install / 21 KB unpacked."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "3.2.4 published 2026-10-22; 0 open issues; 0 open PRs; release workflow active."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Bundled types/index.d.ts. Strict-mode probe preserves optionality and readonly; conflicting scalars resolve to the right-hand type."
+      },
+      {
+        "key": "behaviour",
+        "label": "Runtime behaviour",
+        "status": "info",
+        "detail": "~860k ops/s. No cycle support. Arrays concat by default. undefined overwrites unless onlyDefinedProperties is set."
+      },
+      {
+        "key": "license",
+        "label": "License",
+        "status": "pass",
+        "detail": "MIT."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-deepmerge-ts",
+    "package_id": "pkg-deepmerge-ts",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "low",
+    "score": 88,
+    "summary": "Strong runner-up and the better choice when inputs may be cyclic or contain Map/Set. Best type inference in the field, zero deps, active, published with SLSA provenance. Falls short only on release ergonomics: it authenticates with a long-lived NPM_TOKEN rather than OIDC trusted publishing.",
+    "reasoning": [
+      "Handles circular references and merges Map/Set contents, which @fastify/deepmerge does not.",
+      "Most precise inferred types: optionality preserved and conflicting keys resolve to the right-hand type.",
+      "SLSA v1 provenance from .github/workflows/release.yml; lint, unit, type and type-test jobs must pass before the release job runs.",
+      "Active: 8.0.2 released 2026-08-21 with 0 open issues and 0 open PRs.",
+      "Zero runtime dependencies."
+    ],
+    "caveats": [
+      "Release job uses an NPM_TOKEN secret rather than OIDC trusted publishing; a leaked token is a real, if manageable, risk.",
+      "280 KB installed because it ships ESM, CJS and source maps; about 8x the Fastify package.",
+      "Slower at ~196k ops/s on our workload.",
+      "Single maintainer (RebeccaStevens); bus factor of one."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "warn",
+        "detail": "release.yml runs on push to main after all lint/test/typecheck jobs, then pnpm release (semantic-release). Authenticates with secrets.NPM_TOKEN.",
+        "sources": [
+          { "label": "release.yml", "url": "https://github.com/RebeccaStevens/deepmerge-ts/blob/main/.github/workflows/release.yml" }
+        ]
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "pass",
+        "detail": "SLSA v1 attestation for 8.0.2: builder actions/runner/github-hosted, source RebeccaStevens/deepmerge-ts, workflow .github/workflows/release.yml."
+      },
+      {
+        "key": "cve",
+        "label": "CVE-2026-93753",
+        "status": "pass",
+        "detail": "All four bypass variants blocked; __proto__ is retained as an own key rather than applied as a prototype."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "0 runtime dependencies, 1 installed package, 280 KB install / 259 KB unpacked."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "8.0.2 published 2026-08-21; 0 open issues; 0 open PRs; Renovate keeps dependencies current."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Best inference measured: nested objects flattened, optionality preserved, conflicts resolve to the right-hand type."
+      },
+      {
+        "key": "behaviour",
+        "label": "Runtime behaviour",
+        "status": "pass",
+        "detail": "~196k ops/s. Handles cycles and deep nesting. Merges Map/Set. Arrays concat. undefined does not overwrite."
+      },
+      {
+        "key": "license",
+        "label": "License",
+        "status": "pass",
+        "detail": "BSD-3-Clause."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-defu",
+    "package_id": "pkg-defu",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "hold",
+    "risk": "medium",
+    "score": 71,
+    "summary": "Well-maintained and fast, but it implements defaults semantics rather than overwrite merge, and it has no publish workflow. Keep it for filling defaults only; do not adopt it for this task.",
+    "reasoning": [
+      "Target values win, so defu(defaults, overrides) does not apply overrides; that is the wrong behaviour for this requirement.",
+      "Zero dependencies and good TypeScript types.",
+      "No provenance: 6.1.7 has no SLSA attestation.",
+      "Repository CI runs lint, build, type tests and coverage only; there is no publish job, so releases are cut manually.",
+      "22 open pull requests, 16 older than 90 days."
+    ],
+    "caveats": [
+      "Defaults semantics differ from every other candidate; mixing them in one codebase invites subtle bugs.",
+      "Single maintainer (pi0)."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "fail",
+        "detail": "ci.yml runs lint, build, test:types and vitest with coverage. No release or publish job.",
+        "sources": [
+          { "label": "ci.yml", "url": "https://github.com/unjs/defu/blob/main/.github/workflows/ci.yml" }
+        ]
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "No attestation published for 6.1.7."
+      },
+      {
+        "key": "semantics",
+        "label": "Merge semantics",
+        "status": "warn",
+        "detail": "Defaults merge: existing target values are never overwritten. Not suitable for applying overrides."
+      },
+      {
+        "key": "cve",
+        "label": "CVE-2026-93753",
+        "status": "pass",
+        "detail": "All four bypass variants blocked."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "0 runtime dependencies, 48 KB install."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "warn",
+        "detail": "6.1.7 published 2026-04-07; 22 open PRs, 16 stale."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-ts-deepmerge",
+    "package_id": "pkg-ts-deepmerge",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "avoid",
+    "risk": "high",
+    "score": 62,
+    "summary": "Good types and a tiny footprint, but releases are not built or published by CI: the repository has no .github directory at all. Fails the release-integrity constraint.",
+    "reasoning": [
+      "The repository root contains no .github directory, so there is no CI or publish workflow; 8.0.0 has no provenance attestation.",
+      "Zero runtime dependencies and a 32 KB install.",
+      "Type inference flattens nested objects but drops optionality and widens conflicts to a union.",
+      "Safe against CVE-2026-93753 and active as of May 2026."
+    ],
+    "caveats": [
+      "Publishing from a developer machine means no verifiable link between the GitHub commit and the npm tarball.",
+      "Single maintainer."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "fail",
+        "detail": "No .github directory in the repository; no workflows of any kind. Release is manual.",
+        "sources": [
+          { "label": "repository", "url": "https://github.com/voodoocreation/ts-deepmerge" }
+        ]
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "No attestation published for 8.0.0."
+      },
+      {
+        "key": "cve",
+        "label": "CVE-2026-93753",
+        "status": "pass",
+        "detail": "All four bypass variants blocked."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "0 runtime dependencies, 32 KB install."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "warn",
+        "detail": "Nested objects flatten correctly, but optionality is lost and conflicting scalars widen to a union."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "warn",
+        "detail": "8.0.0 published 2026-05-22; 3 open issues."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-deepmerge",
+    "package_id": "pkg-deepmerge",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "avoid",
+    "risk": "critical",
+    "score": 18,
+    "summary": "Do not use. Affected by CVE-2026-93753 (CVSS 8.7), the fix PR was closed unmerged, no release since March 2023, and npm audit does not flag it.",
+    "reasoning": [
+      "CVE-2026-93753: mergeObject() decides safety by inspecting the target instead of the key, so a __proto__ key survives when the target is a null-prototype object, contains a null/undefined placeholder, or already has an own __proto__ key. The returned object then inherits attacker-chosen data properties.",
+      "Reproduced all four variants locally; merged.session.isAdmin returned true while Object.keys() and JSON.stringify() showed nothing.",
+      "No fix: PR #274 was closed unmerged on 2026-09-24 and master still contains the vulnerable guard. The maintainer declined to act on issue #273.",
+      "npm audit reports 0 vulnerabilities for 4.3.1 because the OSV record has only a GIT range and no npm ecosystem entry.",
+      "Last release 4.3.1 in March 2023; 22 open PRs, 18 stale; no CI and no provenance.",
+      "Slowest candidate at ~107k ops/s and stack-overflows on deep or cyclic input."
+    ],
+    "caveats": [
+      "Even a patched fork would still leave the package unmaintained. Treat it as end-of-life.",
+      "Migrating away is a small change: the API is merge(target, source) with an options object."
+    ],
+    "evidence": [
+      {
+        "key": "cve",
+        "label": "CVE-2026-93753",
+        "status": "fail",
+        "detail": "Prototype-poisoning guard bypass, CVSS 4.0 8.7 / CVSS 3.1 7.5, CWE-1321. Published 2026-09-18, status Deferred. Reproduced in 4.3.1.",
+        "sources": [
+          { "label": "NVD", "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93753" },
+          { "label": "issue #273", "url": "https://github.com/TehShrike/deepmerge/issues/273" }
+        ]
+      },
+      {
+        "key": "remediation",
+        "label": "Upstream remediation",
+        "status": "fail",
+        "detail": "Fix PR #274 closed unmerged 2026-09-24; master still has the vulnerable propertyIsUnsafe guard; no patched release."
+      },
+      {
+        "key": "scanner_visibility",
+        "label": "Scanner visibility",
+        "status": "fail",
+        "detail": "npm audit reports 0 vulnerabilities for 4.3.1. The OSV record contains only a GIT range, so package-version matching returns nothing.",
+        "sources": [
+          { "label": "OSV record", "url": "https://api.osv.dev/v1/vulns/CVE-2026-93753" }
+        ]
+      },
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "fail",
+        "detail": "No GitHub Actions workflows; only a legacy .travis.yml. Releases are manual."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "No attestation published for 4.3.1."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "fail",
+        "detail": "Last release 2023-03-16; 22 open PRs, 18 stale; maintainer declined the security report."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "warn",
+        "detail": "index.d.ts exists but no types/typings field, so TypeScript does not resolve it. Consumers install @types/deepmerge."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "0 runtime dependencies, 64 KB install."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-lodash-merge",
+    "package_id": "pkg-lodash-merge",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "avoid",
+    "risk": "high",
+    "score": 30,
+    "summary": "Frozen since 2019 and carries lodash's ongoing advisory stream. Prototype pollution was fixed in 4.6.2, but there is no path to future fixes.",
+    "reasoning": [
+      "Last release July 2019; lodash itself carries six advisories on 4.17.15, including two 2026 CVEs.",
+      "Versions before 4.6.2 are vulnerable to GHSA-h726-x36v-rx45 (high).",
+      "No provenance attestation and no bundled types; requires @types/lodash.merge.",
+      "Copies inherited enumerable properties and merges arrays by index, which surprises most callers."
+    ],
+    "caveats": [
+      "If lodash is already a hard dependency, importing merge adds no new package, but the maintenance and behaviour issues remain."
+    ],
+    "evidence": [
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "fail",
+        "detail": "4.6.2 published 2019-07-10; no release in seven years."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "warn",
+        "detail": "GHSA-h726-x36v-rx45 (prototype pollution) fixed in 4.6.2. The parent lodash package has six advisories on 4.17.15 including CVE-2026-2950 and CVE-2026-4800."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "No attestation published for 4.6.2."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "warn",
+        "detail": "No bundled declarations; requires @types/lodash.merge."
+      },
+      {
+        "key": "behaviour",
+        "label": "Runtime behaviour",
+        "status": "warn",
+        "detail": "Copies inherited enumerable properties; array merge is index-based; deep recursion overflows the stack."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "0 runtime dependencies, 68 KB install."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-deep-extend",
+    "package_id": "pkg-deep-extend",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "avoid",
+    "risk": "critical",
+    "score": 15,
+    "summary": "Unmaintained since 2018 and the subject of a critical prototype-pollution advisory. Do not use.",
+    "reasoning": [
+      "CVE-2018-3750 (critical) affected versions before 0.5.1.",
+      "No release since 0.6.0 in May 2018.",
+      "No CI, no provenance, no types."
+    ],
+    "caveats": [
+      "High download volume reflects transitive use by older CLI tooling, not active adoption."
+    ],
+    "evidence": [
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "fail",
+        "detail": "CVE-2018-3750, prototype pollution, CVSS critical, fixed only in 0.5.1."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "fail",
+        "detail": "0.6.0 published 2018-05-22; no activity since."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "No attestation."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "fail",
+        "detail": "No declarations."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-merge-anything",
+    "package_id": "pkg-merge-anything",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "hold",
+    "risk": "medium",
+    "score": 66,
+    "summary": "Reasonable API and active, but ESM-only, one dependency, 472 KB installed, no type declarations and no publish workflow. Hold unless a specific feature is needed.",
+    "reasoning": [
+      "One runtime dependency (is-what) and a 472 KB install, the largest of the candidates.",
+      "No published type declarations despite being written in TypeScript.",
+      "Only a test workflow exists; publishing is manual and there is no provenance.",
+      "Safe against CVE-2026-93753; replaces arrays rather than concatenating."
+    ],
+    "caveats": [
+      "ESM-only, so CommonJS consumers cannot use it without a dynamic import.",
+      "Array replacement semantics differ from the rest of the field."
+    ],
+    "evidence": [
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "warn",
+        "detail": "1 runtime dependency, 2 packages installed, 472 KB."
+      },
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "fail",
+        "detail": "Only .github/workflows/test.yml; no publish job, no provenance."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "fail",
+        "detail": "No .d.ts in the published package and no types field."
+      },
+      {
+        "key": "cve",
+        "label": "CVE-2026-93753",
+        "status": "pass",
+        "detail": "All four bypass variants blocked."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "6.0.9 published 2026-09-30; 11 open issues."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-merge-deep",
+    "package_id": "pkg-merge-deep",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "avoid",
+    "risk": "high",
+    "score": 35,
+    "summary": "Three direct dependencies expand to 13 installed packages, no release since 2021, and no types. Avoid.",
+    "reasoning": [
+      "Dependency tree: arr-union, clone-deep and kind-of pull in 13 installed packages.",
+      "No release since January 2021.",
+      "No CI, no provenance, no type declarations."
+    ],
+    "caveats": [
+      "The old kind-of version in its tree has had its own advisories."
+    ],
+    "evidence": [
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "fail",
+        "detail": "3 direct dependencies, 13 installed packages, 296 KB."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "fail",
+        "detail": "3.0.3 published 2021-01-11."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "No attestation."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "fail",
+        "detail": "No declarations."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-stackline-deepmerge",
+    "package_id": "pkg-stackline-deepmerge",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "avoid",
+    "risk": "high",
+    "score": 25,
+    "summary": "New single-maintainer fork that markets itself on fixing CVE-2026-93753. It may well be correct, but with 246 weekly downloads, no independent review and no track record it is not a whitelisting candidate.",
+    "reasoning": [
+      "Published August 2026; 246 weekly downloads; 0 GitHub stars.",
+      "Has SLSA provenance and a publish workflow, so the mechanics are sound.",
+      "No independent security review of the fork, and the CVE fix claim is self-asserted.",
+      "Adopting an unreviewed fork trades one supply-chain risk for another."
+    ],
+    "caveats": [
+      "If the upstream stays unmaintained, revisit in 6-12 months once the fork has adoption and review coverage."
+    ],
+    "evidence": [
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "pass",
+        "detail": "SLSA v1 attestation: builder github-hosted, source alexandroit/stackline-deepmerge, workflow .github/workflows/publish.yml."
+      },
+      {
+        "key": "maintenance",
+        "label": "Adoption and track record",
+        "status": "fail",
+        "detail": "Created 2026-08-16; 6 versions; 246 weekly downloads; 0 stars; 2 open issues."
+      },
+      {
+        "key": "trust",
+        "label": "Independent review",
+        "status": "fail",
+        "detail": "No third-party audit or advisory coverage. The security fix claim has not been verified externally."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "0 runtime dependencies."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-corex-deepmerge",
+    "package_id": "pkg-corex-deepmerge",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "avoid",
+    "risk": "medium",
+    "score": 45,
+    "summary": "No repository URL published to npm and no release since 2023. Source and provenance cannot be verified. Avoid.",
+    "reasoning": [
+      "The npm package declares no repository, so there is no source of truth to review.",
+      "Last release April 2023.",
+      "No provenance attestation."
+    ],
+    "caveats": [
+      "383k weekly downloads come largely from next-sitemap, not direct adoption."
+    ],
+    "evidence": [
+      {
+        "key": "source",
+        "label": "Source availability",
+        "status": "fail",
+        "detail": "No repository field in the published package metadata."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "warn",
+        "detail": "4.0.43 published 2023-04-12."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "No attestation."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-75lb-deep-merge",
+    "package_id": "pkg-75lb-deep-merge",
+    "requirement_id": "req-deep-merge",
+    "reviewed_at": "2026-10-20",
+    "reviewer": "research-agent",
+    "recommendation": "hold",
+    "risk": "medium",
+    "score": 55,
+    "summary": "Actively maintained but pulls in lodash and typical, defeating the zero-dependency constraint. ESM-only and no types. Hold.",
+    "reasoning": [
+      "Two runtime dependencies, including lodash, which reintroduces the tree this task is trying to avoid.",
+      "ESM-only with no type declarations.",
+      "Active releases and no known advisories."
+    ],
+    "caveats": [
+      "Its @75lb/nature peer dependency may pull in a larger toolchain."
+    ],
+    "evidence": [
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "fail",
+        "detail": "2 runtime dependencies: lodash and typical."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "fail",
+        "detail": "No declarations."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "1.1.5 published 2026-10-14; 0 open issues."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "fail",
+        "detail": "No attestation."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-assistant-ui-react",
+    "package_id": "pkg-assistant-ui-react",
+    "requirement_id": "req-assistant-ui",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "medium",
+    "score": 84,
+    "summary": "The entry point and the only package most apps import. Supply chain is strong: OIDC trusted publishing, SLSA provenance, no install scripts anywhere in the 183-package tree. The costs are 10 direct dependencies, a 54 MB install, about 135 KB gzip, and 0.x churn of roughly 30 releases per quarter.",
+    "reasoning": [
+      "Publishing uses OIDC trusted publishing from a protected npm Publish environment. The publish job installs only the Changesets CLI with --ignore-scripts and publishes pre-built tarballs, so no package build runs with publishing credentials.",
+      "SLSA provenance for 0.15.31 resolves to assistant-ui/assistant-ui, workflow .github/workflows/npm-publish.yaml, ref refs/heads/main.",
+      "The full installed tree is 183 packages: 178 MIT, one ISC, one BSD-3-Clause and one 0BSD, with zero install or postinstall scripts.",
+      "React 18 and 19 are both declared and tested by a dedicated react18-weekly workflow; types are bundled.",
+      "OSV returns no advisories for any of the suite's latest versions.",
+      "Measured about 135 KB gzip for a minimal bundle of AssistantRuntimeProvider + ThreadPrimitive + useLocalRuntime, excluding React."
+    ],
+    "caveats": [
+      "ESM-only. require() works on Node 22.12+ (verified on Node 24) but not on older CommonJS runtimes.",
+      "0.x versioning: 460 published versions and about 30 releases in the last 90 days. Pin exact versions and upgrade deliberately; ^0.15.x only permits patches.",
+      "10 direct dependencies including zod, zustand, radix-ui, assistant-cloud and assistant-stream.",
+      "One npm maintainer is an automation account (agentbase-bot). Publishing is gated by the GitHub environment, but the account still holds package access.",
+      "54 MB install standalone and 63 MB for the full suite; most of that is source and source maps that bundlers discard."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "pass",
+        "detail": "OIDC trusted publishing (id-token: write) from a protected npm Publish environment, build and publish split into separate jobs, --ignore-scripts in the publish job, actions pinned to commit SHAs.",
+        "sources": [
+          { "label": "npm-publish.yaml", "url": "https://github.com/assistant-ui/assistant-ui/blob/main/.github/workflows/npm-publish.yaml" }
+        ]
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "pass",
+        "detail": "SLSA v1 attestation for 0.15.31: builder actions/runner/github-hosted, source assistant-ui/assistant-ui, workflow .github/workflows/npm-publish.yaml."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV package query returns no advisories for 0.15.31."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "warn",
+        "detail": "10 direct dependencies, 183 packages installed, 54 MB standalone, 63 MB with markdown. Largest contributors: @assistant-ui/core 14 MB, zod 8 MB, react-dom 8 MB, radix-ui 6 MB."
+      },
+      {
+        "key": "install_scripts",
+        "label": "Install scripts",
+        "status": "pass",
+        "detail": "No preinstall, install or postinstall scripts in any of the 183 installed packages."
+      },
+      {
+        "key": "license",
+        "label": "License",
+        "status": "pass",
+        "detail": "MIT. Tree is entirely permissive: 178 MIT, 1 ISC, 1 BSD-3-Clause, 1 0BSD."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "0.15.31 published 2026-10-22; commits on 2026-10-27; 12.8k stars; 26 open issues; 27 CI workflows including CodeQL."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Bundled dist/index.d.ts with exports map."
+      },
+      {
+        "key": "behaviour",
+        "label": "Runtime behaviour",
+        "status": "warn",
+        "detail": "ESM-only; ~135 KB gzip minimal bundle; 0.x API surface with roughly 30 releases per quarter."
+      },
+      {
+        "key": "telemetry",
+        "label": "Telemetry",
+        "status": "pass",
+        "detail": "Cloud client and telemetry are opt-in: AssistantCloud is only re-exported and must be constructed and passed explicitly. No default network calls found; base endpoint is backend.assistant-api.com."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-assistant-ui-core",
+    "package_id": "pkg-assistant-ui-core",
+    "requirement_id": "req-assistant-ui",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "medium",
+    "score": 82,
+    "summary": "Required runtime beneath @assistant-ui/react; you get it automatically. Same pipeline and provenance, only three runtime dependencies, but it ships source and source maps, which makes the installed package 9.9 MB unpacked.",
+    "reasoning": [
+      "It is a transitive dependency of @assistant-ui/react, so adopting react means adopting core.",
+      "Three runtime dependencies: nanoid, assistant-cloud and assistant-stream.",
+      "Published through the same OIDC trusted pipeline with SLSA provenance on 67 of 70 versions, including 0.3.31.",
+      "Tree-shaken code is what reaches the browser; the large unpacked size is mostly src and .map files.",
+      "Zero advisories in OSV."
+    ],
+    "caveats": [
+      "Do not add it as a direct dependency unless you are using it outside React. Import from @assistant-ui/react instead.",
+      "Declares @assistant-ui/store and @assistant-ui/tap as required peers, so both must be allowlisted with it.",
+      "ESM-only and 0.x."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "pass",
+        "detail": "Same monorepo OIDC trusted publishing workflow as @assistant-ui/react."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "pass",
+        "detail": "Attestation present for 0.3.31; 67 of 70 versions carry one."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV package query returns no advisories for 0.3.31."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "3 direct dependencies; 21.7 MB install measured with React; 9.9 MB unpacked."
+      },
+      {
+        "key": "install_scripts",
+        "label": "Install scripts",
+        "status": "pass",
+        "detail": "No install scripts in the package or its tree."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Bundled dist/index.d.ts plus ./react, ./store and ./internal subpath exports."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "0.3.31 published 2026-10-22; 70 versions since 2026-02-20."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-assistant-ui-tap",
+    "package_id": "pkg-assistant-ui-tap",
+    "requirement_id": "req-assistant-ui",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "medium",
+    "score": 79,
+    "summary": "React's hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked, provenance-signed, and required as a peer by core and store. Novel enough to warrant review, but not code you import directly.",
+    "reasoning": [
+      "Zero runtime dependencies and a 1.9 MB install measured with React.",
+      "Required peer of both @assistant-ui/core and @assistant-ui/store, so it arrives with the suite regardless.",
+      "Published through the same OIDC pipeline; 55 of 68 versions carry provenance.",
+      "1.26M weekly downloads and active releases, which means the semantics are exercised at scale."
+    ],
+    "caveats": [
+      "It reimplements React hook semantics. Divergence from React's scheduler or hook rules would be subtle and hard to debug.",
+      "0.x with shim subpath exports (./react-shim, ./standalone-shim) that have no type declarations.",
+      "Do not import it in application code; it exists to power the suite's external store."
+    ],
+    "evidence": [
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "0 runtime dependencies; 1.9 MB install; 752 KB unpacked."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "pass",
+        "detail": "Attestation present for 0.9.24; 55 of 68 versions attested."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV package query returns no advisories for 0.9.24."
+      },
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "pass",
+        "detail": "Same monorepo OIDC trusted publishing workflow."
+      },
+      {
+        "key": "behaviour",
+        "label": "Runtime behaviour",
+        "status": "warn",
+        "detail": "Reimplements React's hook engine outside the React tree; 0.x API; shim exports are untyped."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "0.9.24 published 2026-10-19; 68 versions; 1.26M weekly downloads."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-assistant-ui-react-markdown",
+    "package_id": "pkg-assistant-ui-react-markdown",
+    "requirement_id": "req-assistant-ui",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "medium",
+    "score": 76,
+    "summary": "Optional markdown renderer built on react-markdown 10.1. Adopt only if formatted assistant output is needed: it adds about 87 packages and 72 KB gzip. Raw HTML is off by default, so the XSS surface is react-markdown's standard one.",
+    "reasoning": [
+      "Wraps react-markdown 10.1 and does not enable rehype-raw or dangerous HTML in its published code.",
+      "Adds 87 packages to the tree and about 72 KB gzip on top of the core bundle.",
+      "Published through the same OIDC pipeline; 118 of 119 versions carry provenance.",
+      "The suite offers react-streamdown (Shiki, KaTeX, Mermaid) and react-syntax-highlighter for other rendering needs."
+    ],
+    "caveats": [
+      "Any plugin that enables raw HTML (rehype-raw) reintroduces XSS risk; keep the default configuration.",
+      "Markdown parsing runs on every streamed token, so memoise or throttle if messages are long.",
+      "0.x and ESM-only."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "pass",
+        "detail": "Same monorepo OIDC trusted publishing workflow as @assistant-ui/react."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV package query returns no advisories for 0.14.24."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "pass",
+        "detail": "Attestation present for 0.14.24; 118 of 119 versions attested."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "warn",
+        "detail": "5 direct dependencies; adds ~87 packages and ~8.7 MB to the install; 72 KB gzip."
+      },
+      {
+        "key": "install_scripts",
+        "label": "Install scripts",
+        "status": "pass",
+        "detail": "No install scripts in its subtree."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Bundled dist/index.d.ts plus ./code-fence and ./preprocess subpaths."
+      },
+      {
+        "key": "behaviour",
+        "label": "Runtime behaviour",
+        "status": "warn",
+        "detail": "Raw HTML disabled by default; enabling rehype-raw would reopen XSS. Per-token parsing cost."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-assistant-ui-store",
+    "package_id": "pkg-assistant-ui-store",
+    "requirement_id": "req-assistant-ui",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "medium",
+    "score": 84,
+    "summary": "Required peer of core and react, and the only addition beyond the four requested packages. Zero dependencies, provenance-signed, 1.1M weekly downloads, same maintainers. You never import it directly.",
+    "reasoning": [
+      "Declared as a required peer by @assistant-ui/core, so the suite cannot be used without it.",
+      "Zero runtime dependencies and a 3.0 MB install.",
+      "Published through the same OIDC pipeline with provenance.",
+      "Actively released alongside the rest of the suite."
+    ],
+    "caveats": [
+      "Transitive only; do not add it to application dependencies.",
+      "0.x and ESM-only.",
+      "It requires @assistant-ui/tap as a peer."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "pass",
+        "detail": "Same monorepo OIDC trusted publishing workflow as @assistant-ui/react."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "0 runtime dependencies; 3.0 MB install; 758 KB unpacked."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "pass",
+        "detail": "Attestation present for 0.3.22."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV package query returns no advisories for 0.3.22."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Bundled declarations."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "0.3.22 published 2026-10-19; 1.1M weekly downloads."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-dompurify",
+    "package_id": "pkg-dompurify",
+    "requirement_id": "req-html-sanitize",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "medium",
+    "score": 88,
+    "summary": "Browser-first sanitizer and the de facto standard. It parses untrusted HTML with the same DOM the browser will use, which is why it holds up against mutation XSS. One dependency, 11.7 KB gzip, 45M weekly downloads, and zero executions in our 25-vector browser harness. The gap is release integrity: npm publishes are manual and the tarball is unattested, although the release artifacts are SLSA-attested and Sigstore-signed and the shipped dist files match those hashes.",
+    "reasoning": [
+      "0 of 25 XSS vectors executed after DOMPurify, while the unsanitized control executed 11.",
+      "3.4.17 is clean in OSV. Its 33 historical advisories are all fixed, including a CRITICAL SAFE_FOR_TEMPLATES bypass fixed in 3.4.17 on 2026-10-22.",
+      "Security engineering is unusually strong: fuzz, CodeQL, dependency-review and OpenSSF Scorecard workflows, plus SLSA provenance and Sigstore signatures on GitHub release artifacts.",
+      "The release artifacts are verifiable even though npm is not: the 3.4.17 SLSA subject hashes match the four dist files shipped in the npm tarball byte-for-byte, so the shipped code can be tied back to the attested build.",
+      "Parsing with a real DOM matches the eventual render context, which is the main defence against mXSS.",
+      "One runtime dependency (@types/trusted-types), 1.65 MB install and 11.7 KB gzip.",
+      "It strips handlers and javascript: URLs, removes iframe/style, and keeps allowed markup such as img and svg."
+    ],
+    "caveats": [
+      "npm publishes are manual and unattested; provenance exists only on GitHub release artifacts. Verification is possible by hashing the dist files against the release attestation, but it does not happen automatically on install.",
+      "The advisory rate is high: 33 advisories, roughly half of them in 2026. Staying current is not optional, and 3.4.17 specifically fixes two CVEs from 22 Oct 2026.",
+      "Dual-licensed MPL-2.0 or Apache-2.0; select Apache-2.0 in your policy.",
+      "Needs a DOM. In Node you must supply jsdom/happy-dom yourself or use isomorphic-dompurify, which is far heavier.",
+      "The default configuration is permissive by design: it allows images, links and SVG. Tighten ALLOWED_TAGS/ALLOWED_ATTR for model output."
+    ],
+    "evidence": [
+      {
+        "key": "bypass_test",
+        "label": "Bypass test",
+        "status": "pass",
+        "detail": "25 vectors in headless Chrome (event handlers, javascript:/data: URLs, SVG/SMIL, math/mglyph, noscript, xmp, plaintext, meta refresh, template). Control executed 11; DOMPurify executed 0. One static flag (javascript: inside srcset) is not executable in Chrome."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV returns 0 advisories for 3.4.17. The most recent fixes (CVE-2026-116804 CRITICAL, CVE-2026-116803 HIGH) landed in 3.4.17 on 2026-10-22."
+      },
+      {
+        "key": "cve_history",
+        "label": "Advisory history",
+        "status": "info",
+        "detail": "33 advisories since 2014, all with fixes. The high rate reflects active adversarial research, not neglect; the oldest unfixed item only affects <=3.4.6."
+      },
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "fail",
+        "detail": "No npm publish workflow and no publish script anywhere in the repository. GitHub releases are created manually by Cure53 maintainers (cure53, x00mario); sign-release.yml and slsa-provenance.yml then sign and attest the release assets. The 3.4.17 npm publish followed the GitHub release by four minutes under the single npm account cure53 (npm 9.2.0)."
+      },
+      {
+        "key": "provenance",
+        "label": "Provenance and signing",
+        "status": "warn",
+        "detail": "SLSA v1 attestation and Sigstore signatures are attached to the 3.4.17 GitHub release. The four dist files in the npm tarball (purify.js, purify.min.js, purify.cjs.js, purify.es.mjs) match the attested SHA-256 subjects byte-for-byte, but the npm tarball itself has no attestation (0 of 154 versions)."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "1 runtime dependency, 1 installed package, 1.65 MB install, 29.8 KB minified / 11.7 KB gzip."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "3.4.17 published 2026-10-12; repo pushed 2026-10-24; 0 open issues; 17.5k stars."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Bundled declarations for CJS and ESM builds."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-sanitize-html",
+    "package_id": "pkg-sanitize-html",
+    "requirement_id": "req-html-sanitize",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "medium",
+    "score": 80,
+    "summary": "Server-first parser sanitizer. Faster than DOMPurify-on-jsdom and far lighter than dragging in jsdom, but its defaults are aggressive: img and svg are removed unless you allow them. Zero executions in the harness; 17 historical advisories, all fixed, and the current release is clean.",
+    "reasoning": [
+      "0 of 25 vectors executed after sanitization; the control executed 11.",
+      "About 400 sanitizations per second on a 60 KB document in Node, versus 49 for DOMPurify running on jsdom.",
+      "Works without a DOM, which makes it the right choice for SSR and background jobs.",
+      "2.18.1 is clean in OSV and includes fixes for several October 2026 CVEs.",
+      "Six direct dependencies install to 16 packages and 4.1 MB, versus 27.4 MB for jsdom.",
+      "Default output escapes disallowed markup and drops dangerous tags entirely."
+    ],
+    "caveats": [
+      "Defaults drop img and svg. If you need images, add them to allowedTags explicitly; several historic advisories involved SVG and URI schemes.",
+      "No bundled types; you need @types/sanitize-html.",
+      "The standalone GitHub repository is archived. Source now lives in the Apostrophe monorepo, which makes targeted review harder.",
+      "17 advisories, including a CRITICAL xmp passthrough fixed in 2.17.4 and an October 2026 SMIL bypass fixed in 2.18.0. Pin and update.",
+      "Manual npm publishing; no provenance."
+    ],
+    "evidence": [
+      {
+        "key": "bypass_test",
+        "label": "Bypass test",
+        "status": "pass",
+        "detail": "25 vectors; 0 executed. Static flags were false positives on escaped text (the vector was rendered as visible markup, not parsed)."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV returns 0 advisories for 2.18.1, which fixes the October 2026 iframe-recursion and SMIL-prefix issues."
+      },
+      {
+        "key": "cve_history",
+        "label": "Advisory history",
+        "status": "info",
+        "detail": "17 advisories since 2016, all fixed. Several in 2026: xmp passthrough (CRITICAL, 2.17.4), URI schemes in action/formaction (2.17.5), textarea solidus mXSS (2.17.6), SMIL (2.17.7)."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "6 direct dependencies, 16 installed packages, 4.1 MB install, 83 KB unpacked."
+      },
+      {
+        "key": "performance",
+        "label": "Throughput",
+        "status": "pass",
+        "detail": "~400 ops/s on a 60 KB document in Node, about 8x DOMPurify on jsdom."
+      },
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "fail",
+        "detail": "Monorepo CI runs tests only; no npm publish job. No provenance on any of 128 versions."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "2.18.1 published 2026-10-14; three releases in 90 days; active in the Apostrophe monorepo."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "warn",
+        "detail": "No bundled declarations; requires @types/sanitize-html."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-rehype-sanitize",
+    "package_id": "pkg-rehype-sanitize",
+    "requirement_id": "req-html-sanitize",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "medium",
+    "score": 78,
+    "summary": "The right choice if content already flows through remark/rehype: it sanitizes the HAST tree against an explicit schema instead of round-tripping through the DOM. Zero advisories, tiny and type-safe, but no release since 2023 and a small community.",
+    "reasoning": [
+      "Schema-based allowlist on the syntax tree, which avoids the HTML serialise/re-parse cycle where mXSS lives.",
+      "Two dependencies on hast-util-sanitize, 296 KB install, ESM with bundled types.",
+      "No advisories in OSV and no advisory history.",
+      "Fits the existing assistant-ui/react-markdown pipeline, which is already remark/rehype based.",
+      "The default schema is restrictive and safe; extending it is explicit."
+    ],
+    "caveats": [
+      "Last release 2023 and only 224 stars. The engine, hast-util-sanitize, last shipped 5.0.2 in October 2024.",
+      "It only sanitizes HAST. It is not a function you can call on an HTML string.",
+      "Schema extensions are easy to get wrong: allowing style or className can reopen injection paths.",
+      "No provenance and no release automation."
+    ],
+    "evidence": [
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV returns no advisories for rehype-sanitize or its engine hast-util-sanitize."
+      },
+      {
+        "key": "mechanism",
+        "label": "Sanitization model",
+        "status": "pass",
+        "detail": "Operates on HAST with an explicit schema; no HTML serialisation round-trip, so mXSS surface is smaller."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "2 direct dependencies, 3 installed packages, 296 KB install, 20 KB unpacked."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "warn",
+        "detail": "6.0.0 published 2023-08-26; repo pushed 2023-09-28; engine last updated October 2024."
+      },
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "fail",
+        "detail": "CI runs tests only; npm publishing is manual and no version carries provenance."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Bundled ESM declarations."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-isomorphic-dompurify",
+    "package_id": "pkg-isomorphic-dompurify",
+    "requirement_id": "req-html-sanitize",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "hold",
+    "risk": "medium",
+    "score": 72,
+    "summary": "Convenience wrapper that runs DOMPurify on jsdom for server-side use. Output matches DOMPurify, but it pulls 27 MB and 28 packages and inherits jsdom's exposure. Use only if you specifically need DOMPurify on the server.",
+    "reasoning": [
+      "Same sanitization results as DOMPurify: 0 of 25 vectors executed.",
+      "Removes the need to wire jsdom yourself when you want identical behaviour on both sides.",
+      "Actively maintained wrapper: 10 releases in 90 days.",
+      "Zero advisories attributed to the wrapper itself."
+    ],
+    "caveats": [
+      "27.4 MB install and 28 packages, driven by jsdom. That is 16x sanitize-html and 28x xss.",
+      "Its vulnerability surface includes jsdom, not just DOMPurify.",
+      "Adds a second place to track advisories for the same sanitization outcome.",
+      "Single-maintainer wrapper around a project maintained by someone else.",
+      "No provenance."
+    ],
+    "evidence": [
+      {
+        "key": "bypass_test",
+        "label": "Bypass test",
+        "status": "pass",
+        "detail": "0 of 25 vectors executed; identical output to browser DOMPurify."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "fail",
+        "detail": "2 direct dependencies (dompurify, jsdom), 28 installed packages, 27.4 MB install."
+      },
+      {
+        "key": "performance",
+        "label": "Throughput",
+        "status": "warn",
+        "detail": "~47-49 ops/s on a 60 KB document in Node, roughly 8x slower than sanitize-html."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "No wrapper-specific advisories; underlying DOMPurify 3.4.17 and jsdom are clean at review time."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "4.6.0 published 2026-10-16; 10 releases in 90 days; 605 stars."
+      },
+      {
+        "key": "provenance",
+        "label": "Provenance",
+        "status": "fail",
+        "detail": "No attestations on any version; manual publish."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-xss",
+    "package_id": "pkg-xss",
+    "requirement_id": "req-html-sanitize",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "hold",
+    "risk": "medium",
+    "score": 64,
+    "summary": "Active whitelist sanitizer that HTML-escapes disallowed tags rather than stripping them, so blocked markup appears as visible text. Fast and dependency-light, but it has no independent advisory history and 70 open issues.",
+    "reasoning": [
+      "0 of 25 vectors executed, though many outputs were escaped text rather than removed content.",
+      "Fastest of the group at ~456 ops/s on a 60 KB document.",
+      "Tiny footprint: 312 KB install, 3 packages, bundled types.",
+      "Active releases, most recently 1.0.17 on 2026-10-24."
+    ],
+    "caveats": [
+      "The escape-not-strip model changes the UI: blocked HTML becomes literal text, which is safe but often not what users want to see.",
+      "Zero OSV advisories is not evidence of zero vulnerabilities; there is no public advisory history or third-party audit.",
+      "70 open GitHub issues, well above the other candidates.",
+      "Single maintainer and no provenance.",
+      "No CodeQL or fuzzing equivalent to DOMPurify's process."
+    ],
+    "evidence": [
+      {
+        "key": "bypass_test",
+        "label": "Bypass test",
+        "status": "pass",
+        "detail": "0 of 25 vectors executed. Disallowed markup was entity-escaped and rendered as text."
+      },
+      {
+        "key": "behaviour",
+        "label": "Output model",
+        "status": "warn",
+        "detail": "Escapes disallowed tags instead of removing them; e.g. svg/iframe/styles become visible text, while img remains with the handler stripped."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "info",
+        "detail": "No advisories in OSV. No independent advisory coverage or audit was found, so this is absence of evidence rather than evidence of safety."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "2 direct dependencies, 3 packages, 312 KB install."
+      },
+      {
+        "key": "performance",
+        "label": "Throughput",
+        "status": "pass",
+        "detail": "~456 ops/s on a 60 KB document, the fastest tested."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "warn",
+        "detail": "1.0.17 published 2026-10-24 but 70 open issues and a single maintainer."
+      },
+      {
+        "key": "provenance",
+        "label": "Provenance",
+        "status": "fail",
+        "detail": "No attestations on any version."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-insane",
+    "package_id": "pkg-insane",
+    "requirement_id": "req-html-sanitize",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "avoid",
+    "risk": "critical",
+    "score": 20,
+    "summary": "Abandoned since 2016 and carries an unfixed ReDoS advisory. Do not use for untrusted input.",
+    "reasoning": [
+      "Last release 2016-09-19.",
+      "GHSA-w455-mfq9-hf74 / CVE-2020-26303: regular expression denial of service, with no fixed version.",
+      "No type declarations, no security process and no releases in a decade."
+    ],
+    "caveats": [
+      "Even if the ReDoS is only a availability issue, the lack of fixes for any future bypass makes it unsuitable."
+    ],
+    "evidence": [
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "fail",
+        "detail": "GHSA-w455-mfq9-hf74 (CVE-2020-26303), ReDoS, no fixed version."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "fail",
+        "detail": "2.6.2 published 2016-09-19; no releases since."
+      },
+      {
+        "key": "provenance",
+        "label": "Provenance",
+        "status": "fail",
+        "detail": "No attestations."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "fail",
+        "detail": "No declarations."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-sanitizer",
+    "package_id": "pkg-sanitizer",
+    "requirement_id": "req-html-sanitize",
+    "reviewed_at": "2026-10-27",
+    "reviewer": "research-agent",
+    "recommendation": "avoid",
+    "risk": "critical",
+    "score": 18,
+    "summary": "Google Caja's HTML sanitizer, last released in 2015. Zero dependencies, but abandoned for a decade and unsuitable for a security-critical path.",
+    "reasoning": [
+      "Last release 2015-12-15.",
+      "No advisories in OSV, but also no maintenance, no security process and no fixes in ten years.",
+      "Zero dependencies and 100 KB install do not compensate for abandonment."
+    ],
+    "caveats": [
+      "Caja itself was retired; this package is a historical artifact."
+    ],
+    "evidence": [
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "fail",
+        "detail": "0.1.3 published 2015-12-15; no activity since."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "info",
+        "detail": "No OSV advisories, but no advisory coverage either."
+      },
+      {
+        "key": "provenance",
+        "label": "Provenance",
+        "status": "fail",
+        "detail": "No attestations."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "fail",
+        "detail": "No declarations."
+      }
+    ]
+  }
+]

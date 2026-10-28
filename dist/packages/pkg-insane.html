@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>insane 2.6.2 · Package Review Board</title>
+<meta name="description" content="Abandoned since 2016. Carries an unfixed ReDoS advisory (GHSA-w455-mfq9-hf74) and has no type declarations.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link" href="../index.html">Overview</a>
+    <a class="nav-link" href="../requirements/index.html">Requirements</a>
+    <a class="nav-link is-active" href="../packages/index.html" aria-current="page">Packages</a>
+    <a class="nav-link" href="../whitelist.html">Whitelist</a>
+    <a class="nav-link" href="../method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../packages/index.html">Packages</a><span class="crumb-sep">/</span><span aria-current="page">insane</span></nav>
+
+<header class="pkg-head">
+  <div>
+    <p class="eyebrow">npm · MIT</p>
+    <h1>insane <span class="version version-lg">2.6.2</span></h1>
+    <p class="lede">Abandoned since 2016. Carries an unfixed ReDoS advisory (GHSA-w455-mfq9-hf74) and has no type declarations.</p>
+  </div>
+  <div class="pkg-verdict">
+    <span class="pill pill-bad">Avoid</span>
+    <span class="pill pill-bad">Critical risk</span>
+    <span class="score" title="Score 20 of 100"><span class="score-num">20</span><span class="score-track"><span class="score-fill score-bad" style="width:20%"></span></span></span>
+    <span class="pill pill-bad">Rejected</span>
+  </div>
+</header>
+
+
+
+<section class="meta-grid" aria-label="Package metadata">
+  <div><span>Last release</span><strong>19 Sep 2016</strong></div>
+  <div><span>Weekly downloads</span><strong>82,263</strong></div>
+  <div><span>Runtime deps</span><strong>2</strong></div>
+  <div><span>Install size</span><strong>696 KB</strong></div>
+  <div><span>Unpacked</span><strong>—</strong></div>
+  <div><span>Maintainers</span><strong>bevacqua</strong></div>
+  <div><span>Types</span><strong>none</strong></div>
+  <div><span>Formats</span><strong>cjs</strong></div>
+  <div><span>License</span><strong><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></strong></div>
+  <div><span>Provenance</span><strong><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></strong></div>
+  <div class="meta-links">
+    <span>Links</span>
+    <strong><a href="https://github.com/bevacqua/insane" rel="noreferrer noopener">Repository</a> · <a href="https://www.npmjs.com/package/insane" rel="noreferrer noopener">npm</a></strong>
+  </div>
+</section>
+
+
+<div class="two-col">
+  <section class="panel">
+    <div class="panel-head"><h2>Verdict</h2><span class="muted small">Reviewed 27 Oct 2026 · next 25 Jan 2027</span></div>
+    <p class="prose">Abandoned since 2016 and carries an unfixed ReDoS advisory. Do not use for untrusted input.</p>
+    <div class="review-meta">
+      <span class="pill pill-ok">Current</span>
+      <span class="muted small">Requirement: <a href="../requirements/html-sanitize.html">Sanitize untrusted HTML before rendering</a></span>
+    </div>
+    <h3 class="sub-head">Reasoning</h3>
+    <ol class="reasoning"><li>Last release 2016-09-19.</li><li>GHSA-w455-mfq9-hf74 / CVE-2020-26303: regular expression denial of service, with no fixed version.</li><li>No type declarations, no security process and no releases in a decade.</li></ol>
+    <h3 class="sub-head">Caveats</h3><ul class="caveats"><li>Even if the ReDoS is only a availability issue, the lack of fixes for any future bypass makes it unsuitable.</li></ul>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2>Evidence</h2><span class="muted small">4 checks</span></div>
+    <div class="table-wrap">
+      <table class="data-table evidence-table">
+        <thead><tr><th>Check</th><th>Status</th><th>Detail</th></tr></thead>
+        <tbody><tr>
+  <td><code>cve</code><br><span class="muted small">Known advisories</span></td>
+  <td><span class="pill pill-bad">Fail</span></td>
+  <td>GHSA-w455-mfq9-hf74 (CVE-2020-26303), ReDoS, no fixed version.</td>
+</tr><tr>
+  <td><code>maintenance</code><br><span class="muted small">Maintenance</span></td>
+  <td><span class="pill pill-bad">Fail</span></td>
+  <td>2.6.2 published 2016-09-19; no releases since.</td>
+</tr><tr>
+  <td><code>provenance</code><br><span class="muted small">Provenance</span></td>
+  <td><span class="pill pill-bad">Fail</span></td>
+  <td>No attestations.</td>
+</tr><tr>
+  <td><code>types</code><br><span class="muted small">TypeScript types</span></td>
+  <td><span class="pill pill-bad">Fail</span></td>
+  <td>No declarations.</td>
+</tr></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<section class="panel">
+  <div class="panel-head"><h2>Alternatives in this requirement</h2></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>Summary</th></tr></thead>
+      <tbody><tr>
+  <td><a href="pkg-dompurify.html">dompurify</a> <span class="version">3.4.17</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 88 of 100"><span class="score-num">88</span><span class="score-track"><span class="score-fill score-ok" style="width:88%"></span></span></span></td>
+  <td class="muted small">Browser-first sanitizer and the de facto standard. It parses untrusted HTML with the same DOM the browser will use, which is why i…</td>
+</tr><tr>
+  <td><a href="pkg-sanitize-html.html">sanitize-html</a> <span class="version">2.18.1</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 80 of 100"><span class="score-num">80</span><span class="score-track"><span class="score-fill score-ok" style="width:80%"></span></span></span></td>
+  <td class="muted small">Server-first parser sanitizer. Faster than DOMPurify-on-jsdom and far lighter than dragging in jsdom, but its defaults are aggress…</td>
+</tr><tr>
+  <td><a href="pkg-rehype-sanitize.html">rehype-sanitize</a> <span class="version">6.0.0</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 78 of 100"><span class="score-num">78</span><span class="score-track"><span class="score-fill score-warn" style="width:78%"></span></span></span></td>
+  <td class="muted small">The right choice if content already flows through remark/rehype: it sanitizes the HAST tree against an explicit schema instead of …</td>
+</tr><tr>
+  <td><a href="pkg-isomorphic-dompurify.html">isomorphic-dompurify</a> <span class="version">4.6.0</span></td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 72 of 100"><span class="score-num">72</span><span class="score-track"><span class="score-fill score-warn" style="width:72%"></span></span></span></td>
+  <td class="muted small">Convenience wrapper that runs DOMPurify on jsdom for server-side use. Output matches DOMPurify, but it pulls 27 MB and 28 packages…</td>
+</tr><tr>
+  <td><a href="pkg-xss.html">xss</a> <span class="version">1.0.17</span></td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 64 of 100"><span class="score-num">64</span><span class="score-track"><span class="score-fill score-warn" style="width:64%"></span></span></span></td>
+  <td class="muted small">Active whitelist sanitizer that HTML-escapes disallowed tags rather than stripping them, so blocked markup appears as visible text…</td>
+</tr><tr>
+  <td><a href="pkg-sanitizer.html">sanitizer</a> <span class="version">0.1.3</span></td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 18 of 100"><span class="score-num">18</span><span class="score-track"><span class="score-fill score-bad" style="width:18%"></span></span></span></td>
+  <td class="muted small">Google Caja&#39;s HTML sanitizer, last released in 2015. Zero dependencies, but abandoned for a decade and unsuitable for a security-c…</td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Decision context</h2><span class="pill pill-ok">Approved</span></div>
+  <p class="prose"><strong>dompurify</strong> is the primary choice for <a href="../requirements/html-sanitize.html">Sanitize untrusted HTML before rendering</a>. This package is classified as <span class="pill pill-bad">Rejected</span>.</p>
+  <p class="prose muted">Use DOMPurify wherever a browser DOM is available, because parsing with the real DOM is the strongest defence against mutation XSS. Use sanitize-html for Node and SSR, where jsdom would add 27 MB for the same outcome. Use rehype-sanitize when content already flows through remark/rehype, which is the case for the assistant-ui react-markdown pipeline. Keep isomorphic-dompurify on hold: it is correct, but only worth its jsdom footprint if you need DOMPurify specifically on the server. Keep xss on hold: it is fast and safe in the harness, but its escape-not-strip model and lack of independent advisory coverage make it a weaker default. insane and sanitizer are abandoned and must not be used. No package in this category publishes npm provenance, so pin exact versions, subscribe to advisories for the chosen sanitizer, and re-review every 90 days. A 25-vector headless-Chrome corpus executed 11 vectors unsanitized and zero after every tested sanitizer.</p>
+</section>
+
+
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>24 packages · 3 active requirements · 3 decisions</p>
+</footer>
+<script src="../app.js" defer></script>
+</body>
+</html>

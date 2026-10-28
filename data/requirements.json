@@ -1,0 +1,77 @@
+[
+  {
+    "id": "req-deep-merge",
+    "slug": "deep-merge",
+    "title": "Deep merge of nested configuration objects",
+    "summary": "Merge layered configuration (defaults, environment file, request overrides) without mutating the inputs. Inputs can originate from parsed JSON, so the merge must not allow an attacker to control the prototype of the returned object.",
+    "owner": "platform-security",
+    "criticality": "high",
+    "status": "active",
+    "created_at": "2026-10-20",
+    "review_cadence_days": 180,
+    "constraints": [
+      "Zero runtime dependencies",
+      "CI-published with verifiable provenance",
+      "Bundled or resolvable TypeScript types",
+      "No unfixed high or critical advisories",
+      "Active maintenance (release within 12 months)",
+      "Works from both CommonJS and ESM consumers"
+    ],
+    "out_of_scope": [
+      "Schema validation",
+      "Diffing or patching",
+      "YAML serialisation"
+    ],
+    "notes": "The prototype check is a hard requirement: merge inputs include request bodies. Global Object.prototype pollution is not the only risk; inheriting an attacker-chosen prototype on the returned object is sufficient to defeat authorisation checks."
+  },
+  {
+    "id": "req-assistant-ui",
+    "slug": "assistant-ui",
+    "title": "In-app AI assistant chat interface (React)",
+    "summary": "Embed a production-grade chat and agent UI in a React application: streaming messages, tool calls, attachments and formatted assistant output. Evaluate the assistant-ui suite both as direct imports and as the transitive dependency tree they bring in.",
+    "owner": "frontend-platform",
+    "criticality": "high",
+    "status": "active",
+    "created_at": "2026-10-27",
+    "review_cadence_days": 90,
+    "constraints": [
+      "Permissive license across the full dependency tree",
+      "CI-published with verifiable provenance",
+      "Bundled TypeScript types",
+      "No install scripts in the dependency tree",
+      "No telemetry or network calls unless explicitly configured",
+      "React 18 and 19 supported"
+    ],
+    "out_of_scope": [
+      "Visual design and theming",
+      "LLM provider selection",
+      "Prompt and agent design"
+    ],
+    "notes": "@assistant-ui/react is the only package intended for direct import; core, tap and store are transitive. @assistant-ui/store was added to this review because it is a required peer of core and react and was missing from the original four. Third-party transitive packages (radix-ui, zod, zustand, react-markdown) are covered by tree-level checks rather than individual reviews."
+  },
+  {
+    "id": "req-html-sanitize",
+    "slug": "html-sanitize",
+    "title": "Sanitize untrusted HTML before rendering",
+    "summary": "Render user- or model-supplied HTML safely. Inputs include LLM output, pasted content and stored rich text. The sanitizer must remove scripts, event handlers, dangerous URL schemes and mutation-XSS vectors while preserving the formatting we allow.",
+    "owner": "platform-security",
+    "criticality": "critical",
+    "status": "active",
+    "created_at": "2026-10-27",
+    "review_cadence_days": 90,
+    "constraints": [
+      "Removes scripts, event handlers and javascript:/data: URLs",
+      "Resistant to mutation XSS when the output is re-parsed",
+      "Actively maintained with a public security process",
+      "Zero or small dependency tree",
+      "Runs where it is needed: browser DOM or Node",
+      "TypeScript types available"
+    ],
+    "out_of_scope": [
+      "Markdown authoring",
+      "Content Security Policy",
+      "URL allowlisting beyond scheme checks"
+    ],
+    "notes": "No package in this category publishes SLSA provenance to npm, so the release-integrity constraint is waived for this requirement and replaced with exact version pinning, automated advisory alerts and a 90-day review. DOMPurify publishes SLSA provenance and Sigstore signatures on GitHub release artifacts, but not on the npm tarball. sanitize-html's standalone repository is archived; the package now lives in the Apostrophe monorepo. Testing used a 25-vector corpus in headless Chrome; the unsanitized control executed 11 vectors and every tested sanitizer executed none."
+  }
+]

@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Packages · Package Review Board</title>
+<meta name="description" content="All reviewed packages with recommendation, risk and review cadence.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <span class="brand-text">Package Review Board</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-link" href="../index.html">Overview</a>
+    <a class="nav-link" href="../requirements/index.html">Requirements</a>
+    <a class="nav-link is-active" href="../packages/index.html" aria-current="page">Packages</a>
+    <a class="nav-link" href="../whitelist.html">Whitelist</a>
+    <a class="nav-link" href="../method.html">Method</a>
+  </nav>
+</header>
+<main id="main" class="page">
+
+<header class="page-head">
+  <p class="eyebrow">Packages</p>
+  <h1>Every package we have reviewed</h1>
+  <p class="lede">Metadata comes from the npm registry and the published tarball. The recommendation, risk and score come from the latest review for the requirement it was assessed against.</p>
+  <div class="head-meta"><span class="chip">24 packages</span><span class="chip">10 adopt</span><span class="chip">9 avoid</span></div>
+</header>
+
+<div class="toolbar">
+  <label class="search">
+    <span class="search-icon" aria-hidden="true">⌕</span>
+    <input type="search" placeholder="Filter by name, license or note…" data-filter-target="packages-table" aria-label="Filter packages">
+  </label>
+  <div class="segmented" role="group" aria-label="Filter by recommendation">
+    <button type="button" class="seg is-active" data-filter-value="all" data-filter-table="packages-table">All</button>
+    <button type="button" class="seg" data-filter-value="adopt" data-filter-table="packages-table">Adopt</button>
+    <button type="button" class="seg" data-filter-value="hold" data-filter-table="packages-table">Hold</button>
+    <button type="button" class="seg" data-filter-value="avoid" data-filter-table="packages-table">Avoid</button>
+  </div>
+</div>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table class="data-table" id="packages-table" data-filterable>
+      <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>License</th><th>Provenance</th><th class="num">Downloads/wk</th><th>Review</th></tr></thead>
+      <tbody><tr data-search="@fastify/deepmerge mit adopt commonjs entry point with bundled .d.ts. default import works from esm via node interop. org-owned by the fastify project." data-group="adopt">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-fastify-deepmerge.html">@fastify/deepmerge</a>
+    <span class="version">3.2.4</span>
+    <span class="pkg-date">22 Oct 2026</span>
+    <span class="pkg-notes muted small">CommonJS entry point with bundled .d.ts. Default import works from ESM via Node interop. Org-owned by the Fastify project.</span>
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 92 of 100"><span class="score-num">92</span><span class="score-track"><span class="score-fill score-ok" style="width:92%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="num">3.7M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="deepmerge-ts bsd-3-clause adopt dual esm/cjs with an exports map. best-in-class type inference; handles circular references and merges map/set." data-group="adopt">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-deepmerge-ts.html">deepmerge-ts</a>
+    <span class="version">8.0.2</span>
+    <span class="pkg-date">21 Aug 2026</span>
+    <span class="pkg-notes muted small">Dual ESM/CJS with an exports map. Best-in-class type inference; handles circular references and merges Map/Set.</span>
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 88 of 100"><span class="score-num">88</span><span class="score-track"><span class="score-fill score-ok" style="width:88%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: BSD-3-Clause (permissive)"><span class="license-mark" aria-hidden="true">©</span>BSD-3-Clause</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="num">14M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="dompurify mpl-2.0 or apache-2.0 adopt browser-first dom sanitizer. dual mpl-2.0/apache-2.0; choose apache-2.0. publishes slsa provenance and sigstore signatures on github release artifacts, but npm tarballs carry no provenance. 11.7 kb gzip." data-group="adopt">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-dompurify.html">dompurify</a>
+    <span class="version">3.4.17</span>
+    <span class="pkg-date">12 Oct 2026</span>
+    <span class="pkg-notes muted small">Browser-first DOM sanitizer. Dual MPL-2.0/Apache-2.0; choose Apache-2.0. Publishes SLSA provenance and Sigstore signatures on GitHub release artifacts, but npm tarballs carry no provenance. 11.7 KB gzip.</span>
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 88 of 100"><span class="score-num">88</span><span class="score-track"><span class="score-fill score-ok" style="width:88%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MPL-2.0 OR Apache-2.0 (permissive)"><span class="license-mark" aria-hidden="true">©</span>MPL-2.0 / Apache-2.0</span></td>
+  <td class="nowrap"><span class="prov prov-release" title="SLSA attestation on GitHub release artifacts; the npm tarball itself is unattested"><span class="prov-mark" aria-hidden="true">✓</span>release</span></td>
+  <td class="num">45M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@assistant-ui/react mit adopt main entry point for the assistant-ui suite. esm-only with bundled types and react 18/19 peers. measured 54.5 mb install and ~135 kb gzip for a minimal runtime plus thread primitive bundle. 0.x versioning with roughly 30 releases per quarter." data-group="adopt">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-assistant-ui-react.html">@assistant-ui/react</a>
+    <span class="version">0.15.31</span>
+    <span class="pkg-date">22 Oct 2026</span>
+    <span class="pkg-notes muted small">Main entry point for the assistant-ui suite. ESM-only with bundled types and React 18/19 peers. Measured 54.5 MB install and ~135 KB gzip for a minimal runtime plus thread primitive bundle. 0.x versioning with roughly 30 releases per quarter.</span>
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="num">1.2M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@assistant-ui/store mit adopt required peer of @assistant-ui/core and @assistant-ui/react; installed automatically. zero dependencies. added to this review because the other four packages cannot be used without it." data-group="adopt">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-assistant-ui-store.html">@assistant-ui/store</a>
+    <span class="version">0.3.22</span>
+    <span class="pkg-date">19 Oct 2026</span>
+    <span class="pkg-notes muted small">Required peer of @assistant-ui/core and @assistant-ui/react; installed automatically. Zero dependencies. Added to this review because the other four packages cannot be used without it.</span>
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="num">1.1M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@assistant-ui/core mit adopt required runtime beneath @assistant-ui/react; installed automatically. declares @assistant-ui/store and @assistant-ui/tap as required peers. ships src and source maps, hence the 9.9 mb unpacked size. measured 21.7 mb install with react." data-group="adopt">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-assistant-ui-core.html">@assistant-ui/core</a>
+    <span class="version">0.3.31</span>
+    <span class="pkg-date">22 Oct 2026</span>
+    <span class="pkg-notes muted small">Required runtime beneath @assistant-ui/react; installed automatically. Declares @assistant-ui/store and @assistant-ui/tap as required peers. Ships src and source maps, hence the 9.9 MB unpacked size. Measured 21.7 MB install with React.</span>
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 82 of 100"><span class="score-num">82</span><span class="score-track"><span class="score-fill score-ok" style="width:82%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="num">1.0M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="sanitize-html mit adopt parser-based, server-first sanitizer. default allowedtags excludes img and svg, so allowlists must be configured deliberately. the standalone repository is archived; development continues in the apostrophe monorepo. no bundled types." data-group="adopt">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-sanitize-html.html">sanitize-html</a>
+    <span class="version">2.18.1</span>
+    <span class="pkg-date">14 Oct 2026</span>
+    <span class="pkg-notes muted small">Parser-based, server-first sanitizer. Default allowedTags excludes img and svg, so allowlists must be configured deliberately. The standalone repository is archived; development continues in the Apostrophe monorepo. No bundled types.</span>
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 80 of 100"><span class="score-num">80</span><span class="score-track"><span class="score-fill score-ok" style="width:80%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">11M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@assistant-ui/tap mit adopt react hook engine reimplemented so hooks can run outside a react tree. zero dependencies, 752 kb unpacked. required peer of core and store; not intended as a direct application dependency." data-group="adopt">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-assistant-ui-tap.html">@assistant-ui/tap</a>
+    <span class="version">0.9.24</span>
+    <span class="pkg-date">19 Oct 2026</span>
+    <span class="pkg-notes muted small">React hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked. Required peer of core and store; not intended as a direct application dependency.</span>
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 79 of 100"><span class="score-num">79</span><span class="score-track"><span class="score-fill score-warn" style="width:79%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="num">1.3M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="rehype-sanitize mit adopt schema-based sanitizer for the unified/rehype pipeline. built on hast-util-sanitize 5.0.2. stable but no release since 2023, and it only applies to hast, not raw html strings." data-group="adopt">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-rehype-sanitize.html">rehype-sanitize</a>
+    <span class="version">6.0.0</span>
+    <span class="pkg-date">26 Aug 2023</span>
+    <span class="pkg-notes muted small">Schema-based sanitizer for the unified/rehype pipeline. Built on hast-util-sanitize 5.0.2. Stable but no release since 2023, and it only applies to HAST, not raw HTML strings.</span>
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 78 of 100"><span class="score-num">78</span><span class="score-track"><span class="score-fill score-warn" style="width:78%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">6.4M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@assistant-ui/react-markdown mit adopt optional markdown renderer built on react-markdown 10.1. adds about 87 packages and ~72 kb gzip to the bundle. raw html is not enabled by default. family alternatives: react-streamdown and react-syntax-highlighter. measured 63.2 mb install with react." data-group="adopt">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-assistant-ui-react-markdown.html">@assistant-ui/react-markdown</a>
+    <span class="version">0.14.24</span>
+    <span class="pkg-date">22 Oct 2026</span>
+    <span class="pkg-notes muted small">Optional markdown renderer built on react-markdown 10.1. Adds about 87 packages and ~72 KB gzip to the bundle. Raw HTML is not enabled by default. Family alternatives: react-streamdown and react-syntax-highlighter. Measured 63.2 MB install with React.</span>
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 76 of 100"><span class="score-num">76</span><span class="score-track"><span class="score-fill score-warn" style="width:76%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="num">564k</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="isomorphic-dompurify mit hold runs dompurify on jsdom for server-side use. pulls 27.4 mb and 28 packages, so its exposure includes jsdom&#39;s own advisory stream. single-maintainer wrapper." data-group="hold">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-isomorphic-dompurify.html">isomorphic-dompurify</a>
+    <span class="version">4.6.0</span>
+    <span class="pkg-date">16 Oct 2026</span>
+    <span class="pkg-notes muted small">Runs DOMPurify on jsdom for server-side use. Pulls 27.4 MB and 28 packages, so its exposure includes jsdom&#39;s own advisory stream. Single-maintainer wrapper.</span>
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 72 of 100"><span class="score-num">72</span><span class="score-track"><span class="score-fill score-warn" style="width:72%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">4.6M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="defu mit hold implements defaults semantics: existing target values win, so it is not a general-purpose overwrite merge. part of the unjs ecosystem." data-group="hold">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-defu.html">defu</a>
+    <span class="version">6.1.7</span>
+    <span class="pkg-date">7 Apr 2026</span>
+    <span class="pkg-notes muted small">Implements defaults semantics: existing target values win, so it is not a general-purpose overwrite merge. Part of the unjs ecosystem.</span>
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 71 of 100"><span class="score-num">71</span><span class="score-track"><span class="score-fill score-warn" style="width:71%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">29M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="merge-anything mit hold esm-only with one runtime dependency (is-what) and no published type declarations. replaces arrays instead of concatenating." data-group="hold">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-merge-anything.html">merge-anything</a>
+    <span class="version">6.0.9</span>
+    <span class="pkg-date">30 Sep 2026</span>
+    <span class="pkg-notes muted small">ESM-only with one runtime dependency (is-what) and no published type declarations. Replaces arrays instead of concatenating.</span>
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 66 of 100"><span class="score-num">66</span><span class="score-track"><span class="score-fill score-warn" style="width:66%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">1.3M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="xss mit hold whitelist sanitizer that html-escapes disallowed tags instead of stripping them, so blocked markup becomes visible text. no osv advisories, but no independent advisory coverage either; 70 open issues." data-group="hold">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-xss.html">xss</a>
+    <span class="version">1.0.17</span>
+    <span class="pkg-date">24 Oct 2026</span>
+    <span class="pkg-notes muted small">Whitelist sanitizer that HTML-escapes disallowed tags instead of stripping them, so blocked markup becomes visible text. No OSV advisories, but no independent advisory coverage either; 70 open issues.</span>
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 64 of 100"><span class="score-num">64</span><span class="score-track"><span class="score-fill score-warn" style="width:64%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">4.9M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@75lb/deep-merge mit hold depends on lodash and typical, reintroducing the dependency tree this task is trying to avoid. esm-only." data-group="hold">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-75lb-deep-merge.html">@75lb/deep-merge</a>
+    <span class="version">1.1.5</span>
+    <span class="pkg-date">14 Oct 2026</span>
+    <span class="pkg-notes muted small">Depends on lodash and typical, reintroducing the dependency tree this task is trying to avoid. ESM-only.</span>
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 55 of 100"><span class="score-num">55</span><span class="score-track"><span class="score-fill score-bad" style="width:55%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">383k</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="ts-deepmerge isc avoid small and type-friendly, but the repository contains no .github directory at all, so releases are not ci-driven." data-group="avoid">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-ts-deepmerge.html">ts-deepmerge</a>
+    <span class="version">8.0.0</span>
+    <span class="pkg-date">22 May 2026</span>
+    <span class="pkg-notes muted small">Small and type-friendly, but the repository contains no .github directory at all, so releases are not CI-driven.</span>
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 62 of 100"><span class="score-num">62</span><span class="score-track"><span class="score-fill score-warn" style="width:62%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: ISC (permissive)"><span class="license-mark" aria-hidden="true">©</span>ISC</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">2.3M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@corex/deepmerge mit avoid no repository url published to npm, so provenance and source review are impossible. no release since 2023." data-group="avoid">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-corex-deepmerge.html">@corex/deepmerge</a>
+    <span class="version">4.0.43</span>
+    <span class="pkg-date">12 Apr 2023</span>
+    <span class="pkg-notes muted small">No repository URL published to npm, so provenance and source review are impossible. No release since 2023.</span>
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 45 of 100"><span class="score-num">45</span><span class="score-track"><span class="score-fill score-bad" style="width:45%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">384k</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="merge-deep mit avoid three direct dependencies expand to 13 installed packages. no release since 2021." data-group="avoid">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-merge-deep.html">merge-deep</a>
+    <span class="version">3.0.3</span>
+    <span class="pkg-date">11 Jan 2021</span>
+    <span class="pkg-notes muted small">Three direct dependencies expand to 13 installed packages. No release since 2021.</span>
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 35 of 100"><span class="score-num">35</span><span class="score-track"><span class="score-fill score-bad" style="width:35%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">1.2M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="lodash.merge mit avoid sub-package of lodash, frozen since 2019. no bundled types; requires @types/lodash.merge." data-group="avoid">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-lodash-merge.html">lodash.merge</a>
+    <span class="version">4.6.2</span>
+    <span class="pkg-date">10 Jul 2019</span>
+    <span class="pkg-notes muted small">Sub-package of lodash, frozen since 2019. No bundled types; requires @types/lodash.merge.</span>
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 30 of 100"><span class="score-num">30</span><span class="score-track"><span class="score-fill score-bad" style="width:30%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">73M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@stackline/deepmerge mit avoid new fork that markets itself as a drop-in deepmerge 4 replacement with cve-2026-93753 fixed. single maintainer, near-zero adoption, not independently reviewed." data-group="avoid">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-stackline-deepmerge.html">@stackline/deepmerge</a>
+    <span class="version">1.1.0</span>
+    <span class="pkg-date">13 Oct 2026</span>
+    <span class="pkg-notes muted small">New fork that markets itself as a drop-in deepmerge 4 replacement with CVE-2026-93753 fixed. Single maintainer, near-zero adoption, not independently reviewed.</span>
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">High risk</span></td>
+  <td><span class="score" title="Score 25 of 100"><span class="score-num">25</span><span class="score-track"><span class="score-fill score-bad" style="width:25%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="num">246</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="insane mit avoid abandoned since 2016. carries an unfixed redos advisory (ghsa-w455-mfq9-hf74) and has no type declarations." data-group="avoid">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-insane.html">insane</a>
+    <span class="version">2.6.2</span>
+    <span class="pkg-date">19 Sep 2016</span>
+    <span class="pkg-notes muted small">Abandoned since 2016. Carries an unfixed ReDoS advisory (GHSA-w455-mfq9-hf74) and has no type declarations.</span>
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 20 of 100"><span class="score-num">20</span><span class="score-track"><span class="score-fill score-bad" style="width:20%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">82k</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="deepmerge mit avoid ships index.d.ts but declares no types/typings field, so typescript does not resolve it; most consumers install @types/deepmerge. affected by cve-2026-93753 with no fix released." data-group="avoid">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-deepmerge.html">deepmerge</a>
+    <span class="version">4.3.1</span>
+    <span class="pkg-date">16 Mar 2023</span>
+    <span class="pkg-notes muted small">Ships index.d.ts but declares no types/typings field, so TypeScript does not resolve it; most consumers install @types/deepmerge. Affected by CVE-2026-93753 with no fix released.</span>
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 18 of 100"><span class="score-num">18</span><span class="score-track"><span class="score-fill score-bad" style="width:18%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">59M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="sanitizer apache-2.0 avoid google caja&#39;s html sanitizer, last released in 2015. zero dependencies but abandoned for a decade." data-group="avoid">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-sanitizer.html">sanitizer</a>
+    <span class="version">0.1.3</span>
+    <span class="pkg-date">15 Dec 2015</span>
+    <span class="pkg-notes muted small">Google Caja&#39;s HTML sanitizer, last released in 2015. Zero dependencies but abandoned for a decade.</span>
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 18 of 100"><span class="score-num">18</span><span class="score-track"><span class="score-fill score-bad" style="width:18%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: Apache-2.0 (permissive)"><span class="license-mark" aria-hidden="true">©</span>Apache-2.0</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">201k</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="deep-extend mit avoid not updated since 2018. historical critical prototype-pollution advisory cve-2018-3750." data-group="avoid">
+  <td class="pkg-cell">
+    <a class="pkg-link" href="pkg-deep-extend.html">deep-extend</a>
+    <span class="version">0.6.0</span>
+    <span class="pkg-date">22 May 2018</span>
+    <span class="pkg-notes muted small">Not updated since 2018. Historical critical prototype-pollution advisory CVE-2018-3750.</span>
+  </td>
+  <td><span class="pill pill-bad">Avoid</span></td>
+  <td><span class="pill pill-bad">Critical risk</span></td>
+  <td><span class="score" title="Score 15 of 100"><span class="score-num">15</span><span class="score-track"><span class="score-fill score-bad" style="width:15%"></span></span></span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="num">27M</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr></tbody>
+    </table>
+  </div>
+  <p class="no-matches" hidden>No packages match that filter.</p>
+</section>
+
+</main>
+<footer class="site-footer">
+  <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
+  <p>24 packages · 3 active requirements · 3 decisions</p>
+</footer>
+<script src="../app.js" defer></script>
+</body>
+</html>
