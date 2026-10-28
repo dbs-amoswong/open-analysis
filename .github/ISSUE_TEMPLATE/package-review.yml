@@ -10,20 +10,27 @@ body:
         can apply that label. The workflow checks the labeler again before it
         spends any tokens. A human still approves the review and the decision.
 
-  - type: input
-    id: package
+  - type: textarea
+    id: packages
     attributes:
-      label: npm package name
-      description: Use the exact registry name, including the scope.
-      placeholder: "@scope/name"
+      label: npm package names
+      description: |
+        One package per line. Use the exact registry name, including the scope.
+        Add @version to a line if you need a specific version; leave it off for
+        the latest release. Up to 20 packages per request.
+      placeholder: |
+        @neo4j-nvl/react
+        @neo4j-bloom/dagre
+        @neo4j-nvl/layout-workers
+        @neo4j-nvl/interaction-handlers
     validations:
       required: true
 
   - type: input
     id: version
     attributes:
-      label: Version to review
-      description: Leave blank for the latest release.
+      label: Version applied to packages without one
+      description: Optional. Leave blank unless every package should use the same exact version.
       placeholder: "1.2.3"
 
   - type: input

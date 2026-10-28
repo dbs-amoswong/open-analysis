@@ -204,21 +204,31 @@ The validator rejects unknown package or requirement IDs, duplicate IDs, invalid
 
 The request path is an issue, not a JSON edit:
 
-1. Open an issue with the **Package review request** form. Use an existing
-   requirement ID or slug; a new requirement still needs a human to add it.
-2. A maintainer checks that the package is not already reviewed for that
+1. Open an issue with the **Package review request** form. Put one package per
+   line; add `@version` to a line for an exact version. Up to 20 packages per
+   request. Use an existing requirement ID or slug; a new requirement still
+   needs a human to add it.
+2. A collaborator checks that the packages are not already reviewed for that
    requirement, then adds the `review-request` label.
-3. `.github/workflows/package-review.yml` parses the request, collects npm,
-   download, OSV, provenance and GitHub facts into `ai/dossier.json`, and runs
-   OpenCode with the restricted `package-review` agent.
-4. The agent writes `ai/review.json` only. A trusted script validates it,
-   appends it to `data/reviews.json`, builds the site, and opens a pull request.
-   The workflow comments the PR link on the issue.
-5. A human checks the evidence and the verdict. A separate decision PR puts the
-   package in exactly one whitelist bucket. The AI never edits `data/decisions.json`.
+3. `.github/workflows/package-review.yml` parses the list, collects npm,
+   download, OSV, provenance and GitHub facts into `ai/dossiers/<pkg-id>.json`
+   per package, and runs OpenCode once per package with the restricted
+   `package-review` agent.
+4. Each agent run writes only `ai/reviews/<pkg-id>.json`. A trusted script
+   validates every draft, appends them to `data/reviews.json`, builds the site,
+   and opens **one pull request for the batch**. The workflow comments the PR
+   link on the issue. Packages that already have a review for the requirement
+   are skipped and listed in the PR body.
+5. A human checks the evidence and each verdict. A separate decision PR puts
+   every package in exactly one whitelist bucket. The AI never edits
+   `data/decisions.json`.
+
+If one draft fails verification, the workflow stops before opening the PR;
+fix the request or the draft and re-run. For independent PRs, submit one issue
+per package instead of a batch.
 
 Maintainers can also run the workflow manually from **Actions → package-review
-→ Run workflow** with a package name and requirement.
+→ Run workflow** with a comma-separated package list and a requirement.
 
 Required configuration:
 

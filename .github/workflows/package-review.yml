@@ -3,14 +3,14 @@ name: package-review
 on:
   workflow_dispatch:
     inputs:
-      package:
-        description: npm package name (for example @scope/name)
+      packages:
+        description: npm package names, comma or newline separated
         required: true
       requirement:
         description: Requirement ID or slug (for example req-deep-merge)
         required: true
       version:
-        description: Version to review; leave blank for latest
+        description: Optional exact version applied to packages without one
         required: false
   issues:
     types: [labeled]
@@ -21,16 +21,16 @@ permissions:
   issues: write
 
 concurrency:
-  group: package-review-${{ github.event.issue.number || inputs.package || github.run_id }}
+  group: package-review-${{ github.event.issue.number || inputs.packages || github.run_id }}
   cancel-in-progress: false
 
 jobs:
   draft:
     if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'review-request'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     env:
-      PACKAGE: ${{ inputs.package }}
+      PACKAGES: ${{ inputs.packages }}
       REQUIREMENT: ${{ inputs.requirement }}
       VERSION: ${{ inputs.version }}
       ISSUE_BODY: ${{ github.event.issue.body }}
@@ -96,13 +96,22 @@ jobs:
         if: steps.prepare.outputs.skip != 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/collect.mjs --request ai/request.json --out ai/dossier.json
+        run: |
+          set -euo pipefail
+          mkdir -p ai/dossiers
+          for request in ai/requests/*.json; do
+            [ -e "$request" ] || { echo "No package requests found"; exit 1; }
+            key=$(basename "$request" .json)
+            echo "::group::Collect $key"
+            node scripts/collect.mjs --request "$request" --out "ai/dossiers/$key.json"
+            echo "::endgroup::"
+          done
 
       - name: Install OpenCode
         if: steps.prepare.outputs.skip != 'true'
         run: npm install --global @opencode/cli@2.2.0
 
-      - name: Draft review with OpenCode
+      - name: Draft reviews with OpenCode
         if: steps.prepare.outputs.skip != 'true'
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
@@ -110,29 +119,39 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           COMMANDCODE_API_KEY: ${{ secrets.COMMANDCODE_API_KEY }}
         run: |
-          opencode run --standalone \
-            --agent package-review \
-            --model "$OPENCODE_MODEL" \
-            --title "Package review: $PACKAGE for $REQUIREMENT" \
-            "Read ai/request.json and ai/dossier.json. Write ai/review.json only. Follow the package-review agent instructions exactly."
+          set -euo pipefail
+          mkdir -p ai/reviews
+          for dossier in ai/dossiers/*.json; do
+            [ -e "$dossier" ] || { echo "No dossiers found"; exit 1; }
+            key=$(basename "$dossier" .json)
+            echo "::group::OpenCode draft: $key"
+            opencode run --standalone \
+              --agent package-review \
+              --model "$OPENCODE_MODEL" \
+              --title "Package review: $key for $REQUIREMENT" \
+              "Read ai/requests/$key.json and ai/dossiers/$key.json. Write ai/reviews/$key.json only. Follow the package-review agent instructions exactly."
+            echo "::endgroup::"
+          done
 
-      - name: Verify draft
+      - name: Verify and add drafts
         if: steps.prepare.outputs.skip != 'true'
-        run: node scripts/verify-review.mjs
+        run: |
+          set -euo pipefail
+          for review in ai/reviews/*.json; do
+            [ -e "$review" ] || { echo "No reviews were written"; exit 1; }
+            key=$(basename "$review" .json)
+            echo "::group::Verify $key"
+            node scripts/verify-review.mjs --review "$review" --dossier "ai/dossiers/$key.json"
+            node scripts/publish-review.mjs --review "$review" --dossier "ai/dossiers/$key.json" --request "ai/requests/$key.json"
+            echo "::endgroup::"
+          done
 
-      - name: Add draft to the working tree
-        if: steps.prepare.outputs.skip != 'true'
-        run: node scripts/publish-review.mjs
-
-      - name: Upload the dossier and draft
+      - name: Upload the dossiers and drafts
         if: steps.prepare.outputs.skip != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: review-draft-${{ github.run_id }}
-          path: |
-            ai/request.json
-            ai/dossier.json
-            ai/review.json
+          path: ai/
           retention-days: 30
 
       - name: Validate and build
@@ -151,36 +170,48 @@ jobs:
         run: |
           set -euo pipefail
 
-          SLUG=$(node -e 'const r=require("./ai/request.json"); console.log(r.package.replace(/^@/,"").replace(/[^a-z0-9]+/gi,"-").toLowerCase())')
-          BRANCH="review/${SLUG}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          COUNT="${{ steps.prepare.outputs.count }}"
+          BRANCH="review/${REQUIREMENT}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
 
           git config user.name "opencode-review-bot"
           git config user.email "opencode-review-bot@users.noreply.github.com"
           git checkout -b "$BRANCH"
           git add data
-          git commit -m "review: draft ${PACKAGE} for ${REQUIREMENT}"
+          git commit -m "review: draft ${COUNT} package(s) for ${REQUIREMENT}"
 
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push -u origin "$BRANCH"
 
-          BODY="AI-drafted review for \`${PACKAGE}\` against \`${REQUIREMENT}\`.
+          PACKAGE_LIST=$(node -e 'const r=require("./ai/request.json"); const byName=new Map(r.packages.map(p=>[p.name,p])); console.log(r.pending.map(name=>{const p=byName.get(name)||{}; return `- \`${name}\`${p.version?`@${p.version}`:""}`}).join("\n"))')
+          SKIPPED_LIST=$(node -e 'const r=require("./ai/request.json"); console.log((r.skipped||[]).map(s=>`- \`${s.name}\`: ${s.reason}`).join("\n"))')
+
+          BODY="AI-drafted review(s) for \`${REQUIREMENT}\`.
+
+          ${PACKAGE_LIST}
 
           - Request: ${ISSUE_URL:-manual run}
           - Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
 
-          This PR adds the review only. It does not change a whitelist decision.
-          Check the evidence, edit the verdict if needed, then add the package to
-          exactly one bucket in \`data/decisions.json\` in a decision PR."
+          This PR adds the reviews only. It does not change a whitelist decision.
+          Check the evidence, edit the verdicts if needed, then add each package
+          to exactly one bucket in \`data/decisions.json\` in a decision PR."
+
+          if [ -n "$SKIPPED_LIST" ]; then
+            BODY="$BODY
+
+          Skipped because they already have a review for this requirement:
+          $SKIPPED_LIST"
+          fi
 
           PR_URL=$(gh pr create \
             --base main \
             --head "$BRANCH" \
-            --title "review: ${PACKAGE} for ${REQUIREMENT}" \
+            --title "review: ${COUNT} package(s) for ${REQUIREMENT}" \
             --body "$BODY")
 
           echo "Opened $PR_URL"
           if [ -n "${ISSUE_NUMBER:-}" ]; then
-            gh issue comment "$ISSUE_NUMBER" --body "Draft review opened: $PR_URL"
+            gh issue comment "$ISSUE_NUMBER" --body "Draft reviews opened: $PR_URL"
           fi
 
       - name: Already reviewed
@@ -188,4 +219,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-        run: gh issue comment "$ISSUE_NUMBER" --body "This package already has a review for that requirement; no draft was opened."
+        run: gh issue comment "$ISSUE_NUMBER" --body "Every requested package already has a review for that requirement; no draft was opened."

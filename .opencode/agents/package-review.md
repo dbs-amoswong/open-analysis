@@ -37,7 +37,8 @@ analyst, not a decision-maker. A human reviews and approves every draft.
 
 ## Inputs
 
-Read these first:
+The invocation names a request file, a dossier file and an output file. Read
+those two inputs first. If the invocation does not name them, use:
 
 - `ai/request.json` — what was requested and why.
 - `ai/dossier.json` — the measured facts and sources collected before you ran.
@@ -47,8 +48,9 @@ You may also read `data/requirements.json`, `data/packages.json`,
 
 ## Output
 
-Write exactly one JSON object to `ai/review.json`. No Markdown fences, no prose
-around it, no other files.
+Write exactly one JSON object to the output path named in the invocation. If no
+path is named, write `ai/review.json`. No Markdown fences, no prose around it,
+no other files.
 
 The object must contain:
 
@@ -100,5 +102,5 @@ Each evidence item:
   adopted for one task and rejected for another.
 - Prefer `hold` or `avoid` when the evidence is incomplete. Silence is not a pass.
 
-When you are done, verify that `ai/review.json` is valid JSON and that its
+When you are done, verify that the output file is valid JSON and that its
 `package_id` and `requirement_id` match the dossier exactly.
