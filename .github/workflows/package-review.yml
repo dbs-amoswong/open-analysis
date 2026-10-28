@@ -45,11 +45,11 @@ jobs:
       REQUESTER: ${{ github.event.issue.user.login }}
       OPENCODE_MODEL: ${{ vars.OPENCODE_MODEL }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
 
@@ -189,7 +189,7 @@ jobs:
 
       - name: Upload the dossiers and drafts
         if: steps.prepare.outputs.skip != 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: review-draft-${{ github.run_id }}
           path: ai/

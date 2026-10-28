@@ -247,7 +247,10 @@ Maintainers can also run the workflow manually from **Actions → package-review
 Required configuration:
 
 - Repository variable `OPENCODE_MODEL`, for example
-  `anthropic/claude-sonnet-5-5`. Pin a specific model, not a moving alias.
+  `anthropic/claude-sonnet-5-5`. Always use the `provider/model` form, not a
+  bare model name. Free OpenCode models need the `opencode/` prefix, for example
+  `opencode/deepseek-v4.1-flash-free`, and still need `OPENCODE_API_KEY` in CI.
+  Pin a specific model, not a moving alias.
 - A provider secret. `OPENCODE_API_KEY` works for the OpenCode provider;
   `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` and `COMMANDCODE_API_KEY` are passed
   through for those providers. For any other provider, add its key variable to
