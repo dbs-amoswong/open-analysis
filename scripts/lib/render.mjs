@@ -388,7 +388,7 @@ function decisionsTable(model, root) {
   <div class="panel-head"><h2>Whitelist decisions</h2></div>
   <div class="table-wrap">
     <table class="data-table">
-      <thead><tr><th>Requirement</th><th>Primary</th><th>Status</th><th>Expires</th><th>Buckets</th></tr></thead>
+      <thead><tr><th>Requirement</th><th>Package</th><th>Status</th><th>Expires</th><th>Buckets</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>
   </div>
@@ -535,7 +535,8 @@ export function renderRequirement(model, req) {
     .map(({ package: pkg, review, bucket, dropped }) => `<tr data-search="${esc(`${pkg.name} ${review.recommendation} ${review.risk} ${bucket}`.toLowerCase())}" data-group="${esc(review.recommendation)}">
   <td>
     <a class="pkg-link" href="../packages/${esc(pkg.id)}.html">${esc(pkg.name)}</a>
-    <span class="version">${esc(pkg.latest_version)}</span>
+    <span class="version">${esc(review.reviewed_version)}</span>
+    ${review.reviewed_version !== pkg.latest_version ? `<span class="inline-flag">latest ${esc(pkg.latest_version)}</span>` : ""}
     ${bucket === "dropped" && dropped ? `<span class="inline-flag">drop by ${esc(fmtDate(dropped.deadline))}</span>` : ""}
   </td>
   <td>${recPill(review.recommendation)}</td>
@@ -771,6 +772,8 @@ export function renderPackage(model, pkg) {
   const alternatives = req
     ? req.candidates.filter((c) => c.package.id !== pkg.id)
     : [];
+  const priorVersions = pkg.prior_versions ?? [];
+  const versionDrift = Boolean(review && review.reviewed_version !== pkg.latest_version);
 
   const evidenceRows = (review?.evidence ?? [])
     .map(
@@ -837,6 +840,11 @@ ${
     ? `<div class="banner banner-bad"><strong>Drop by ${esc(fmtDate(drop.deadline))}.</strong> ${esc(drop.reason)}</div>`
     : ""
 }
+${
+  versionDrift
+    ? `<div class="banner banner-warn"><strong>Version-scoped review.</strong> This review covers ${esc(review.reviewed_version)}; the current latest is ${esc(pkg.latest_version)}.</div>`
+    : ""
+}
 
 <section class="meta-grid" aria-label="Package metadata">
   <div><span>Last release</span><strong>${esc(fmtDate(pkg.published_at))}</strong></div>
@@ -864,6 +872,7 @@ ${
     <p class="prose">${esc(review.summary)}</p>
     <div class="review-meta">
       ${reviewStatePill(review)}
+      <span class="muted small">Reviewed version ${esc(review.reviewed_version)}</span>
       ${req ? `<span class="muted small">Requirement: ${reqLink(req, "../")}</span>` : ""}
     </div>
     <h3 class="sub-head">Reasoning</h3>
@@ -899,6 +908,30 @@ ${
 </section>
 
 ${
+  priorVersions.length
+    ? `<section class="panel">
+  <div class="panel-head"><h2>Version history</h2><span class="muted small">Current review: ${esc(review?.reviewed_version ?? pkg.latest_version)}</span></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Version</th><th>Published</th><th>Verdict</th><th>Note</th></tr></thead>
+      <tbody>${priorVersions
+        .map(
+          (v) => `<tr>
+        <td><strong>${esc(v.version)}</strong></td>
+        <td class="nowrap">${esc(fmtDate(v.published_at))}</td>
+        <td>${recPill(v.recommendation)}</td>
+        <td class="muted small">${esc(v.note)}</td>
+      </tr>`
+        )
+        .join("")}</tbody>
+    </table>
+  </div>
+  <p class="table-note">Verdicts are version-scoped. A new major release needs a fresh review; do not assume this verdict carries forward.</p>
+</section>`
+    : ""
+}
+
+${
   alternatives.length
     ? `<section class="panel">
   <div class="panel-head"><h2>Alternatives in this requirement</h2></div>
@@ -916,7 +949,13 @@ ${
   decision
     ? `<section class="panel">
   <div class="panel-head"><h2>Decision context</h2>${decisionStatusPill(decision.status)}</div>
-  <p class="prose"><strong>${esc(decision.primary?.name ?? "")}</strong> is the primary choice for ${reqLink(req, "../")}. This package is classified as ${bucket ? bucketPill(bucket) : "unclassified"}.</p>
+  <p class="prose">${
+    decision.status === "approved"
+      ? `<strong>${esc(decision.primary?.name ?? "")}</strong> is the primary choice for ${reqLink(req, "../")}. This package is classified as ${bucket ? bucketPill(bucket) : "unclassified"}.`
+      : decision.status === "denied"
+        ? `${reqLink(req, "../")} is <strong>denied</strong>. This package is classified as ${bucket ? bucketPill(bucket) : "unclassified"}.`
+        : `${reqLink(req, "../")} is <strong>pending</strong>. This package is classified as ${bucket ? bucketPill(bucket) : "unclassified"}.`
+  }</p>
   <p class="prose muted">${esc(decision.rationale)}</p>
 </section>`
     : ""

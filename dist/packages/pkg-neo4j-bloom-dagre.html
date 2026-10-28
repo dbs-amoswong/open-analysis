@@ -42,6 +42,7 @@
 
 
 
+
 <section class="meta-grid" aria-label="Package metadata">
   <div><span>Last release</span><strong>2 Sep 2026</strong></div>
   <div><span>Weekly downloads</span><strong>11,853</strong></div>
@@ -66,6 +67,7 @@
     <p class="prose">Not needed. MIT and public, but a 1-star fork of dagrejs/dagre pinned at 3.1.1 while upstream is 3.1.3, and it is not used by the NVL layout-workers package. Use @dagrejs/dagre directly.</p>
     <div class="review-meta">
       <span class="pill pill-ok">Current</span>
+      <span class="muted small">Reviewed version 3.1.1</span>
       <span class="muted small">Requirement: <a href="../requirements/nvl-graph.html">Graph visualization with the NVL suite</a></span>
     </div>
     <h3 class="sub-head">Reasoning</h3>
@@ -137,6 +139,22 @@
 </section>
 
 <section class="panel">
+  <div class="panel-head"><h2>Version history</h2><span class="muted small">Current review: 3.1.1</span></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Version</th><th>Published</th><th>Verdict</th><th>Note</th></tr></thead>
+      <tbody><tr>
+        <td><strong>0.8.14</strong></td>
+        <td class="nowrap">11 Aug 2022</td>
+        <td><span class="pill pill-warn">Hold</span></td>
+        <td class="muted small">MIT. This is the version used by NVL 1.2.2 layout-workers; latest 3.1.1 is a separate fork generation used by nothing in the suite. Only relevant if pinned to NVL 1.2.2, which is itself denied.</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <p class="table-note">Verdicts are version-scoped. A new major release needs a fresh review; do not assume this verdict carries forward.</p>
+</section>
+
+<section class="panel">
   <div class="panel-head"><h2>Alternatives in this requirement</h2></div>
   <div class="table-wrap">
     <table class="data-table">
@@ -172,8 +190,8 @@
 
 <section class="panel">
   <div class="panel-head"><h2>Decision context</h2><span class="pill pill-bad">Denied</span></div>
-  <p class="prose"><strong>@neo4j-nvl/react</strong> is the primary choice for <a href="../requirements/nvl-graph.html">Graph visualization with the NVL suite</a>. This package is classified as <span class="pill pill-bad">Rejected</span>.</p>
-  <p class="prose muted">The NVL suite fails the requirement&#39;s hard licence constraint. LICENSE.txt limits use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement; it is proprietary client software, not an OSI licence. The four NVL packages also publish no repository, carry no provenance across 390 versions, ship bundled code that cannot be reviewed, and cannot be loaded by Node in either module system because ESM syntax sits in .js files under commonjs packages with extensionless imports. The React peer range &#39;18.0.0 || ^19.0.0&#39; excludes React 18.2/18.3, and base pulls a Segment analytics SDK plus 43 MB of dependencies. @neo4j-bloom/dagre is MIT but is a 1-star fork of @dagrejs/dagre at 3.1.1, it is not used by layout-workers, and upstream is 3.1.3 — use @dagrejs/dagre directly if a dagre layout is needed. Open-source alternatives to evaluate for the graph surface: Cytoscape.js, Sigma.js, @antv/g6 and React Flow. Exception path: if the organisation holds an Aura or Neo4j Subscription agreement and accepts proprietary terms, revisit as a documented policy exception; even then, the Node/SSR packaging gap and the React 18 peer range remain.</p>
+  <p class="prose"><a href="../requirements/nvl-graph.html">Graph visualization with the NVL suite</a> is <strong>denied</strong>. This package is classified as <span class="pill pill-bad">Rejected</span>.</p>
+  <p class="prose muted">The NVL suite fails the requirement&#39;s hard licence constraint. LICENSE.txt limits use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement; it is proprietary client software, not an OSI licence. The four NVL packages also publish no repository, carry no provenance across 390 versions, ship bundled code that cannot be reviewed, and cannot be loaded by Node in either module system because ESM syntax sits in .js files under commonjs packages with extensionless imports. The React peer range &#39;18.0.0 || ^19.0.0&#39; excludes React 18.2/18.3, and base pulls a Segment analytics SDK plus 43 MB of dependencies. @neo4j-bloom/dagre is MIT but is a 1-star fork of @dagrejs/dagre at 3.1.1, it is not used by layout-workers, and upstream is 3.1.3 — use @dagrejs/dagre directly if a dagre layout is needed. Open-source alternatives to evaluate for the graph surface: Cytoscape.js, Sigma.js, @antv/g6 and React Flow. Exception path: if the organisation holds an Aura or Neo4j Subscription agreement and accepts proprietary terms, revisit as a documented policy exception; even then, the Node/SSR packaging gap and the React 18 peer range remain. Version scope: the review targets 2.0.0. 1.2.2 was checked separately and has the same proprietary licence, missing source and provenance, bundler-only packaging and React 18 peer gap; its layout stack differs (cytoscape 3.33.1, @neo4j-bloom/dagre 0.8.14, mobx 3.6.2) and it installs 56.3 MB. The denial therefore applies to both 2.0.0 and 1.2.2.</p>
 </section>
 
 

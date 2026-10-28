@@ -135,6 +135,22 @@ export async function loadModel({ today = todayISO() } = {}) {
       if (!isNonEmptyString(p.build_vs_buy.effort)) err(`${at}.build_vs_buy.effort: required`);
       if (!isNonEmptyString(p.build_vs_buy.rationale)) err(`${at}.build_vs_buy.rationale: required`);
     }
+    if (p.prior_versions !== undefined) {
+      if (!Array.isArray(p.prior_versions)) {
+        err(`${at}.prior_versions: expected array when present`);
+      } else {
+        for (const [j, prior] of p.prior_versions.entries()) {
+          if (!isNonEmptyString(prior.version)) err(`${at}.prior_versions[${j}].version: required`);
+          if (!ISO_DATE.test(prior.published_at || "")) {
+            err(`${at}.prior_versions[${j}].published_at: expected YYYY-MM-DD`);
+          }
+          if (!RECOMMENDATIONS.includes(prior.recommendation)) {
+            err(`${at}.prior_versions[${j}].recommendation: invalid`);
+          }
+          if (!isNonEmptyString(prior.note)) err(`${at}.prior_versions[${j}].note: required`);
+        }
+      }
+    }
     if (p.install_size_kb !== null && typeof p.install_size_kb !== "number") {
       err(`${at}.install_size_kb: expected number or null`);
     }
@@ -175,6 +191,9 @@ export async function loadModel({ today = todayISO() } = {}) {
     if (!pkgById.has(rev.package_id)) err(`${at}.package_id: unknown package "${rev.package_id}"`);
     if (!reqById.has(rev.requirement_id)) err(`${at}.requirement_id: unknown requirement "${rev.requirement_id}"`);
     if (!ISO_DATE.test(rev.reviewed_at || "")) err(`${at}.reviewed_at: expected YYYY-MM-DD`);
+    if (rev.reviewed_version !== undefined && !isNonEmptyString(rev.reviewed_version)) {
+      err(`${at}.reviewed_version: expected non-empty string when present`);
+    }
     if (!RECOMMENDATIONS.includes(rev.recommendation)) err(`${at}.recommendation: invalid`);
     if (!RISKS.includes(rev.risk)) err(`${at}.risk: invalid`);
     if (!Number.isInteger(rev.score) || rev.score < 0 || rev.score > 100) err(`${at}.score: expected 0-100`);
@@ -226,6 +245,7 @@ export async function loadModel({ today = todayISO() } = {}) {
     const state = daysLeft < 0 ? "overdue" : daysLeft <= 30 ? "due_soon" : "current";
     const view = {
       ...rev,
+      reviewed_version: rev.reviewed_version || pkgById.get(rev.package_id).latest_version,
       cadence_days: cadence,
       next_review_at: next,
       days_until_review: daysLeft,

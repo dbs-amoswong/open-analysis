@@ -795,7 +795,15 @@
       "integration": 1,
       "effort": "6-12 months for a WebGL graph renderer with layouts",
       "rationale": "The capability is a buy; choose an open-source vendor if the licence does not fit."
-    }
+    },
+    "prior_versions": [
+      {
+        "version": "1.2.2",
+        "published_at": "2026-09-11",
+        "recommendation": "avoid",
+        "note": "Same proprietary licence, no repository, no provenance and the same bundler-only packaging. Layout stack differs: cytoscape 3.33.1 + @neo4j-bloom/dagre 0.8.14 instead of @dagrejs/dagre. Install measured at 56.3 MB / 94 packages."
+      }
+    ]
   },
   {
     "id": "pkg-neo4j-nvl-base",
@@ -828,7 +836,15 @@
       "integration": 1,
       "effort": "6-12 months for a WebGL graph renderer",
       "rationale": "The renderer is the expensive part; the licence makes this particular buy conditional."
-    }
+    },
+    "prior_versions": [
+      {
+        "version": "1.2.2",
+        "published_at": "2026-09-11",
+        "recommendation": "avoid",
+        "note": "Same proprietary licence. Pins mobx 3.6.2 (vs 6.15.0 in 2.0.0) and keeps the Segment analytics dependency; importing it still touches document. No advisories."
+      }
+    ]
   },
   {
     "id": "pkg-neo4j-nvl-layout-workers",
@@ -861,7 +877,15 @@
       "integration": 1,
       "effort": "weeks",
       "rationale": "Layout integration is thin; upstream dagre is MIT and public."
-    }
+    },
+    "prior_versions": [
+      {
+        "version": "1.2.2",
+        "published_at": "2026-09-11",
+        "recommendation": "avoid",
+        "note": "Uses cytoscape 3.33.1, @neo4j-bloom/dagre 0.8.14, graphlib 2.1.8 and cytoscape-cose-bilkent; 2.0.0 replaced this with @dagrejs/dagre 3.1.1. Same proprietary licence."
+      }
+    ]
   },
   {
     "id": "pkg-neo4j-nvl-interaction-handlers",
@@ -894,7 +918,15 @@
       "integration": 1,
       "effort": "weeks",
       "rationale": "A small layer over the renderer; the lock-in comes from the licence."
-    }
+    },
+    "prior_versions": [
+      {
+        "version": "1.2.2",
+        "published_at": "2026-09-11",
+        "recommendation": "avoid",
+        "note": "Same proprietary licence and bundler-only packaging; depends on base 1.2.2. No advisories."
+      }
+    ]
   },
   {
     "id": "pkg-neo4j-bloom-dagre",
@@ -928,6 +960,14 @@
       "integration": 3,
       "effort": "days to adopt upstream",
       "rationale": "Upstream is MIT, newer and public; the fork adds nothing here."
-    }
+    },
+    "prior_versions": [
+      {
+        "version": "0.8.14",
+        "published_at": "2022-08-11",
+        "recommendation": "hold",
+        "note": "MIT. This is the version used by NVL 1.2.2 layout-workers; latest 3.1.1 is a separate fork generation used by nothing in the suite. Only relevant if pinned to NVL 1.2.2, which is itself denied."
+      }
+    ]
   }
 ]

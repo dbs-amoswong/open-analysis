@@ -132,6 +132,7 @@ Facts about the artifact, not opinions.
 | `signed_release` | optional; `true` when release artifacts carry Sigstore signatures |
 | `provenance_note` | optional explanation shown on the package page |
 | `build_vs_buy` | `scope`, `difficulty`, `commodity`, `integration` (1–5), `effort`, `rationale`; score and verdict are derived |
+| `prior_versions` | optional list of earlier versions with `version`, `published_at`, `recommendation`, `note` |
 | `notes` | one or two sentences of context |
 
 Licence category is derived from the SPDX string, not stored by hand: permissive (MIT, ISC, BSD, Apache-2.0, 0BSD), weak copyleft (MPL, LGPL), strong copyleft (GPL, AGPL), and proprietary (`SEE LICENSE IN …`, unlicensed, commercial). A dual licence is classified by its most permissive arm, because that is the arm you can choose.
@@ -158,6 +159,7 @@ One verdict per package per requirement.
 | `recommendation` | `adopt` · `hold` · `avoid` · `replace` |
 | `risk` | `low` · `medium` · `high` · `critical` |
 | `score` | 0–100, a summary of the rubric — not the decision itself |
+| `reviewed_version` | the exact version assessed; defaults to the package's latest if omitted |
 | `summary` | the verdict in one sentence |
 | `reasoning[]` | the evidence that drove the verdict |
 | `caveats[]` | what could bite us after adoption |
@@ -177,6 +179,8 @@ Each evidence item:
 ```
 
 `status` is `pass` · `warn` · `fail` · `info`. Reuse these keys so the comparison table stays meaningful: `publish_pipeline`, `provenance`, `cve`, `maintenance`, `dependencies`, `types`, `behaviour`, `license`.
+
+Reviews are **version-scoped**. Every review records the exact `reviewed_version`; the package page shows the current latest separately and flags drift. An older version that differs materially gets a `prior_versions` entry with its own verdict and note instead of silently inheriting the latest verdict. If the difference is large enough to need new evidence, model it as a separate package entry.
 
 ### `decisions.json`
 

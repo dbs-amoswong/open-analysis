@@ -62,6 +62,7 @@
     <a class="pkg-link" href="../packages/pkg-neo4j-bloom-dagre.html">@neo4j-bloom/dagre</a>
     <span class="version">3.1.1</span>
     
+    
   </td>
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
@@ -76,6 +77,7 @@
   <td>
     <a class="pkg-link" href="../packages/pkg-neo4j-nvl-layout-workers.html">@neo4j-nvl/layout-workers</a>
     <span class="version">2.0.0</span>
+    
     
   </td>
   <td><span class="pill pill-bad">Avoid</span></td>
@@ -92,6 +94,7 @@
     <a class="pkg-link" href="../packages/pkg-neo4j-nvl-interaction-handlers.html">@neo4j-nvl/interaction-handlers</a>
     <span class="version">2.0.0</span>
     
+    
   </td>
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-bad">Critical risk</span></td>
@@ -107,6 +110,7 @@
     <a class="pkg-link" href="../packages/pkg-neo4j-nvl-react.html">@neo4j-nvl/react</a>
     <span class="version">2.0.0</span>
     
+    
   </td>
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-bad">Critical risk</span></td>
@@ -121,6 +125,7 @@
   <td>
     <a class="pkg-link" href="../packages/pkg-neo4j-nvl-base.html">@neo4j-nvl/base</a>
     <span class="version">2.0.0</span>
+    
     
   </td>
   <td><span class="pill pill-bad">Avoid</span></td>
@@ -146,7 +151,7 @@
   </section>
   <section class="panel">
     <div class="panel-head"><h2>Decision rationale</h2></div>
-    <p class="prose">The NVL suite fails the requirement&#39;s hard licence constraint. LICENSE.txt limits use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement; it is proprietary client software, not an OSI licence. The four NVL packages also publish no repository, carry no provenance across 390 versions, ship bundled code that cannot be reviewed, and cannot be loaded by Node in either module system because ESM syntax sits in .js files under commonjs packages with extensionless imports. The React peer range &#39;18.0.0 || ^19.0.0&#39; excludes React 18.2/18.3, and base pulls a Segment analytics SDK plus 43 MB of dependencies. @neo4j-bloom/dagre is MIT but is a 1-star fork of @dagrejs/dagre at 3.1.1, it is not used by layout-workers, and upstream is 3.1.3 — use @dagrejs/dagre directly if a dagre layout is needed. Open-source alternatives to evaluate for the graph surface: Cytoscape.js, Sigma.js, @antv/g6 and React Flow. Exception path: if the organisation holds an Aura or Neo4j Subscription agreement and accepts proprietary terms, revisit as a documented policy exception; even then, the Node/SSR packaging gap and the React 18 peer range remain.</p>
+    <p class="prose">The NVL suite fails the requirement&#39;s hard licence constraint. LICENSE.txt limits use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement; it is proprietary client software, not an OSI licence. The four NVL packages also publish no repository, carry no provenance across 390 versions, ship bundled code that cannot be reviewed, and cannot be loaded by Node in either module system because ESM syntax sits in .js files under commonjs packages with extensionless imports. The React peer range &#39;18.0.0 || ^19.0.0&#39; excludes React 18.2/18.3, and base pulls a Segment analytics SDK plus 43 MB of dependencies. @neo4j-bloom/dagre is MIT but is a 1-star fork of @dagrejs/dagre at 3.1.1, it is not used by layout-workers, and upstream is 3.1.3 — use @dagrejs/dagre directly if a dagre layout is needed. Open-source alternatives to evaluate for the graph surface: Cytoscape.js, Sigma.js, @antv/g6 and React Flow. Exception path: if the organisation holds an Aura or Neo4j Subscription agreement and accepts proprietary terms, revisit as a documented policy exception; even then, the Node/SSR packaging gap and the React 18 peer range remain. Version scope: the review targets 2.0.0. 1.2.2 was checked separately and has the same proprietary licence, missing source and provenance, bundler-only packaging and React 18 peer gap; its layout stack differs (cytoscape 3.33.1, @neo4j-bloom/dagre 0.8.14, mobx 3.6.2) and it installs 56.3 MB. The denial therefore applies to both 2.0.0 and 1.2.2.</p>
   </section>
 </div>
 
