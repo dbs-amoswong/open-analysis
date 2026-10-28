@@ -8,7 +8,7 @@ No server, no database engine, no runtime dependencies. Node.js 24+ only.
 npm run build     # validate data → generate dist/
 npm run dev       # rebuild on change + serve at http://localhost:4173
 npm run validate  # data checks only
-npm run check     # data checks + broken internal links
+npm run check     # pipeline test + data + links + allowlist
 npm run serve     # serve the existing dist/
 ```
 
