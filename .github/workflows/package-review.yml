@@ -106,6 +106,13 @@ jobs:
         id: prepare
         run: node scripts/prepare-request.mjs
 
+      - name: Read resolved request
+        id: meta
+        run: |
+          REQUIREMENT=$(node -p "require('./ai/request.json').requirement_id")
+          echo "requirement=$REQUIREMENT" >> "$GITHUB_OUTPUT"
+          echo "Resolved requirement: $REQUIREMENT"
+
       - name: Collect evidence
         if: steps.prepare.outputs.skip != 'true'
         env:
@@ -128,6 +135,7 @@ jobs:
       - name: Draft reviews with OpenCode
         if: steps.prepare.outputs.skip != 'true'
         env:
+          REQUIREMENT: ${{ steps.meta.outputs.requirement }}
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -177,6 +185,7 @@ jobs:
         if: steps.prepare.outputs.skip != 'true' && steps.prepare.outputs.mode == 'batch' && steps.prepare.outputs.count != '1'
         continue-on-error: true
         env:
+          REQUIREMENT: ${{ steps.meta.outputs.requirement }}
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -216,6 +225,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_URL: ${{ github.event.issue.html_url }}
+          REQUIREMENT: ${{ steps.meta.outputs.requirement }}
         run: |
           set -euo pipefail
 
