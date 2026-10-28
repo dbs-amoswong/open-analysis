@@ -571,5 +571,109 @@
     ],
     "notes": "Google Caja's HTML sanitizer, last released in 2015. Zero dependencies but abandoned for a decade.",
     "npm_provenance": false
+  },
+  {
+    "id": "pkg-neo4j-bloom-dagre",
+    "name": "@neo4j-bloom/dagre",
+    "ecosystem": "npm",
+    "latest_version": "3.1.1",
+    "published_at": "2026-09-02",
+    "repo": "https://github.com/neo-technology/dagre",
+    "registry": "https://www.npmjs.com/package/@neo4j-bloom/dagre",
+    "license": "MIT",
+    "weekly_downloads": 11853,
+    "runtime_deps": 1,
+    "install_size_kb": null,
+    "unpacked_size_kb": 1378,
+    "maintainers": [
+      "neo4j-bloom-publisher",
+      "neo4j-bloom-reader2",
+      "neo4j-organization"
+    ],
+    "types": "bundled",
+    "formats": [
+      "dual"
+    ],
+    "notes": "Facts collected from the npm registry on 2026-10-28. Install size was not measured.",
+    "npm_provenance": false,
+    "provenance_note": "No npm attestation was found when these facts were collected."
+  },
+  {
+    "id": "pkg-neo4j-nvl-interaction-handlers",
+    "name": "@neo4j-nvl/interaction-handlers",
+    "ecosystem": "npm",
+    "latest_version": "2.0.0",
+    "published_at": "2026-09-15",
+    "repo": null,
+    "registry": "https://www.npmjs.com/package/@neo4j-nvl/interaction-handlers",
+    "license": "SEE LICENSE IN 'LICENSE.txt'",
+    "weekly_downloads": 17183,
+    "runtime_deps": 3,
+    "install_size_kb": null,
+    "unpacked_size_kb": 222,
+    "maintainers": [
+      "neo4j-bloom-reader2",
+      "neo4j-bloom-publisher",
+      "neo4j-organization"
+    ],
+    "types": "bundled",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Facts collected from the npm registry on 2026-10-28. Install size was not measured.",
+    "npm_provenance": false,
+    "provenance_note": "No npm attestation was found when these facts were collected."
+  },
+  {
+    "id": "pkg-neo4j-nvl-layout-workers",
+    "name": "@neo4j-nvl/layout-workers",
+    "ecosystem": "npm",
+    "latest_version": "2.0.0",
+    "published_at": "2026-09-15",
+    "repo": null,
+    "registry": "https://www.npmjs.com/package/@neo4j-nvl/layout-workers",
+    "license": "SEE LICENSE IN 'LICENSE.txt'",
+    "weekly_downloads": 17449,
+    "runtime_deps": 2,
+    "install_size_kb": null,
+    "unpacked_size_kb": 31,
+    "maintainers": [
+      "neo4j-bloom-reader2",
+      "neo4j-bloom-publisher",
+      "neo4j-organization"
+    ],
+    "types": "none",
+    "formats": [
+      "dual"
+    ],
+    "notes": "Facts collected from the npm registry on 2026-10-28. Install size was not measured.",
+    "npm_provenance": false,
+    "provenance_note": "No npm attestation was found when these facts were collected."
+  },
+  {
+    "id": "pkg-neo4j-nvl-react",
+    "name": "@neo4j-nvl/react",
+    "ecosystem": "npm",
+    "latest_version": "2.0.0",
+    "published_at": "2026-09-15",
+    "repo": null,
+    "registry": "https://www.npmjs.com/package/@neo4j-nvl/react",
+    "license": "SEE LICENSE IN 'LICENSE.txt'",
+    "weekly_downloads": 16333,
+    "runtime_deps": 3,
+    "install_size_kb": null,
+    "unpacked_size_kb": 82,
+    "maintainers": [
+      "neo4j-bloom-reader2",
+      "neo4j-bloom-publisher",
+      "neo4j-organization"
+    ],
+    "types": "none",
+    "formats": [
+      "cjs"
+    ],
+    "notes": "Facts collected from the npm registry on 2026-10-28. Install size was not measured.",
+    "npm_provenance": false,
+    "provenance_note": "No npm attestation was found when these facts were collected."
   }
 ]
