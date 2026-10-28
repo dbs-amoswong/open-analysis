@@ -1,0 +1,38 @@
+{
+  "id": "pkg-cytoscape",
+  "name": "cytoscape",
+  "ecosystem": "npm",
+  "latest_version": "3.34.4",
+  "published_at": "2026-10-15",
+  "repo": "https://github.com/cytoscape/cytoscape.js",
+  "registry": "https://www.npmjs.com/package/cytoscape",
+  "license": "MIT",
+  "weekly_downloads": 15848353,
+  "runtime_deps": 0,
+  "install_size_kb": 6060,
+  "unpacked_size_kb": 5571,
+  "maintainers": [
+    "maxkfranz",
+    "dylanfong",
+    "mikekucera",
+    "chrtannus",
+    "sreuland",
+    "ndexbio-org"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm",
+    "cjs",
+    "umd"
+  ],
+  "notes": "General-purpose graph renderer and analysis library. Zero runtime dependencies, SLSA provenance, canvas renderer, layouts via extensions (dagre, cose-bilkent, fcose). 138 KB gzip.",
+  "npm_provenance": true,
+  "build_vs_buy": {
+    "scope": 5,
+    "difficulty": 5,
+    "commodity": 4,
+    "integration": 4,
+    "effort": "6-12 months for a comparable renderer and layout suite",
+    "rationale": "Graph rendering and layout are a buy; zero dependencies make this buy easy."
+  }
+}

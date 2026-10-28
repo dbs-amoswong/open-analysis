@@ -1,0 +1,34 @@
+{
+  "id": "dec-deep-merge",
+  "requirement_id": "req-deep-merge",
+  "status": "approved",
+  "primary_package_id": "pkg-fastify-deepmerge",
+  "adopted": [
+    "pkg-fastify-deepmerge",
+    "pkg-deepmerge-ts"
+  ],
+  "hold": [
+    "pkg-defu",
+    "pkg-merge-anything",
+    "pkg-75lb-deep-merge"
+  ],
+  "rejected": [
+    "pkg-ts-deepmerge",
+    "pkg-merge-deep",
+    "pkg-lodash-merge",
+    "pkg-corex-deepmerge",
+    "pkg-deep-extend",
+    "pkg-stackline-deepmerge"
+  ],
+  "dropped": [
+    {
+      "package_id": "pkg-deepmerge",
+      "deadline": "2026-12-31",
+      "reason": "Unfixed CVE-2026-93753 (CVSS 8.7). Fix PR closed unmerged; no patched release exists. Migrate to @fastify/deepmerge."
+    }
+  ],
+  "rationale": "Adopt @fastify/deepmerge as the primary implementation: it is the only candidate that combines OIDC trusted publishing, SLSA provenance, zero runtime dependencies, bundled types, active maintenance and immunity to CVE-2026-93753. deepmerge-ts is approved as the fallback for cyclic inputs or Map/Set merging, at the cost of a long-lived NPM_TOKEN in its release pipeline. deepmerge is dropped because the vulnerability has no upstream fix and is invisible to npm audit. ts-deepmerge, merge-deep, lodash.merge, @corex/deepmerge, deep-extend and the CVE-fork packages are rejected; defu, merge-anything and @75lb/deep-merge remain on hold and are not approved for this requirement.",
+  "decided_at": "2026-10-20",
+  "decided_by": "platform-security",
+  "expires_at": "2027-04-18"
+}

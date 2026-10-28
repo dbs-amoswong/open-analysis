@@ -1,0 +1,64 @@
+{
+  "id": "rev-2026-10-cytoscape",
+  "package_id": "pkg-cytoscape",
+  "requirement_id": "req-nvl-graph",
+  "reviewed_at": "2026-10-28",
+  "reviewed_version": "3.34.4",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "low",
+  "score": 92,
+  "summary": "Best fit for Neo4j-style graph exploration: MIT, zero dependencies, SLSA provenance, active, 15.8M weekly downloads, 138 KB gzip. Layouts come via extensions; the React wrapper is stale, so use the core API with a ref or a thin internal wrapper.",
+  "reasoning": [
+    "MIT with a public repository and SLSA provenance from .github/workflows/release.yml.",
+    "Zero runtime dependencies; 6 MB install and 138 KB gzip for the core bundle.",
+    "No OSV advisories for 3.34.4.",
+    "Active: 3.34.4 published 2026-10-15, repository pushed 2026-10-27, 11.3k stars.",
+    "Layouts are extensions (dagre, cose-bilkent, fcose), so the feature set matches the NVL layouts without the proprietary licence.",
+    "Canvas renderer handles typical Neo4j result sizes; for very large graphs, Sigma is the fallback."
+  ],
+  "caveats": [
+    "react-cytoscapejs is stale (last release 2022, 45 open issues, no types). Use cytoscape directly with a ref, or maintain a thin wrapper.",
+    "Layout extensions are separate packages with their own maintenance and licences.",
+    "Canvas rendering is slower than WebGL above roughly 10k-20k visible nodes.",
+    "The package ships UMD/ESM/CJS bundles, so the unpacked size is larger than the bundled cost."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "pass",
+      "detail": "release.yml in the public repository; npm provenance is produced from GitHub Actions."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "SLSA v1 attestation: builder github-hosted, source cytoscape/cytoscape.js, workflow .github/workflows/release.yml."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returns no advisories for 3.34.4."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, 1 installed package, 6.1 MB install, 138 KB gzip."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "3.34.4 published 2026-10-15; 4 releases in 90 days; 11.3k stars; 29 open issues."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled index.d.ts."
+    }
+  ]
+}

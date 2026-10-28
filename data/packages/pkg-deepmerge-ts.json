@@ -1,0 +1,31 @@
+{
+  "id": "pkg-deepmerge-ts",
+  "name": "deepmerge-ts",
+  "ecosystem": "npm",
+  "latest_version": "8.0.2",
+  "published_at": "2026-08-21",
+  "repo": "https://github.com/RebeccaStevens/deepmerge-ts",
+  "registry": "https://www.npmjs.com/package/deepmerge-ts",
+  "license": "BSD-3-Clause",
+  "weekly_downloads": 13619969,
+  "runtime_deps": 0,
+  "install_size_kb": 280,
+  "unpacked_size_kb": 259,
+  "maintainers": [
+    "rebeccastevens"
+  ],
+  "types": "bundled",
+  "formats": [
+    "dual"
+  ],
+  "notes": "Dual ESM/CJS with an exports map. Best-in-class type inference; handles circular references and merges Map/Set.",
+  "npm_provenance": true,
+  "build_vs_buy": {
+    "scope": 3,
+    "difficulty": 4,
+    "commodity": 5,
+    "integration": 3,
+    "effort": "1-2 weeks for a basic merge; months for cycles, Map/Set and type inference",
+    "rationale": "Cycles, Map/Set and type-level inference are where a DIY merge stops being a day's work."
+  }
+}

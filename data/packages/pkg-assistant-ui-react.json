@@ -1,0 +1,33 @@
+{
+  "id": "pkg-assistant-ui-react",
+  "name": "@assistant-ui/react",
+  "ecosystem": "npm",
+  "latest_version": "0.15.31",
+  "published_at": "2026-10-22",
+  "repo": "https://github.com/assistant-ui/assistant-ui",
+  "registry": "https://www.npmjs.com/package/@assistant-ui/react",
+  "license": "MIT",
+  "weekly_downloads": 1218978,
+  "runtime_deps": 10,
+  "install_size_kb": 54460,
+  "unpacked_size_kb": 2771,
+  "maintainers": [
+    "yonom",
+    "okisdev",
+    "agentbase-bot"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm"
+  ],
+  "notes": "Main entry point for the assistant-ui suite. ESM-only with bundled types and React 18/19 peers. Measured 54.5 MB install and ~135 KB gzip for a minimal runtime plus thread primitive bundle. 0.x versioning with roughly 30 releases per quarter.",
+  "npm_provenance": true,
+  "build_vs_buy": {
+    "scope": 5,
+    "difficulty": 5,
+    "commodity": 3,
+    "integration": 2,
+    "effort": "3-6 months for parity across streaming, tool UI, branching, scroll and accessibility",
+    "rationale": "Rebuilding the runtime means owning streaming, tool UI, branching, scroll and accessibility; the 135 KB is mostly that runtime, not the components."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "pkg-dompurify",
+  "name": "dompurify",
+  "ecosystem": "npm",
+  "latest_version": "3.4.17",
+  "published_at": "2026-10-12",
+  "repo": "https://github.com/cure53/DOMPurify",
+  "registry": "https://www.npmjs.com/package/dompurify",
+  "license": "MPL-2.0 OR Apache-2.0",
+  "weekly_downloads": 45309875,
+  "runtime_deps": 1,
+  "install_size_kb": 1652,
+  "unpacked_size_kb": 1578,
+  "maintainers": [
+    "cure53"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm",
+    "cjs",
+    "umd"
+  ],
+  "notes": "Browser-first DOM sanitizer. Dual MPL-2.0/Apache-2.0; choose Apache-2.0. Publishes SLSA provenance and Sigstore signatures on GitHub release artifacts, but npm tarballs carry no provenance. 11.7 KB gzip.",
+  "npm_provenance": false,
+  "provenance_note": "SLSA v1 attestation and Sigstore signatures are attached to GitHub release artifacts. The four dist files shipped in the npm tarball (purify.js, purify.min.js, purify.cjs.js, purify.es.mjs) are byte-identical to the attested SHA-256 subjects, but the npm tarball itself is unattested.",
+  "release_provenance": true,
+  "signed_release": true,
+  "build_vs_buy": {
+    "scope": 5,
+    "difficulty": 5,
+    "commodity": 5,
+    "integration": 4,
+    "effort": "do not build; years of adversarial testing",
+    "rationale": "Never build a sanitizer. The bypass corpus and the 33-advisory history are the product."
+  }
+}

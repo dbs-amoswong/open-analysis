@@ -1,0 +1,61 @@
+{
+  "id": "rev-2026-10-assistant-ui-tap",
+  "package_id": "pkg-assistant-ui-tap",
+  "requirement_id": "req-assistant-ui",
+  "reviewed_at": "2026-10-27",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 79,
+  "summary": "React's hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked, provenance-signed, and required as a peer by core and store. Novel enough to warrant review, but not code you import directly.",
+  "reasoning": [
+    "Zero runtime dependencies and a 1.9 MB install measured with React.",
+    "Required peer of both @assistant-ui/core and @assistant-ui/store, so it arrives with the suite regardless.",
+    "Published through the same OIDC pipeline; 55 of 68 versions carry provenance.",
+    "1.26M weekly downloads and active releases, which means the semantics are exercised at scale."
+  ],
+  "caveats": [
+    "It reimplements React hook semantics. Divergence from React's scheduler or hook rules would be subtle and hard to debug.",
+    "0.x with shim subpath exports (./react-shim, ./standalone-shim) that have no type declarations.",
+    "Do not import it in application code; it exists to power the suite's external store."
+  ],
+  "evidence": [
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies; 1.9 MB install; 752 KB unpacked."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "Attestation present for 0.9.24; 55 of 68 versions attested."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV package query returns no advisories for 0.9.24."
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "pass",
+      "detail": "Same monorepo OIDC trusted publishing workflow."
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour",
+      "status": "warn",
+      "detail": "Reimplements React's hook engine outside the React tree; 0.x API; shim exports are untyped."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "0.9.24 published 2026-10-19; 68 versions; 1.26M weekly downloads."
+    }
+  ],
+  "reviewed_version": "0.9.24"
+}

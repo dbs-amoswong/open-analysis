@@ -1,0 +1,26 @@
+{
+  "id": "dec-nvl-graph",
+  "requirement_id": "req-nvl-graph",
+  "status": "approved",
+  "primary_package_id": "pkg-cytoscape",
+  "adopted": [
+    "pkg-cytoscape",
+    "pkg-sigma"
+  ],
+  "hold": [
+    "pkg-antv-g6",
+    "pkg-xyflow-react"
+  ],
+  "rejected": [
+    "pkg-neo4j-nvl-react",
+    "pkg-neo4j-nvl-base",
+    "pkg-neo4j-nvl-layout-workers",
+    "pkg-neo4j-nvl-interaction-handlers",
+    "pkg-neo4j-bloom-dagre"
+  ],
+  "dropped": [],
+  "rationale": "The NVL suite is denied: its LICENSE.txt limits use to Neo4j Aura or commercial Neo4j, it publishes no repository, carries no provenance and cannot be loaded by Node in either module system. 1.2.2 was checked separately: same licence and packaging, different layout stack, so the denial applies to both. Adopt Cytoscape.js as the primary renderer: MIT, zero dependencies, SLSA provenance, active, 138 KB gzip, and layouts via extensions. Use the core API with a ref or a thin internal wrapper because react-cytoscapejs is stale. Adopt Sigma.js as the fallback for large graphs: MIT, WebGL, 110 KB gzip and active, but client-only (WebGL2) and without provenance; pair it with graphology and @react-sigma/core. Hold @antv/g6 (88 MB, 104 packages, 413 KB gzip, 333 open issues, no release in 90 days) and @xyflow/react (excellent node editor, but not an exploration or layout engine).",
+  "decided_at": "2026-10-28",
+  "decided_by": "platform-security",
+  "expires_at": "2027-01-26"
+}

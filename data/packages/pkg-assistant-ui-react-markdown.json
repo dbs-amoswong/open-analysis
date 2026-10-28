@@ -1,0 +1,33 @@
+{
+  "id": "pkg-assistant-ui-react-markdown",
+  "name": "@assistant-ui/react-markdown",
+  "ecosystem": "npm",
+  "latest_version": "0.14.24",
+  "published_at": "2026-10-22",
+  "repo": "https://github.com/assistant-ui/assistant-ui",
+  "registry": "https://www.npmjs.com/package/@assistant-ui/react-markdown",
+  "license": "MIT",
+  "weekly_downloads": 563507,
+  "runtime_deps": 5,
+  "install_size_kb": 63172,
+  "unpacked_size_kb": 426,
+  "maintainers": [
+    "yonom",
+    "okisdev",
+    "agentbase-bot"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm"
+  ],
+  "notes": "Optional markdown renderer built on react-markdown 10.1. Adds about 87 packages and ~72 KB gzip to the bundle. Raw HTML is not enabled by default. Family alternatives: react-streamdown and react-syntax-highlighter. Measured 63.2 MB install with React.",
+  "npm_provenance": true,
+  "build_vs_buy": {
+    "scope": 3,
+    "difficulty": 4,
+    "commodity": 4,
+    "integration": 3,
+    "effort": "1-2 weeks with react-markdown; longer for streaming plugins",
+    "rationale": "The integration is straightforward; streaming, plugin composition and sanitisation are the tail."
+  }
+}

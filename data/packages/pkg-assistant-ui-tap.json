@@ -1,0 +1,33 @@
+{
+  "id": "pkg-assistant-ui-tap",
+  "name": "@assistant-ui/tap",
+  "ecosystem": "npm",
+  "latest_version": "0.9.24",
+  "published_at": "2026-10-19",
+  "repo": "https://github.com/assistant-ui/assistant-ui",
+  "registry": "https://www.npmjs.com/package/@assistant-ui/tap",
+  "license": "MIT",
+  "weekly_downloads": 1264485,
+  "runtime_deps": 0,
+  "install_size_kb": 1872,
+  "unpacked_size_kb": 752,
+  "maintainers": [
+    "yonom",
+    "okisdev",
+    "agentbase-bot"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm"
+  ],
+  "notes": "React hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked. Required peer of core and store; not intended as a direct application dependency.",
+  "npm_provenance": true,
+  "build_vs_buy": {
+    "scope": 4,
+    "difficulty": 5,
+    "commodity": 4,
+    "integration": 5,
+    "effort": "months; React hook semantics are subtle",
+    "rationale": "Reimplementing React's hook semantics outside React is a research project, not a sprint."
+  }
+}

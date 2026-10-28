@@ -1,0 +1,32 @@
+{
+  "id": "pkg-merge-deep",
+  "name": "merge-deep",
+  "ecosystem": "npm",
+  "latest_version": "3.0.3",
+  "published_at": "2021-01-11",
+  "repo": "https://github.com/jonschlinkert/merge-deep",
+  "registry": "https://www.npmjs.com/package/merge-deep",
+  "license": "MIT",
+  "weekly_downloads": 1150484,
+  "runtime_deps": 3,
+  "install_size_kb": 296,
+  "unpacked_size_kb": 8,
+  "maintainers": [
+    "jonschlinkert",
+    "doowb"
+  ],
+  "types": "none",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Three direct dependencies expand to 13 installed packages. No release since 2021.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 2,
+    "difficulty": 3,
+    "commodity": 5,
+    "integration": 2,
+    "effort": "days",
+    "rationale": "A small merge function is buildable; the 13-package dependency tree makes the buy side unattractive."
+  }
+}

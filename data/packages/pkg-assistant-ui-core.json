@@ -1,0 +1,33 @@
+{
+  "id": "pkg-assistant-ui-core",
+  "name": "@assistant-ui/core",
+  "ecosystem": "npm",
+  "latest_version": "0.3.31",
+  "published_at": "2026-10-22",
+  "repo": "https://github.com/assistant-ui/assistant-ui",
+  "registry": "https://www.npmjs.com/package/@assistant-ui/core",
+  "license": "MIT",
+  "weekly_downloads": 1022872,
+  "runtime_deps": 3,
+  "install_size_kb": 21656,
+  "unpacked_size_kb": 9865,
+  "maintainers": [
+    "yonom",
+    "okisdev",
+    "agentbase-bot"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm"
+  ],
+  "notes": "Required runtime beneath @assistant-ui/react; installed automatically. Declares @assistant-ui/store and @assistant-ui/tap as required peers. Ships src and source maps, hence the 9.9 MB unpacked size. Measured 21.7 MB install with React.",
+  "npm_provenance": true,
+  "build_vs_buy": {
+    "scope": 5,
+    "difficulty": 5,
+    "commodity": 3,
+    "integration": 3,
+    "effort": "3-6 months for parity",
+    "rationale": "The runtime is the expensive layer: message parts, adapters and state transitions across providers."
+  }
+}

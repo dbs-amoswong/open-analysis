@@ -1,0 +1,31 @@
+{
+  "id": "pkg-merge-anything",
+  "name": "merge-anything",
+  "ecosystem": "npm",
+  "latest_version": "6.0.9",
+  "published_at": "2026-09-30",
+  "repo": "https://github.com/mesqueeb/merge-anything",
+  "registry": "https://www.npmjs.com/package/merge-anything",
+  "license": "MIT",
+  "weekly_downloads": 1339189,
+  "runtime_deps": 1,
+  "install_size_kb": 472,
+  "unpacked_size_kb": 35,
+  "maintainers": [
+    "mesqueeb"
+  ],
+  "types": "none",
+  "formats": [
+    "esm"
+  ],
+  "notes": "ESM-only with one runtime dependency (is-what) and no published type declarations. Replaces arrays instead of concatenating.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 2,
+    "difficulty": 3,
+    "commodity": 5,
+    "integration": 3,
+    "effort": "days",
+    "rationale": "The capability is a commodity, but this package's 472 KB tree is a real integration cost."
+  }
+}

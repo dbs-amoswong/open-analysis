@@ -1,0 +1,46 @@
+{
+  "id": "rev-2026-10-75lb-deep-merge",
+  "package_id": "pkg-75lb-deep-merge",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 55,
+  "summary": "Actively maintained but pulls in lodash and typical, defeating the zero-dependency constraint. ESM-only and no types. Hold.",
+  "reasoning": [
+    "Two runtime dependencies, including lodash, which reintroduces the tree this task is trying to avoid.",
+    "ESM-only with no type declarations.",
+    "Active releases and no known advisories."
+  ],
+  "caveats": [
+    "Its @75lb/nature peer dependency may pull in a larger toolchain."
+  ],
+  "evidence": [
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "fail",
+      "detail": "2 runtime dependencies: lodash and typical."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "fail",
+      "detail": "No declarations."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "1.1.5 published 2026-10-14; 0 open issues."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "No attestation."
+    }
+  ],
+  "reviewed_version": "1.1.5"
+}

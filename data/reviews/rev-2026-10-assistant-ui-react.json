@@ -1,0 +1,95 @@
+{
+  "id": "rev-2026-10-assistant-ui-react",
+  "package_id": "pkg-assistant-ui-react",
+  "requirement_id": "req-assistant-ui",
+  "reviewed_at": "2026-10-27",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 84,
+  "summary": "The entry point and the only package most apps import. Supply chain is strong: OIDC trusted publishing, SLSA provenance, no install scripts anywhere in the 183-package tree. The costs are 10 direct dependencies, a 54 MB install, about 135 KB gzip, and 0.x churn of roughly 30 releases per quarter.",
+  "reasoning": [
+    "Publishing uses OIDC trusted publishing from a protected npm Publish environment. The publish job installs only the Changesets CLI with --ignore-scripts and publishes pre-built tarballs, so no package build runs with publishing credentials.",
+    "SLSA provenance for 0.15.31 resolves to assistant-ui/assistant-ui, workflow .github/workflows/npm-publish.yaml, ref refs/heads/main.",
+    "The full installed tree is 183 packages: 178 MIT, one ISC, one BSD-3-Clause and one 0BSD, with zero install or postinstall scripts.",
+    "React 18 and 19 are both declared and tested by a dedicated react18-weekly workflow; types are bundled.",
+    "OSV returns no advisories for any of the suite's latest versions.",
+    "Measured about 135 KB gzip for a minimal bundle of AssistantRuntimeProvider + ThreadPrimitive + useLocalRuntime, excluding React."
+  ],
+  "caveats": [
+    "ESM-only. require() works on Node 22.12+ (verified on Node 24) but not on older CommonJS runtimes.",
+    "0.x versioning: 460 published versions and about 30 releases in the last 90 days. Pin exact versions and upgrade deliberately; ^0.15.x only permits patches.",
+    "10 direct dependencies including zod, zustand, radix-ui, assistant-cloud and assistant-stream.",
+    "One npm maintainer is an automation account (agentbase-bot). Publishing is gated by the GitHub environment, but the account still holds package access.",
+    "54 MB install standalone and 63 MB for the full suite; most of that is source and source maps that bundlers discard."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "pass",
+      "detail": "OIDC trusted publishing (id-token: write) from a protected npm Publish environment, build and publish split into separate jobs, --ignore-scripts in the publish job, actions pinned to commit SHAs.",
+      "sources": [
+        {
+          "label": "npm-publish.yaml",
+          "url": "https://github.com/assistant-ui/assistant-ui/blob/main/.github/workflows/npm-publish.yaml"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "SLSA v1 attestation for 0.15.31: builder actions/runner/github-hosted, source assistant-ui/assistant-ui, workflow .github/workflows/npm-publish.yaml."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV package query returns no advisories for 0.15.31."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "10 direct dependencies, 183 packages installed, 54 MB standalone, 63 MB with markdown. Largest contributors: @assistant-ui/core 14 MB, zod 8 MB, react-dom 8 MB, radix-ui 6 MB."
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall scripts in any of the 183 installed packages."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT. Tree is entirely permissive: 178 MIT, 1 ISC, 1 BSD-3-Clause, 1 0BSD."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "0.15.31 published 2026-10-22; commits on 2026-10-27; 12.8k stars; 26 open issues; 27 CI workflows including CodeQL."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled dist/index.d.ts with exports map."
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour",
+      "status": "warn",
+      "detail": "ESM-only; ~135 KB gzip minimal bundle; 0.x API surface with roughly 30 releases per quarter."
+    },
+    {
+      "key": "telemetry",
+      "label": "Telemetry",
+      "status": "pass",
+      "detail": "Cloud client and telemetry are opt-in: AssistantCloud is only re-exported and must be constructed and passed explicitly. No default network calls found; base endpoint is backend.assistant-api.com."
+    }
+  ],
+  "reviewed_version": "0.15.31"
+}

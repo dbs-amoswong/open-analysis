@@ -1,0 +1,46 @@
+{
+  "id": "rev-2026-10-merge-deep",
+  "package_id": "pkg-merge-deep",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "high",
+  "score": 35,
+  "summary": "Three direct dependencies expand to 13 installed packages, no release since 2021, and no types. Avoid.",
+  "reasoning": [
+    "Dependency tree: arr-union, clone-deep and kind-of pull in 13 installed packages.",
+    "No release since January 2021.",
+    "No CI, no provenance, no type declarations."
+  ],
+  "caveats": [
+    "The old kind-of version in its tree has had its own advisories."
+  ],
+  "evidence": [
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "fail",
+      "detail": "3 direct dependencies, 13 installed packages, 296 KB."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "3.0.3 published 2021-01-11."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "No attestation."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "fail",
+      "detail": "No declarations."
+    }
+  ],
+  "reviewed_version": "3.0.3"
+}

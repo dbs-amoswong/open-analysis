@@ -1,0 +1,88 @@
+{
+  "id": "rev-2026-10-fastify-deepmerge",
+  "package_id": "pkg-fastify-deepmerge",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "low",
+  "score": 92,
+  "summary": "Only candidate that satisfies every constraint: OIDC trusted publishing with SLSA provenance, zero dependencies, bundled types, active maintenance, and not affected by CVE-2026-93753. Also the fastest in the benchmark.",
+  "reasoning": [
+    "Publishing is fully CI-driven: workflow_dispatch invokes the Fastify org reusable release workflow, which runs in a protected release environment and publishes with npm publish --provenance --access public over OIDC. No long-lived NPM_TOKEN exists to leak.",
+    "The npm attestation resolves to builder github-hosted, source repo fastify/deepmerge and workflow .github/workflows/release.yml, tying the tarball to a commit.",
+    "Zero runtime dependencies and a 36 KB install, the smallest of the maintained candidates.",
+    "Verified safe against all four CVE-2026-93753 bypass variants, including null-prototype targets and null placeholders.",
+    "3.2.4 released 2026-10-22 with 0 open issues and 0 open PRs; CI enforces 100% line coverage.",
+    "Measured ~860k merges per second on our nested-config workload, roughly 8x deepmerge."
+  ],
+  "caveats": [
+    "Does not detect cycles; circular input causes a stack overflow. Use deepmerge-ts if cyclic graphs are possible.",
+    "Arrays concatenate by default; configure mergeArray to replace instead.",
+    "Single npm maintainer (eomm). Org ownership, a small code surface and 100% coverage mitigate this, but the bus factor is still one.",
+    "CommonJS entry only. Default imports work from ESM via interop; there are no named ESM exports."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "pass",
+      "detail": "workflow_dispatch -> fastify/workflows reusable-release.yml, protected release environment, npm publish --provenance --access public, actions pinned to commit SHAs, no NPM_TOKEN.",
+      "sources": [
+        {
+          "label": "release.yml",
+          "url": "https://github.com/fastify/deepmerge/blob/main/.github/workflows/release.yml"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "SLSA v1 attestation for 3.2.4: builder actions/runner/github-hosted, source fastify/deepmerge, workflow .github/workflows/release.yml, ref refs/heads/main.",
+      "sources": [
+        {
+          "label": "npm attestation",
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/@fastify%2fdeepmerge@3.2.4"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "CVE-2026-93753",
+      "status": "pass",
+      "detail": "Reproduced variants 1-4 against 3.2.4; all blocked. OSV package query returns no advisories."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, 1 installed package, 36 KB install / 21 KB unpacked."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "3.2.4 published 2026-10-22; 0 open issues; 0 open PRs; release workflow active."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled types/index.d.ts. Strict-mode probe preserves optionality and readonly; conflicting scalars resolve to the right-hand type."
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour",
+      "status": "info",
+      "detail": "~860k ops/s. No cycle support. Arrays concat by default. undefined overwrites unless onlyDefinedProperties is set."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT."
+    }
+  ],
+  "reviewed_version": "3.2.4"
+}

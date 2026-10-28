@@ -1,0 +1,157 @@
+name: pr-revise
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: pr-revise-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  revise:
+    if: >-
+      github.event.issue.pull_request &&
+      startsWith(github.event.comment.body, '/revise')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR_NUMBER: ${{ github.event.issue.number }}
+      SENDER: ${{ github.event.comment.user.login }}
+      COMMENT_BODY: ${{ github.event.comment.body }}
+      REVIEW_LABELERS: ${{ vars.REVIEW_LABELERS }}
+      OPENCODE_MODEL: ${{ vars.OPENCODE_MODEL }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Authorize commenter
+        run: |
+          set -euo pipefail
+
+          ALLOW=$(printf '%s' "${REVIEW_LABELERS:-}" | tr -d ' ')
+          if [ -n "$ALLOW" ]; then
+            case ",$ALLOW," in
+              *",$SENDER,"*)
+                echo "Authorized by REVIEW_LABELERS: $SENDER"
+                exit 0
+                ;;
+              *)
+                echo "::error::$SENDER is not in the REVIEW_LABELERS allowlist."
+                exit 1
+                ;;
+            esac
+          fi
+
+          PERMISSION=$(gh api "repos/${GITHUB_REPOSITORY}/collaborators/${SENDER}/permission" --jq '.permission' 2>/dev/null || true)
+          case "$PERMISSION" in
+            admin|maintain|write)
+              echo "Authorized collaborator: $SENDER ($PERMISSION)"
+              ;;
+            *)
+              echo "::error::$SENDER does not have write access."
+              exit 1
+              ;;
+          esac
+
+      - name: Check model configuration
+        run: |
+          test -n "$OPENCODE_MODEL" || {
+            echo "::error::Set the repository variable OPENCODE_MODEL."
+            exit 1
+          }
+          case "$OPENCODE_MODEL" in
+            */*) ;;
+            *)
+              echo "::error::OPENCODE_MODEL must be provider/model. Got: [$OPENCODE_MODEL]"
+              exit 1
+              ;;
+          esac
+
+      - name: Check out the pull request branch
+        run: |
+          set -euo pipefail
+
+          STATE=$(gh pr view "$PR_NUMBER" --json state --jq '.state')
+          if [ "$STATE" != "OPEN" ]; then
+            echo "::error::PR #$PR_NUMBER is not open."
+            exit 1
+          fi
+
+          HEAD_OWNER=$(gh pr view "$PR_NUMBER" --json headRepositoryOwner --jq '.headRepositoryOwner.login')
+          REPO_OWNER=${GITHUB_REPOSITORY%%/*}
+          if [ "$HEAD_OWNER" != "$REPO_OWNER" ]; then
+            echo "::error::Only same-repository PR branches can be revised."
+            exit 1
+          fi
+
+          HEAD_REF=$(gh pr view "$PR_NUMBER" --json headRefName --jq '.headRefName')
+          echo "HEAD_REF=$HEAD_REF" >> "$GITHUB_ENV"
+
+          git config user.name "opencode-review-bot"
+          git config user.email "opencode-review-bot@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch origin "$HEAD_REF"
+          git checkout -B "$HEAD_REF" "origin/$HEAD_REF"
+
+      - name: Install OpenCode
+        run: npm install --global @opencode/cli@2.2.0
+
+      - name: Revise the review
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          COMMANDCODE_API_KEY: ${{ secrets.COMMANDCODE_API_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p ai/revise
+          printf '%s\n' "$COMMENT_BODY" > ai/revise/comment.md
+          opencode run --standalone \
+            --agent pr-revise \
+            --model "$OPENCODE_MODEL" \
+            --title "Revise PR #$PR_NUMBER" \
+            "Read ai/revise/comment.md. Revise the relevant review under data/reviews/ only if the comment requests a change. Write ai/revise/summary.md with what changed or what you need clarified."
+
+      - name: Validate
+        run: |
+          npm run validate
+          npm run build
+          npm run check
+
+      - name: Commit and push if the review changed
+        id: change
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- data/reviews; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No review changes."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git add data/reviews
+            git commit -m "review: revise PR #$PR_NUMBER"
+            git push origin "HEAD:$HEAD_REF"
+            echo "Pushed review changes."
+          fi
+
+      - name: Reply on the pull request
+        run: |
+          set -euo pipefail
+          if [ ! -f ai/revise/summary.md ]; then
+            printf 'No revision summary was produced. The review was not changed.\n' > ai/revise/summary.md
+          fi
+          if [ "${{ steps.change.outputs.changed }}" = "true" ]; then
+            printf '\n\nChanges committed to this PR branch.\n' >> ai/revise/summary.md
+          fi
+          gh pr comment "$PR_NUMBER" --body-file ai/revise/summary.md

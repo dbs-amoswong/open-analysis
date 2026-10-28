@@ -1,13 +1,6 @@
-import { readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
+import { readCollection, DATA_DIR, DIST_DIR, ASSETS_DIR } from "./data.mjs";
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-export const DATA_DIR = process.env.PRB_DATA_DIR
-  ? path.resolve(process.env.PRB_DATA_DIR)
-  : path.join(ROOT, "data");
-export const DIST_DIR = path.join(ROOT, "dist");
-export const ASSETS_DIR = path.join(ROOT, "assets");
+export { DATA_DIR, DIST_DIR, ASSETS_DIR };
 
 const RECOMMENDATIONS = ["adopt", "hold", "avoid", "replace"];
 const RISKS = ["low", "medium", "high", "critical"];
@@ -65,25 +58,16 @@ export function diffDays(a, b) {
   return Math.round((toUTC(a) - toUTC(b)) / DAY_MS);
 }
 
-async function readJSON(file) {
-  const raw = await readFile(path.join(DATA_DIR, file), "utf8");
-  try {
-    return JSON.parse(raw);
-  } catch (err) {
-    throw new Error(`${file} is not valid JSON: ${err.message}`);
-  }
-}
-
 function isNonEmptyString(v) {
   return typeof v === "string" && v.trim().length > 0;
 }
 
 export async function loadModel({ today = todayISO() } = {}) {
   const [packages, requirements, reviews, decisions] = await Promise.all([
-    readJSON("packages.json"),
-    readJSON("requirements.json"),
-    readJSON("reviews.json"),
-    readJSON("decisions.json"),
+    readCollection("packages"),
+    readCollection("requirements"),
+    readCollection("reviews"),
+    readCollection("decisions"),
   ]);
 
   const errors = [];

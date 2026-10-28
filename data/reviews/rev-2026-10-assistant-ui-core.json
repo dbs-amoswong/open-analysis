@@ -1,0 +1,68 @@
+{
+  "id": "rev-2026-10-assistant-ui-core",
+  "package_id": "pkg-assistant-ui-core",
+  "requirement_id": "req-assistant-ui",
+  "reviewed_at": "2026-10-27",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 82,
+  "summary": "Required runtime beneath @assistant-ui/react; you get it automatically. Same pipeline and provenance, only three runtime dependencies, but it ships source and source maps, which makes the installed package 9.9 MB unpacked.",
+  "reasoning": [
+    "It is a transitive dependency of @assistant-ui/react, so adopting react means adopting core.",
+    "Three runtime dependencies: nanoid, assistant-cloud and assistant-stream.",
+    "Published through the same OIDC trusted pipeline with SLSA provenance on 67 of 70 versions, including 0.3.31.",
+    "Tree-shaken code is what reaches the browser; the large unpacked size is mostly src and .map files.",
+    "Zero advisories in OSV."
+  ],
+  "caveats": [
+    "Do not add it as a direct dependency unless you are using it outside React. Import from @assistant-ui/react instead.",
+    "Declares @assistant-ui/store and @assistant-ui/tap as required peers, so both must be allowlisted with it.",
+    "ESM-only and 0.x."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "pass",
+      "detail": "Same monorepo OIDC trusted publishing workflow as @assistant-ui/react."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "Attestation present for 0.3.31; 67 of 70 versions carry one."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV package query returns no advisories for 0.3.31."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "3 direct dependencies; 21.7 MB install measured with React; 9.9 MB unpacked."
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No install scripts in the package or its tree."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled dist/index.d.ts plus ./react, ./store and ./internal subpath exports."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "0.3.31 published 2026-10-22; 70 versions since 2026-02-20."
+    }
+  ],
+  "reviewed_version": "0.3.31"
+}

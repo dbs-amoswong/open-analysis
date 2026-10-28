@@ -1,0 +1,31 @@
+{
+  "id": "pkg-stackline-deepmerge",
+  "name": "@stackline/deepmerge",
+  "ecosystem": "npm",
+  "latest_version": "1.1.0",
+  "published_at": "2026-10-13",
+  "repo": "https://github.com/alexandroit/stackline-deepmerge",
+  "registry": "https://www.npmjs.com/package/@stackline/deepmerge",
+  "license": "MIT",
+  "weekly_downloads": 246,
+  "runtime_deps": 0,
+  "install_size_kb": null,
+  "unpacked_size_kb": 257,
+  "maintainers": [
+    "aleinfoit"
+  ],
+  "types": "bundled",
+  "formats": [
+    "dual"
+  ],
+  "notes": "New fork that markets itself as a drop-in deepmerge 4 replacement with CVE-2026-93753 fixed. Single maintainer, near-zero adoption, not independently reviewed.",
+  "npm_provenance": true,
+  "build_vs_buy": {
+    "scope": 2,
+    "difficulty": 4,
+    "commodity": 5,
+    "integration": 4,
+    "effort": "days to weeks",
+    "rationale": "The capability is a commodity. The package is unvetted, not unbuildable."
+  }
+}

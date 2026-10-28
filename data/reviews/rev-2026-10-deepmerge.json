@@ -1,0 +1,90 @@
+{
+  "id": "rev-2026-10-deepmerge",
+  "package_id": "pkg-deepmerge",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "critical",
+  "score": 18,
+  "summary": "Do not use. Affected by CVE-2026-93753 (CVSS 8.7), the fix PR was closed unmerged, no release since March 2023, and npm audit does not flag it.",
+  "reasoning": [
+    "CVE-2026-93753: mergeObject() decides safety by inspecting the target instead of the key, so a __proto__ key survives when the target is a null-prototype object, contains a null/undefined placeholder, or already has an own __proto__ key. The returned object then inherits attacker-chosen data properties.",
+    "Reproduced all four variants locally; merged.session.isAdmin returned true while Object.keys() and JSON.stringify() showed nothing.",
+    "No fix: PR #274 was closed unmerged on 2026-09-24 and master still contains the vulnerable guard. The maintainer declined to act on issue #273.",
+    "npm audit reports 0 vulnerabilities for 4.3.1 because the OSV record has only a GIT range and no npm ecosystem entry.",
+    "Last release 4.3.1 in March 2023; 22 open PRs, 18 stale; no CI and no provenance.",
+    "Slowest candidate at ~107k ops/s and stack-overflows on deep or cyclic input."
+  ],
+  "caveats": [
+    "Even a patched fork would still leave the package unmaintained. Treat it as end-of-life.",
+    "Migrating away is a small change: the API is merge(target, source) with an options object."
+  ],
+  "evidence": [
+    {
+      "key": "cve",
+      "label": "CVE-2026-93753",
+      "status": "fail",
+      "detail": "Prototype-poisoning guard bypass, CVSS 4.0 8.7 / CVSS 3.1 7.5, CWE-1321. Published 2026-09-18, status Deferred. Reproduced in 4.3.1.",
+      "sources": [
+        {
+          "label": "NVD",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93753"
+        },
+        {
+          "label": "issue #273",
+          "url": "https://github.com/TehShrike/deepmerge/issues/273"
+        }
+      ]
+    },
+    {
+      "key": "remediation",
+      "label": "Upstream remediation",
+      "status": "fail",
+      "detail": "Fix PR #274 closed unmerged 2026-09-24; master still has the vulnerable propertyIsUnsafe guard; no patched release."
+    },
+    {
+      "key": "scanner_visibility",
+      "label": "Scanner visibility",
+      "status": "fail",
+      "detail": "npm audit reports 0 vulnerabilities for 4.3.1. The OSV record contains only a GIT range, so package-version matching returns nothing.",
+      "sources": [
+        {
+          "label": "OSV record",
+          "url": "https://api.osv.dev/v1/vulns/CVE-2026-93753"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "fail",
+      "detail": "No GitHub Actions workflows; only a legacy .travis.yml. Releases are manual."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "No attestation published for 4.3.1."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "Last release 2023-03-16; 22 open PRs, 18 stale; maintainer declined the security report."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "warn",
+      "detail": "index.d.ts exists but no types/typings field, so TypeScript does not resolve it. Consumers install @types/deepmerge."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, 64 KB install."
+    }
+  ],
+  "reviewed_version": "4.3.1"
+}

@@ -2,7 +2,7 @@
 
 A static, git-backed database of package reviews and whitelist decisions. You record the evidence in JSON, run one command, and get a browsable site that answers: **for this task, what should we adopt, and what should we drop?**
 
-No server, no database engine, no runtime dependencies. Node.js 20.11+ only.
+No server, no database engine, no runtime dependencies. Node.js 24+ only.
 
 ```bash
 npm run build     # validate data → generate dist/
@@ -18,7 +18,7 @@ Open `dist/index.html`, or run `npm run dev`.
 
 ## What is already in here
 
-Two requirements are seeded from real reviews.
+Requirements are seeded from real reviews.
 
 ### Deep merge of nested configuration objects
 
@@ -67,35 +67,45 @@ Nine packages. NVL is denied at both 2.0.0 and 1.2.2. Cytoscape.js is MIT, zero 
 ## Structure
 
 ```
-data/                    source of truth (edit these)
-  requirements.json      tasks, constraints, owners, cadence
-  packages.json          registry metadata and packaging facts
-  reviews.json           verdict, score, reasoning, caveats, evidence
-  decisions.json         adopted / hold / dropped / rejected buckets
+data/                    source of truth (one JSON object per file)
+  requirements/<id>.json tasks, constraints, owners, cadence
+  packages/<id>.json     registry metadata and packaging facts
+  reviews/<id>.json      verdict, score, reasoning, caveats, evidence
+  decisions/<id>.json    adopted / hold / dropped / rejected buckets
 
 scripts/
+  lib/data.mjs           per-record read/write helpers
   lib/load.mjs           read, validate, compute derived state
   lib/render.mjs         HTML rendering
+  lib/export.mjs         allowlist JSON/CSV export
   build.mjs              data → dist/
   dev.mjs                watch + rebuild + serve
   check.mjs              data + link integrity
   serve.mjs              zero-dependency static server
   validate.mjs           data validation CLI
+  migrate-data.mjs       one-time array → per-record migration (npm run migrate:data)
+  refresh-metadata.mjs   refresh registry facts (CI)
+  prepare-request.mjs    parse an issue request
+  collect.mjs            collect npm/OSV/provenance evidence
+  verify-review.mjs      validate an AI draft
+  publish-review.mjs     append a draft to data/
+  collect-suite.mjs      build a related-package suite context
+  verify-suite.mjs       validate suite notes
 
 assets/
   style.css              light/dark, print styles
   app.js                 client-side search and filtering
 
-dist/                    generated, committed so it can be served anywhere
+dist/                    generated; not committed. CI builds and deploys it.
 ```
 
-Relative links are used throughout, so `dist/` works from a subdirectory, an S3 bucket, GitHub Pages or an internal file share.
+Relative links are used throughout, so `dist/` works from a subdirectory, an S3 bucket, GitHub Pages or an internal file share. `dist/` is generated and ignored by git; `site.yml` builds and deploys it.
 
 ---
 
 ## The model
 
-### `requirements.json`
+### `data/requirements/<id>.json`
 
 A task that needs a package, and the constraints a candidate must meet.
 
@@ -111,7 +121,7 @@ A task that needs a package, and the constraints a candidate must meet.
 | `constraints` | hard requirements, shown on the page |
 | `out_of_scope` | optional clarifications |
 
-### `packages.json`
+### `data/packages/<id>.json`
 
 Facts about the artifact, not opinions.
 
@@ -150,7 +160,7 @@ Every package also carries a **build-vs-buy** assessment. Four sub-scores from 1
 
 Bands: **70–100 Buy**, **50–69 Evaluate**, **0–49 Build**. The score is independent of the security verdict — a vulnerable package can still represent a capability you should buy from a maintained implementation — and it assumes the capability is needed at all. `effort` and `rationale` hold the human judgement.
 
-### `reviews.json`
+### `data/reviews/<id>.json`
 
 One verdict per package per requirement.
 
@@ -182,7 +192,7 @@ Each evidence item:
 
 Reviews are **version-scoped**. Every review records the exact `reviewed_version`; the package page shows the current latest separately and flags drift. An older version that differs materially gets a `prior_versions` entry with its own verdict and note instead of silently inheriting the latest verdict. If the difference is large enough to need new evidence, model it as a separate package entry.
 
-### `decisions.json`
+### `data/decisions/<id>.json`
 
 The whitelist outcome for a requirement. Every reviewed package must appear in **exactly one** bucket — the validator enforces it.
 
@@ -248,16 +258,16 @@ With the seeded 180-day cadence, the current review is due **18 Apr 2027**. On 1
 
 ## Adding a review
 
-1. **Add the package** to `data/packages.json` if it is new. Record what you measured, and use `null` where you did not measure it — do not guess.
-2. **Add the review** to `data/reviews.json`. Include at least one evidence item per decision driver, and a `sources` link where a claim is checkable.
-3. **Classify it** in `data/decisions.json` under exactly one of `adopted`, `hold`, `rejected` or `dropped`.
+1. **Add the package** as `data/packages/<package-id>.json` if it is new. Record what you measured, and use `null` where you did not measure it — do not guess.
+2. **Add the review** as `data/reviews/<review-id>.json`. Include at least one evidence item per decision driver, and a `sources` link where a claim is checkable.
+3. **Classify it** in `data/decisions/<requirement-id>.json` under exactly one of `adopted`, `hold`, `rejected` or `dropped`.
 4. **Verify and build**:
    ```bash
    npm run validate
    npm run build
    npm run check
    ```
-5. **Commit the JSON and `dist/`.** The commit is the audit entry: who changed the verdict, when, and with what evidence.
+5. **Commit the JSON.** The commit is the audit entry: who changed the verdict, when, and with what evidence. `dist/` is generated by CI and is not committed.
 
 The validator rejects unknown package or requirement IDs, duplicate IDs, invalid enums, malformed dates, scores outside 0–100, missing evidence, and decisions whose primary package is not adopted or whose review is not an `adopt`. Bucket coverage problems are warnings rather than errors so you can stage a decision incrementally.
 
@@ -285,13 +295,13 @@ dynamic options. When a requirement is added, update the options in
    per package, and runs OpenCode once per package with the restricted
    `package-review` agent.
 4. Each agent run writes only `ai/reviews/<pkg-id>.json`. A trusted script
-   validates every draft, appends them to `data/reviews.json`, builds the site,
-   and opens **one pull request for the batch**. The workflow comments the PR
-   link on the issue. Packages that already have a review for the requirement
-   are skipped and listed in the PR body.
+   validates every draft, writes each one to `data/reviews/<review-id>.json`,
+   builds the site, and opens **one pull request for the batch**. The workflow
+   comments the PR link on the issue. Packages that already have a review for
+   the requirement are skipped and listed in the PR body.
 5. A human checks the evidence and each verdict. A separate decision PR puts
    every package in exactly one whitelist bucket. The AI never edits
-   `data/decisions.json`.
+   `data/decisions/`.
 
 The form also asks for a **review mode**:
 
@@ -305,8 +315,8 @@ The form also asks for a **review mode**:
   when the packages have no meaningful relationship.
 
 Both modes open **one pull request**. For one PR per package, submit one issue
-per package instead — the current JSON arrays are not safe for several
-independent PRs touching the same file at once.
+per package instead. The record-based data files make independent PRs safe, but
+one PR per issue keeps the review and approval boundary simple.
 
 If one draft fails verification, the workflow stops before opening the PR;
 fix the request or the draft and re-run.
@@ -384,6 +394,19 @@ put it in `opencode.json`, the workflow file, or an issue.
 Pages on every push to `main` and once a night. Enable Pages with **Source:
 GitHub Actions** once. If you host elsewhere, keep the build job and replace the
 deploy job with your host's deploy action.
+
+Other automation:
+
+- `validate.yml` runs validation, build and link checks on pull requests.
+- `metadata-refresh.yml` refreshes registry facts weekly and opens a PR. It
+  updates versions, licences, dependencies, maintainers and provenance; it does
+  not change reviews or decisions.
+- `pr-revise.yml` accepts an explicit `/revise <instruction>` comment on a
+  review PR. Only `REVIEW_LABELERS` or write collaborators may use it. It
+  updates `data/reviews/` on the PR branch, validates and replies.
+
+See `AGENTS.md` for agent rules and `OPERATIONS.md` for setup, troubleshooting
+and the full runbook.
 
 ---
 

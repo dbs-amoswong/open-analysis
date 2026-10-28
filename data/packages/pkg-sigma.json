@@ -1,0 +1,33 @@
+{
+  "id": "pkg-sigma",
+  "name": "sigma",
+  "ecosystem": "npm",
+  "latest_version": "4.0.4",
+  "published_at": "2026-10-27",
+  "repo": "https://github.com/jacomyal/sigma.js",
+  "registry": "https://www.npmjs.com/package/sigma",
+  "license": "MIT",
+  "weekly_downloads": 434669,
+  "runtime_deps": 2,
+  "install_size_kb": 6932,
+  "unpacked_size_kb": 3328,
+  "maintainers": [
+    "yomguithereal",
+    "jacomyal"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm",
+    "cjs"
+  ],
+  "notes": "WebGL renderer for large graphs, built around the graphology ecosystem. No built-in layout algorithms. Requires WebGL2 and browser globals at import, so it is client-only.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 5,
+    "difficulty": 5,
+    "commodity": 4,
+    "integration": 3,
+    "effort": "6-12 months; WebGL rendering is specialist work",
+    "rationale": "WebGL rendering is specialist work; graphology supplies the layouts."
+  }
+}

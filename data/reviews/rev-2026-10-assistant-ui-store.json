@@ -1,0 +1,61 @@
+{
+  "id": "rev-2026-10-assistant-ui-store",
+  "package_id": "pkg-assistant-ui-store",
+  "requirement_id": "req-assistant-ui",
+  "reviewed_at": "2026-10-27",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 84,
+  "summary": "Required peer of core and react, and the only addition beyond the four requested packages. Zero dependencies, provenance-signed, 1.1M weekly downloads, same maintainers. You never import it directly.",
+  "reasoning": [
+    "Declared as a required peer by @assistant-ui/core, so the suite cannot be used without it.",
+    "Zero runtime dependencies and a 3.0 MB install.",
+    "Published through the same OIDC pipeline with provenance.",
+    "Actively released alongside the rest of the suite."
+  ],
+  "caveats": [
+    "Transitive only; do not add it to application dependencies.",
+    "0.x and ESM-only.",
+    "It requires @assistant-ui/tap as a peer."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "pass",
+      "detail": "Same monorepo OIDC trusted publishing workflow as @assistant-ui/react."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies; 3.0 MB install; 758 KB unpacked."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "Attestation present for 0.3.22."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV package query returns no advisories for 0.3.22."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "0.3.22 published 2026-10-19; 1.1M weekly downloads."
+    }
+  ],
+  "reviewed_version": "0.3.22"
+}

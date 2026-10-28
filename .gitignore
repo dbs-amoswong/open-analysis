@@ -5,3 +5,5 @@ node_modules/
 # Scratch directory for request/dossier/draft files. The CI job uploads these
 # as artifacts; the generated review and package facts are committed instead.
 ai/
+
+dist/

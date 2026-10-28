@@ -1,0 +1,71 @@
+{
+  "id": "rev-2026-10-neo4j-nvl-interaction-handlers",
+  "package_id": "pkg-neo4j-nvl-interaction-handlers",
+  "requirement_id": "req-nvl-graph",
+  "reviewed_at": "2026-10-28",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "critical",
+  "score": 14,
+  "summary": "Avoid. A 222 KB interaction layer over the proprietary renderer, with the same licence, source and provenance gaps and the same bundler-only packaging.",
+  "reasoning": [
+    "Proprietary LICENSE.txt; no repository; no provenance.",
+    "commonjs package with ESM syntax in .js and extensionless imports; Node cannot load it.",
+    "Three direct dependencies (base 2.0.0, lodash 4.18.1, concaveman 1.2.1) and a 44.7 MB install because base pulls the renderer.",
+    "No OSV advisories and no install scripts."
+  ],
+  "caveats": [
+    "Replacing base alone is not possible; the package is bound to the suite."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "fail",
+      "detail": "LICENSE.txt restricts use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement. npm metadata is 'SEE LICENSE IN LICENSE.txt', not an SPDX licence. This fails the requirement's permissive-licence constraint."
+    },
+    {
+      "key": "source",
+      "label": "Source availability",
+      "status": "fail",
+      "detail": "No repository field in npm metadata and no public source repository found. The published tarball is bundled/minified, so the code cannot be reviewed."
+    },
+    {
+      "key": "provenance",
+      "label": "Provenance",
+      "status": "fail",
+      "detail": "0 attested versions in the npm registry; no publish workflow is visible without a repository."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returns no advisories for 2.0.0 or its pinned dependencies."
+    },
+    {
+      "key": "packaging",
+      "label": "Module compatibility",
+      "status": "fail",
+      "detail": "commonjs package with ESM syntax and extensionless imports; require() and import() both fail in Node."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "3 direct dependencies, 86 packages, 44.7 MB install, 222 KB unpacked."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "2.0.0 published 2026-09-15; 39 releases in 90 days; no public repository."
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall scripts in the 90-package tree."
+    }
+  ],
+  "reviewed_version": "2.0.0"
+}

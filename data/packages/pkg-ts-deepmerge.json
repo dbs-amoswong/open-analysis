@@ -1,0 +1,31 @@
+{
+  "id": "pkg-ts-deepmerge",
+  "name": "ts-deepmerge",
+  "ecosystem": "npm",
+  "latest_version": "8.0.0",
+  "published_at": "2026-05-22",
+  "repo": "https://github.com/voodoocreation/ts-deepmerge",
+  "registry": "https://www.npmjs.com/package/ts-deepmerge",
+  "license": "ISC",
+  "weekly_downloads": 2335439,
+  "runtime_deps": 0,
+  "install_size_kb": 32,
+  "unpacked_size_kb": 13,
+  "maintainers": [
+    "voodoocreation"
+  ],
+  "types": "bundled",
+  "formats": [
+    "dual"
+  ],
+  "notes": "Small and type-friendly, but the repository contains no .github directory at all, so releases are not CI-driven.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 2,
+    "difficulty": 3,
+    "commodity": 5,
+    "integration": 5,
+    "effort": "days for the happy path; weeks for special objects",
+    "rationale": "A thin recursive merge is easy to draft; getting optionality, arrays and special objects right is the tail."
+  }
+}

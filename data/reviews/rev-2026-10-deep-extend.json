@@ -1,0 +1,46 @@
+{
+  "id": "rev-2026-10-deep-extend",
+  "package_id": "pkg-deep-extend",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "critical",
+  "score": 15,
+  "summary": "Unmaintained since 2018 and the subject of a critical prototype-pollution advisory. Do not use.",
+  "reasoning": [
+    "CVE-2018-3750 (critical) affected versions before 0.5.1.",
+    "No release since 0.6.0 in May 2018.",
+    "No CI, no provenance, no types."
+  ],
+  "caveats": [
+    "High download volume reflects transitive use by older CLI tooling, not active adoption."
+  ],
+  "evidence": [
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "fail",
+      "detail": "CVE-2018-3750, prototype pollution, CVSS critical, fixed only in 0.5.1."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "0.6.0 published 2018-05-22; no activity since."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "No attestation."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "fail",
+      "detail": "No declarations."
+    }
+  ],
+  "reviewed_version": "0.6.0"
+}

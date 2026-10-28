@@ -1,0 +1,33 @@
+{
+  "id": "pkg-sanitize-html",
+  "name": "sanitize-html",
+  "ecosystem": "npm",
+  "latest_version": "2.18.1",
+  "published_at": "2026-10-14",
+  "repo": "https://github.com/apostrophecms/apostrophe/tree/main/packages/sanitize-html",
+  "registry": "https://www.npmjs.com/package/sanitize-html",
+  "license": "MIT",
+  "weekly_downloads": 11350945,
+  "runtime_deps": 6,
+  "install_size_kb": 4132,
+  "unpacked_size_kb": 83,
+  "maintainers": [
+    "alexgilbert",
+    "boutell",
+    "bodonkey"
+  ],
+  "types": "@types",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Parser-based, server-first sanitizer. Default allowedTags excludes img and svg, so allowlists must be configured deliberately. The standalone repository is archived; development continues in the Apostrophe monorepo. No bundled types.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 5,
+    "difficulty": 5,
+    "commodity": 5,
+    "integration": 4,
+    "effort": "do not build; years of adversarial testing",
+    "rationale": "Parser-based sanitisation is a multi-year adversarial target; the buy is obvious."
+  }
+}

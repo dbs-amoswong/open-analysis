@@ -1,0 +1,31 @@
+{
+  "id": "pkg-fastify-deepmerge",
+  "name": "@fastify/deepmerge",
+  "ecosystem": "npm",
+  "latest_version": "3.2.4",
+  "published_at": "2026-10-22",
+  "repo": "https://github.com/fastify/deepmerge",
+  "registry": "https://www.npmjs.com/package/@fastify/deepmerge",
+  "license": "MIT",
+  "weekly_downloads": 3686550,
+  "runtime_deps": 0,
+  "install_size_kb": 36,
+  "unpacked_size_kb": 21,
+  "maintainers": [
+    "eomm"
+  ],
+  "types": "bundled",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "CommonJS entry point with bundled .d.ts. Default import works from ESM via Node interop. Org-owned by the Fastify project.",
+  "npm_provenance": true,
+  "build_vs_buy": {
+    "scope": 3,
+    "difficulty": 4,
+    "commodity": 5,
+    "integration": 5,
+    "effort": "1-2 weeks for a basic merge; months for hardened edge cases",
+    "rationale": "The merge API is simple; the semantics are not. Zero-dependency packages already cover it, so a DIY implementation buys little beyond the first week."
+  }
+}

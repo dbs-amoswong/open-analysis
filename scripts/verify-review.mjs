@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { readCollection } from "./lib/data.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -67,8 +68,8 @@ const dossierPath = path.resolve(ROOT, args.dossier || path.join("ai", "dossier.
 async function main() {
   const dossier = await readJSON(dossierPath);
   const [reviews, packages] = await Promise.all([
-    readJSON("data/reviews.json"),
-    readJSON("data/packages.json"),
+    readCollection("reviews"),
+    readCollection("packages"),
   ]);
 
   const raw = await readFile(reviewPath, "utf8");
@@ -138,7 +139,7 @@ async function main() {
   }
 
   const duplicateId = reviews.find((item) => item.id === review.id);
-  if (duplicateId) errors.push(`id: "${review.id}" already exists in data/reviews.json`);
+  if (duplicateId) errors.push(`id: "${review.id}" already exists in data/reviews/`);
 
   const duplicateReview = reviews.find(
     (item) =>
@@ -153,7 +154,7 @@ async function main() {
 
   if (!packages.some((item) => item.id === dossier.package.id)) {
     warnings.push(
-      `${dossier.package.id} is new and will be added to data/packages.json when published.`
+      `${dossier.package.id} is new and will be added to data/packages/ when published.`
     );
   }
 

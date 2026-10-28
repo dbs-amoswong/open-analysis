@@ -1,9 +1,9 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { readCollection } from "./lib/data.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const DATA_DIR = path.join(ROOT, "data");
 const AI_DIR = path.join(ROOT, "ai");
 
 const REGISTRY = "https://registry.npmjs.org";
@@ -27,11 +27,6 @@ function parseArgs(argv) {
     }
   }
   return out;
-}
-
-async function readJSON(file) {
-  const raw = await readFile(path.join(ROOT, file), "utf8");
-  return JSON.parse(raw);
 }
 
 async function writeJSON(file, value) {
@@ -157,16 +152,18 @@ async function collect(request) {
   const name = String(request.package || "").trim();
   if (!name) throw new Error("A package name is required.");
 
-  const packages = await readJSON("data/packages.json");
-  const requirements = await readJSON("data/requirements.json");
-  const reviews = await readJSON("data/reviews.json");
+  const [packages, requirements, reviews] = await Promise.all([
+    readCollection("packages"),
+    readCollection("requirements"),
+    readCollection("reviews"),
+  ]);
 
   const requirement = requirements.find(
     (item) => item.id === request.requirement_id || item.slug === request.requirement_id
   );
   if (!requirement) {
     throw new Error(
-      `Unknown requirement "${request.requirement_id}". Add it to data/requirements.json first.`
+      `Unknown requirement "${request.requirement_id}". Add it to data/requirements/ first.`
     );
   }
 

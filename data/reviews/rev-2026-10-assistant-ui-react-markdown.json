@@ -1,0 +1,67 @@
+{
+  "id": "rev-2026-10-assistant-ui-react-markdown",
+  "package_id": "pkg-assistant-ui-react-markdown",
+  "requirement_id": "req-assistant-ui",
+  "reviewed_at": "2026-10-27",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 76,
+  "summary": "Optional markdown renderer built on react-markdown 10.1. Adopt only if formatted assistant output is needed: it adds about 87 packages and 72 KB gzip. Raw HTML is off by default, so the XSS surface is react-markdown's standard one.",
+  "reasoning": [
+    "Wraps react-markdown 10.1 and does not enable rehype-raw or dangerous HTML in its published code.",
+    "Adds 87 packages to the tree and about 72 KB gzip on top of the core bundle.",
+    "Published through the same OIDC pipeline; 118 of 119 versions carry provenance.",
+    "The suite offers react-streamdown (Shiki, KaTeX, Mermaid) and react-syntax-highlighter for other rendering needs."
+  ],
+  "caveats": [
+    "Any plugin that enables raw HTML (rehype-raw) reintroduces XSS risk; keep the default configuration.",
+    "Markdown parsing runs on every streamed token, so memoise or throttle if messages are long.",
+    "0.x and ESM-only."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "pass",
+      "detail": "Same monorepo OIDC trusted publishing workflow as @assistant-ui/react."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV package query returns no advisories for 0.14.24."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "Attestation present for 0.14.24; 118 of 119 versions attested."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "5 direct dependencies; adds ~87 packages and ~8.7 MB to the install; 72 KB gzip."
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No install scripts in its subtree."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled dist/index.d.ts plus ./code-fence and ./preprocess subpaths."
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour",
+      "status": "warn",
+      "detail": "Raw HTML disabled by default; enabling rehype-raw would reopen XSS. Per-token parsing cost."
+    }
+  ],
+  "reviewed_version": "0.14.24"
+}

@@ -1,0 +1,50 @@
+{
+  "id": "pkg-antv-g6",
+  "name": "@antv/g6",
+  "ecosystem": "npm",
+  "latest_version": "5.1.1",
+  "published_at": "2026-05-08",
+  "repo": "https://github.com/antvis/G6",
+  "registry": "https://www.npmjs.com/package/@antv/g6",
+  "license": "MIT",
+  "weekly_downloads": 195282,
+  "runtime_deps": 12,
+  "install_size_kb": 88008,
+  "unpacked_size_kb": 7423,
+  "maintainers": [
+    "lvisei",
+    "iaaron",
+    "jinke.li",
+    "lzxue",
+    "army8735",
+    "dengfuping",
+    "afc163",
+    "chenluli",
+    "kn9117",
+    "bbsqq",
+    "banxuan",
+    "yanxiong",
+    "atool",
+    "pearl_wang",
+    "interstellarmt",
+    "alex_zjt",
+    "duxinyue023",
+    "wang1212",
+    "gaofuhong"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm",
+    "cjs"
+  ],
+  "notes": "Feature-rich AntV graph engine with Canvas/WebGL rendering, layouts and analysis. The heaviest option: 88 MB and 104 packages installed, 413 KB gzip.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 5,
+    "difficulty": 5,
+    "commodity": 4,
+    "integration": 1,
+    "effort": "12+ months for the full feature set",
+    "rationale": "The capability is a buy, but the 88 MB tree makes this particular package costly."
+  }
+}

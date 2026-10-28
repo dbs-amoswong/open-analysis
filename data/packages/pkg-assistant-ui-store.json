@@ -1,0 +1,33 @@
+{
+  "id": "pkg-assistant-ui-store",
+  "name": "@assistant-ui/store",
+  "ecosystem": "npm",
+  "latest_version": "0.3.22",
+  "published_at": "2026-10-19",
+  "repo": "https://github.com/assistant-ui/assistant-ui",
+  "registry": "https://www.npmjs.com/package/@assistant-ui/store",
+  "license": "MIT",
+  "weekly_downloads": 1100921,
+  "runtime_deps": 0,
+  "install_size_kb": 2956,
+  "unpacked_size_kb": 758,
+  "maintainers": [
+    "yonom",
+    "okisdev",
+    "agentbase-bot"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm"
+  ],
+  "notes": "Required peer of @assistant-ui/core and @assistant-ui/react; installed automatically. Zero dependencies. Added to this review because the other four packages cannot be used without it.",
+  "npm_provenance": true,
+  "build_vs_buy": {
+    "scope": 3,
+    "difficulty": 4,
+    "commodity": 4,
+    "integration": 5,
+    "effort": "1-2 weeks",
+    "rationale": "A small external store is buildable, but it is tightly coupled to tap and the runtime; replacing it alone is not a clean cut."
+  }
+}

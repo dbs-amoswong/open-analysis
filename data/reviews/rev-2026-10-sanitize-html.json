@@ -1,0 +1,77 @@
+{
+  "id": "rev-2026-10-sanitize-html",
+  "package_id": "pkg-sanitize-html",
+  "requirement_id": "req-html-sanitize",
+  "reviewed_at": "2026-10-27",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 80,
+  "summary": "Server-first parser sanitizer. Faster than DOMPurify-on-jsdom and far lighter than dragging in jsdom, but its defaults are aggressive: img and svg are removed unless you allow them. Zero executions in the harness; 17 historical advisories, all fixed, and the current release is clean.",
+  "reasoning": [
+    "0 of 25 vectors executed after sanitization; the control executed 11.",
+    "About 400 sanitizations per second on a 60 KB document in Node, versus 49 for DOMPurify running on jsdom.",
+    "Works without a DOM, which makes it the right choice for SSR and background jobs.",
+    "2.18.1 is clean in OSV and includes fixes for several October 2026 CVEs.",
+    "Six direct dependencies install to 16 packages and 4.1 MB, versus 27.4 MB for jsdom.",
+    "Default output escapes disallowed markup and drops dangerous tags entirely."
+  ],
+  "caveats": [
+    "Defaults drop img and svg. If you need images, add them to allowedTags explicitly; several historic advisories involved SVG and URI schemes.",
+    "No bundled types; you need @types/sanitize-html.",
+    "The standalone GitHub repository is archived. Source now lives in the Apostrophe monorepo, which makes targeted review harder.",
+    "17 advisories, including a CRITICAL xmp passthrough fixed in 2.17.4 and an October 2026 SMIL bypass fixed in 2.18.0. Pin and update.",
+    "Manual npm publishing; no provenance."
+  ],
+  "evidence": [
+    {
+      "key": "bypass_test",
+      "label": "Bypass test",
+      "status": "pass",
+      "detail": "25 vectors; 0 executed. Static flags were false positives on escaped text (the vector was rendered as visible markup, not parsed)."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returns 0 advisories for 2.18.1, which fixes the October 2026 iframe-recursion and SMIL-prefix issues."
+    },
+    {
+      "key": "cve_history",
+      "label": "Advisory history",
+      "status": "info",
+      "detail": "17 advisories since 2016, all fixed. Several in 2026: xmp passthrough (CRITICAL, 2.17.4), URI schemes in action/formaction (2.17.5), textarea solidus mXSS (2.17.6), SMIL (2.17.7)."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "6 direct dependencies, 16 installed packages, 4.1 MB install, 83 KB unpacked."
+    },
+    {
+      "key": "performance",
+      "label": "Throughput",
+      "status": "pass",
+      "detail": "~400 ops/s on a 60 KB document in Node, about 8x DOMPurify on jsdom."
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "fail",
+      "detail": "Monorepo CI runs tests only; no npm publish job. No provenance on any of 128 versions."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "2.18.1 published 2026-10-14; three releases in 90 days; active in the Apostrophe monorepo."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "warn",
+      "detail": "No bundled declarations; requires @types/sanitize-html."
+    }
+  ],
+  "reviewed_version": "2.18.1"
+}

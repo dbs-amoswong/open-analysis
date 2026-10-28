@@ -1,0 +1,80 @@
+{
+  "id": "rev-2026-10-neo4j-nvl-base",
+  "package_id": "pkg-neo4j-nvl-base",
+  "requirement_id": "req-nvl-graph",
+  "reviewed_at": "2026-10-28",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "critical",
+  "score": 10,
+  "summary": "Avoid. The renderer behind the suite: proprietary licence, no source, no provenance, 13 pinned dependencies including a Segment analytics SDK, and it touches document at import time.",
+  "reasoning": [
+    "Same proprietary LICENSE.txt as the rest of the suite; use is limited to Aura or commercial Neo4j.",
+    "No repository metadata and no public source; the bundle is minified.",
+    "@segment/analytics-next is a direct dependency and imported unconditionally. Initialisation requires an explicit API key; no hardcoded key or default network call was found.",
+    "The module touches document at import time, so it cannot be imported during SSR.",
+    "13 direct dependencies pinned exactly, including lodash 4.18.1, mobx 6.15.0 and d3-force 3.0.0. Exact pins mean security updates require suite upgrades.",
+    "43.8 MB install and 79 packages on its own. No OSV advisories and no install scripts."
+  ],
+  "caveats": [
+    "The analytics SDK is a privacy and supply-chain surface even if it stays dormant without a key.",
+    "Pinned dependencies prevent independent patching."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "fail",
+      "detail": "LICENSE.txt restricts use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement. npm metadata is 'SEE LICENSE IN LICENSE.txt', not an SPDX licence. This fails the requirement's permissive-licence constraint."
+    },
+    {
+      "key": "source",
+      "label": "Source availability",
+      "status": "fail",
+      "detail": "No repository field in npm metadata and no public source repository found. The published tarball is bundled/minified, so the code cannot be reviewed."
+    },
+    {
+      "key": "provenance",
+      "label": "Provenance",
+      "status": "fail",
+      "detail": "0 attested versions in the npm registry; no publish workflow is visible without a repository."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returns no advisories for 2.0.0 or its pinned dependencies."
+    },
+    {
+      "key": "telemetry",
+      "label": "Analytics dependency",
+      "status": "warn",
+      "detail": "@segment/analytics-next is imported unconditionally; SegmentAnalytics.init(apiKey) is required before tracking. No hardcoded key or endpoint was found in base.mjs."
+    },
+    {
+      "key": "ssr",
+      "label": "SSR compatibility",
+      "status": "fail",
+      "detail": "Importing the module in Node fails with 'document is not defined'."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "13 direct dependencies, 79 packages, 43.8 MB install, 1.3 MB unpacked."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "2.0.0 published 2026-09-15; 39 releases in 90 days; no public repository."
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall scripts in the 90-package tree."
+    }
+  ],
+  "reviewed_version": "2.0.0"
+}

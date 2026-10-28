@@ -1,0 +1,25 @@
+{
+  "id": "req-deep-merge",
+  "slug": "deep-merge",
+  "title": "Deep merge of nested configuration objects",
+  "summary": "Merge layered configuration (defaults, environment file, request overrides) without mutating the inputs. Inputs can originate from parsed JSON, so the merge must not allow an attacker to control the prototype of the returned object.",
+  "owner": "platform-security",
+  "criticality": "high",
+  "status": "active",
+  "created_at": "2026-10-20",
+  "review_cadence_days": 180,
+  "constraints": [
+    "Zero runtime dependencies",
+    "CI-published with verifiable provenance",
+    "Bundled or resolvable TypeScript types",
+    "No unfixed high or critical advisories",
+    "Active maintenance (release within 12 months)",
+    "Works from both CommonJS and ESM consumers"
+  ],
+  "out_of_scope": [
+    "Schema validation",
+    "Diffing or patching",
+    "YAML serialisation"
+  ],
+  "notes": "The prototype check is a hard requirement: merge inputs include request bodies. Global Object.prototype pollution is not the only risk; inheriting an attacker-chosen prototype on the returned object is sufficient to defeat authorisation checks."
+}

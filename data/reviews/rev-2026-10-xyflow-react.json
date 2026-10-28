@@ -1,0 +1,56 @@
+{
+  "id": "rev-2026-10-xyflow-react",
+  "package_id": "pkg-xyflow-react",
+  "requirement_id": "req-nvl-graph",
+  "reviewed_at": "2026-10-28",
+  "reviewed_version": "12.12.0",
+  "reviewer": "research-agent",
+  "recommendation": "hold",
+  "risk": "low",
+  "score": 72,
+  "summary": "Excellent node/edge editor with first-class React and provenance, but it is not a graph exploration engine: no built-in force or dagre layout, and you would add those yourself. Hold for this requirement; adopt it for workflow or editor UIs.",
+  "reasoning": [
+    "MIT, SLSA provenance, 12.7M weekly downloads, 38.8k stars.",
+    "Small bundle for a React library: 58 KB gzip, 3 direct dependencies, 23 packages with React.",
+    "React >=17 peer range covers React 18 and 19.",
+    "No OSV advisories for 12.12.0.",
+    "It models nodes and edges on a canvas for editing, not graph analysis or automatic layout."
+  ],
+  "caveats": [
+    "No built-in layout engine; pair with dagre/elk if automatic positioning is needed.",
+    "Not suited to force-directed exploration of Neo4j result graphs.",
+    "164 open issues, though the project is very active."
+  ],
+  "evidence": [
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "Attestation present: builder github-hosted, source xyflow/xyflow, workflow .github/workflows/release.yml."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returns no advisories for 12.12.0."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "3 direct dependencies, 23 packages with React, 14.7 MB install, 58 KB gzip."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "12.12.0 published 2026-09-24; 38.8k stars; 164 open issues."
+    },
+    {
+      "key": "fit",
+      "label": "Fit for the requirement",
+      "status": "warn",
+      "detail": "Node/edge editor, not a graph exploration or layout engine; layouts require dagre/elk."
+    }
+  ]
+}

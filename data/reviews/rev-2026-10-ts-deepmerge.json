@@ -1,0 +1,66 @@
+{
+  "id": "rev-2026-10-ts-deepmerge",
+  "package_id": "pkg-ts-deepmerge",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "high",
+  "score": 62,
+  "summary": "Good types and a tiny footprint, but releases are not built or published by CI: the repository has no .github directory at all. Fails the release-integrity constraint.",
+  "reasoning": [
+    "The repository root contains no .github directory, so there is no CI or publish workflow; 8.0.0 has no provenance attestation.",
+    "Zero runtime dependencies and a 32 KB install.",
+    "Type inference flattens nested objects but drops optionality and widens conflicts to a union.",
+    "Safe against CVE-2026-93753 and active as of May 2026."
+  ],
+  "caveats": [
+    "Publishing from a developer machine means no verifiable link between the GitHub commit and the npm tarball.",
+    "Single maintainer."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "fail",
+      "detail": "No .github directory in the repository; no workflows of any kind. Release is manual.",
+      "sources": [
+        {
+          "label": "repository",
+          "url": "https://github.com/voodoocreation/ts-deepmerge"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "No attestation published for 8.0.0."
+    },
+    {
+      "key": "cve",
+      "label": "CVE-2026-93753",
+      "status": "pass",
+      "detail": "All four bypass variants blocked."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, 32 KB install."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "warn",
+      "detail": "Nested objects flatten correctly, but optionality is lost and conflicting scalars widen to a union."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "8.0.0 published 2026-05-22; 3 open issues."
+    }
+  ],
+  "reviewed_version": "8.0.0"
+}

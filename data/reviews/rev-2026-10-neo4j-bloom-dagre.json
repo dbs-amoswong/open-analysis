@@ -1,0 +1,60 @@
+{
+  "id": "rev-2026-10-neo4j-bloom-dagre",
+  "package_id": "pkg-neo4j-bloom-dagre",
+  "requirement_id": "req-nvl-graph",
+  "reviewed_at": "2026-10-28",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "medium",
+  "score": 45,
+  "summary": "Not needed. MIT and public, but a 1-star fork of dagrejs/dagre pinned at 3.1.1 while upstream is 3.1.3, and it is not used by the NVL layout-workers package. Use @dagrejs/dagre directly.",
+  "reasoning": [
+    "MIT licence and a public repository (neo-technology/dagre), so the hard licence constraint does not apply.",
+    "It is a fork of dagrejs/dagre; upstream is at 3.1.3 (Oct 2026) while the fork ships 3.1.1.",
+    "@neo4j-nvl/layout-workers depends on @dagrejs/dagre 3.1.1, so adding this fork creates a second dagre copy with no functional gain.",
+    "Only 3 published versions and no provenance.",
+    "No OSV advisories."
+  ],
+  "caveats": [
+    "If Neo4j-specific patches are required, document them first; nothing in the package metadata says what they are."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "pass",
+      "detail": "MIT."
+    },
+    {
+      "key": "source",
+      "label": "Source availability",
+      "status": "pass",
+      "detail": "Public fork at github.com/neo-technology/dagre (1 star), forked from dagrejs/dagre."
+    },
+    {
+      "key": "provenance",
+      "label": "Provenance",
+      "status": "fail",
+      "detail": "0 attested versions in the npm registry; no publish workflow is visible without a repository."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returns no advisories for 3.1.1 or its pinned dependencies."
+    },
+    {
+      "key": "duplication",
+      "label": "Suite duplication",
+      "status": "warn",
+      "detail": "Not a dependency of any NVL package. layout-workers depends on @dagrejs/dagre 3.1.1; adding this fork yields two dagre copies."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "3.1.1 published 2026-09-02; 3 versions; upstream is 3.1.3."
+    }
+  ],
+  "reviewed_version": "3.1.1"
+}

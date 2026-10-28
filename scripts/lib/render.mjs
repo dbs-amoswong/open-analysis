@@ -311,7 +311,7 @@ function attentionPanel(model) {
 function decisionDigest(model, root) {
   const decision = [...model.decisions].sort((a, b) => (a.decided_at < b.decided_at ? 1 : -1))[0];
   if (!decision) {
-    return `<section class="panel"><div class="empty"><div><strong>No decisions recorded yet.</strong><p>Add one to <code>data/decisions.json</code>.</p></div></div></section>`;
+    return `<section class="panel"><div class="empty"><div><strong>No decisions recorded yet.</strong><p>Add one to <code>data/decisions/</code>.</p></div></div></section>`;
   }
   const req = decision.requirement;
   const primary = decision.primary;
@@ -633,7 +633,7 @@ ${
       : ""
   }
 </section>`
-    : `<section class="banner banner-warn"><strong>No decision recorded.</strong> Review the candidates and add one to <code>data/decisions.json</code>.</section>`
+    : `<section class="banner banner-warn"><strong>No decision recorded.</strong> Review the candidates and add one to <code>data/decisions/</code>.</section>`
 }
 
 <section class="panel">
@@ -981,7 +981,7 @@ ${
 </section>`
     : ""
 }`
-    : `<section class="banner banner-warn"><strong>No review recorded for this package.</strong> Add one to <code>data/reviews.json</code>.</section>`
+    : `<section class="banner banner-warn"><strong>No review recorded for this package.</strong> Add one to <code>data/reviews/</code>.</section>`
 }
 `;
 
@@ -1206,9 +1206,9 @@ ${pageHeader({
 <section class="panel">
   <div class="panel-head"><h2>Adding a review</h2></div>
   <ol class="steps">
-    <li>Add the package to <code>data/packages.json</code> if it is new.</li>
-    <li>Add the review to <code>data/reviews.json</code>. Include at least one evidence item per decision driver.</li>
-    <li>Classify it in <code>data/decisions.json</code> under exactly one of <code>adopted</code>, <code>hold</code>, <code>rejected</code> or <code>dropped</code>.</li>
+    <li>Add the package to <code>data/packages/</code> if it is new.</li>
+    <li>Add the review to <code>data/reviews/</code>. Include at least one evidence item per decision driver.</li>
+    <li>Classify it in <code>data/decisions/</code> under exactly one of <code>adopted</code>, <code>hold</code>, <code>rejected</code> or <code>dropped</code>.</li>
     <li>Run <code>npm run validate</code>, then <code>npm run build</code>.</li>
     <li>Commit the JSON and the regenerated <code>dist/</code>. The commit is the audit entry.</li>
   </ol>
@@ -1246,10 +1246,10 @@ ${pageHeader({
     <table class="data-table">
       <thead><tr><th>File</th><th>Holds</th></tr></thead>
       <tbody>
-        <tr><td><code>data/requirements.json</code></td><td>Tasks, constraints, owners, cadence.</td></tr>
-        <tr><td><code>data/packages.json</code></td><td>Registry metadata and packaging facts.</td></tr>
-        <tr><td><code>data/reviews.json</code></td><td>Verdict, score, reasoning, caveats, evidence.</td></tr>
-        <tr><td><code>data/decisions.json</code></td><td>Adopted, hold, dropped and rejected buckets per requirement.</td></tr>
+        <tr><td><code>data/requirements/</code></td><td>Tasks, constraints, owners, cadence.</td></tr>
+        <tr><td><code>data/packages/</code></td><td>Registry metadata and packaging facts.</td></tr>
+        <tr><td><code>data/reviews/</code></td><td>Verdict, score, reasoning, caveats, evidence.</td></tr>
+        <tr><td><code>data/decisions/</code></td><td>Adopted, hold, dropped and rejected buckets per requirement.</td></tr>
       </tbody>
     </table>
   </div>

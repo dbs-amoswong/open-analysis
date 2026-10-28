@@ -1,4 +1,4 @@
-import { mkdtemp, cp, readFile, writeFile, rm } from "node:fs/promises";
+import { mkdtemp, cp, readFile, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,11 +31,11 @@ try {
   process.env.PRB_DATA_DIR = temp;
 
   const { loadModel, ValidationError } = await import("./lib/load.mjs");
+  const { writeRecord, recordPath } = await import("./lib/data.mjs");
 
-  const packagesPath = path.join(temp, "packages.json");
+  await writeRecord("packages", fixture);
+  const packagesPath = recordPath("packages", fixture.id);
   const packages = JSON.parse(await readFile(packagesPath, "utf8"));
-  packages.push(fixture);
-  await writeFile(packagesPath, `${JSON.stringify(packages, null, 2)}\n`);
 
   // A package ingested by the automated pipeline has no build-vs-buy assessment.
   const model = await loadModel({ today: "2026-10-28" });
@@ -46,22 +46,17 @@ try {
   }
 
   // A malformed assessment must still be rejected.
-  const invalid = packages.map((p) =>
-    p.id === fixture.id
-      ? {
-          ...p,
-          build_vs_buy: {
-            scope: 9,
-            difficulty: 3,
-            commodity: 3,
-            integration: 3,
-            effort: "fixture",
-            rationale: "fixture",
-          },
-        }
-      : p
-  );
-  await writeFile(packagesPath, `${JSON.stringify(invalid, null, 2)}\n`);
+  await writeRecord("packages", {
+    ...packages,
+    build_vs_buy: {
+      scope: 9,
+      difficulty: 3,
+      commodity: 3,
+      integration: 3,
+      effort: "fixture",
+      rationale: "fixture",
+    },
+  });
 
   let rejected = false;
   try {

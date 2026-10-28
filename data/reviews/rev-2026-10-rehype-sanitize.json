@@ -1,0 +1,63 @@
+{
+  "id": "rev-2026-10-rehype-sanitize",
+  "package_id": "pkg-rehype-sanitize",
+  "requirement_id": "req-html-sanitize",
+  "reviewed_at": "2026-10-27",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 78,
+  "summary": "The right choice if content already flows through remark/rehype: it sanitizes the HAST tree against an explicit schema instead of round-tripping through the DOM. Zero advisories, tiny and type-safe, but no release since 2023 and a small community.",
+  "reasoning": [
+    "Schema-based allowlist on the syntax tree, which avoids the HTML serialise/re-parse cycle where mXSS lives.",
+    "Two dependencies on hast-util-sanitize, 296 KB install, ESM with bundled types.",
+    "No advisories in OSV and no advisory history.",
+    "Fits the existing assistant-ui/react-markdown pipeline, which is already remark/rehype based.",
+    "The default schema is restrictive and safe; extending it is explicit."
+  ],
+  "caveats": [
+    "Last release 2023 and only 224 stars. The engine, hast-util-sanitize, last shipped 5.0.2 in October 2024.",
+    "It only sanitizes HAST. It is not a function you can call on an HTML string.",
+    "Schema extensions are easy to get wrong: allowing style or className can reopen injection paths.",
+    "No provenance and no release automation."
+  ],
+  "evidence": [
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returns no advisories for rehype-sanitize or its engine hast-util-sanitize."
+    },
+    {
+      "key": "mechanism",
+      "label": "Sanitization model",
+      "status": "pass",
+      "detail": "Operates on HAST with an explicit schema; no HTML serialisation round-trip, so mXSS surface is smaller."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "2 direct dependencies, 3 installed packages, 296 KB install, 20 KB unpacked."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "6.0.0 published 2023-08-26; repo pushed 2023-09-28; engine last updated October 2024."
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "fail",
+      "detail": "CI runs tests only; npm publishing is manual and no version carries provenance."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled ESM declarations."
+    }
+  ],
+  "reviewed_version": "6.0.0"
+}

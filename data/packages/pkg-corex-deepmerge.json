@@ -1,0 +1,31 @@
+{
+  "id": "pkg-corex-deepmerge",
+  "name": "@corex/deepmerge",
+  "ecosystem": "npm",
+  "latest_version": "4.0.43",
+  "published_at": "2023-04-12",
+  "repo": null,
+  "registry": "https://www.npmjs.com/package/@corex/deepmerge",
+  "license": "MIT",
+  "weekly_downloads": 383517,
+  "runtime_deps": 0,
+  "install_size_kb": null,
+  "unpacked_size_kb": 17,
+  "maintainers": [
+    "iamvishnusankar"
+  ],
+  "types": "bundled",
+  "formats": [
+    "dual"
+  ],
+  "notes": "No repository URL published to npm, so provenance and source review are impossible. No release since 2023.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 2,
+    "difficulty": 4,
+    "commodity": 5,
+    "integration": 4,
+    "effort": "days to weeks",
+    "rationale": "The capability is a commodity; source availability, not build effort, is the problem."
+  }
+}

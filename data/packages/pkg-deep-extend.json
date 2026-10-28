@@ -1,0 +1,31 @@
+{
+  "id": "pkg-deep-extend",
+  "name": "deep-extend",
+  "ecosystem": "npm",
+  "latest_version": "0.6.0",
+  "published_at": "2018-05-22",
+  "repo": "https://github.com/unclechu/node-deep-extend",
+  "registry": "https://www.npmjs.com/package/deep-extend",
+  "license": "MIT",
+  "weekly_downloads": 26806300,
+  "runtime_deps": 0,
+  "install_size_kb": null,
+  "unpacked_size_kb": 9,
+  "maintainers": [
+    "unclechu"
+  ],
+  "types": "none",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Not updated since 2018. Historical critical prototype-pollution advisory CVE-2018-3750.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 2,
+    "difficulty": 3,
+    "commodity": 5,
+    "integration": 5,
+    "effort": "days",
+    "rationale": "A basic extend is a few dozen lines; the security history shows what the edge cases cost."
+  }
+}

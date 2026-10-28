@@ -1,6 +1,7 @@
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { readCollection } from "./lib/data.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -70,7 +71,7 @@ const outPath = args.out || path.join("ai", "suite", "input.json");
 
 async function main() {
   const request = await readJSON(requestPath);
-  const requirements = await readJSON("data/requirements.json");
+  const requirements = await readCollection("requirements");
   const requirement = requirements.find((item) => item.id === request.requirement_id);
   if (!requirement) throw new Error(`Unknown requirement ${request.requirement_id}`);
 

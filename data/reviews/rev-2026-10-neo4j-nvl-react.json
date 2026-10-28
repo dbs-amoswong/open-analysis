@@ -1,0 +1,80 @@
+{
+  "id": "rev-2026-10-neo4j-nvl-react",
+  "package_id": "pkg-neo4j-nvl-react",
+  "requirement_id": "req-nvl-graph",
+  "reviewed_at": "2026-10-28",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "critical",
+  "score": 12,
+  "summary": "Avoid. Proprietary licence, no published repository, no provenance, and a package that Node cannot load in either module system. The React binding is small; the cost is a 53 MB tree and a legal constraint.",
+  "reasoning": [
+    "LICENSE.txt limits use to Neo4j Aura or commercial Neo4j. That fails the requirement's permissive-licence constraint regardless of code quality.",
+    "npm metadata publishes no repository, and no public source repository was found. The tarball is bundled/minified, so the code cannot be reviewed.",
+    "0 of 390 versions carry provenance; without a repository there is no publish pipeline to inspect.",
+    "Node cannot load it: the package is commonjs but lib/index.js uses ESM syntax with extensionless imports. require and import both fail with ERR_MODULE_NOT_FOUND; a bundler is mandatory.",
+    "React peer is 18.0.0 || ^19.0.0, which excludes React 18.2 and 18.3 — most React 18 applications.",
+    "No OSV advisories for 2.0.0 and no install scripts in the tree."
+  ],
+  "caveats": [
+    "If the organisation has an Aura or Neo4j Subscription agreement, the licence may permit use. That is a policy exception, not a whitelist pass.",
+    "Bundling works, but SSR, Node scripts and tests that import the package will fail."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "fail",
+      "detail": "LICENSE.txt restricts use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement. npm metadata is 'SEE LICENSE IN LICENSE.txt', not an SPDX licence. This fails the requirement's permissive-licence constraint."
+    },
+    {
+      "key": "source",
+      "label": "Source availability",
+      "status": "fail",
+      "detail": "No repository field in npm metadata and no public source repository found. The published tarball is bundled/minified, so the code cannot be reviewed."
+    },
+    {
+      "key": "provenance",
+      "label": "Provenance",
+      "status": "fail",
+      "detail": "0 attested versions in the npm registry; no publish workflow is visible without a repository."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returns no advisories for 2.0.0 or its pinned dependencies."
+    },
+    {
+      "key": "packaging",
+      "label": "Module compatibility",
+      "status": "fail",
+      "detail": "commonjs package containing ESM syntax in .js with extensionless imports. require() and import() both fail in Node; bundler-only."
+    },
+    {
+      "key": "react_peer",
+      "label": "React compatibility",
+      "status": "fail",
+      "detail": "peer react: '18.0.0 || ^19.0.0' — only React 18.0.0 exactly, not 18.2/18.3."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "3 direct dependencies, 90 installed packages, 53 MB install, 350 KB gzip for the wrapper."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "2.0.0 published 2026-09-15; 39 releases in 90 days; 390 versions; no public repository."
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall scripts in the 90-package tree."
+    }
+  ],
+  "reviewed_version": "2.0.0"
+}

@@ -1,0 +1,54 @@
+{
+  "id": "rev-2026-10-merge-anything",
+  "package_id": "pkg-merge-anything",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 66,
+  "summary": "Reasonable API and active, but ESM-only, one dependency, 472 KB installed, no type declarations and no publish workflow. Hold unless a specific feature is needed.",
+  "reasoning": [
+    "One runtime dependency (is-what) and a 472 KB install, the largest of the candidates.",
+    "No published type declarations despite being written in TypeScript.",
+    "Only a test workflow exists; publishing is manual and there is no provenance.",
+    "Safe against CVE-2026-93753; replaces arrays rather than concatenating."
+  ],
+  "caveats": [
+    "ESM-only, so CommonJS consumers cannot use it without a dynamic import.",
+    "Array replacement semantics differ from the rest of the field."
+  ],
+  "evidence": [
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "1 runtime dependency, 2 packages installed, 472 KB."
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "fail",
+      "detail": "Only .github/workflows/test.yml; no publish job, no provenance."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "fail",
+      "detail": "No .d.ts in the published package and no types field."
+    },
+    {
+      "key": "cve",
+      "label": "CVE-2026-93753",
+      "status": "pass",
+      "detail": "All four bypass variants blocked."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "6.0.9 published 2026-09-30; 11 open issues."
+    }
+  ],
+  "reviewed_version": "6.0.9"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "pkg-75lb-deep-merge",
+  "name": "@75lb/deep-merge",
+  "ecosystem": "npm",
+  "latest_version": "1.1.5",
+  "published_at": "2026-10-14",
+  "repo": "https://github.com/75lb/deep-merge",
+  "registry": "https://www.npmjs.com/package/@75lb/deep-merge",
+  "license": "MIT",
+  "weekly_downloads": 382724,
+  "runtime_deps": 2,
+  "install_size_kb": null,
+  "unpacked_size_kb": 55,
+  "maintainers": [
+    "75lb"
+  ],
+  "types": "none",
+  "formats": [
+    "esm"
+  ],
+  "notes": "Depends on lodash and typical, reintroducing the dependency tree this task is trying to avoid. ESM-only.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 2,
+    "difficulty": 4,
+    "commodity": 5,
+    "integration": 3,
+    "effort": "days to weeks",
+    "rationale": "A merge helper is small; its lodash dependency is the reason to question the buy."
+  }
+}

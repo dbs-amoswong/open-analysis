@@ -1,0 +1,47 @@
+{
+  "id": "rev-2026-10-stackline-deepmerge",
+  "package_id": "pkg-stackline-deepmerge",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "high",
+  "score": 25,
+  "summary": "New single-maintainer fork that markets itself on fixing CVE-2026-93753. It may well be correct, but with 246 weekly downloads, no independent review and no track record it is not a whitelisting candidate.",
+  "reasoning": [
+    "Published August 2026; 246 weekly downloads; 0 GitHub stars.",
+    "Has SLSA provenance and a publish workflow, so the mechanics are sound.",
+    "No independent security review of the fork, and the CVE fix claim is self-asserted.",
+    "Adopting an unreviewed fork trades one supply-chain risk for another."
+  ],
+  "caveats": [
+    "If the upstream stays unmaintained, revisit in 6-12 months once the fork has adoption and review coverage."
+  ],
+  "evidence": [
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "SLSA v1 attestation: builder github-hosted, source alexandroit/stackline-deepmerge, workflow .github/workflows/publish.yml."
+    },
+    {
+      "key": "maintenance",
+      "label": "Adoption and track record",
+      "status": "fail",
+      "detail": "Created 2026-08-16; 6 versions; 246 weekly downloads; 0 stars; 2 open issues."
+    },
+    {
+      "key": "trust",
+      "label": "Independent review",
+      "status": "fail",
+      "detail": "No third-party audit or advisory coverage. The security fix claim has not been verified externally."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies."
+    }
+  ],
+  "reviewed_version": "1.1.0"
+}

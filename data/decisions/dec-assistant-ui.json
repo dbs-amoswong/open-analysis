@@ -1,0 +1,20 @@
+{
+  "id": "dec-assistant-ui",
+  "requirement_id": "req-assistant-ui",
+  "status": "approved",
+  "primary_package_id": "pkg-assistant-ui-react",
+  "adopted": [
+    "pkg-assistant-ui-react",
+    "pkg-assistant-ui-core",
+    "pkg-assistant-ui-tap",
+    "pkg-assistant-ui-react-markdown",
+    "pkg-assistant-ui-store"
+  ],
+  "hold": [],
+  "rejected": [],
+  "dropped": [],
+  "rationale": "Adopt @assistant-ui/react as the single direct dependency, plus @assistant-ui/react-markdown only if formatted assistant output is required. @assistant-ui/core, @assistant-ui/tap and @assistant-ui/store arrive transitively and must be allowlisted because they are required peers, not optional extras; @assistant-ui/store was missing from the original four-package list. All five are MIT, provenance-signed, free of install scripts and advisories, and the repository publishes through OIDC trusted publishing with a protected environment. The residual risks are footprint (63 MB full install, about 135 KB gzip) and 0.x churn (roughly 30 releases per quarter), so pin exact versions, import only from @assistant-ui/react, keep rehype-raw disabled, and re-review on the 90-day cadence.",
+  "decided_at": "2026-10-27",
+  "decided_by": "frontend-platform",
+  "expires_at": "2027-01-25"
+}

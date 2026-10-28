@@ -1,0 +1,31 @@
+{
+  "id": "pkg-insane",
+  "name": "insane",
+  "ecosystem": "npm",
+  "latest_version": "2.6.2",
+  "published_at": "2016-09-19",
+  "repo": "https://github.com/bevacqua/insane",
+  "registry": "https://www.npmjs.com/package/insane",
+  "license": "MIT",
+  "weekly_downloads": 82263,
+  "runtime_deps": 2,
+  "install_size_kb": 696,
+  "unpacked_size_kb": null,
+  "maintainers": [
+    "bevacqua"
+  ],
+  "types": "none",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Abandoned since 2016. Carries an unfixed ReDoS advisory (GHSA-w455-mfq9-hf74) and has no type declarations.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 3,
+    "difficulty": 5,
+    "commodity": 5,
+    "integration": 4,
+    "effort": "do not build",
+    "rationale": "Sanitiser capability is a buy; this package is rejected on maintenance."
+  }
+}

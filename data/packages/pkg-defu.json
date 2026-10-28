@@ -1,0 +1,31 @@
+{
+  "id": "pkg-defu",
+  "name": "defu",
+  "ecosystem": "npm",
+  "latest_version": "6.1.7",
+  "published_at": "2026-04-07",
+  "repo": "https://github.com/unjs/defu",
+  "registry": "https://www.npmjs.com/package/defu",
+  "license": "MIT",
+  "weekly_downloads": 29321324,
+  "runtime_deps": 0,
+  "install_size_kb": 48,
+  "unpacked_size_kb": 20,
+  "maintainers": [
+    "pi0"
+  ],
+  "types": "bundled",
+  "formats": [
+    "dual"
+  ],
+  "notes": "Implements defaults semantics: existing target values win, so it is not a general-purpose overwrite merge. Part of the unjs ecosystem.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 2,
+    "difficulty": 3,
+    "commodity": 5,
+    "integration": 5,
+    "effort": "days for the happy path",
+    "rationale": "Defaults merging is a small function; only the edge cases justify a package."
+  }
+}

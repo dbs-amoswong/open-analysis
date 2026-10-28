@@ -1,0 +1,31 @@
+{
+  "id": "pkg-deepmerge",
+  "name": "deepmerge",
+  "ecosystem": "npm",
+  "latest_version": "4.3.1",
+  "published_at": "2023-03-16",
+  "repo": "https://github.com/TehShrike/deepmerge",
+  "registry": "https://www.npmjs.com/package/deepmerge",
+  "license": "MIT",
+  "weekly_downloads": 59481723,
+  "runtime_deps": 0,
+  "install_size_kb": 64,
+  "unpacked_size_kb": 30,
+  "maintainers": [
+    "tehshrike"
+  ],
+  "types": "unresolved",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Ships index.d.ts but declares no types/typings field, so TypeScript does not resolve it; most consumers install @types/deepmerge. Affected by CVE-2026-93753 with no fix released.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 3,
+    "difficulty": 4,
+    "commodity": 5,
+    "integration": 5,
+    "effort": "days to weeks",
+    "rationale": "The capability is a commodity. This package is rejected for the CVE, not because building is the better option."
+  }
+}

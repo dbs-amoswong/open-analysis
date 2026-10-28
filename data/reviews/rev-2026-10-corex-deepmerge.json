@@ -1,0 +1,40 @@
+{
+  "id": "rev-2026-10-corex-deepmerge",
+  "package_id": "pkg-corex-deepmerge",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "medium",
+  "score": 45,
+  "summary": "No repository URL published to npm and no release since 2023. Source and provenance cannot be verified. Avoid.",
+  "reasoning": [
+    "The npm package declares no repository, so there is no source of truth to review.",
+    "Last release April 2023.",
+    "No provenance attestation."
+  ],
+  "caveats": [
+    "383k weekly downloads come largely from next-sitemap, not direct adoption."
+  ],
+  "evidence": [
+    {
+      "key": "source",
+      "label": "Source availability",
+      "status": "fail",
+      "detail": "No repository field in the published package metadata."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "4.0.43 published 2023-04-12."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "No attestation."
+    }
+  ],
+  "reviewed_version": "4.0.43"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "pkg-sanitizer",
+  "name": "sanitizer",
+  "ecosystem": "npm",
+  "latest_version": "0.1.3",
+  "published_at": "2015-12-15",
+  "repo": "https://github.com/theSmaw/Caja-HTML-Sanitizer",
+  "registry": "https://www.npmjs.com/package/sanitizer",
+  "license": "Apache-2.0",
+  "weekly_downloads": 200722,
+  "runtime_deps": 0,
+  "install_size_kb": 100,
+  "unpacked_size_kb": null,
+  "maintainers": [
+    "thesmaw"
+  ],
+  "types": "none",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Google Caja's HTML sanitizer, last released in 2015. Zero dependencies but abandoned for a decade.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 3,
+    "difficulty": 5,
+    "commodity": 5,
+    "integration": 5,
+    "effort": "do not build",
+    "rationale": "Sanitiser capability is a buy; this implementation is simply abandoned."
+  }
+}

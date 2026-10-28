@@ -1,0 +1,67 @@
+{
+  "id": "rev-2026-10-defu",
+  "package_id": "pkg-defu",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 71,
+  "summary": "Well-maintained and fast, but it implements defaults semantics rather than overwrite merge, and it has no publish workflow. Keep it for filling defaults only; do not adopt it for this task.",
+  "reasoning": [
+    "Target values win, so defu(defaults, overrides) does not apply overrides; that is the wrong behaviour for this requirement.",
+    "Zero dependencies and good TypeScript types.",
+    "No provenance: 6.1.7 has no SLSA attestation.",
+    "Repository CI runs lint, build, type tests and coverage only; there is no publish job, so releases are cut manually.",
+    "22 open pull requests, 16 older than 90 days."
+  ],
+  "caveats": [
+    "Defaults semantics differ from every other candidate; mixing them in one codebase invites subtle bugs.",
+    "Single maintainer (pi0)."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "fail",
+      "detail": "ci.yml runs lint, build, test:types and vitest with coverage. No release or publish job.",
+      "sources": [
+        {
+          "label": "ci.yml",
+          "url": "https://github.com/unjs/defu/blob/main/.github/workflows/ci.yml"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "No attestation published for 6.1.7."
+    },
+    {
+      "key": "semantics",
+      "label": "Merge semantics",
+      "status": "warn",
+      "detail": "Defaults merge: existing target values are never overwritten. Not suitable for applying overrides."
+    },
+    {
+      "key": "cve",
+      "label": "CVE-2026-93753",
+      "status": "pass",
+      "detail": "All four bypass variants blocked."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, 48 KB install."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "6.1.7 published 2026-04-07; 22 open PRs, 16 stale."
+    }
+  ],
+  "reviewed_version": "6.1.7"
+}

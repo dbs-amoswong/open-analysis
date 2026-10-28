@@ -1,6 +1,7 @@
 import { appendFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { readCollection } from "./lib/data.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const AI_DIR = path.join(ROOT, "ai");
@@ -22,10 +23,6 @@ function parseArgs(argv) {
     }
   }
   return out;
-}
-
-async function readJSON(file) {
-  return JSON.parse(await readFile(path.join(ROOT, file), "utf8"));
 }
 
 async function writeJSON(file, value) {
@@ -277,7 +274,7 @@ async function main() {
     entries.push({ name: entry.name, version: version || null });
   }
 
-  const requirements = await readJSON("data/requirements.json");
+  const requirements = await readCollection("requirements");
   const wantsNew = /^new requirement/i.test(requirementInput);
   const wantsAuto = !requirementInput || /^auto-select/i.test(requirementInput);
 
@@ -370,8 +367,8 @@ async function main() {
   }
 
   const [packages, reviews] = await Promise.all([
-    readJSON("data/packages.json"),
-    readJSON("data/reviews.json"),
+    readCollection("packages"),
+    readCollection("reviews"),
   ]);
 
   const pending = [];

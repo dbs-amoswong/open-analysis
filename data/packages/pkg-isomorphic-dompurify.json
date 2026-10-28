@@ -1,0 +1,31 @@
+{
+  "id": "pkg-isomorphic-dompurify",
+  "name": "isomorphic-dompurify",
+  "ecosystem": "npm",
+  "latest_version": "4.6.0",
+  "published_at": "2026-10-16",
+  "repo": "https://github.com/kkomelin/isomorphic-dompurify",
+  "registry": "https://www.npmjs.com/package/isomorphic-dompurify",
+  "license": "MIT",
+  "weekly_downloads": 4632876,
+  "runtime_deps": 2,
+  "install_size_kb": 27424,
+  "unpacked_size_kb": 25,
+  "maintainers": [
+    "kkomelin"
+  ],
+  "types": "bundled",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Runs DOMPurify on jsdom for server-side use. Pulls 27.4 MB and 28 packages, so its exposure includes jsdom's own advisory stream. Single-maintainer wrapper.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 4,
+    "difficulty": 5,
+    "commodity": 5,
+    "integration": 2,
+    "effort": "do not build; you are buying the engine and a DOM shim",
+    "rationale": "You are buying DOMPurify's engine plus a DOM shim; building either is out of scope."
+  }
+}

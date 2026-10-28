@@ -1,0 +1,56 @@
+{
+  "id": "rev-2026-10-antv-g6",
+  "package_id": "pkg-antv-g6",
+  "requirement_id": "req-nvl-graph",
+  "reviewed_at": "2026-10-28",
+  "reviewed_version": "5.1.1",
+  "reviewer": "research-agent",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 62,
+  "summary": "Feature-rich AntV graph engine, MIT and capable, but 88 MB and 104 packages installed, 413 KB gzip, 333 open issues and no release in 90 days. Hold unless you specifically need its layout or analysis features.",
+  "reasoning": [
+    "MIT, public repository, 12.4k stars, no OSV advisories.",
+    "Canvas/WebGL rendering, many layouts and graph algorithms.",
+    "Very heavy: 88 MB / 104 packages and 413 KB gzip.",
+    "333 open issues and no npm release in 90 days (5.1.1 from May 2026), although commits continue.",
+    "No npm provenance."
+  ],
+  "caveats": [
+    "The install and bundle cost is roughly 3x Cytoscape and 7x Sigma.",
+    "Large issue backlog; slower release cadence than the other candidates.",
+    "Nineteen maintainers mitigate bus factor but complicate release consistency."
+  ],
+  "evidence": [
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returns no advisories for 5.1.1."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "fail",
+      "detail": "12 direct dependencies, 104 packages, 88 MB install, 413 KB gzip."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "5.1.1 published 2026-05-08; no npm release in 90 days; 333 open issues."
+    },
+    {
+      "key": "provenance",
+      "label": "Provenance",
+      "status": "fail",
+      "detail": "No attested npm versions."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations."
+    }
+  ]
+}

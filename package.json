@@ -16,9 +16,11 @@
     "review:verify": "node scripts/verify-review.mjs",
     "review:publish": "node scripts/publish-review.mjs",
     "review:suite": "node scripts/collect-suite.mjs",
-    "review:verify-suite": "node scripts/verify-suite.mjs"
+    "review:verify-suite": "node scripts/verify-suite.mjs",
+    "migrate:data": "node scripts/migrate-data.mjs",
+    "metadata:refresh": "node scripts/refresh-metadata.mjs"
   },
   "engines": {
-    "node": ">=20.11"
+    "node": ">=24"
   }
 }

@@ -1,7 +1,8 @@
 import { createHash } from "node:crypto";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { readCollection, writeRecord } from "./lib/data.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -24,10 +25,6 @@ function parseArgs(argv) {
 
 async function readJSON(file) {
   return JSON.parse(await readFile(path.resolve(ROOT, file), "utf8"));
-}
-
-async function writeJSON(file, value) {
-  await writeFile(path.resolve(ROOT, file), `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
 function isNonEmptyString(value) {
@@ -58,8 +55,8 @@ async function main() {
     readJSON(reviewPath),
     readJSON(dossierPath),
     readJSON(requestPath).catch(() => null),
-    readJSON("data/packages.json"),
-    readJSON("data/reviews.json"),
+    readCollection("packages"),
+    readCollection("reviews"),
   ]);
 
   if (!isNonEmptyString(review.id)) throw new Error("review.id is required");
@@ -87,7 +84,7 @@ async function main() {
     review.package_id = existingPackage.id;
     if (existingPackage.latest_version !== dossier.package.latest_version) {
       console.log(
-        `Note: data/packages.json records ${existingPackage.latest_version}, but this review covers ${dossier.package.latest_version}.`
+        `Note: data/packages/${existingPackage.id}.json records ${existingPackage.latest_version}, but this review covers ${dossier.package.latest_version}.`
       );
     }
   } else {
@@ -169,16 +166,13 @@ async function main() {
     return;
   }
 
-  if (newPackage) packages.push(newPackage);
-  reviews.push(review);
-
-  if (newPackage) await writeJSON("data/packages.json", packages);
-  await writeJSON("data/reviews.json", reviews);
+  if (newPackage) await writeRecord("packages", newPackage);
+  await writeRecord("reviews", review);
 
   console.log(
     `Published ${review.id}: ${review.package_id} for ${review.requirement_id}${newPackage ? " (new package)" : ""}.`
   );
-  console.log("Decision not changed. Add this package to exactly one bucket in data/decisions.json.");
+  console.log("Decision not changed. Add this package to exactly one bucket in data/decisions/.");
 }
 
 main().catch((error) => {

@@ -1,0 +1,78 @@
+{
+  "id": "rev-2026-10-dompurify",
+  "package_id": "pkg-dompurify",
+  "requirement_id": "req-html-sanitize",
+  "reviewed_at": "2026-10-27",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 88,
+  "summary": "Browser-first sanitizer and the de facto standard. It parses untrusted HTML with the same DOM the browser will use, which is why it holds up against mutation XSS. One dependency, 11.7 KB gzip, 45M weekly downloads, and zero executions in our 25-vector browser harness. The gap is release integrity: npm publishes are manual and the tarball is unattested, although the release artifacts are SLSA-attested and Sigstore-signed and the shipped dist files match those hashes.",
+  "reasoning": [
+    "0 of 25 XSS vectors executed after DOMPurify, while the unsanitized control executed 11.",
+    "3.4.17 is clean in OSV. Its 33 historical advisories are all fixed, including a CRITICAL SAFE_FOR_TEMPLATES bypass fixed in 3.4.17 on 2026-10-22.",
+    "Security engineering is unusually strong: fuzz, CodeQL, dependency-review and OpenSSF Scorecard workflows, plus SLSA provenance and Sigstore signatures on GitHub release artifacts.",
+    "The release artifacts are verifiable even though npm is not: the 3.4.17 SLSA subject hashes match the four dist files shipped in the npm tarball byte-for-byte, so the shipped code can be tied back to the attested build.",
+    "Parsing with a real DOM matches the eventual render context, which is the main defence against mXSS.",
+    "One runtime dependency (@types/trusted-types), 1.65 MB install and 11.7 KB gzip.",
+    "It strips handlers and javascript: URLs, removes iframe/style, and keeps allowed markup such as img and svg."
+  ],
+  "caveats": [
+    "npm publishes are manual and unattested; provenance exists only on GitHub release artifacts. Verification is possible by hashing the dist files against the release attestation, but it does not happen automatically on install.",
+    "The advisory rate is high: 33 advisories, roughly half of them in 2026. Staying current is not optional, and 3.4.17 specifically fixes two CVEs from 22 Oct 2026.",
+    "Dual-licensed MPL-2.0 or Apache-2.0; select Apache-2.0 in your policy.",
+    "Needs a DOM. In Node you must supply jsdom/happy-dom yourself or use isomorphic-dompurify, which is far heavier.",
+    "The default configuration is permissive by design: it allows images, links and SVG. Tighten ALLOWED_TAGS/ALLOWED_ATTR for model output."
+  ],
+  "evidence": [
+    {
+      "key": "bypass_test",
+      "label": "Bypass test",
+      "status": "pass",
+      "detail": "25 vectors in headless Chrome (event handlers, javascript:/data: URLs, SVG/SMIL, math/mglyph, noscript, xmp, plaintext, meta refresh, template). Control executed 11; DOMPurify executed 0. One static flag (javascript: inside srcset) is not executable in Chrome."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returns 0 advisories for 3.4.17. The most recent fixes (CVE-2026-116804 CRITICAL, CVE-2026-116803 HIGH) landed in 3.4.17 on 2026-10-22."
+    },
+    {
+      "key": "cve_history",
+      "label": "Advisory history",
+      "status": "info",
+      "detail": "33 advisories since 2014, all with fixes. The high rate reflects active adversarial research, not neglect; the oldest unfixed item only affects <=3.4.6."
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "fail",
+      "detail": "No npm publish workflow and no publish script anywhere in the repository. GitHub releases are created manually by Cure53 maintainers (cure53, x00mario); sign-release.yml and slsa-provenance.yml then sign and attest the release assets. The 3.4.17 npm publish followed the GitHub release by four minutes under the single npm account cure53 (npm 9.2.0)."
+    },
+    {
+      "key": "provenance",
+      "label": "Provenance and signing",
+      "status": "warn",
+      "detail": "SLSA v1 attestation and Sigstore signatures are attached to the 3.4.17 GitHub release. The four dist files in the npm tarball (purify.js, purify.min.js, purify.cjs.js, purify.es.mjs) match the attested SHA-256 subjects byte-for-byte, but the npm tarball itself has no attestation (0 of 154 versions)."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "1 runtime dependency, 1 installed package, 1.65 MB install, 29.8 KB minified / 11.7 KB gzip."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "3.4.17 published 2026-10-12; repo pushed 2026-10-24; 0 open issues; 17.5k stars."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations for CJS and ESM builds."
+    }
+  ],
+  "reviewed_version": "3.4.17"
+}

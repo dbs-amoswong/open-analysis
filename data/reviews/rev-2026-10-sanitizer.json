@@ -1,0 +1,46 @@
+{
+  "id": "rev-2026-10-sanitizer",
+  "package_id": "pkg-sanitizer",
+  "requirement_id": "req-html-sanitize",
+  "reviewed_at": "2026-10-27",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "critical",
+  "score": 18,
+  "summary": "Google Caja's HTML sanitizer, last released in 2015. Zero dependencies, but abandoned for a decade and unsuitable for a security-critical path.",
+  "reasoning": [
+    "Last release 2015-12-15.",
+    "No advisories in OSV, but also no maintenance, no security process and no fixes in ten years.",
+    "Zero dependencies and 100 KB install do not compensate for abandonment."
+  ],
+  "caveats": [
+    "Caja itself was retired; this package is a historical artifact."
+  ],
+  "evidence": [
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "0.1.3 published 2015-12-15; no activity since."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "info",
+      "detail": "No OSV advisories, but no advisory coverage either."
+    },
+    {
+      "key": "provenance",
+      "label": "Provenance",
+      "status": "fail",
+      "detail": "No attestations."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "fail",
+      "detail": "No declarations."
+    }
+  ],
+  "reviewed_version": "0.1.3"
+}

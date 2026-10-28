@@ -1,0 +1,33 @@
+{
+  "id": "pkg-xyflow-react",
+  "name": "@xyflow/react",
+  "ecosystem": "npm",
+  "latest_version": "12.12.0",
+  "published_at": "2026-09-24",
+  "repo": "https://github.com/xyflow/xyflow",
+  "registry": "https://www.npmjs.com/package/@xyflow/react",
+  "license": "MIT",
+  "weekly_downloads": 12692371,
+  "runtime_deps": 3,
+  "install_size_kb": 14680,
+  "unpacked_size_kb": 1188,
+  "maintainers": [
+    "peterkogo",
+    "webk1d"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm",
+    "cjs"
+  ],
+  "notes": "React Flow: a node/edge editor with first-class React and TypeScript support. It is not a graph exploration or layout engine; force/dagre layouts must be added separately.",
+  "npm_provenance": true,
+  "build_vs_buy": {
+    "scope": 4,
+    "difficulty": 4,
+    "commodity": 3,
+    "integration": 2,
+    "effort": "3-6 months for a comparable editor",
+    "rationale": "A node editor is a buy if editing is the use case; it is the wrong tool for exploration."
+  }
+}

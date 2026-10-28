@@ -1,0 +1,41 @@
+{
+  "id": "pkg-neo4j-nvl-interaction-handlers",
+  "name": "@neo4j-nvl/interaction-handlers",
+  "ecosystem": "npm",
+  "latest_version": "2.0.0",
+  "published_at": "2026-09-15",
+  "repo": null,
+  "registry": "https://www.npmjs.com/package/@neo4j-nvl/interaction-handlers",
+  "license": "SEE LICENSE IN 'LICENSE.txt'",
+  "weekly_downloads": 17183,
+  "runtime_deps": 3,
+  "install_size_kb": 44708,
+  "unpacked_size_kb": 222,
+  "maintainers": [
+    "neo4j-bloom-reader2",
+    "neo4j-bloom-publisher",
+    "neo4j-organization"
+  ],
+  "types": "bundled",
+  "formats": [
+    "bundler-only"
+  ],
+  "notes": "Proprietary. Same bundler-only packaging as the React wrapper: ESM syntax in .js under a commonjs package with extensionless imports.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 3,
+    "difficulty": 4,
+    "commodity": 4,
+    "integration": 1,
+    "effort": "weeks",
+    "rationale": "A small layer over the renderer; the lock-in comes from the licence."
+  },
+  "prior_versions": [
+    {
+      "version": "1.2.2",
+      "published_at": "2026-09-11",
+      "recommendation": "avoid",
+      "note": "Same proprietary licence and bundler-only packaging; depends on base 1.2.2. No advisories."
+    }
+  ]
+}

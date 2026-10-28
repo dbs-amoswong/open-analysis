@@ -1,0 +1,96 @@
+name: metadata-refresh
+
+on:
+  schedule:
+    - cron: "17 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: metadata-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Refresh registry facts
+        run: node scripts/refresh-metadata.mjs --summary /tmp/metadata.json
+
+      - name: Validate and build
+        run: |
+          npm run validate
+          npm run build
+          npm run check
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet -- data; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No metadata changes."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --stat -- data
+          fi
+
+      - name: Open metadata pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          BRANCH="chore/metadata-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git config user.name "metadata-refresh[bot]"
+          git config user.email "metadata-refresh[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add data
+          git commit -m "chore: refresh package metadata"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push -u origin "$BRANCH"
+
+          node - <<'NODE' > /tmp/pr-body.md
+          const fs = require("fs");
+          const summary = JSON.parse(fs.readFileSync("/tmp/metadata.json", "utf8"));
+          const lines = [
+            "Automated registry refresh. This PR changes package facts only; it does not change reviews or decisions.",
+            "",
+            `Checked ${summary.checked} package(s); ${summary.changed.length} changed.`,
+          ];
+          if (summary.changed.length) {
+            lines.push("", "| Package | Changes |", "|---|---|");
+            for (const item of summary.changed) {
+              lines.push(
+                `| \`${item.name}\` | ${item.changes
+                  .map((c) => `${c.field}: ${JSON.stringify(c.from)} → ${JSON.stringify(c.to)}`)
+                  .join("; ")} |`
+              );
+            }
+          }
+          lines.push(
+            "",
+            "Review version drift before merging. The nightly site build will surface any new version as a version-scoped review."
+          );
+          process.stdout.write(lines.join("\n") + "\n");
+          NODE
+
+          PR_URL=$(gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "chore: refresh package metadata" \
+            --body-file /tmp/pr-body.md)
+
+          echo "Opened $PR_URL"

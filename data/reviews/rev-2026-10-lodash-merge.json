@@ -1,0 +1,59 @@
+{
+  "id": "rev-2026-10-lodash-merge",
+  "package_id": "pkg-lodash-merge",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "avoid",
+  "risk": "high",
+  "score": 30,
+  "summary": "Frozen since 2019 and carries lodash's ongoing advisory stream. Prototype pollution was fixed in 4.6.2, but there is no path to future fixes.",
+  "reasoning": [
+    "Last release July 2019; lodash itself carries six advisories on 4.17.15, including two 2026 CVEs.",
+    "Versions before 4.6.2 are vulnerable to GHSA-h726-x36v-rx45 (high).",
+    "No provenance attestation and no bundled types; requires @types/lodash.merge.",
+    "Copies inherited enumerable properties and merges arrays by index, which surprises most callers."
+  ],
+  "caveats": [
+    "If lodash is already a hard dependency, importing merge adds no new package, but the maintenance and behaviour issues remain."
+  ],
+  "evidence": [
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "4.6.2 published 2019-07-10; no release in seven years."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "warn",
+      "detail": "GHSA-h726-x36v-rx45 (prototype pollution) fixed in 4.6.2. The parent lodash package has six advisories on 4.17.15 including CVE-2026-2950 and CVE-2026-4800."
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "No attestation published for 4.6.2."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "warn",
+      "detail": "No bundled declarations; requires @types/lodash.merge."
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour",
+      "status": "warn",
+      "detail": "Copies inherited enumerable properties; array merge is index-based; deep recursion overflows the stack."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, 68 KB install."
+    }
+  ],
+  "reviewed_version": "4.6.2"
+}

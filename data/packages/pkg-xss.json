@@ -1,0 +1,31 @@
+{
+  "id": "pkg-xss",
+  "name": "xss",
+  "ecosystem": "npm",
+  "latest_version": "1.0.17",
+  "published_at": "2026-10-24",
+  "repo": "https://github.com/leizongmin/js-xss",
+  "registry": "https://www.npmjs.com/package/xss",
+  "license": "MIT",
+  "weekly_downloads": 4914109,
+  "runtime_deps": 2,
+  "install_size_kb": 312,
+  "unpacked_size_kb": 154,
+  "maintainers": [
+    "leizongmin"
+  ],
+  "types": "bundled",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Whitelist sanitizer that HTML-escapes disallowed tags instead of stripping them, so blocked markup becomes visible text. No OSV advisories, but no independent advisory coverage either; 70 open issues.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 4,
+    "difficulty": 5,
+    "commodity": 5,
+    "integration": 4,
+    "effort": "do not build",
+    "rationale": "The capability is security-critical; the package choice is what is in question, not build-vs-buy."
+  }
+}

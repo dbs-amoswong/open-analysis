@@ -1,0 +1,41 @@
+{
+  "id": "pkg-neo4j-nvl-react",
+  "name": "@neo4j-nvl/react",
+  "ecosystem": "npm",
+  "latest_version": "2.0.0",
+  "published_at": "2026-09-15",
+  "repo": null,
+  "registry": "https://www.npmjs.com/package/@neo4j-nvl/react",
+  "license": "SEE LICENSE IN 'LICENSE.txt'",
+  "weekly_downloads": 16333,
+  "runtime_deps": 3,
+  "install_size_kb": 53252,
+  "unpacked_size_kb": 82,
+  "maintainers": [
+    "neo4j-bloom-reader2",
+    "neo4j-bloom-publisher",
+    "neo4j-organization"
+  ],
+  "types": "bundled",
+  "formats": [
+    "bundler-only"
+  ],
+  "notes": "Proprietary Neo4j client software. Publisher lists no repository. ESM syntax in .js under a commonjs package with extensionless imports, so Node require and import both fail; a bundler is required. React peer is 18.0.0 || ^19.0.0, which excludes React 18.2/18.3.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 5,
+    "difficulty": 5,
+    "commodity": 3,
+    "integration": 1,
+    "effort": "6-12 months for a WebGL graph renderer with layouts",
+    "rationale": "The capability is a buy; choose an open-source vendor if the licence does not fit."
+  },
+  "prior_versions": [
+    {
+      "version": "1.2.2",
+      "published_at": "2026-09-11",
+      "recommendation": "avoid",
+      "note": "Same proprietary licence, no repository, no provenance and the same bundler-only packaging. Layout stack differs: cytoscape 3.33.1 + @neo4j-bloom/dagre 0.8.14 instead of @dagrejs/dagre. Install measured at 56.3 MB / 94 packages."
+    }
+  ]
+}

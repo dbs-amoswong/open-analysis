@@ -1,0 +1,41 @@
+{
+  "id": "pkg-neo4j-nvl-base",
+  "name": "@neo4j-nvl/base",
+  "ecosystem": "npm",
+  "latest_version": "2.0.0",
+  "published_at": "2026-09-15",
+  "repo": null,
+  "registry": "https://www.npmjs.com/package/@neo4j-nvl/base",
+  "license": "SEE LICENSE IN 'LICENSE.txt'",
+  "weekly_downloads": 17490,
+  "runtime_deps": 13,
+  "install_size_kb": 43848,
+  "unpacked_size_kb": 1302,
+  "maintainers": [
+    "neo4j-bloom-reader2",
+    "neo4j-bloom-publisher",
+    "neo4j-organization"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm"
+  ],
+  "notes": "Proprietary renderer. Imports @segment/analytics-next unconditionally; analytics needs an explicit API key. Touches document at import time, so no SSR. 13 direct dependencies, several pinned exactly.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 5,
+    "difficulty": 5,
+    "commodity": 4,
+    "integration": 1,
+    "effort": "6-12 months for a WebGL graph renderer",
+    "rationale": "The renderer is the expensive part; the licence makes this particular buy conditional."
+  },
+  "prior_versions": [
+    {
+      "version": "1.2.2",
+      "published_at": "2026-09-11",
+      "recommendation": "avoid",
+      "note": "Same proprietary licence. Pins mobx 3.6.2 (vs 6.15.0 in 2.0.0) and keeps the Segment analytics dependency; importing it still touches document. No advisories."
+    }
+  ]
+}

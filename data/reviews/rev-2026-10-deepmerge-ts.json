@@ -1,0 +1,81 @@
+{
+  "id": "rev-2026-10-deepmerge-ts",
+  "package_id": "pkg-deepmerge-ts",
+  "requirement_id": "req-deep-merge",
+  "reviewed_at": "2026-10-20",
+  "reviewer": "research-agent",
+  "recommendation": "adopt",
+  "risk": "low",
+  "score": 88,
+  "summary": "Strong runner-up and the better choice when inputs may be cyclic or contain Map/Set. Best type inference in the field, zero deps, active, published with SLSA provenance. Falls short only on release ergonomics: it authenticates with a long-lived NPM_TOKEN rather than OIDC trusted publishing.",
+  "reasoning": [
+    "Handles circular references and merges Map/Set contents, which @fastify/deepmerge does not.",
+    "Most precise inferred types: optionality preserved and conflicting keys resolve to the right-hand type.",
+    "SLSA v1 provenance from .github/workflows/release.yml; lint, unit, type and type-test jobs must pass before the release job runs.",
+    "Active: 8.0.2 released 2026-08-21 with 0 open issues and 0 open PRs.",
+    "Zero runtime dependencies."
+  ],
+  "caveats": [
+    "Release job uses an NPM_TOKEN secret rather than OIDC trusted publishing; a leaked token is a real, if manageable, risk.",
+    "280 KB installed because it ships ESM, CJS and source maps; about 8x the Fastify package.",
+    "Slower at ~196k ops/s on our workload.",
+    "Single maintainer (RebeccaStevens); bus factor of one."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "warn",
+      "detail": "release.yml runs on push to main after all lint/test/typecheck jobs, then pnpm release (semantic-release). Authenticates with secrets.NPM_TOKEN.",
+      "sources": [
+        {
+          "label": "release.yml",
+          "url": "https://github.com/RebeccaStevens/deepmerge-ts/blob/main/.github/workflows/release.yml"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "SLSA v1 attestation for 8.0.2: builder actions/runner/github-hosted, source RebeccaStevens/deepmerge-ts, workflow .github/workflows/release.yml."
+    },
+    {
+      "key": "cve",
+      "label": "CVE-2026-93753",
+      "status": "pass",
+      "detail": "All four bypass variants blocked; __proto__ is retained as an own key rather than applied as a prototype."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, 1 installed package, 280 KB install / 259 KB unpacked."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "8.0.2 published 2026-08-21; 0 open issues; 0 open PRs; Renovate keeps dependencies current."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Best inference measured: nested objects flattened, optionality preserved, conflicts resolve to the right-hand type."
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour",
+      "status": "pass",
+      "detail": "~196k ops/s. Handles cycles and deep nesting. Merges Map/Set. Arrays concat. undefined does not overwrite."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "BSD-3-Clause."
+    }
+  ],
+  "reviewed_version": "8.0.2"
+}

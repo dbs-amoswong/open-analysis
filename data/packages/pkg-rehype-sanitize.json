@@ -1,0 +1,33 @@
+{
+  "id": "pkg-rehype-sanitize",
+  "name": "rehype-sanitize",
+  "ecosystem": "npm",
+  "latest_version": "6.0.0",
+  "published_at": "2023-08-26",
+  "repo": "https://github.com/rehypejs/rehype-sanitize",
+  "registry": "https://www.npmjs.com/package/rehype-sanitize",
+  "license": "MIT",
+  "weekly_downloads": 6385820,
+  "runtime_deps": 2,
+  "install_size_kb": 296,
+  "unpacked_size_kb": 20,
+  "maintainers": [
+    "remcohaszing",
+    "wooorm",
+    "kmck"
+  ],
+  "types": "bundled",
+  "formats": [
+    "esm"
+  ],
+  "notes": "Schema-based sanitizer for the unified/rehype pipeline. Built on hast-util-sanitize 5.0.2. Stable but no release since 2023, and it only applies to HAST, not raw HTML strings.",
+  "npm_provenance": false,
+  "build_vs_buy": {
+    "scope": 3,
+    "difficulty": 5,
+    "commodity": 5,
+    "integration": 5,
+    "effort": "weeks to get a correct schema; the engine is the hard part",
+    "rationale": "Schema-based sanitisation is small in code and expensive in correctness; buy the engine."
+  }
+}
