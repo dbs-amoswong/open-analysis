@@ -252,14 +252,22 @@ person who applied `review-request` and fails closed unless they have `write`,
 variable to a comma-separated allowlist if you want an explicit list instead of
 the permission check.
 
-To restrict label access in the repository itself:
+This is a personal repository, so there are no organization or team settings.
+Use the repository-level equivalent:
 
-1. **Settings → Collaborators and teams**: give only trusted people `write` or
-   `triage`; everyone else stays `read`.
-2. **Organization settings → Member privileges → Base permissions**: `Read`
-   (or `None`), so membership alone cannot label.
-3. Do not give `triage` to people who should not be able to start an AI review.
-   The workflow requires `write` or above even for triage users.
+1. **Settings → Collaborators**: invite only trusted people. Give them `write`
+   or `triage`; everyone else stays `read`. Read-only collaborators cannot
+   apply labels.
+2. If you are the only owner and want to be the only person who can start a
+   review, set `REVIEW_LABELERS` to your username. That is the per-label
+   control, because GitHub has no per-label ACL.
+3. Do not give `triage` to people who should not be able to label. The workflow
+   requires `write` or above even for triage users.
+
+On a public personal repository, anyone can open an issue but only you and
+collaborators with `triage` or `write` can apply a label. If you make the
+repository private, only collaborators can see it at all. GitHub Pages for a
+private repository requires GitHub Pro or higher; a public repository is free.
 
 Where to configure the model and key:
 
