@@ -7,8 +7,8 @@ on:
         description: npm package names, comma or newline separated
         required: true
       requirement:
-        description: Requirement ID or slug (for example req-deep-merge)
-        required: true
+        description: Requirement ID or slug; leave blank to auto-select
+        required: false
       version:
         description: Optional exact version applied to packages without one
         required: false

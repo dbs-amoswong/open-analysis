@@ -312,7 +312,9 @@ If one draft fails verification, the workflow stops before opening the PR;
 fix the request or the draft and re-run.
 
 Maintainers can also run the workflow manually from **Actions → package-review
-→ Run workflow** with a comma-separated package list and a requirement.
+→ Run workflow** with a comma-separated package list. The requirement can be
+left blank for auto-selection; if no requirement matches confidently, the run
+stops with a clear error instead of guessing.
 
 Required configuration:
 
