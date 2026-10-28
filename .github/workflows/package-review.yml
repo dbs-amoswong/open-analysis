@@ -108,10 +108,26 @@ jobs:
 
       - name: Read resolved request
         id: meta
+        if: steps.prepare.outputs.needs_requirement != 'true'
         run: |
           REQUIREMENT=$(node -p "require('./ai/request.json').requirement_id")
           echo "requirement=$REQUIREMENT" >> "$GITHUB_OUTPUT"
           echo "Resolved requirement: $REQUIREMENT"
+
+      - name: Comment if requirement is needed
+        if: steps.prepare.outputs.needs_requirement == 'true' && github.event.issue.number
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          node -e 'const fs=require("fs"); const r=require("./ai/request.json"); const lines=[`I cannot start the review because: ${r.requirement_reason}`,"","Choose an existing requirement:" , ...r.available_requirements.map(x=>`- \`${x.id}\` — ${x.title}`), "", "Edit the Requirement field, then remove and re-add the `review-request` label."]; if(r.new_requirement){lines.push("","New requirement requested:","```",r.new_requirement,"```");} fs.writeFileSync("/tmp/requirement-needed.md", lines.join("\n"));'
+          gh issue comment "$ISSUE_NUMBER" --body-file /tmp/requirement-needed.md
+
+      - name: Fail if requirement is needed on a manual run
+        if: steps.prepare.outputs.needs_requirement == 'true' && github.event_name == 'workflow_dispatch'
+        run: |
+          echo "::error::No requirement resolved. Set the requirement input or choose an existing ID."
+          exit 1
 
       - name: Collect evidence
         if: steps.prepare.outputs.skip != 'true'
@@ -248,6 +264,7 @@ jobs:
 
           PACKAGE_LIST=$(node -e 'const r=require("./ai/request.json"); const byName=new Map(r.packages.map(p=>[p.name,p])); console.log(r.pending.map(name=>{const p=byName.get(name)||{}; return `- \`${name}\`${p.version?`@${p.version}`:""}`}).join("\n"))')
           SKIPPED_LIST=$(node -e 'const r=require("./ai/request.json"); console.log((r.skipped||[]).map(s=>`- \`${s.name}\`: ${s.reason}`).join("\n"))')
+          AUTO_NOTE=$(node -e 'const r=require("./ai/request.json"); if(r.requirement_auto) console.log(`Requirement auto-selected: \`${r.requirement_id}\` (${r.requirement_reason})`);')
 
           BODY="AI-drafted review(s) for \`${REQUIREMENT}\`.
 
@@ -259,6 +276,12 @@ jobs:
           This PR adds the reviews only. It does not change a whitelist decision.
           Check the evidence, edit the verdicts if needed, then add each package
           to exactly one bucket in \`data/decisions.json\` in a decision PR."
+
+          if [ -n "$AUTO_NOTE" ]; then
+            BODY="$BODY
+
+          $AUTO_NOTE"
+          fi
 
           if [ -n "$SKIPPED_LIST" ]; then
             BODY="$BODY
@@ -288,7 +311,7 @@ jobs:
           fi
 
       - name: Already reviewed
-        if: steps.prepare.outputs.skip == 'true' && github.event.issue.number
+        if: steps.prepare.outputs.skip == 'true' && steps.prepare.outputs.needs_requirement != 'true' && github.event.issue.number
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}

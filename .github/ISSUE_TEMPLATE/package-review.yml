@@ -48,14 +48,33 @@ body:
     validations:
       required: true
 
-  - type: input
+  - type: dropdown
     id: requirement
     attributes:
-      label: Requirement ID or slug
-      description: Use an existing requirement, or describe why a new one is needed.
-      placeholder: "req-deep-merge"
-    validations:
-      required: true
+      label: Requirement
+      description: |
+        Pick the task this review is for. Auto-select matches the use case and
+        package names against the existing requirements. You can also choose
+        "New requirement" and describe it below; a maintainer will add it first.
+      options:
+        - Auto-select from the use case
+        - req-deep-merge — Deep merge of nested configuration objects
+        - req-assistant-ui — In-app AI assistant chat interface (React)
+        - req-html-sanitize — Sanitize untrusted HTML before rendering
+        - req-nvl-graph — Graph visualization with the NVL suite
+        - New requirement / not sure
+      default: 0
+
+  - type: textarea
+    id: new_requirement
+    attributes:
+      label: Not listed? Describe the requirement
+      description: The task, owner, constraints and why the package is needed.
+      placeholder: |
+        Task:
+        Hard constraints:
+        Owner:
+        Review cadence:
 
   - type: textarea
     id: use_case

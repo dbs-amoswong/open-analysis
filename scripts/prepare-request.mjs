@@ -125,6 +125,70 @@ function validPackageName(name) {
   );
 }
 
+const STOP_WORDS = new Set(
+  "the and for with from that this are was were into use using review reviews package packages check provide alternative alternatives maturity a an to of in on or is it as by at be we our their its all any can should must will not no when where which who how what why support supported across full tree version versions id slug new requirement task".split(
+    /\s+/
+  )
+);
+
+function tokens(text) {
+  const raw = String(text || "").toLowerCase().match(/[a-z][a-z0-9-]{2,}/g) || [];
+  const out = new Set();
+  for (const token of raw) {
+    if (!STOP_WORDS.has(token)) out.add(token);
+    for (const part of token.split("-")) {
+      if (part.length >= 3 && !STOP_WORDS.has(part)) out.add(part);
+    }
+  }
+  return [...out];
+}
+
+function scoreRequirement(requirement, queryTokens) {
+  const text = [
+    requirement.title,
+    requirement.summary,
+    requirement.id.replace(/^req-/, "").replace(/-/g, " "),
+    requirement.slug.replace(/-/g, " "),
+    ...(Array.isArray(requirement.constraints) ? requirement.constraints : []),
+    requirement.notes || "",
+  ].join(" ");
+  const reqTokens = new Set(tokens(text));
+  const matched = queryTokens.filter((query) =>
+    [...reqTokens].some(
+      (candidate) =>
+        candidate === query ||
+        (query.length >= 4 && candidate.startsWith(query)) ||
+        (candidate.length >= 4 && query.startsWith(candidate))
+    )
+  );
+  const score = matched.reduce(
+    (total, token) => total + (token.length >= 5 ? 2 : 1),
+    0
+  );
+  return { score, matched };
+}
+
+function resolveRequirement(requirements, query) {
+  const queryTokens = tokens(query);
+  if (queryTokens.length === 0) return null;
+
+  const scored = requirements
+    .map((requirement) => ({
+      requirement,
+      ...scoreRequirement(requirement, queryTokens),
+    }))
+    .sort(
+      (a, b) =>
+        b.score - a.score || a.requirement.id.localeCompare(b.requirement.id)
+    );
+
+  const top = scored[0];
+  const second = scored[1];
+  if (!top || top.score < 3) return null;
+  if (second && top.score <= second.score) return null;
+  return top;
+}
+
 const args = parseArgs(process.argv.slice(2));
 const issueBody = args["issue-body-file"]
   ? await readFile(args["issue-body-file"], "utf8")
@@ -161,6 +225,10 @@ const mode = /^separate/i.test(modeInput) ? "separate" : "batch";
 const useCase = sectionValue(sections, ["What are you trying to do?", "Use case"]);
 const alternatives = sectionValue(sections, ["Alternatives considered", "Alternatives"]);
 const disclosure = sectionValue(sections, ["Disclosure", "Disclosures"]);
+const newRequirement = sectionValue(sections, [
+  "Not listed? Describe the requirement",
+  "New requirement",
+]);
 
 const issueNumberRaw = args["issue-number"] || process.env.ISSUE_NUMBER || "";
 const issueNumber = Number.parseInt(issueNumberRaw, 10);
@@ -209,30 +277,102 @@ async function main() {
     entries.push({ name: entry.name, version: version || null });
   }
 
-  if (!requirementInput) {
-    throw new Error(
-      "No requirement found. Add it to the issue form or pass --requirement <id>."
+  const requirements = await readJSON("data/requirements.json");
+  const wantsNew = /^new requirement/i.test(requirementInput);
+  const wantsAuto = !requirementInput || /^auto-select/i.test(requirementInput);
+
+  let requirement = null;
+  let requirementAuto = false;
+  let requirementReason = null;
+  let requirementProblem = null;
+
+  if (!wantsNew && !wantsAuto) {
+    const requirementMatch = requirementInput.match(/req-[a-z0-9-]+/i);
+    const requirementKey = requirementMatch ? requirementMatch[0] : requirementInput;
+    requirement = requirements.find(
+      (item) => item.id === requirementKey || item.slug === requirementKey
     );
+    if (!requirement) {
+      requirementProblem = `Unknown requirement "${requirementInput}".`;
+    }
+  } else if (wantsAuto && !newRequirement) {
+    const resolved = resolveRequirement(
+      requirements,
+      [...entries.map((entry) => entry.name), useCase, alternatives].join(" ")
+    );
+    if (resolved) {
+      requirement = resolved.requirement;
+      requirementAuto = true;
+      requirementReason = resolved.matched.length
+        ? `Matched ${resolved.matched.join(", ")}.`
+        : "Matched the request context.";
+    } else {
+      requirementProblem =
+        "Could not confidently match this request to an existing requirement.";
+    }
+  } else {
+    requirementProblem = newRequirement
+      ? "The request describes a new requirement."
+      : "No requirement was selected.";
   }
 
-  const requirementMatch = requirementInput.match(/req-[a-z0-9-]+/i);
-  const requirementKey = requirementMatch ? requirementMatch[0] : requirementInput;
-  const [requirements, packages, reviews] = await Promise.all([
-    readJSON("data/requirements.json"),
+  if (!requirement) {
+    const request = {
+      packages: entries.map((entry) => ({
+        ...entry,
+        package_id: packageId(entry.name),
+        skip: false,
+        skip_reason: null,
+      })),
+      pending: [],
+      skipped: [],
+      requirement_id: null,
+      requirement_slug: null,
+      mode,
+      issue_number:
+        Number.isInteger(issueNumber) && issueNumber > 0 ? issueNumber : null,
+      issue_url: issueURL || null,
+      requester: requester || null,
+      use_case: useCase || null,
+      alternatives: alternatives || null,
+      disclosure: disclosure || null,
+      requested_at: new Date().toISOString(),
+      needs_requirement: true,
+      requirement_reason: requirementProblem,
+      new_requirement: newRequirement || null,
+      available_requirements: requirements.map((item) => ({
+        id: item.id,
+        slug: item.slug,
+        title: item.title,
+      })),
+      skip: true,
+      skip_reason: requirementProblem,
+    };
+
+    await writeJSON(path.join(AI_DIR, "request.json"), request);
+    await Promise.all([
+      rm(REQUESTS_DIR, { recursive: true, force: true }),
+      rm(path.join(AI_DIR, "dossiers"), { recursive: true, force: true }),
+      rm(path.join(AI_DIR, "reviews"), { recursive: true, force: true }),
+      rm(path.join(AI_DIR, "suite"), { recursive: true, force: true }),
+    ]);
+    await setOutput("skip", "true");
+    await setOutput("needs_requirement", "true");
+    await setOutput("count", "0");
+    await setOutput("mode", mode);
+
+    console.log(`Requirement needed: ${requirementProblem}`);
+    for (const item of request.available_requirements) {
+      console.log(`  - ${item.id} (${item.slug}): ${item.title}`);
+    }
+    if (newRequirement) console.log("  New requirement description was provided.");
+    return;
+  }
+
+  const [packages, reviews] = await Promise.all([
     readJSON("data/packages.json"),
     readJSON("data/reviews.json"),
   ]);
-  const requirement = requirements.find(
-    (item) => item.id === requirementKey || item.slug === requirementKey
-  );
-
-  if (!requirement) {
-    throw new Error(
-      `Unknown requirement "${requirementInput}". Available: ${requirements
-        .map((item) => `${item.id} (${item.slug})`)
-        .join(", ")}`
-    );
-  }
 
   const pending = [];
   const skipped = [];
@@ -278,6 +418,8 @@ async function main() {
     skipped: skipped.map((item) => ({ name: item.name, reason: item.skip_reason })),
     requirement_id: requirement.id,
     requirement_slug: requirement.slug,
+    requirement_auto: requirementAuto,
+    requirement_reason: requirementReason,
     mode,
     issue_number: Number.isInteger(issueNumber) && issueNumber > 0 ? issueNumber : null,
     issue_url: issueURL || null,
@@ -342,6 +484,9 @@ async function main() {
       skipped.length ? `, ${skipped.length} skipped` : ""
     }`
   );
+  if (requirementAuto) {
+    console.log(`  Requirement auto-selected: ${requirement.id} (${requirementReason})`);
+  }
   for (const item of pending) {
     console.log(`  + ${item.name}${item.version ? `@${item.version}` : ""}`);
   }
