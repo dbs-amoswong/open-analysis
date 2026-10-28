@@ -200,6 +200,86 @@ The validator rejects unknown package or requirement IDs, duplicate IDs, invalid
 
 ---
 
+## Requesting a review through GitHub Actions
+
+The request path is an issue, not a JSON edit:
+
+1. Open an issue with the **Package review request** form. Use an existing
+   requirement ID or slug; a new requirement still needs a human to add it.
+2. A maintainer checks that the package is not already reviewed for that
+   requirement, then adds the `review-request` label.
+3. `.github/workflows/package-review.yml` parses the request, collects npm,
+   download, OSV, provenance and GitHub facts into `ai/dossier.json`, and runs
+   OpenCode with the restricted `package-review` agent.
+4. The agent writes `ai/review.json` only. A trusted script validates it,
+   appends it to `data/reviews.json`, builds the site, and opens a pull request.
+   The workflow comments the PR link on the issue.
+5. A human checks the evidence and the verdict. A separate decision PR puts the
+   package in exactly one whitelist bucket. The AI never edits `data/decisions.json`.
+
+Maintainers can also run the workflow manually from **Actions → package-review
+→ Run workflow** with a package name and requirement.
+
+Required configuration:
+
+- Repository variable `OPENCODE_MODEL`, for example
+  `anthropic/claude-sonnet-5-5`. Pin a specific model, not a moving alias.
+- A provider secret. `OPENCODE_API_KEY` works for the OpenCode provider;
+  `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` and `COMMANDCODE_API_KEY` are passed
+  through for those providers. For any other provider, add its key variable to
+  the OpenCode step's `env` block.
+- The workflow installs `@opencode/cli@2.2.0` explicitly. Keep that pin.
+
+The agent lives in `.opencode/agents/package-review.md`. It can read the
+repository and write only under `ai/`; shell, web access, subagents and external
+directories are denied. `ai/` is scratch space and is ignored by git. The
+committed review records the model, agent, run URL and dossier hash under
+`generated_by`.
+
+Two operational notes:
+
+- A pull request opened with the default `GITHUB_TOKEN` does not trigger other
+  PR workflows. This workflow validates and builds before opening it, so the
+  data is checked. Use a GitHub App token if you also want ordinary PR checks.
+- Scheduled or bot-created reviews are drafts. A named human is still
+  accountable for the verdict and the decision.
+
+Create the `review-request` label before using the form. The issue form does
+not apply any label on creation. By default GitHub only lets users with
+`triage` or `write` access apply labels; the workflow additionally checks the
+person who applied `review-request` and fails closed unless they have `write`,
+`maintain` or `admin` access. Set the optional `REVIEW_LABELERS` repository
+variable to a comma-separated allowlist if you want an explicit list instead of
+the permission check.
+
+To restrict label access in the repository itself:
+
+1. **Settings → Collaborators and teams**: give only trusted people `write` or
+   `triage`; everyone else stays `read`.
+2. **Organization settings → Member privileges → Base permissions**: `Read`
+   (or `None`), so membership alone cannot label.
+3. Do not give `triage` to people who should not be able to start an AI review.
+   The workflow requires `write` or above even for triage users.
+
+Where to configure the model and key:
+
+| Where | Name | Value |
+|---|---|---|
+| **Settings → Secrets and variables → Actions → Variables** | `OPENCODE_MODEL` | Provider/model, pinned, e.g. `commandcode/deepseek/deepseek-v4.1-flash` or `anthropic/claude-sonnet-5-5` |
+| **Settings → Secrets and variables → Actions → Secrets** | provider key | `COMMANDCODE_API_KEY`, `OPENCODE_API_KEY`, `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`, matching the model |
+| Optional variable | `REVIEW_LABELERS` | Comma-separated GitHub usernames allowed to trigger a review |
+
+The model is a repository **variable**, not a secret: it is not sensitive and
+you will want to see it in logs. The API key is a repository **secret**; never
+put it in `opencode.json`, the workflow file, or an issue.
+
+`.github/workflows/site.yml` validates, builds and deploys `dist/` to GitHub
+Pages on every push to `main` and once a night. Enable Pages with **Source:
+GitHub Actions** once. If you host elsewhere, keep the build job and replace the
+deploy job with your host's deploy action.
+
+---
+
 ## Scoring rubric
 
 Scores summarise five weighted dimensions:

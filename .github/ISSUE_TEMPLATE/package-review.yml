@@ -1,0 +1,67 @@
+name: Package review request
+description: Ask for a package to be reviewed against a requirement
+title: "[review] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A repository collaborator will triage this request and add the
+        `review-request` label. Only people with write access to the repository
+        can apply that label. The workflow checks the labeler again before it
+        spends any tokens. A human still approves the review and the decision.
+
+  - type: input
+    id: package
+    attributes:
+      label: npm package name
+      description: Use the exact registry name, including the scope.
+      placeholder: "@scope/name"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version to review
+      description: Leave blank for the latest release.
+      placeholder: "1.2.3"
+
+  - type: input
+    id: requirement
+    attributes:
+      label: Requirement ID or slug
+      description: Use an existing requirement, or describe why a new one is needed.
+      placeholder: "req-deep-merge"
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: What are you trying to do?
+      description: The task, the inputs, and why an existing package does not fit.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other packages, or the current workaround.
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Links and evidence
+      description: Advisory links, benchmarks, repository, or a failing test.
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I checked that this package is not already reviewed for this requirement.
+          required: true
+        - label: I maintain or contribute to this package (disclose below).
+        - label: I understand that the AI draft is advisory and a human decides.
+          required: true

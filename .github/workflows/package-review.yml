@@ -1,0 +1,191 @@
+name: package-review
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: npm package name (for example @scope/name)
+        required: true
+      requirement:
+        description: Requirement ID or slug (for example req-deep-merge)
+        required: true
+      version:
+        description: Version to review; leave blank for latest
+        required: false
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: package-review-${{ github.event.issue.number || inputs.package || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'review-request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PACKAGE: ${{ inputs.package }}
+      REQUIREMENT: ${{ inputs.requirement }}
+      VERSION: ${{ inputs.version }}
+      ISSUE_BODY: ${{ github.event.issue.body }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+      ISSUE_URL: ${{ github.event.issue.html_url }}
+      REQUESTER: ${{ github.event.issue.user.login }}
+      OPENCODE_MODEL: ${{ vars.OPENCODE_MODEL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Authorize labeler
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SENDER: ${{ github.event.sender.login }}
+          REVIEW_LABELERS: ${{ vars.REVIEW_LABELERS }}
+        run: |
+          set -euo pipefail
+
+          ALLOW=$(printf '%s' "${REVIEW_LABELERS:-}" | tr -d ' ')
+          if [ -n "$ALLOW" ]; then
+            case ",$ALLOW," in
+              *",$SENDER,"*)
+                echo "Authorized by REVIEW_LABELERS: $SENDER"
+                exit 0
+                ;;
+              *)
+                echo "::error::$SENDER is not in the REVIEW_LABELERS allowlist."
+                exit 1
+                ;;
+            esac
+          fi
+
+          PERMISSION=$(gh api "repos/${GITHUB_REPOSITORY}/collaborators/${SENDER}/permission" --jq '.permission' 2>/dev/null || true)
+          case "$PERMISSION" in
+            admin|maintain|write)
+              echo "Authorized collaborator: $SENDER ($PERMISSION)"
+              ;;
+            *)
+              echo "::error::$SENDER does not have write access; only repository collaborators can start a review."
+              exit 1
+              ;;
+          esac
+
+      - name: Check model configuration
+        run: |
+          test -n "$OPENCODE_MODEL" || {
+            echo "::error::Set the repository variable OPENCODE_MODEL, for example anthropic/claude-sonnet-5-5."
+            exit 1
+          }
+
+      - name: Prepare request
+        id: prepare
+        run: node scripts/prepare-request.mjs
+
+      - name: Collect evidence
+        if: steps.prepare.outputs.skip != 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/collect.mjs --request ai/request.json --out ai/dossier.json
+
+      - name: Install OpenCode
+        if: steps.prepare.outputs.skip != 'true'
+        run: npm install --global @opencode/cli@2.2.0
+
+      - name: Draft review with OpenCode
+        if: steps.prepare.outputs.skip != 'true'
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          COMMANDCODE_API_KEY: ${{ secrets.COMMANDCODE_API_KEY }}
+        run: |
+          opencode run --standalone \
+            --agent package-review \
+            --model "$OPENCODE_MODEL" \
+            --title "Package review: $PACKAGE for $REQUIREMENT" \
+            "Read ai/request.json and ai/dossier.json. Write ai/review.json only. Follow the package-review agent instructions exactly."
+
+      - name: Verify draft
+        if: steps.prepare.outputs.skip != 'true'
+        run: node scripts/verify-review.mjs
+
+      - name: Add draft to the working tree
+        if: steps.prepare.outputs.skip != 'true'
+        run: node scripts/publish-review.mjs
+
+      - name: Upload the dossier and draft
+        if: steps.prepare.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-draft-${{ github.run_id }}
+          path: |
+            ai/request.json
+            ai/dossier.json
+            ai/review.json
+          retention-days: 30
+
+      - name: Validate and build
+        if: steps.prepare.outputs.skip != 'true'
+        run: |
+          npm run validate
+          npm run build
+          npm run check
+
+      - name: Open pull request
+        if: steps.prepare.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          set -euo pipefail
+
+          SLUG=$(node -e 'const r=require("./ai/request.json"); console.log(r.package.replace(/^@/,"").replace(/[^a-z0-9]+/gi,"-").toLowerCase())')
+          BRANCH="review/${SLUG}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+
+          git config user.name "opencode-review-bot"
+          git config user.email "opencode-review-bot@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add data
+          git commit -m "review: draft ${PACKAGE} for ${REQUIREMENT}"
+
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push -u origin "$BRANCH"
+
+          BODY="AI-drafted review for \`${PACKAGE}\` against \`${REQUIREMENT}\`.
+
+          - Request: ${ISSUE_URL:-manual run}
+          - Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+
+          This PR adds the review only. It does not change a whitelist decision.
+          Check the evidence, edit the verdict if needed, then add the package to
+          exactly one bucket in \`data/decisions.json\` in a decision PR."
+
+          PR_URL=$(gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "review: ${PACKAGE} for ${REQUIREMENT}" \
+            --body "$BODY")
+
+          echo "Opened $PR_URL"
+          if [ -n "${ISSUE_NUMBER:-}" ]; then
+            gh issue comment "$ISSUE_NUMBER" --body "Draft review opened: $PR_URL"
+          fi
+
+      - name: Already reviewed
+        if: steps.prepare.outputs.skip == 'true' && github.event.issue.number
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: gh issue comment "$ISSUE_NUMBER" --body "This package already has a review for that requirement; no draft was opened."

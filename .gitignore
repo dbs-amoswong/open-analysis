@@ -1,3 +1,7 @@
 node_modules/
 .DS_Store
 *.log
+
+# Scratch directory for request/dossier/draft files. The CI job uploads these
+# as artifacts; the generated review and package facts are committed instead.
+ai/

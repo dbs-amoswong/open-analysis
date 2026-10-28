@@ -9,7 +9,11 @@
     "dev": "node scripts/dev.mjs",
     "validate": "node scripts/validate.mjs",
     "check": "node scripts/check.mjs",
-    "serve": "node scripts/serve.mjs"
+    "serve": "node scripts/serve.mjs",
+    "review:prepare": "node scripts/prepare-request.mjs",
+    "review:collect": "node scripts/collect.mjs",
+    "review:verify": "node scripts/verify-review.mjs",
+    "review:publish": "node scripts/publish-review.mjs"
   },
   "engines": {
     "node": ">=20.11"
