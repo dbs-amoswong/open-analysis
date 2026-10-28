@@ -99,5 +99,32 @@
       "Detailed benchmark against every non-NVL graph library"
     ],
     "notes": "NVL denied at 2.0.0 and 1.2.2: proprietary licence (Aura or commercial Neo4j only), no repository, no provenance, Node-incompatible packaging, React peer excludes 18.2/18.3. Adopted Cytoscape.js as primary (react-cytoscapejs is stale; use the core API with a ref) and Sigma.js as the large-graph fallback (client-only, WebGL2, pair with graphology and @react-sigma/core). @antv/g6 and @xyflow/react are on hold."
+  },
+  {
+    "id": "req-http-request",
+    "slug": "http-request",
+    "title": "HTTP requests from browser and Node",
+    "summary": "Make HTTP requests from browser and Node with interceptors, global configuration, mocking and cookie handling. Monitor the axios dependency stack for maintenance, advisories, duplication and unnecessary packages, and compare the role of each candidate with native fetch.",
+    "owner": "dbs-amoswong",
+    "criticality": "high",
+    "status": "active",
+    "created_at": "2026-10-28",
+    "review_cadence_days": 90,
+    "constraints": [
+      "Actively maintained and responsive to security reports",
+      "No unfixed high or critical advisories",
+      "Works in both browser and Node environments",
+      "Compatible with the existing axios interceptors, global config and mocking approach",
+      "Permissive license across the full dependency tree",
+      "No install scripts in the dependency tree",
+      "Avoid duplicate or unnecessary packages in the axios dependency stack",
+      "If npm provenance is unavailable, pin exact versions and record the gap"
+    ],
+    "out_of_scope": [
+      "Replacing axios with native fetch",
+      "GraphQL and gRPC transports",
+      "Detailed performance benchmark against every HTTP client"
+    ],
+    "notes": "This is a monitoring batch for the axios dependency stack: axios, follow-redirects, undici, fast-uri, js-cookie, protobufjs and cookie. The candidates have different roles; compare each package's purpose, maintenance, advisories, licence, install scripts and overlap with the rest of the stack rather than treating them as interchangeable HTTP clients. Native fetch is the considered alternative, but it is not a candidate in this batch."
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T08:21:54.762Z",
+  "generated_at": "2026-10-28T11:13:56.644Z",
   "today": "2026-10-28",
   "requirements": [
     {
@@ -408,6 +408,22 @@
           "bucket": "rejected"
         }
       ]
+    },
+    {
+      "id": "req-http-request",
+      "slug": "http-request",
+      "title": "HTTP requests from browser and Node",
+      "status": null,
+      "decided_at": null,
+      "decided_by": null,
+      "expires_at": null,
+      "expired": null,
+      "days_until_expiry": null,
+      "primary": null,
+      "adopted": [],
+      "hold": [],
+      "dropped": [],
+      "rejected": []
     }
   ],
   "packages": [

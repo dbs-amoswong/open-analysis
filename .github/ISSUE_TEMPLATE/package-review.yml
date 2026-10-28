@@ -62,6 +62,7 @@ body:
         - req-assistant-ui — In-app AI assistant chat interface (React)
         - req-html-sanitize — Sanitize untrusted HTML before rendering
         - req-nvl-graph — Graph visualization with the NVL suite
+        - req-http-request — HTTP requests from browser and Node
         - New requirement / not sure
       default: 0
 
