@@ -131,7 +131,7 @@ Facts about the artifact, not opinions.
 | `release_provenance` | optional; `true` when GitHub release artifacts are attested but the npm tarball is not |
 | `signed_release` | optional; `true` when release artifacts carry Sigstore signatures |
 | `provenance_note` | optional explanation shown on the package page |
-| `build_vs_buy` | `scope`, `difficulty`, `commodity`, `integration` (1–5), `effort`, `rationale`; score and verdict are derived |
+| `build_vs_buy` | optional; `scope`, `difficulty`, `commodity`, `integration` (1–5), `effort`, `rationale`; score and verdict are derived. Packages ingested automatically stay unrated until a reviewer adds it |
 | `prior_versions` | optional list of earlier versions with `version`, `published_at`, `recommendation`, `note` |
 | `notes` | one or two sentences of context |
 
@@ -196,6 +196,42 @@ The whitelist outcome for a requirement. Every reviewed package must appear in *
 `status` is `approved` · `denied` · `pending`, and `expires_at` drives the expiry warnings.
 
 ---
+
+## Machine-readable allowlist
+
+Every build writes two files consumers can use:
+
+- `dist/allowlist.json` — requirements, decisions, and one row per reviewed package
+- `dist/allowlist.csv` — the same rows as CSV
+
+A consumer enforces the policy by taking rows where `decision_status === "approved"`, `expired === false`, and `bucket === "adopted"`, then pinning the exact `version`. Rows in `dropped` carry a `drop_deadline`; `hold` and `rejected` are not permitted.
+
+```json
+{
+  "today": "2026-10-28",
+  "requirements": [
+    {
+      "id": "req-deep-merge",
+      "status": "approved",
+      "primary": "@fastify/deepmerge",
+      "expires_at": "2027-04-18",
+      "expired": false
+    }
+  ],
+  "packages": [
+    {
+      "requirement_id": "req-deep-merge",
+      "package": "@fastify/deepmerge",
+      "version": "3.2.4",
+      "bucket": "adopted",
+      "decision_status": "approved",
+      "decision_expires_at": "2027-04-18"
+    }
+  ]
+}
+```
+
+The whitelist page links both files. `npm run check` fails if either is missing from `dist/`.
 
 ## Review cadence and staleness
 

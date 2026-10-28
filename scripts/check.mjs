@@ -65,4 +65,16 @@ if (broken.length) {
   console.log(`Links: ${htmlFiles.length} pages, all internal links resolve`);
 }
 
+let allowlistOk = true;
+for (const name of ["allowlist.json", "allowlist.csv"]) {
+  try {
+    await access(path.join(DIST_DIR, name));
+  } catch {
+    allowlistOk = false;
+    failed = true;
+    console.error(`Allowlist: missing ${name}. Run "npm run build".`);
+  }
+}
+if (allowlistOk) console.log("Allowlist: allowlist.json and allowlist.csv present");
+
 process.exit(failed ? 1 : 0);

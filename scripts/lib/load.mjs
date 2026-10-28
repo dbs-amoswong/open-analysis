@@ -3,7 +3,9 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-export const DATA_DIR = path.join(ROOT, "data");
+export const DATA_DIR = process.env.PRB_DATA_DIR
+  ? path.resolve(process.env.PRB_DATA_DIR)
+  : path.join(ROOT, "data");
 export const DIST_DIR = path.join(ROOT, "dist");
 export const ASSETS_DIR = path.join(ROOT, "assets");
 
@@ -123,17 +125,19 @@ export async function loadModel({ today = todayISO() } = {}) {
     if (p.provenance_note !== undefined && !isNonEmptyString(p.provenance_note)) {
       err(`${at}.provenance_note: expected non-empty string when present`);
     }
-    if (!p.build_vs_buy || typeof p.build_vs_buy !== "object") {
-      err(`${at}.build_vs_buy: required`);
-    } else {
-      for (const key of ["scope", "difficulty", "commodity", "integration"]) {
-        const value = p.build_vs_buy[key];
-        if (!Number.isInteger(value) || value < 1 || value > 5) {
-          err(`${at}.build_vs_buy.${key}: expected integer 1-5`);
+    if (p.build_vs_buy !== undefined) {
+      if (!p.build_vs_buy || typeof p.build_vs_buy !== "object" || Array.isArray(p.build_vs_buy)) {
+        err(`${at}.build_vs_buy: expected object when present`);
+      } else {
+        for (const key of ["scope", "difficulty", "commodity", "integration"]) {
+          const value = p.build_vs_buy[key];
+          if (!Number.isInteger(value) || value < 1 || value > 5) {
+            err(`${at}.build_vs_buy.${key}: expected integer 1-5`);
+          }
         }
+        if (!isNonEmptyString(p.build_vs_buy.effort)) err(`${at}.build_vs_buy.effort: required`);
+        if (!isNonEmptyString(p.build_vs_buy.rationale)) err(`${at}.build_vs_buy.rationale: required`);
       }
-      if (!isNonEmptyString(p.build_vs_buy.effort)) err(`${at}.build_vs_buy.effort: required`);
-      if (!isNonEmptyString(p.build_vs_buy.rationale)) err(`${at}.build_vs_buy.rationale: required`);
     }
     if (p.prior_versions !== undefined) {
       if (!Array.isArray(p.prior_versions)) {
@@ -161,7 +165,7 @@ export async function loadModel({ today = todayISO() } = {}) {
     pkgById.set(p.id, {
       ...p,
       license_category: licenseCategory(p.license),
-      build_vs_buy: computeBuildVsBuy(p.build_vs_buy),
+      build_vs_buy: p.build_vs_buy ? computeBuildVsBuy(p.build_vs_buy) : null,
       reviews: [],
     });
   }
@@ -443,9 +447,10 @@ export async function loadModel({ today = todayISO() } = {}) {
       unknown: model.packages.filter((p) => p.license_category === "unknown").length,
     },
     build_vs_buy: {
-      buy: model.packages.filter((p) => p.build_vs_buy.verdict === "buy").length,
-      evaluate: model.packages.filter((p) => p.build_vs_buy.verdict === "evaluate").length,
-      build: model.packages.filter((p) => p.build_vs_buy.verdict === "build").length,
+      buy: model.packages.filter((p) => p.build_vs_buy?.verdict === "buy").length,
+      evaluate: model.packages.filter((p) => p.build_vs_buy?.verdict === "evaluate").length,
+      build: model.packages.filter((p) => p.build_vs_buy?.verdict === "build").length,
+      unrated: model.packages.filter((p) => !p.build_vs_buy).length,
     },
     unclassified: model.requirements.reduce(
       (n, r) => n + (r.decision ? 0 : r.candidates.length),

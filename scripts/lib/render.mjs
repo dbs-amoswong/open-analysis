@@ -153,7 +153,7 @@ const BVB = {
 
 export function buildVsBuyBadge(pkg) {
   const bvb = pkg.build_vs_buy;
-  if (!bvb) return '<span class="muted">—</span>';
+  if (!bvb) return '<span class="bvb bvb-neutral" title="Not assessed yet">Unrated</span>';
   const cfg = BVB[bvb.verdict] ?? BVB.evaluate;
   return `<span class="bvb bvb-${cfg.tone}" title="Build vs buy ${bvb.score}/100. ${esc(bvb.rationale)}">${cfg.label} ${bvb.score}</span>`;
 }
@@ -894,7 +894,9 @@ ${
   </section>
 </div>
 
-<section class="panel">
+${
+  pkg.build_vs_buy
+    ? `<section class="panel">
   <div class="panel-head"><h2>Build vs buy</h2>${buildVsBuyBadge(pkg)}</div>
   <p class="prose">${esc(pkg.build_vs_buy.rationale)}</p>
   <div class="bvb-grid">
@@ -905,7 +907,12 @@ ${
   </div>
   <p class="bvb-effort"><strong>Estimated build effort:</strong> ${esc(pkg.build_vs_buy.effort)}</p>
   <p class="table-note">Capability-level score. It does not override the recommendation or risk verdict above.</p>
-</section>
+</section>`
+    : `<section class="panel">
+  <div class="panel-head"><h2>Build vs buy</h2>${buildVsBuyBadge(pkg)}</div>
+  <p class="prose muted">Not assessed yet. A reviewer should record scope, difficulty, commodity, integration, build effort and rationale before the next decision.</p>
+</section>`
+}
 
 ${
   priorVersions.length
@@ -1071,7 +1078,7 @@ ${pageHeader({
   eyebrow: "Whitelist",
   title: "What you may use, and what must go",
   lede: "The enforcement view. Adopted packages are approved; dropped packages are in use but scheduled for removal; everything else is not permitted for the requirement.",
-  meta: `<span class="chip">${model.whitelist.adopted.length} adopted</span><span class="chip">${model.whitelist.dropped.length} to drop</span><span class="chip">${model.whitelist.rejected.length} rejected</span>`,
+  meta: `<span class="chip">${model.whitelist.adopted.length} adopted</span><span class="chip">${model.whitelist.dropped.length} to drop</span><span class="chip">${model.whitelist.rejected.length} rejected</span><a class="chip" href="allowlist.json" download>Download JSON</a><a class="chip" href="allowlist.csv" download>Download CSV</a>`,
 })}
 
 <div class="toolbar">
