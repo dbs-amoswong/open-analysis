@@ -68,7 +68,7 @@
     <div class="review-meta">
       <span class="pill pill-ok">Current</span>
       <span class="muted small">Reviewed version 2.0.0</span>
-      <span class="muted small">Requirement: <a href="../requirements/nvl-graph.html">Graph visualization with the NVL suite</a></span>
+      <span class="muted small">Requirement: <a href="../requirements/nvl-graph.html">Graph visualization in a React application</a></span>
     </div>
     <h3 class="sub-head">Reasoning</h3>
     <ol class="reasoning"><li>Proprietary LICENSE.txt; no repository; no provenance.</li><li>commonjs package with ESM syntax in .js and extensionless imports; Node cannot load it.</li><li>Three direct dependencies (base 2.0.0, lodash 4.18.1, concaveman 1.2.1) and a 44.7 MB install because base pulls the renderer.</li><li>No OSV advisories and no install scripts.</li></ol>
@@ -168,6 +168,30 @@
     <table class="data-table">
       <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>Summary</th></tr></thead>
       <tbody><tr>
+  <td><a href="pkg-cytoscape.html">cytoscape</a> <span class="version">3.34.4</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 92 of 100"><span class="score-num">92</span><span class="score-track"><span class="score-fill score-ok" style="width:92%"></span></span></span></td>
+  <td class="muted small">Best fit for Neo4j-style graph exploration: MIT, zero dependencies, SLSA provenance, active, 15.8M weekly downloads, 138 KB gzip. …</td>
+</tr><tr>
+  <td><a href="pkg-sigma.html">sigma</a> <span class="version">4.0.4</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="muted small">WebGL renderer for large graphs, with the graphology ecosystem. MIT, active, 110 KB gzip, 6.9 MB and 10 packages. No provenance, a…</td>
+</tr><tr>
+  <td><a href="pkg-xyflow-react.html">@xyflow/react</a> <span class="version">12.12.0</span></td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 72 of 100"><span class="score-num">72</span><span class="score-track"><span class="score-fill score-warn" style="width:72%"></span></span></span></td>
+  <td class="muted small">Excellent node/edge editor with first-class React and provenance, but it is not a graph exploration engine: no built-in force or d…</td>
+</tr><tr>
+  <td><a href="pkg-antv-g6.html">@antv/g6</a> <span class="version">5.1.1</span></td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 62 of 100"><span class="score-num">62</span><span class="score-track"><span class="score-fill score-warn" style="width:62%"></span></span></span></td>
+  <td class="muted small">Feature-rich AntV graph engine, MIT and capable, but 88 MB and 104 packages installed, 413 KB gzip, 333 open issues and no release…</td>
+</tr><tr>
   <td><a href="pkg-neo4j-bloom-dagre.html">@neo4j-bloom/dagre</a> <span class="version">3.1.1</span></td>
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
@@ -197,9 +221,9 @@
 </section>
 
 <section class="panel">
-  <div class="panel-head"><h2>Decision context</h2><span class="pill pill-bad">Denied</span></div>
-  <p class="prose"><a href="../requirements/nvl-graph.html">Graph visualization with the NVL suite</a> is <strong>denied</strong>. This package is classified as <span class="pill pill-bad">Rejected</span>.</p>
-  <p class="prose muted">The NVL suite fails the requirement&#39;s hard licence constraint. LICENSE.txt limits use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement; it is proprietary client software, not an OSI licence. The four NVL packages also publish no repository, carry no provenance across 390 versions, ship bundled code that cannot be reviewed, and cannot be loaded by Node in either module system because ESM syntax sits in .js files under commonjs packages with extensionless imports. The React peer range &#39;18.0.0 || ^19.0.0&#39; excludes React 18.2/18.3, and base pulls a Segment analytics SDK plus 43 MB of dependencies. @neo4j-bloom/dagre is MIT but is a 1-star fork of @dagrejs/dagre at 3.1.1, it is not used by layout-workers, and upstream is 3.1.3 — use @dagrejs/dagre directly if a dagre layout is needed. Open-source alternatives to evaluate for the graph surface: Cytoscape.js, Sigma.js, @antv/g6 and React Flow. Exception path: if the organisation holds an Aura or Neo4j Subscription agreement and accepts proprietary terms, revisit as a documented policy exception; even then, the Node/SSR packaging gap and the React 18 peer range remain. Version scope: the review targets 2.0.0. 1.2.2 was checked separately and has the same proprietary licence, missing source and provenance, bundler-only packaging and React 18 peer gap; its layout stack differs (cytoscape 3.33.1, @neo4j-bloom/dagre 0.8.14, mobx 3.6.2) and it installs 56.3 MB. The denial therefore applies to both 2.0.0 and 1.2.2.</p>
+  <div class="panel-head"><h2>Decision context</h2><span class="pill pill-ok">Approved</span></div>
+  <p class="prose"><strong>cytoscape</strong> is the primary choice for <a href="../requirements/nvl-graph.html">Graph visualization in a React application</a>. This package is classified as <span class="pill pill-bad">Rejected</span>.</p>
+  <p class="prose muted">The NVL suite is denied: its LICENSE.txt limits use to Neo4j Aura or commercial Neo4j, it publishes no repository, carries no provenance and cannot be loaded by Node in either module system. 1.2.2 was checked separately: same licence and packaging, different layout stack, so the denial applies to both. Adopt Cytoscape.js as the primary renderer: MIT, zero dependencies, SLSA provenance, active, 138 KB gzip, and layouts via extensions. Use the core API with a ref or a thin internal wrapper because react-cytoscapejs is stale. Adopt Sigma.js as the fallback for large graphs: MIT, WebGL, 110 KB gzip and active, but client-only (WebGL2) and without provenance; pair it with graphology and @react-sigma/core. Hold @antv/g6 (88 MB, 104 packages, 413 KB gzip, 333 open issues, no release in 90 days) and @xyflow/react (excellent node editor, but not an exploration or layout engine).</p>
 </section>
 
 
@@ -207,7 +231,7 @@
 </main>
 <footer class="site-footer">
   <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
-  <p>29 packages · 4 active requirements · 4 decisions</p>
+  <p>33 packages · 4 active requirements · 4 decisions</p>
 </footer>
 <script src="../app.js" defer></script>
 </body>

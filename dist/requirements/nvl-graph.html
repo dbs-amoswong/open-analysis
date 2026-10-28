@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Graph visualization with the NVL suite · Package Review Board</title>
-<meta name="description" content="Render and interact with graph data in a React application using the NVL suite: the React binding, layout workers, interaction handlers and the dagre layout engine. Assess maturity, maintenance, licence, security and version compatibility across the suite, and identify alternatives if the suite fails a hard constraint.">
+<title>Graph visualization in a React application · Package Review Board</title>
+<meta name="description" content="Render and interact with graph data in a React application. The NVL suite was the initial candidate; after it failed the licence constraint, open-source alternatives were reviewed. Choose a renderer with layouts, interaction handling and React integration.">
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -24,27 +24,27 @@
 </header>
 <main id="main" class="page">
 
-<nav class="crumbs" aria-label="Breadcrumb"><a href="../requirements/index.html">Requirements</a><span class="crumb-sep">/</span><span aria-current="page">Graph visualization with the NVL suite</span></nav>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../requirements/index.html">Requirements</a><span class="crumb-sep">/</span><span aria-current="page">Graph visualization in a React application</span></nav>
 
 <header class="page-head">
   <p class="eyebrow">Requirement · high criticality</p>
-  <h1>Graph visualization with the NVL suite</h1>
-  <p class="lede">Render and interact with graph data in a React application using the NVL suite: the React binding, layout workers, interaction handlers and the dagre layout engine. Assess maturity, maintenance, licence, security and version compatibility across the suite, and identify alternatives if the suite fails a hard constraint.</p>
-  <div class="head-meta"><span class="chip">Owner: dbs-amoswong</span><span class="chip">Cadence: 90 days</span><span class="chip">Created 28 Oct 2026</span><span class="chip">5 candidates</span></div>
+  <h1>Graph visualization in a React application</h1>
+  <p class="lede">Render and interact with graph data in a React application. The NVL suite was the initial candidate; after it failed the licence constraint, open-source alternatives were reviewed. Choose a renderer with layouts, interaction handling and React integration.</p>
+  <div class="head-meta"><span class="chip">Owner: dbs-amoswong</span><span class="chip">Cadence: 90 days</span><span class="chip">Created 28 Oct 2026</span><span class="chip">9 candidates</span></div>
 </header>
 
-<section class="verdict verdict-denied">
+<section class="verdict verdict-approved">
   <div class="verdict-main">
     <div class="verdict-top">
       <span class="verdict-label">Decision</span>
-      <span class="pill pill-bad">Denied</span><span class="pill pill-ok">Active</span>
+      <span class="pill pill-ok">Approved</span><span class="pill pill-ok">Active</span>
     </div>
-    <h2>Do not adopt <a href="../packages/pkg-neo4j-nvl-react.html">@neo4j-nvl/react</a></h2>
-    <p>Avoid. Proprietary licence, no published repository, no provenance, and a package that Node cannot load in either module system. The React binding is small; the cost is a 53 MB tree and a legal constraint.</p>
+    <h2>Adopt <a href="../packages/pkg-cytoscape.html">cytoscape</a></h2>
+    <p>Best fit for Neo4j-style graph exploration: MIT, zero dependencies, SLSA provenance, active, 15.8M weekly downloads, 138 KB gzip. Layouts come via extensions; the React wrapper is stale, so use the core API with a ref or a thin internal wrapper.</p>
     <div class="verdict-meta">
       <span><strong>Re-review by</strong> 26 Jan 2027</span>
       <span><strong>Decided</strong> 28 Oct 2026 by platform-security</span>
-      
+      <span><strong>Also adopted</strong> sigma</span>
     </div>
   </div>
   
@@ -57,7 +57,71 @@
       <thead><tr>
         <th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th class="num">Downloads/wk</th><th>License</th><th>Provenance</th><th>Build vs buy</th><th>Advisories</th><th>Reviewed</th>
       </tr></thead>
-      <tbody><tr data-search="@neo4j-bloom/dagre avoid medium rejected" data-group="avoid">
+      <tbody><tr data-search="cytoscape adopt low adopted" data-group="adopt">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-cytoscape.html">cytoscape</a>
+    <span class="version">3.34.4</span>
+    
+    
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 92 of 100"><span class="score-num">92</span><span class="score-track"><span class="score-fill score-ok" style="width:92%"></span></span></span></td>
+  <td class="num">16M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 93/100. Graph rendering and layout are a buy; zero dependencies make this buy easy.">Buy 93</span></td>
+  <td><div class="badges"><span class="mini mini-ok" title="OSV returns no advisories for 3.34.4.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">28 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="sigma adopt medium adopted" data-group="adopt">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-sigma.html">sigma</a>
+    <span class="version">4.0.4</span>
+    
+    
+  </td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="num">435k</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 90/100. WebGL rendering is specialist work; graphology supplies the layouts.">Buy 90</span></td>
+  <td><div class="badges"><span class="mini mini-ok" title="OSV returns no advisories for 4.0.4 or graphology 0.26.0.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">28 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="@xyflow/react hold low hold" data-group="hold">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-xyflow-react.html">@xyflow/react</a>
+    <span class="version">12.12.0</span>
+    
+    
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 72 of 100"><span class="score-num">72</span><span class="score-track"><span class="score-fill score-warn" style="width:72%"></span></span></span></td>
+  <td class="num">13M</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 70/100. A node editor is a buy if editing is the use case; it is the wrong tool for exploration.">Buy 70</span></td>
+  <td><div class="badges"><span class="mini mini-ok" title="OSV returns no advisories for 12.12.0.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">28 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="@antv/g6 hold medium hold" data-group="hold">
+  <td>
+    <a class="pkg-link" href="../packages/pkg-antv-g6.html">@antv/g6</a>
+    <span class="version">5.1.1</span>
+    
+    
+  </td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 62 of 100"><span class="score-num">62</span><span class="score-track"><span class="score-fill score-warn" style="width:62%"></span></span></span></td>
+  <td class="num">195k</td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="nowrap"><span class="bvb bvb-info" title="Build vs buy 84/100. The capability is a buy, but the 88 MB tree makes this particular package costly.">Buy 84</span></td>
+  <td><div class="badges"><span class="mini mini-ok" title="OSV returns no advisories for 5.1.1.">CVE <span class="ev ev-ok" aria-label="Pass">✓</span></span></div></td>
+  <td class="nowrap">28 Oct 2026<br><span class="muted small"><span class="pill pill-ok">Current</span></span></td>
+</tr><tr data-search="@neo4j-bloom/dagre avoid medium rejected" data-group="avoid">
   <td>
     <a class="pkg-link" href="../packages/pkg-neo4j-bloom-dagre.html">@neo4j-bloom/dagre</a>
     <span class="version">3.1.1</span>
@@ -146,12 +210,12 @@
 <div class="two-col">
   <section class="panel">
     <div class="panel-head"><h2>Constraints</h2></div>
-    <ul class="check-list"><li>Permissive license across the full dependency tree</li><li>React 18 and 19 supported</li><li>No install scripts in the dependency tree</li><li>No unfixed high or critical advisories</li><li>Actively maintained (release within 12 months)</li><li>Compatible versions across the NVL suite</li><li>If npm provenance is unavailable, pin exact versions and record the gap</li></ul>
+    <ul class="check-list"><li>Permissive license across the full dependency tree</li><li>React 18 and 19 supported</li><li>No install scripts in the dependency tree</li><li>No unfixed high or critical advisories</li><li>Actively maintained (release within 12 months)</li><li>Compatible versions across the chosen graph stack</li><li>If npm provenance is unavailable, pin exact versions and record the gap</li></ul>
     <div class="panel-sub"><h3>Out of scope</h3><ul class="muted-list"><li>Backend graph database and query language</li><li>Visual design and theming</li><li>Detailed benchmark against every non-NVL graph library</li></ul></div>
   </section>
   <section class="panel">
     <div class="panel-head"><h2>Decision rationale</h2></div>
-    <p class="prose">The NVL suite fails the requirement&#39;s hard licence constraint. LICENSE.txt limits use to Neo4j Aura under the Cloud Agreement or commercial Neo4j under the Subscription Agreement; it is proprietary client software, not an OSI licence. The four NVL packages also publish no repository, carry no provenance across 390 versions, ship bundled code that cannot be reviewed, and cannot be loaded by Node in either module system because ESM syntax sits in .js files under commonjs packages with extensionless imports. The React peer range &#39;18.0.0 || ^19.0.0&#39; excludes React 18.2/18.3, and base pulls a Segment analytics SDK plus 43 MB of dependencies. @neo4j-bloom/dagre is MIT but is a 1-star fork of @dagrejs/dagre at 3.1.1, it is not used by layout-workers, and upstream is 3.1.3 — use @dagrejs/dagre directly if a dagre layout is needed. Open-source alternatives to evaluate for the graph surface: Cytoscape.js, Sigma.js, @antv/g6 and React Flow. Exception path: if the organisation holds an Aura or Neo4j Subscription agreement and accepts proprietary terms, revisit as a documented policy exception; even then, the Node/SSR packaging gap and the React 18 peer range remain. Version scope: the review targets 2.0.0. 1.2.2 was checked separately and has the same proprietary licence, missing source and provenance, bundler-only packaging and React 18 peer gap; its layout stack differs (cytoscape 3.33.1, @neo4j-bloom/dagre 0.8.14, mobx 3.6.2) and it installs 56.3 MB. The denial therefore applies to both 2.0.0 and 1.2.2.</p>
+    <p class="prose">The NVL suite is denied: its LICENSE.txt limits use to Neo4j Aura or commercial Neo4j, it publishes no repository, carries no provenance and cannot be loaded by Node in either module system. 1.2.2 was checked separately: same licence and packaging, different layout stack, so the denial applies to both. Adopt Cytoscape.js as the primary renderer: MIT, zero dependencies, SLSA provenance, active, 138 KB gzip, and layouts via extensions. Use the core API with a ref or a thin internal wrapper because react-cytoscapejs is stale. Adopt Sigma.js as the fallback for large graphs: MIT, WebGL, 110 KB gzip and active, but client-only (WebGL2) and without provenance; pair it with graphology and @react-sigma/core. Hold @antv/g6 (88 MB, 104 packages, 413 KB gzip, 333 open issues, no release in 90 days) and @xyflow/react (excellent node editor, but not an exploration or layout engine).</p>
   </section>
 </div>
 
@@ -159,12 +223,12 @@
   <div class="panel-head"><h2>Buckets</h2><span class="muted small">Every reviewed package is classified once</span></div>
   <div class="bucket-grid">
     <div class="bucket">
-  <div class="bucket-head"><h3>Adopted</h3><span class="count-badge count-ok">0</span></div>
-  <p class="muted small">None adopted.</p>
+  <div class="bucket-head"><h3>Adopted</h3><span class="count-badge count-ok">2</span></div>
+  <ul class="bucket-list"><li><a href="../packages/pkg-cytoscape.html">cytoscape</a><span class="pill pill-ok">Adopt</span></li><li><a href="../packages/pkg-sigma.html">sigma</a><span class="pill pill-ok">Adopt</span></li></ul>
 </div>
     <div class="bucket">
-  <div class="bucket-head"><h3>On hold</h3><span class="count-badge count-warn">0</span></div>
-  <p class="muted small">None on hold.</p>
+  <div class="bucket-head"><h3>On hold</h3><span class="count-badge count-warn">2</span></div>
+  <ul class="bucket-list"><li><a href="../packages/pkg-antv-g6.html">@antv/g6</a><span class="pill pill-warn">Hold</span></li><li><a href="../packages/pkg-xyflow-react.html">@xyflow/react</a><span class="pill pill-warn">Hold</span></li></ul>
 </div>
     <div class="bucket">
   <div class="bucket-head"><h3>Dropped</h3><span class="count-badge count-bad">0</span></div>
@@ -194,13 +258,25 @@
 </li><li>
   <span class="timeline-date">28 Oct 2026</span>
   <span class="timeline-body"><a href="../packages/pkg-neo4j-bloom-dagre.html">@neo4j-bloom/dagre</a> <span class="pill pill-bad">Avoid</span> <span class="muted">Not needed. MIT and public, but a 1-star fork of dagrejs/dagre pinned at 3.1.1 while upstream is 3.1.3, and it is not used by the NVL layout-workers package. Use @dagrejs/dagre directly.</span></span>
+</li><li>
+  <span class="timeline-date">28 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-antv-g6.html">@antv/g6</a> <span class="pill pill-warn">Hold</span> <span class="muted">Feature-rich AntV graph engine, MIT and capable, but 88 MB and 104 packages installed, 413 KB gzip, 333 open issues and no release in 90 days. Hold unless you specifically need its layout or analysis features.</span></span>
+</li><li>
+  <span class="timeline-date">28 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-xyflow-react.html">@xyflow/react</a> <span class="pill pill-warn">Hold</span> <span class="muted">Excellent node/edge editor with first-class React and provenance, but it is not a graph exploration engine: no built-in force or dagre layout, and you would add those yourself. Hold for this requirement; adopt it for workflow or editor UIs.</span></span>
+</li><li>
+  <span class="timeline-date">28 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-sigma.html">sigma</a> <span class="pill pill-ok">Adopt</span> <span class="muted">WebGL renderer for large graphs, with the graphology ecosystem. MIT, active, 110 KB gzip, 6.9 MB and 10 packages. No provenance, and it needs WebGL2 and browser globals at import, so use it only in client components.</span></span>
+</li><li>
+  <span class="timeline-date">28 Oct 2026</span>
+  <span class="timeline-body"><a href="../packages/pkg-cytoscape.html">cytoscape</a> <span class="pill pill-ok">Adopt</span> <span class="muted">Best fit for Neo4j-style graph exploration: MIT, zero dependencies, SLSA provenance, active, 15.8M weekly downloads, 138 KB gzip. Layouts come via extensions; the React wrapper is stale, so use the core API with a ref or a thin internal wrapper.</span></span>
 </li></ol>
 </section>
 
 </main>
 <footer class="site-footer">
   <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
-  <p>29 packages · 4 active requirements · 4 decisions</p>
+  <p>33 packages · 4 active requirements · 4 decisions</p>
 </footer>
 <script src="../app.js" defer></script>
 </body>

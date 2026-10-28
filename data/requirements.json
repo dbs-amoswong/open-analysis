@@ -77,8 +77,8 @@
   {
     "id": "req-nvl-graph",
     "slug": "nvl-graph",
-    "title": "Graph visualization with the NVL suite",
-    "summary": "Render and interact with graph data in a React application using the NVL suite: the React binding, layout workers, interaction handlers and the dagre layout engine. Assess maturity, maintenance, licence, security and version compatibility across the suite, and identify alternatives if the suite fails a hard constraint.",
+    "title": "Graph visualization in a React application",
+    "summary": "Render and interact with graph data in a React application. The NVL suite was the initial candidate; after it failed the licence constraint, open-source alternatives were reviewed. Choose a renderer with layouts, interaction handling and React integration.",
     "owner": "dbs-amoswong",
     "criticality": "high",
     "status": "active",
@@ -90,7 +90,7 @@
       "No install scripts in the dependency tree",
       "No unfixed high or critical advisories",
       "Actively maintained (release within 12 months)",
-      "Compatible versions across the NVL suite",
+      "Compatible versions across the chosen graph stack",
       "If npm provenance is unavailable, pin exact versions and record the gap"
     ],
     "out_of_scope": [
@@ -98,6 +98,6 @@
       "Visual design and theming",
       "Detailed benchmark against every non-NVL graph library"
     ],
-    "notes": "Verified at review: all four NVL packages publish no repository, carry no provenance across 390 versions, and ship bundled code. LICENSE.txt is proprietary (Aura or commercial Neo4j only). @neo4j-bloom/dagre is MIT but an unnecessary fork; layout-workers uses @dagrejs/dagre. Open-source alternatives: Cytoscape.js, Sigma.js, @antv/g6, React Flow."
+    "notes": "NVL denied at 2.0.0 and 1.2.2: proprietary licence (Aura or commercial Neo4j only), no repository, no provenance, Node-incompatible packaging, React peer excludes 18.2/18.3. Adopted Cytoscape.js as primary (react-cytoscapejs is stale; use the core API with a ref) and Sigma.js as the large-graph fallback (client-only, WebGL2, pair with graphology and @react-sigma/core). @antv/g6 and @xyflow/react are on hold."
   }
 ]

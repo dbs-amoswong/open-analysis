@@ -51,16 +51,16 @@ Five packages. `@assistant-ui/store` is included because it is a required peer o
 
 Seven packages. No sanitizer in the category publishes npm provenance, so the decision waives that constraint explicitly and substitutes exact pinning plus a 90-day cadence. The review includes a 25-vector bypass corpus run in headless Chrome: the unsanitized control executed 11 vectors, every tested sanitizer executed none.
 
-### Graph visualization with the NVL suite
+### Graph visualization in a React application
 
 | | |
 |---|---|
-| **Denied** | `@neo4j-nvl/react`, `@neo4j-nvl/base`, `@neo4j-nvl/layout-workers`, `@neo4j-nvl/interaction-handlers` |
-| **Not needed** | `@neo4j-bloom/dagre` — MIT, but a fork of the newer public `@dagrejs/dagre` and unused by the suite |
-| **Why** | Proprietary licence (Neo4j Aura or commercial Neo4j only), no repository, no provenance, Node-incompatible packaging |
-| **Open-source alternatives** | Cytoscape.js, Sigma.js, `@antv/g6`, React Flow |
+| **Adopt** | `cytoscape` (primary), `sigma` (large-graph fallback) |
+| **On hold** | `@antv/g6` (88 MB install), `@xyflow/react` (node editor, not exploration) |
+| **Denied** | `@neo4j-nvl/react`, `@neo4j-nvl/base`, `@neo4j-nvl/layout-workers`, `@neo4j-nvl/interaction-handlers` — proprietary, no source, no provenance |
+| **Not needed** | `@neo4j-bloom/dagre` — MIT fork, unused by the suite |
 
-Five packages. The review verified the licence text, the missing source, the Segment analytics dependency in `base`, the React 18 peer gap, and that the wrappers cannot be loaded by Node in either module system.
+Nine packages. NVL is denied at both 2.0.0 and 1.2.2. Cytoscape.js is MIT, zero dependencies and provenance-signed; Sigma.js is the WebGL fallback for large graphs, client-only and without provenance.
 
 ---
 

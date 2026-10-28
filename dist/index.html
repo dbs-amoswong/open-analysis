@@ -28,7 +28,7 @@
   <p class="eyebrow">Whitelist status</p>
   <h1>Package decisions, backed by evidence.</h1>
   <p class="lede">Each requirement lists the candidates we reviewed, the verdict for each, and what to adopt or drop. Data is JSON in git; this site is generated from it.</p>
-  <div class="head-meta"><span class="chip">29 packages reviewed</span><span class="chip">4 decisions</span><span class="chip">0 items need attention</span></div>
+  <div class="head-meta"><span class="chip">33 packages reviewed</span><span class="chip">4 decisions</span><span class="chip">0 items need attention</span></div>
 </header>
 
 <section class="stats" aria-label="Summary">
@@ -39,7 +39,7 @@
 </div>
   <div class="stat stat-ok">
   <span class="stat-label">Adopted</span>
-  <span class="stat-value">10</span>
+  <span class="stat-value">12</span>
   <span class="stat-hint">Approved for use</span>
 </div>
   <div class="stat stat-bad">
@@ -49,7 +49,7 @@
 </div>
   <div class="stat stat-warn">
   <span class="stat-label">On hold</span>
-  <span class="stat-value">5</span>
+  <span class="stat-value">7</span>
   <span class="stat-hint">Not approved, not banned</span>
 </div>
   <div class="stat">
@@ -64,8 +64,8 @@
 </div>
   <div class="stat stat-ok">
   <span class="stat-label">npm provenance</span>
-  <span class="stat-value">8</span>
-  <span class="stat-hint">1 release-only · 20 none</span>
+  <span class="stat-value">10</span>
+  <span class="stat-hint">1 release-only · 22 none</span>
 </div>
 </section>
 
@@ -82,19 +82,19 @@
 <section class="panel decision-digest">
   <div class="panel-head">
     <h2>Latest decision</h2>
-    <span class="pill pill-bad">Denied</span>
+    <span class="pill pill-ok">Approved</span>
   </div>
   <div class="digest-grid">
-    <div class="digest-card digest-bad">
-      <span class="digest-kicker">Rejected</span>
-      <strong><a class="pkg-link" href="packages/pkg-neo4j-nvl-react.html">@neo4j-nvl/react</a></strong>
-      <span class="muted">2.0.0 · <span class="license license-bad" title="Declared license: SEE LICENSE IN &#39;LICENSE.txt&#39; (proprietary)"><span class="license-mark" aria-hidden="true">©</span>Proprietary</span></span>
-      
+    <div class="digest-card digest-ok">
+      <span class="digest-kicker">Adopt</span>
+      <strong><a class="pkg-link" href="packages/pkg-cytoscape.html">cytoscape</a></strong>
+      <span class="muted">3.34.4 · <span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></span>
+      <span class="digest-foot">Also adopted: sigma</span>
     </div>
     
     <div class="digest-card">
       <span class="digest-kicker">Requirement</span>
-      <strong><a href="requirements/nvl-graph.html">Graph visualization with the NVL suite</a></strong>
+      <strong><a href="requirements/nvl-graph.html">Graph visualization in a React application</a></strong>
       <span class="muted">Re-review by 26 Jan 2027</span>
     </div>
   </div>
@@ -138,14 +138,14 @@
     <span class="mini mini-neutral">2 rejected</span>
   </td>
 </tr><tr>
-  <td><a href="requirements/nvl-graph.html">Graph visualization with the NVL suite</a></td>
-  <td><a class="pkg-link" href="packages/pkg-neo4j-nvl-react.html">@neo4j-nvl/react</a></td>
-  <td><span class="pill pill-bad">Denied</span> <span class="pill pill-ok">Active</span></td>
+  <td><a href="requirements/nvl-graph.html">Graph visualization in a React application</a></td>
+  <td><a class="pkg-link" href="packages/pkg-cytoscape.html">cytoscape</a></td>
+  <td><span class="pill pill-ok">Approved</span> <span class="pill pill-ok">Active</span></td>
   <td class="nowrap">26 Jan 2027<br><span class="muted small">in 90 days</span></td>
   <td class="bucket-counts">
-    <span class="mini mini-ok">0 adopted</span>
+    <span class="mini mini-ok">2 adopted</span>
     <span class="mini mini-bad">0 dropped</span>
-    <span class="mini mini-warn">0 hold</span>
+    <span class="mini mini-warn">2 hold</span>
     <span class="mini mini-neutral">5 rejected</span>
   </td>
 </tr></tbody>
@@ -158,6 +158,34 @@
     <table class="data-table">
       <thead><tr><th>Package</th><th>Recommendation</th><th>Risk</th><th>Score</th><th>Reviewed</th><th>Cadence</th></tr></thead>
       <tbody><tr>
+  <td><a class="pkg-link" href="packages/pkg-cytoscape.html">cytoscape</a><br><span class="muted small">3.34.4</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 92 of 100"><span class="score-num">92</span><span class="score-track"><span class="score-fill score-ok" style="width:92%"></span></span></span></td>
+  <td class="nowrap">28 Oct 2026</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr>
+  <td><a class="pkg-link" href="packages/pkg-sigma.html">sigma</a><br><span class="muted small">4.0.4</span></td>
+  <td><span class="pill pill-ok">Adopt</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 84 of 100"><span class="score-num">84</span><span class="score-track"><span class="score-fill score-ok" style="width:84%"></span></span></span></td>
+  <td class="nowrap">28 Oct 2026</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr>
+  <td><a class="pkg-link" href="packages/pkg-xyflow-react.html">@xyflow/react</a><br><span class="muted small">12.12.0</span></td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td><span class="score" title="Score 72 of 100"><span class="score-num">72</span><span class="score-track"><span class="score-fill score-warn" style="width:72%"></span></span></span></td>
+  <td class="nowrap">28 Oct 2026</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr>
+  <td><a class="pkg-link" href="packages/pkg-antv-g6.html">@antv/g6</a><br><span class="muted small">5.1.1</span></td>
+  <td><span class="pill pill-warn">Hold</span></td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td><span class="score" title="Score 62 of 100"><span class="score-num">62</span><span class="score-track"><span class="score-fill score-warn" style="width:62%"></span></span></span></td>
+  <td class="nowrap">28 Oct 2026</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr>
   <td><a class="pkg-link" href="packages/pkg-neo4j-bloom-dagre.html">@neo4j-bloom/dagre</a><br><span class="muted small">3.1.1</span></td>
   <td><span class="pill pill-bad">Avoid</span></td>
   <td><span class="pill pill-warn">Medium risk</span></td>
@@ -171,34 +199,6 @@
   <td><span class="score" title="Score 15 of 100"><span class="score-num">15</span><span class="score-track"><span class="score-fill score-bad" style="width:15%"></span></span></span></td>
   <td class="nowrap">28 Oct 2026</td>
   <td><span class="pill pill-ok">Current</span></td>
-</tr><tr>
-  <td><a class="pkg-link" href="packages/pkg-neo4j-nvl-interaction-handlers.html">@neo4j-nvl/interaction-handlers</a><br><span class="muted small">2.0.0</span></td>
-  <td><span class="pill pill-bad">Avoid</span></td>
-  <td><span class="pill pill-bad">Critical risk</span></td>
-  <td><span class="score" title="Score 14 of 100"><span class="score-num">14</span><span class="score-track"><span class="score-fill score-bad" style="width:14%"></span></span></span></td>
-  <td class="nowrap">28 Oct 2026</td>
-  <td><span class="pill pill-ok">Current</span></td>
-</tr><tr>
-  <td><a class="pkg-link" href="packages/pkg-neo4j-nvl-react.html">@neo4j-nvl/react</a><br><span class="muted small">2.0.0</span></td>
-  <td><span class="pill pill-bad">Avoid</span></td>
-  <td><span class="pill pill-bad">Critical risk</span></td>
-  <td><span class="score" title="Score 12 of 100"><span class="score-num">12</span><span class="score-track"><span class="score-fill score-bad" style="width:12%"></span></span></span></td>
-  <td class="nowrap">28 Oct 2026</td>
-  <td><span class="pill pill-ok">Current</span></td>
-</tr><tr>
-  <td><a class="pkg-link" href="packages/pkg-neo4j-nvl-base.html">@neo4j-nvl/base</a><br><span class="muted small">2.0.0</span></td>
-  <td><span class="pill pill-bad">Avoid</span></td>
-  <td><span class="pill pill-bad">Critical risk</span></td>
-  <td><span class="score" title="Score 10 of 100"><span class="score-num">10</span><span class="score-track"><span class="score-fill score-bad" style="width:10%"></span></span></span></td>
-  <td class="nowrap">28 Oct 2026</td>
-  <td><span class="pill pill-ok">Current</span></td>
-</tr><tr>
-  <td><a class="pkg-link" href="packages/pkg-dompurify.html">dompurify</a><br><span class="muted small">3.4.17</span></td>
-  <td><span class="pill pill-ok">Adopt</span></td>
-  <td><span class="pill pill-warn">Medium risk</span></td>
-  <td><span class="score" title="Score 88 of 100"><span class="score-num">88</span><span class="score-track"><span class="score-fill score-ok" style="width:88%"></span></span></span></td>
-  <td class="nowrap">27 Oct 2026</td>
-  <td><span class="pill pill-ok">Current</span></td>
 </tr></tbody>
     </table>
   </div>
@@ -207,7 +207,7 @@
 </main>
 <footer class="site-footer">
   <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
-  <p>29 packages · 4 active requirements · 4 decisions</p>
+  <p>33 packages · 4 active requirements · 4 decisions</p>
 </footer>
 <script src="app.js" defer></script>
 </body>

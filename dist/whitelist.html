@@ -28,7 +28,7 @@
   <p class="eyebrow">Whitelist</p>
   <h1>What you may use, and what must go</h1>
   <p class="lede">The enforcement view. Adopted packages are approved; dropped packages are in use but scheduled for removal; everything else is not permitted for the requirement.</p>
-  <div class="head-meta"><span class="chip">10 adopted</span><span class="chip">1 to drop</span><span class="chip">13 rejected</span></div>
+  <div class="head-meta"><span class="chip">12 adopted</span><span class="chip">1 to drop</span><span class="chip">13 rejected</span></div>
 </header>
 
 <div class="toolbar">
@@ -48,7 +48,7 @@
 <section class="panel whitelist-section" data-bucket="adopted">
   <div class="panel-head">
     <h2><span class="dot dot-ok" aria-hidden="true"></span>Adopted</h2>
-    <span class="count-badge">10</span>
+    <span class="count-badge">12</span>
   </div>
   <p class="section-blurb">Approved for use in the requirements listed. Other packages may not be substituted without a new review.</p>
   <div class="table-wrap">
@@ -164,13 +164,35 @@
   <td class="reason-cell" title="The right choice if content already flows through remark/rehype: it sanitizes the HAST tree against an explicit schema instead of round-tripping through the DOM. Zero advisories, tiny and type-safe, but no release since 2023 and a small community.">The right choice if content already flows through remark/rehype: it sanitizes the HAST tree against an explicit schema instead of round-tripping through the DOM. Zero advisories, tiny and type-safe, but no release since …</td>
   <td class="nowrap">25 Jan 2027</td>
   <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="cytoscape adopted best fit for neo4j-style graph exploration: mit, zero dependencies, slsa provenance, active, 15.8m weekly downloads, 138 kb gzip. layouts come via extensions; the react wrapper is stale, so use the core api with a ref or a thin internal wrapper." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-cytoscape.html">cytoscape</a>
+    <span class="version">3.34.4</span>
+  </td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="reason-cell" title="Best fit for Neo4j-style graph exploration: MIT, zero dependencies, SLSA provenance, active, 15.8M weekly downloads, 138 KB gzip. Layouts come via extensions; the React wrapper is stale, so use the core API with a ref or a thin internal wrapper.">Best fit for Neo4j-style graph exploration: MIT, zero dependencies, SLSA provenance, active, 15.8M weekly downloads, 138 KB gzip. Layouts come via extensions; the React wrapper is stale, so use the core API with a ref or…</td>
+  <td class="nowrap">26 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="sigma adopted webgl renderer for large graphs, with the graphology ecosystem. mit, active, 110 kb gzip, 6.9 mb and 10 packages. no provenance, and it needs webgl2 and browser globals at import, so use it only in client components." data-group="adopted">
+  <td>
+    <a class="pkg-link" href="packages/pkg-sigma.html">sigma</a>
+    <span class="version">4.0.4</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="WebGL renderer for large graphs, with the graphology ecosystem. MIT, active, 110 KB gzip, 6.9 MB and 10 packages. No provenance, and it needs WebGL2 and browser globals at import, so use it only in client components.">WebGL renderer for large graphs, with the graphology ecosystem. MIT, active, 110 KB gzip, 6.9 MB and 10 packages. No provenance, and it needs WebGL2 and browser globals at import, so use it only in client components.</td>
+  <td class="nowrap">26 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
 </tr></tbody>
     </table>
   </div>
 </section><section class="panel whitelist-section" data-bucket="hold">
   <div class="panel-head">
     <h2><span class="dot dot-warn" aria-hidden="true"></span>On hold</h2>
-    <span class="count-badge">5</span>
+    <span class="count-badge">7</span>
   </div>
   <p class="section-blurb">Not approved and not banned. Use requires an exception with the reason documented.</p>
   <div class="table-wrap">
@@ -230,6 +252,28 @@
   <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
   <td class="reason-cell" title="Active whitelist sanitizer that HTML-escapes disallowed tags rather than stripping them, so blocked markup appears as visible text. Fast and dependency-light, but it has no independent advisory history and 70 open issues.">Active whitelist sanitizer that HTML-escapes disallowed tags rather than stripping them, so blocked markup appears as visible text. Fast and dependency-light, but it has no independent advisory history and 70 open issues…</td>
   <td class="nowrap">25 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@antv/g6 hold feature-rich antv graph engine, mit and capable, but 88 mb and 104 packages installed, 413 kb gzip, 333 open issues and no release in 90 days. hold unless you specifically need its layout or analysis features." data-group="hold">
+  <td>
+    <a class="pkg-link" href="packages/pkg-antv-g6.html">@antv/g6</a>
+    <span class="version">5.1.1</span>
+  </td>
+  <td><span class="pill pill-warn">Medium risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-none" title="No provenance attestation found"><span class="prov-mark" aria-hidden="true">—</span>none</span></td>
+  <td class="reason-cell" title="Feature-rich AntV graph engine, MIT and capable, but 88 MB and 104 packages installed, 413 KB gzip, 333 open issues and no release in 90 days. Hold unless you specifically need its layout or analysis features.">Feature-rich AntV graph engine, MIT and capable, but 88 MB and 104 packages installed, 413 KB gzip, 333 open issues and no release in 90 days. Hold unless you specifically need its layout or analysis features.</td>
+  <td class="nowrap">26 Jan 2027</td>
+  <td><span class="pill pill-ok">Current</span></td>
+</tr><tr data-search="@xyflow/react hold excellent node/edge editor with first-class react and provenance, but it is not a graph exploration engine: no built-in force or dagre layout, and you would add those yourself. hold for this requirement; adopt it for workflow or editor uis." data-group="hold">
+  <td>
+    <a class="pkg-link" href="packages/pkg-xyflow-react.html">@xyflow/react</a>
+    <span class="version">12.12.0</span>
+  </td>
+  <td><span class="pill pill-ok">Low risk</span></td>
+  <td class="nowrap"><span class="license license-ok" title="Declared license: MIT (permissive)"><span class="license-mark" aria-hidden="true">©</span>MIT</span></td>
+  <td class="nowrap"><span class="prov prov-npm" title="npm registry attestation present on the published tarball"><span class="prov-mark" aria-hidden="true">✓</span>npm</span></td>
+  <td class="reason-cell" title="Excellent node/edge editor with first-class React and provenance, but it is not a graph exploration engine: no built-in force or dagre layout, and you would add those yourself. Hold for this requirement; adopt it for workflow or editor UIs.">Excellent node/edge editor with first-class React and provenance, but it is not a graph exploration engine: no built-in force or dagre layout, and you would add those yourself. Hold for this requirement; adopt it for wor…</td>
+  <td class="nowrap">26 Jan 2027</td>
   <td><span class="pill pill-ok">Current</span></td>
 </tr></tbody>
     </table>
@@ -418,7 +462,7 @@
 </main>
 <footer class="site-footer">
   <p>Generated 28 Oct 2026 from <code>data/*.json</code>. Edits go through git, so the commit history is the audit log.</p>
-  <p>29 packages · 4 active requirements · 4 decisions</p>
+  <p>33 packages · 4 active requirements · 4 decisions</p>
 </footer>
 <script src="app.js" defer></script>
 </body>

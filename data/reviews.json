@@ -1886,5 +1886,244 @@
       }
     ],
     "reviewed_version": "3.1.1"
+  },
+  {
+    "id": "rev-2026-10-cytoscape",
+    "package_id": "pkg-cytoscape",
+    "requirement_id": "req-nvl-graph",
+    "reviewed_at": "2026-10-28",
+    "reviewed_version": "3.34.4",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "low",
+    "score": 92,
+    "summary": "Best fit for Neo4j-style graph exploration: MIT, zero dependencies, SLSA provenance, active, 15.8M weekly downloads, 138 KB gzip. Layouts come via extensions; the React wrapper is stale, so use the core API with a ref or a thin internal wrapper.",
+    "reasoning": [
+      "MIT with a public repository and SLSA provenance from .github/workflows/release.yml.",
+      "Zero runtime dependencies; 6 MB install and 138 KB gzip for the core bundle.",
+      "No OSV advisories for 3.34.4.",
+      "Active: 3.34.4 published 2026-10-15, repository pushed 2026-10-27, 11.3k stars.",
+      "Layouts are extensions (dagre, cose-bilkent, fcose), so the feature set matches the NVL layouts without the proprietary licence.",
+      "Canvas renderer handles typical Neo4j result sizes; for very large graphs, Sigma is the fallback."
+    ],
+    "caveats": [
+      "react-cytoscapejs is stale (last release 2022, 45 open issues, no types). Use cytoscape directly with a ref, or maintain a thin wrapper.",
+      "Layout extensions are separate packages with their own maintenance and licences.",
+      "Canvas rendering is slower than WebGL above roughly 10k-20k visible nodes.",
+      "The package ships UMD/ESM/CJS bundles, so the unpacked size is larger than the bundled cost."
+    ],
+    "evidence": [
+      {
+        "key": "publish_pipeline",
+        "label": "CI publish pipeline",
+        "status": "pass",
+        "detail": "release.yml in the public repository; npm provenance is produced from GitHub Actions."
+      },
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "pass",
+        "detail": "SLSA v1 attestation: builder github-hosted, source cytoscape/cytoscape.js, workflow .github/workflows/release.yml."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV returns no advisories for 3.34.4."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "0 runtime dependencies, 1 installed package, 6.1 MB install, 138 KB gzip."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "3.34.4 published 2026-10-15; 4 releases in 90 days; 11.3k stars; 29 open issues."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Bundled index.d.ts."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-sigma",
+    "package_id": "pkg-sigma",
+    "requirement_id": "req-nvl-graph",
+    "reviewed_at": "2026-10-28",
+    "reviewed_version": "4.0.4",
+    "reviewer": "research-agent",
+    "recommendation": "adopt",
+    "risk": "medium",
+    "score": 84,
+    "summary": "WebGL renderer for large graphs, with the graphology ecosystem. MIT, active, 110 KB gzip, 6.9 MB and 10 packages. No provenance, and it needs WebGL2 and browser globals at import, so use it only in client components.",
+    "reasoning": [
+      "MIT and a public repository; 4.0.4 published 2026-10-27 with 14 releases in 90 days.",
+      "WebGL rendering handles graphs far larger than a canvas renderer.",
+      "110 KB gzip with graphology; 6.9 MB install and 10 packages.",
+      "No OSV advisories for 4.0.4 or graphology 0.26.0.",
+      "React integration is available via @react-sigma/core 6.0.0 (MIT, active, peers sigma ^4 and graphology ^0.26)."
+    ],
+    "caveats": [
+      "No npm provenance and no publish workflow; releases are manual.",
+      "Importing sigma in Node fails with 'WebGL2RenderingContext is not defined'. It must be dynamically imported or used in a client component.",
+      "No built-in layouts: pair it with graphology-layout-forceatlas2 or another layout package.",
+      "The React wrapper is a separate package with its own release cadence."
+    ],
+    "evidence": [
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV returns no advisories for 4.0.4 or graphology 0.26.0."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "2 runtime dependencies; 10 packages with graphology; 6.9 MB install; 110 KB gzip."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "4.0.4 published 2026-10-27; 14 releases in 90 days; 12.2k stars; 6 open issues."
+      },
+      {
+        "key": "provenance",
+        "label": "Provenance",
+        "status": "fail",
+        "detail": "No attestations on any version; no publish workflow in the repository."
+      },
+      {
+        "key": "ssr",
+        "label": "SSR compatibility",
+        "status": "fail",
+        "detail": "Import fails in Node because WebGL2RenderingContext is required at module load."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Bundled declarations."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-antv-g6",
+    "package_id": "pkg-antv-g6",
+    "requirement_id": "req-nvl-graph",
+    "reviewed_at": "2026-10-28",
+    "reviewed_version": "5.1.1",
+    "reviewer": "research-agent",
+    "recommendation": "hold",
+    "risk": "medium",
+    "score": 62,
+    "summary": "Feature-rich AntV graph engine, MIT and capable, but 88 MB and 104 packages installed, 413 KB gzip, 333 open issues and no release in 90 days. Hold unless you specifically need its layout or analysis features.",
+    "reasoning": [
+      "MIT, public repository, 12.4k stars, no OSV advisories.",
+      "Canvas/WebGL rendering, many layouts and graph algorithms.",
+      "Very heavy: 88 MB / 104 packages and 413 KB gzip.",
+      "333 open issues and no npm release in 90 days (5.1.1 from May 2026), although commits continue.",
+      "No npm provenance."
+    ],
+    "caveats": [
+      "The install and bundle cost is roughly 3x Cytoscape and 7x Sigma.",
+      "Large issue backlog; slower release cadence than the other candidates.",
+      "Nineteen maintainers mitigate bus factor but complicate release consistency."
+    ],
+    "evidence": [
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV returns no advisories for 5.1.1."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "fail",
+        "detail": "12 direct dependencies, 104 packages, 88 MB install, 413 KB gzip."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "warn",
+        "detail": "5.1.1 published 2026-05-08; no npm release in 90 days; 333 open issues."
+      },
+      {
+        "key": "provenance",
+        "label": "Provenance",
+        "status": "fail",
+        "detail": "No attested npm versions."
+      },
+      {
+        "key": "types",
+        "label": "TypeScript types",
+        "status": "pass",
+        "detail": "Bundled declarations."
+      }
+    ]
+  },
+  {
+    "id": "rev-2026-10-xyflow-react",
+    "package_id": "pkg-xyflow-react",
+    "requirement_id": "req-nvl-graph",
+    "reviewed_at": "2026-10-28",
+    "reviewed_version": "12.12.0",
+    "reviewer": "research-agent",
+    "recommendation": "hold",
+    "risk": "low",
+    "score": 72,
+    "summary": "Excellent node/edge editor with first-class React and provenance, but it is not a graph exploration engine: no built-in force or dagre layout, and you would add those yourself. Hold for this requirement; adopt it for workflow or editor UIs.",
+    "reasoning": [
+      "MIT, SLSA provenance, 12.7M weekly downloads, 38.8k stars.",
+      "Small bundle for a React library: 58 KB gzip, 3 direct dependencies, 23 packages with React.",
+      "React >=17 peer range covers React 18 and 19.",
+      "No OSV advisories for 12.12.0.",
+      "It models nodes and edges on a canvas for editing, not graph analysis or automatic layout."
+    ],
+    "caveats": [
+      "No built-in layout engine; pair with dagre/elk if automatic positioning is needed.",
+      "Not suited to force-directed exploration of Neo4j result graphs.",
+      "164 open issues, though the project is very active."
+    ],
+    "evidence": [
+      {
+        "key": "provenance",
+        "label": "SLSA provenance",
+        "status": "pass",
+        "detail": "Attestation present: builder github-hosted, source xyflow/xyflow, workflow .github/workflows/release.yml."
+      },
+      {
+        "key": "cve",
+        "label": "Known advisories",
+        "status": "pass",
+        "detail": "OSV returns no advisories for 12.12.0."
+      },
+      {
+        "key": "dependencies",
+        "label": "Dependency footprint",
+        "status": "pass",
+        "detail": "3 direct dependencies, 23 packages with React, 14.7 MB install, 58 KB gzip."
+      },
+      {
+        "key": "maintenance",
+        "label": "Maintenance",
+        "status": "pass",
+        "detail": "12.12.0 published 2026-09-24; 38.8k stars; 164 open issues."
+      },
+      {
+        "key": "fit",
+        "label": "Fit for the requirement",
+        "status": "warn",
+        "detail": "Node/edge editor, not a graph exploration or layout engine; layouts require dagre/elk."
+      }
+    ]
   }
 ]
