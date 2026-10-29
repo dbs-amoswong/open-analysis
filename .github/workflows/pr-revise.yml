@@ -119,6 +119,7 @@ jobs:
         run: npm install --global @opencode/cli@2.2.0
 
       - name: Revise the review
+        id: model
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -130,11 +131,37 @@ jobs:
           printf '%s\n' "$COMMENT_BODY" > ai/revise/comment.md
           gh pr view "$PR_NUMBER" --json body --jq '.body' > ai/revise/pr-body.original.md
           cp ai/revise/pr-body.original.md ai/revise/pr-body.md
+          set +e
           opencode run --standalone \
             --agent pr-revise \
             --model "$OPENCODE_MODEL" \
             --title "Revise PR #$PR_NUMBER" \
             "Read ai/revise/comment.md and ai/revise/pr-body.md. Revise the relevant review (under data/reviews/ or in data/reviews.json) and, when the comment corrects suite notes, edit ai/revise/pr-body.md. Write ai/revise/summary.md with what changed or what you need clarified."
+          STATUS=$?
+          set -e
+          echo "status=$STATUS" >> "$GITHUB_OUTPUT"
+          if [ "$STATUS" -ne 0 ] && [ ! -f ai/revise/summary.md ]; then
+            printf 'The model run exited with status %s before writing a summary. No review changes were committed.\n' "$STATUS" > ai/revise/summary.md
+          fi
+
+      - name: Check that the revision finished
+        id: completion
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.model.outputs.status }}" = "0" ] && [ -f ai/revise/summary.md ] && [ -f ai/revise/complete ]; then
+            echo "complete=true" >> "$GITHUB_OUTPUT"
+            echo "Revision completed."
+          else
+            echo "complete=false" >> "$GITHUB_OUTPUT"
+            git checkout -- data
+            git clean -fd data/reviews data/packages data/requirements data/decisions 2>/dev/null || true
+            if [ -f ai/revise/summary.md ]; then
+              printf '\n\nPartial changes were discarded because the revision did not finish.\n' >> ai/revise/summary.md
+            else
+              printf 'The revision did not finish before the step limit. No review changes were committed. Narrow the request or raise the agent step limit.\n' > ai/revise/summary.md
+            fi
+            echo "::warning::Revision did not complete; discarded partial data changes."
+          fi
 
       - name: Validate
         run: |
@@ -144,6 +171,7 @@ jobs:
 
       - name: Commit and push if the review changed
         id: change
+        if: steps.completion.outputs.complete == 'true'
         run: |
           set -euo pipefail
           if git diff --quiet -- data; then
@@ -159,6 +187,7 @@ jobs:
 
       - name: Update the PR description if it was revised
         id: body
+        if: steps.completion.outputs.complete == 'true'
         run: |
           set -euo pipefail
           if [ -f ai/revise/pr-body.md ] && ! cmp -s ai/revise/pr-body.md ai/revise/pr-body.original.md; then

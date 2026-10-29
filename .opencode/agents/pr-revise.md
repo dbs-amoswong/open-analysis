@@ -1,7 +1,7 @@
 ---
 description: Revises one or more package reviews from a PR comment
 mode: primary
-steps: 12
+steps: 40
 permissions:
   - action: "*"
     resource: "*"
@@ -60,6 +60,8 @@ Read:
 2. If the comment corrects the suite review or other pull-request prose, edit
    `ai/revise/pr-body.md`. Leave it untouched for review-only comments.
 3. Write `ai/revise/summary.md` describing what changed and why.
+4. As the final action, write `ai/revise/complete` containing `ok`. Do not write
+   this marker before all edits and the summary are finished.
 
 If the comment is a question or is too ambiguous to identify one review, do not
 edit data. Write the answer or the clarification request to
