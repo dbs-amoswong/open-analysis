@@ -136,8 +136,8 @@ jobs:
             --agent pr-revise \
             --model "$OPENCODE_MODEL" \
             --title "Revise PR #$PR_NUMBER" \
-            "Read ai/revise/comment.md and ai/revise/pr-body.md. Revise the relevant review (under data/reviews/ or in data/reviews.json) and, when the comment corrects suite notes, edit ai/revise/pr-body.md. Write ai/revise/summary.md with what changed or what you need clarified."
-          STATUS=$?
+            "Read ai/revise/comment.md and ai/revise/pr-body.md. Revise the relevant review (under data/reviews/ or in data/reviews.json) and, when the comment corrects suite notes, edit ai/revise/pr-body.md. Write a plan to ai/revise/summary.md before editing, replace it with the final summary, and only then write ai/revise/complete containing ok." 2>&1 | tee ai/revise/opencode.log
+          STATUS=${PIPESTATUS[0]}
           set -e
           echo "status=$STATUS" >> "$GITHUB_OUTPUT"
           if [ "$STATUS" -ne 0 ] && [ ! -f ai/revise/summary.md ]; then
@@ -162,6 +162,16 @@ jobs:
             fi
             echo "::warning::Revision did not complete; discarded partial data changes."
           fi
+
+      - name: Upload revision diagnostics
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-revise-${{ github.event.issue.number }}-${{ github.run_id }}
+          path: ai/revise
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Validate
         run: |
