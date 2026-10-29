@@ -147,7 +147,8 @@ Comment on a review PR:
 
 Only `REVIEW_LABELERS` or repository collaborators with write access may use it.
 The workflow checks out the PR branch, runs the restricted revision agent,
-updates `data/reviews/`, validates, commits back to the branch and replies.
+updates `data/reviews/` and, for suite corrections, the PR description;
+then validates, commits back to the branch and replies.
 
 The revision agent cannot edit decisions, packages or requirements.
 

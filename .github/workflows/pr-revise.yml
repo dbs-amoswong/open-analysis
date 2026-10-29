@@ -128,11 +128,13 @@ jobs:
           set -euo pipefail
           mkdir -p ai/revise
           printf '%s\n' "$COMMENT_BODY" > ai/revise/comment.md
+          gh pr view "$PR_NUMBER" --json body --jq '.body' > ai/revise/pr-body.original.md
+          cp ai/revise/pr-body.original.md ai/revise/pr-body.md
           opencode run --standalone \
             --agent pr-revise \
             --model "$OPENCODE_MODEL" \
             --title "Revise PR #$PR_NUMBER" \
-            "Read ai/revise/comment.md. Revise the relevant review (under data/reviews/ or in data/reviews.json) only if the comment requests a change. Write ai/revise/summary.md with what changed or what you need clarified."
+            "Read ai/revise/comment.md and ai/revise/pr-body.md. Revise the relevant review (under data/reviews/ or in data/reviews.json) and, when the comment corrects suite notes, edit ai/revise/pr-body.md. Write ai/revise/summary.md with what changed or what you need clarified."
 
       - name: Validate
         run: |
@@ -155,6 +157,18 @@ jobs:
             echo "Pushed review changes."
           fi
 
+      - name: Update the PR description if it was revised
+        id: body
+        run: |
+          set -euo pipefail
+          if [ -f ai/revise/pr-body.md ] && ! cmp -s ai/revise/pr-body.md ai/revise/pr-body.original.md; then
+            gh pr edit "$PR_NUMBER" --body-file ai/revise/pr-body.md
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Updated the PR description."
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Reply on the pull request
         run: |
           set -euo pipefail
@@ -163,5 +177,8 @@ jobs:
           fi
           if [ "${{ steps.change.outputs.changed }}" = "true" ]; then
             printf '\n\nChanges committed to this PR branch.\n' >> ai/revise/summary.md
+          fi
+          if [ "${{ steps.body.outputs.changed }}" = "true" ]; then
+            printf '\n\nThe PR description was updated.\n' >> ai/revise/summary.md
           fi
           gh pr comment "$PR_NUMBER" --body-file ai/revise/summary.md

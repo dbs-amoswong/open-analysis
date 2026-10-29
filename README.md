@@ -403,7 +403,8 @@ Other automation:
   not change reviews or decisions.
 - `pr-revise.yml` accepts an explicit `/revise <instruction>` comment on a
   review PR. Only `REVIEW_LABELERS` or write collaborators may use it. It
-  updates `data/reviews/` on the PR branch, validates and replies.
+  updates `data/reviews/` (or the PR description for suite corrections) on the
+  PR branch, validates and replies.
 
 See `AGENTS.md` for agent rules and `OPERATIONS.md` for setup, troubleshooting
 and the full runbook.
