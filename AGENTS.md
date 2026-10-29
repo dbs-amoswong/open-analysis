@@ -77,9 +77,9 @@ workflow accepts an explicit command:
 /revise <instruction>
 ```
 
-Only allowlisted collaborators may use it. It updates `data/reviews/` (and, for suite corrections, the PR
-description) on the PR branch, validates, commits and replies. If it is not configured, edit the PR
-branch directly.
+Only allowlisted collaborators may use it. It updates `data/reviews/` (and,
+for suite corrections, the PR description) on the PR branch, validates, commits
+and replies. If it is not configured, edit the PR branch directly.
 
 ## Automation map
 
