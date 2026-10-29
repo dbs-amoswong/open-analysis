@@ -105,6 +105,16 @@ jobs:
           git fetch origin "$HEAD_REF"
           git checkout -B "$HEAD_REF" "origin/$HEAD_REF"
 
+      - name: Restore trusted revision instructions
+        run: |
+          set -euo pipefail
+          # The PR branch may predate the revision agent. Always run the
+          # reviewed instructions from the default branch, not from the PR.
+          git fetch origin main --depth=1
+          mkdir -p .opencode/agents
+          git show FETCH_HEAD:.opencode/agents/pr-revise.md > .opencode/agents/pr-revise.md
+          git show FETCH_HEAD:AGENTS.md > AGENTS.md
+
       - name: Install OpenCode
         run: npm install --global @opencode/cli@2.2.0
 
@@ -122,7 +132,7 @@ jobs:
             --agent pr-revise \
             --model "$OPENCODE_MODEL" \
             --title "Revise PR #$PR_NUMBER" \
-            "Read ai/revise/comment.md. Revise the relevant review under data/reviews/ only if the comment requests a change. Write ai/revise/summary.md with what changed or what you need clarified."
+            "Read ai/revise/comment.md. Revise the relevant review (under data/reviews/ or in data/reviews.json) only if the comment requests a change. Write ai/revise/summary.md with what changed or what you need clarified."
 
       - name: Validate
         run: |
@@ -134,12 +144,12 @@ jobs:
         id: change
         run: |
           set -euo pipefail
-          if git diff --quiet -- data/reviews; then
+          if git diff --quiet -- data; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No review changes."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            git add data/reviews
+            git add data
             git commit -m "review: revise PR #$PR_NUMBER"
             git push origin "HEAD:$HEAD_REF"
             echo "Pushed review changes."
