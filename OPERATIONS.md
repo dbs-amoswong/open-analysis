@@ -150,7 +150,10 @@ The workflow checks out the PR branch, runs the restricted revision agent,
 updates `data/reviews/` and, for suite corrections, the PR description;
 then validates, commits back to the branch and replies.
 
-The revision agent cannot edit decisions, packages or requirements.
+The revision agent cannot edit decisions, packages or requirements. It has a
+100-step budget; very broad batch rewrites may still be rejected. If a revision
+run fails, download the `pr-revise-<pr>-<run>` artifact from the workflow run;
+it contains the model log, the proposed PR body and the summary.
 
 ## Public data
 
