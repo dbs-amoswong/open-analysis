@@ -1,0 +1,24 @@
+{
+  "id": "pkg-js-cookie",
+  "name": "js-cookie",
+  "ecosystem": "npm",
+  "latest_version": "3.0.8",
+  "published_at": "2026-05-29",
+  "repo": "https://github.com/js-cookie/js-cookie",
+  "registry": "https://www.npmjs.com/package/js-cookie",
+  "license": "MIT",
+  "weekly_downloads": 28078318,
+  "runtime_deps": 0,
+  "install_size_kb": null,
+  "unpacked_size_kb": 25,
+  "maintainers": [
+    "carhartl",
+    "fagner"
+  ],
+  "types": "none",
+  "formats": [
+    "dual"
+  ],
+  "notes": "Facts collected from the npm registry on 2026-10-28. Install size was not measured.",
+  "npm_provenance": true
+}
