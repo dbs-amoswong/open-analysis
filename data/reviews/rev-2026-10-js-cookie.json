@@ -1,0 +1,157 @@
+{
+  "id": "rev-2026-10-js-cookie",
+  "package_id": "pkg-js-cookie",
+  "requirement_id": "req-http-request",
+  "reviewed_at": "2026-10-28",
+  "reviewed_version": "3.0.8",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 76,
+  "summary": "Clean, tiny and well-adopted browser cookie helper — zero dependencies, MIT, no install scripts, no recorded advisories and SLSA provenance on 3.0.8 — but the dossier contains no CI publish facts, no bundled types and no evidence of Node support, and the requester reports it arrives through other libraries such as Firebase while no parent edge is recorded, so it cannot yet be adopted into this stack.",
+  "reasoning": [
+    "3.0.8 (published 2026-05-29) carries an npm provenance attestation, so the registry tarball is tied to a builder and a source repository rather than published opaquely.",
+    "The dependency and install surface is minimal: 0 runtime dependencies, no preinstall/install/postinstall scripts, 25 KB unpacked.",
+    "The dossier's vulnerability set is empty for the reviewed version, so no unfixed advisory is recorded against 3.0.8 and security is the strongest dimension of this review.",
+    "The project is alive but not fast-moving: the repository is not archived, was pushed 2026-10-23, has 10 open issues, 22.6k stars, 2,044 forks and two npm maintainers (carhartl, fagner), while the latest release 3.0.8 is about five months old (2026-05-29).",
+    "Release integrity stops at the attestation: the dossier records npm_provenance true but contains no workflow, publish-job or token-handling facts, so whether publishing is CI-driven and OIDC-based is unmeasured, not disproven.",
+    "Fit is narrow and indirect. The requirement's summary does list cookie handling, and this package's role is reading and writing cookies in the browser, but the dossier records no dependency, peer dependency or shared maintainer connecting js-cookie to axios or to any sibling in the batch. The requester reports it is pulled in by other libraries such as Firebase, but no such parent edge was collected, so its place in the monitored stack is plausible yet unverified.",
+    "The constraint that a candidate works in both browser and Node is unverified: the dossier records no engines field, no environment probe and no runtime test, so Node compatibility cannot be assumed.",
+    "Registry metadata records types: none, so no type declarations ship with the reviewed version; TypeScript consumers would need separate declarations that can drift from the runtime API.",
+    "Footprint and licence are the strongest part of the case: 25 KB unpacked, 0 dependencies, MIT, dual CJS/ESM packaging, and 28,078,318 weekly downloads — although download volume includes CI and transitive traffic and is not an adoption signal on its own."
+  ],
+  "caveats": [
+    "No publish-pipeline evidence was collected. Provenance proves what was built, not who can publish next; confirm the release workflow and whether it uses OIDC before whitelisting.",
+    "Latest release is roughly five months old. That is within the 12-month maintenance bar, but a security fix would have to wait for a maintainer-initiated release.",
+    "No bundled types. If TypeScript is used, add declarations and pin them to the reviewed version, because hand-maintained types silently drift from the runtime API.",
+    "Node support is untested in this dossier. If server-side code paths are expected to use it, verify the runtime behaviour first; a browser cookie helper rarely maps cleanly onto Node.",
+    "No dependency or peer link to axios is recorded; the requester reports js-cookie is pulled in by other libraries such as Firebase, so it may already arrive transitively, but that parent chain is unverified. Walk the parent chain before treating it as an extra package, and do not drop it merely for lacking an axios edge; as a direct dependency it still needs a concrete cookie read/write need.",
+    "Any cookie written through the library is readable by page scripts unless the cookie is set HttpOnly server-side; session tokens should not be written this way.",
+    "Install size was not measured (null in the dossier); only the 25 KB unpacked figure is available for sizing.",
+    "28M weekly downloads include CI and transitive installs and are not evidence of fit for this requirement."
+  ],
+  "evidence": [
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "The dossier records npm_provenance true for 3.0.8, with an attestation resolvable from the registry.",
+      "sources": [
+        {
+          "label": "npm attestation",
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/js-cookie@3.0.8"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured. The dossier contains no workflow, publish-job, OIDC or token facts, so no pass or fail can be recorded either way.",
+      "sources": [
+        {
+          "label": "repository",
+          "url": "https://github.com/js-cookie/js-cookie"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier's vulnerabilities list is empty for the reviewed version; no unfixed advisory is recorded.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/js-cookie"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "3.0.8 published 2026-05-29; 35 versions published; repository pushed 2026-10-23; not archived; 10 open issues; 22,571 stars; 2,044 forks; two npm maintainers.",
+      "sources": [
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/js-cookie/js-cookie"
+        },
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/js-cookie"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, no peer or optional dependencies declared, 25 KB unpacked. Install size was not measured (null).",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/js-cookie"
+        }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "has_install_script is false and the install_scripts list is empty; there is no dependency tree to inspect.",
+      "sources": [
+        {
+          "label": "tarball",
+          "url": "https://registry.npmjs.org/js-cookie/-/js-cookie-3.0.8.tgz"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "warn",
+      "detail": "Registry metadata records types as none for the reviewed version; no bundled declarations are present in the recorded metadata.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/js-cookie"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour",
+      "status": "info",
+      "detail": "Dual CJS/ESM packaging. No engines field, no environment probe and no runtime test were recorded, so browser-versus-Node behaviour for this requirement is unverified.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/js-cookie"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT, matching the repository licence. There are no transitive dependencies to licence-check.",
+      "sources": [
+        {
+          "label": "repository",
+          "url": "https://github.com/js-cookie/js-cookie"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/40680351381",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/5",
+    "dossier_sha256": "66ec68d605b8dfc852ef46e1a769177e4759847197fa72b46f04cac1dec3a1db",
+    "generated_at": "2026-10-28T11:38:12.590Z"
+  }
+}

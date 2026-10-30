@@ -1,0 +1,167 @@
+{
+  "id": "rev-2026-10-protobufjs",
+  "package_id": "pkg-protobufjs",
+  "requirement_id": "req-http-request",
+  "reviewed_at": "2026-10-28",
+  "reviewed_version": "8.8.1",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "low",
+  "score": 74,
+  "summary": "protobufjs 8.8.1 is a healthy, provenance-published protobuf codec, but it supplies none of the HTTP request, interceptor, retry or cookie behaviour this requirement is about, and the dossier shows no dependency link to axios while the requester reports it arrives through other libraries such as Firebase, so it is held rather than added to the HTTP request allowlist.",
+  "reasoning": [
+    "Purpose mismatch is the decisive factor: req-http-request covers making HTTP requests from browser and Node with interceptors, global configuration, mocking and cookie handling, while the dossier describes protobufjs only as a message serialisation library. Nothing in the measured facts shows request dispatch, interceptor support, retry logic or cookie handling.",
+    "The requirement notes call this a monitoring batch for the axios dependency stack and ask for comparison by role. The dossier records a single runtime dependency on long ^5.3.2 and lists no link, peer relationship or shared maintainer with axios, follow-redirects, undici, fast-uri, js-cookie or cookie. The requester reports protobufjs is pulled in by other libraries such as Firebase, but no such parent edge was collected, so it is a plausible transitive package whose parent chain is unverified rather than a tree to drop as unnecessary; the unnecessary-package constraint should be judged after that walk.",
+    "The requirement explicitly places gRPC transports out of scope and this batch does not ask for protobuf payload encoding. That removes the only plausible role protobufjs would play here, which is why the verdict is hold for this requirement rather than a statement about the package's general quality.",
+    "Security posture is clean as collected: the dossier lists no advisories for 8.8.1 or the package, the release is 17 days old at review time, and no install script is declared, so there is no hard-failure cap on security grounds.",
+    "Release integrity is partially verified: npm records provenance for 8.8.1 and the attestation endpoint for that exact version is present, but the dossier did not collect the publish workflow itself, so how the release is triggered and which credentials it uses is unmeasured rather than confirmed.",
+    "Maintenance looks active: 8.8.1 published 2026-10-11, repository pushed 2026-10-22, 221 published versions, and three npm maintainers including google-wombot; the 98 open issues on the repository are a backlog signal, not an abandonment signal.",
+    "Footprint is modest but not fully measured: one runtime dependency (long), 3,690 KB unpacked, BSD-3-Clause reported by the registry, and no install scripts. Install size was not measured, the licence of the long dependency was not inventoried, and only a CommonJS format is recorded."
+  ],
+  "caveats": [
+    "Holding is a fit decision, not a safety finding. If a protobuf or gRPC-Web payload need is ever scoped in, this package should be re-reviewed against that requirement rather than inherited from this verdict.",
+    "The parent chain is unverified: the requester states protobufjs is pulled in by other libraries such as Firebase, but the dossier records no edge to Firebase or any other upstream package. Keep it on hold until a tree walk establishes which parent pulls it in.",
+    "gRPC transports are out of scope for req-http-request, so adopting protobufjs here would add a 3.7 MB unpacked dependency and its long dependency without covering the HTTP behaviour the requirement actually needs.",
+    "Install size was not measured and the licence of the single runtime dependency (long) was not inventoried, so the 'permissive license across the full dependency tree' constraint is only satisfied for protobufjs itself.",
+    "The registry reports BSD-3-Clause while the GitHub API reports NOASSERTION; the licence file should be read directly before any adoption, because a mismatch here would matter for the tree-level licence constraint.",
+    "Only CommonJS is recorded in formats. Browser bundling and ESM interop were not measured, so 'works in both browser and Node' is unconfirmed even though the package targets Node >=12.0.0.",
+    "Provenance is recorded but the publish workflow was not collected in this dossier; treat the release-integrity check as attested-tarball-only until the pipeline is inspected.",
+    "98 open issues indicate a real triage backlog; response time to a future security report is not evidenced by the collected facts."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured in this dossier: no workflow file or release process was collected. The registry does report provenance for 8.8.1, which implies an attestation-producing build, but the trigger, environment protection and credential model remain unverified.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/protobufjs"
+        },
+        {
+          "label": "repository",
+          "url": "https://github.com/protobufjs/protobuf.js"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "npm_provenance is true for 8.8.1 and the attestation endpoint for that exact version is present in the dossier sources. Builder identity, source repository and workflow inside the attestation were not transcribed into the dossier.",
+      "sources": [
+        {
+          "label": "npm attestation",
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/protobufjs@8.8.1"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/protobufjs"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Advisories",
+      "status": "pass",
+      "detail": "The vulnerabilities array is empty: no advisory was recorded against 8.8.1 or against the package when the dossier was collected on 2026-10-28. This reflects the collected sources only; advisory matching for a package with 221 published versions still warrants the standard 90-day recheck.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/protobufjs"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/protobufjs"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "8.8.1 published 2026-10-11 and last published at 2026-10-11T17:12:37Z; repository pushed 2026-10-22; not archived; 221 versions; 98 open issues; 10,605 stars and 1,851 forks. Maintainers are dcode, fenster and google-wombot.",
+      "sources": [
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/protobufjs/protobuf.js"
+        },
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/protobufjs"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "One runtime dependency, long ^5.3.2; no peer or optional dependencies; unpacked size 3,690 KB; install size not measured. The transitive tree beyond the direct dependency, including its licence, was not inventoried.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/protobufjs"
+        },
+        {
+          "label": "published tarball",
+          "url": "https://registry.npmjs.org/protobufjs/-/protobufjs-8.8.1.tgz"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Types are bundled with the package, so consumers do not need a separate @types package. Type accuracy was not probed; only the declared packaging state was measured.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/protobufjs"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour and fit",
+      "status": "warn",
+      "detail": "Formats list CommonJS only; engines require Node >=12.0.0; no install scripts. The package is a protobuf encoder/decoder and the dossier contains no evidence of HTTP request, interceptor, retry, mocking or cookie functionality, which is what req-http-request requires. Browser support was not measured.",
+      "sources": [
+        {
+          "label": "repository",
+          "url": "https://github.com/protobufjs/protobuf.js"
+        },
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/protobufjs"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "warn",
+      "detail": "The registry records BSD-3-Clause, a permissive licence, but the GitHub repository API reports NOASSERTION. The two signals disagree and the dependency's licence was not inventoried, so the tree-level permissive-licence constraint is only partly verified.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/protobufjs"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/protobufjs/protobuf.js"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/40680351381",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/5",
+    "dossier_sha256": "7ce39eca7d7a23bf48884773f0551984af0f21606e1edb58c825ecbd0a06dea4",
+    "generated_at": "2026-10-28T11:38:12.633Z"
+  }
+}

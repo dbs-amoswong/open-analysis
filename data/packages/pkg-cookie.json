@@ -1,0 +1,25 @@
+{
+  "id": "pkg-cookie",
+  "name": "cookie",
+  "ecosystem": "npm",
+  "latest_version": "2.0.1",
+  "published_at": "2026-06-30",
+  "repo": "https://github.com/jshttp/cookie",
+  "registry": "https://www.npmjs.com/package/cookie",
+  "license": "MIT",
+  "weekly_downloads": 209076061,
+  "runtime_deps": 0,
+  "install_size_kb": null,
+  "unpacked_size_kb": 59,
+  "maintainers": [
+    "ulisesgascon",
+    "blakeembrey",
+    "dougwilson"
+  ],
+  "types": "none",
+  "formats": [
+    "esm"
+  ],
+  "notes": "Facts collected from the npm registry on 2026-10-28. Install size was not measured.",
+  "npm_provenance": true
+}

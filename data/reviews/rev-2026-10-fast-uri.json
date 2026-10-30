@@ -1,0 +1,198 @@
+{
+  "id": "rev-2026-10-fast-uri",
+  "package_id": "pkg-fast-uri",
+  "requirement_id": "req-http-request",
+  "reviewed_at": "2026-10-28",
+  "reviewed_version": "4.2.3",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "low",
+  "score": 78,
+  "summary": "Clean supply chain on 4.2.3 - zero dependencies, npm provenance, six Fastify maintainers, no recorded advisories and no install scripts - but it is a URI handling utility with only a CommonJS build and no HTTP request, interceptor or cookie capability, so hold it as a transitive candidate whose parent chain is unverified rather than adopting it for this requirement.",
+  "reasoning": [
+    "No hard failure applies: 4.2.3 has no recorded advisories, the package is actively released (2026-10-19, repository pushed the same day, 4 open issues), it declares no install scripts, and npm_provenance is true, which requires a CI builder.",
+    "Security posture is clean on the evidence available: the dossier records zero vulnerabilities for 4.2.3 and zero runtime dependencies, so the package adds no transitive advisory surface to the monitored stack.",
+    "Release integrity is the strongest dimension: npm_provenance is true and the registry serves an attestation for fast-uri@4.2.3. The dossier records only the boolean and the endpoint, not the attestation contents, so the builder, source repository, workflow and ref were not inspected.",
+    "Maintenance is not a concern at the 90-day cadence: 47 published versions, a release nine days before this review, and six npm maintainers (jsumners, delvedor, matteo.collina, eomm, climba03003, zekth) inside the Fastify organisation, so the bus factor is not one.",
+    "The hold is a fit decision, not a security one. This requirement is about making HTTP requests with interceptors, global configuration, mocking and cookie handling; the dossier records no HTTP transport, adapter, interceptor or cookie capability, and the package's name and repository indicate URI handling instead.",
+    "It is therefore not an alternative to axios or to native fetch, and adopting it would not advance any constraint in req-http-request other than the licence and install-script checks.",
+    "Packaging is weaker than the supply chain: only a CommonJS build is published (formats: [\"cjs\"]), no engines floor is declared, and browser compatibility was not measured, against a constraint that requires both browser and Node.",
+    "The dossier contains no dependency or peer edge linking fast-uri to axios or to any sibling in this batch (dependencies {}, peer_dependencies null). The requester reports that fast-uri is pulled in by other libraries such as Firebase, but no Firebase or other upstream edge was collected, so the parent chain is unverified and the reason it appears in the monitored set could not be confirmed here.",
+    "Adoption signals are ambiguous: 139,676,160 weekly downloads against 131 GitHub stars and 82 forks is consistent with heavy transitive installation rather than direct use, and download counts include CI and transitive traffic.",
+    "Recommended disposition is to keep it as a transitive dependency if a tree walk shows an upstream package requires it, and to reject it as a direct dependency for request making."
+  ],
+  "caveats": [
+    "CommonJS only. There is no ESM build, so ESM-only consumers and bundlers depend on interop, and no engines field sets a Node version floor.",
+    "Browser compatibility is unmeasured, so the 'works in both browser and Node environments' constraint is unmet on paper until tested.",
+    "Install size was not measured (null); only the 324 KB unpacked figure is available, so bundle impact is unknown.",
+    "GitHub reports the repository licence as NOASSERTION while npm declares BSD-3-Clause. Confirm the LICENSE text and the published tarball agree before relying on the permissive classification.",
+    "Provenance is asserted rather than verified: the dossier holds the boolean and the attestation URL, but not the builder, workflow or source ref, so the tarball-to-commit link was not checked.",
+    "The clean advisory result is a point-in-time snapshot from 2026-10-28; no historical advisory list was collected, and a small URI parser is a plausible target for subsequent URI-parsing advisories.",
+    "No dependency relationship to axios is recorded in the dossier; the requester reports fast-uri is pulled in by other libraries such as Firebase, but that parent chain is unverified. A tree walk should establish the upstream package before it is treated as unnecessary, and it should not be dropped merely for lacking an axios edge.",
+    "No behavioural testing was performed. Any future use for URL normalisation or validation is untested here."
+  ],
+  "evidence": [
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier records no vulnerabilities for 4.2.3 (vulnerabilities: [], collected 2026-10-28). No advisory identifiers were returned; historical advisory coverage was not collected.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/fast-uri"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/fast-uri"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured. The dossier states npm_provenance: true but collects no workflow file, OIDC configuration or token handling, so CI publishing is inferred from the presence of an attestation rather than reviewed directly.",
+      "sources": [
+        {
+          "label": "repository",
+          "url": "https://github.com/fastify/fast-uri"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "npm_provenance is true, and the registry attestation endpoint resolves for fast-uri@4.2.3. The attestation contents (builder, source repo, workflow, ref) were not recorded in the dossier.",
+      "sources": [
+        {
+          "label": "npm attestation",
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/fast-uri@4.2.3"
+        },
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/fast-uri"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "4.2.3 published 2026-10-19 with the repository last pushed 2026-10-19; 47 published versions; 4 open issues; not archived. Six npm maintainers (jsumners, delvedor, matteo.collina, eomm, climba03003, zekth) under the Fastify organisation.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/fast-uri"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/fastify/fast-uri"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies; no peer or optional dependencies; 324 KB unpacked. Install size was not measured (null).",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/fast-uri"
+        }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "has_install_script is false and install_scripts is empty, so installing the package runs no preinstall, install or postinstall hook.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/fast-uri"
+        },
+        {
+          "label": "npm tarball",
+          "url": "https://registry.npmjs.org/fast-uri/-/fast-uri-4.2.3.tgz"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "types is 'bundled' in the registry metadata, so declarations ship with the package. The declarations were not compiled against a strict-mode consumer in this review.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/fast-uri"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/fast-uri"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour and role",
+      "status": "warn",
+      "detail": "Only a CommonJS build is published (formats: [\"cjs\"]) and no engines field is declared; browser compatibility was not measured. The dossier records no HTTP request, adapter, interceptor, mocking or cookie handling capability, and no dependency or peer edge to axios or to any sibling in this batch; the requester reports it is pulled in by other libraries such as Firebase, but that parent chain is unverified. Either way it cannot serve this requirement's request-making role.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/fast-uri"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/fast-uri"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "warn",
+      "detail": "npm metadata declares BSD-3-Clause, which is permissive and is the only licence in the tree because there are no dependencies. The GitHub API reports the repository licence as NOASSERTION, so the licence file was not auto-identified and the two records disagree.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/fast-uri"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/fastify/fast-uri"
+        }
+      ]
+    },
+    {
+      "key": "adoption",
+      "label": "Adoption signal",
+      "status": "info",
+      "detail": "139,676,160 weekly downloads against 131 stars and 82 forks. The dossier does not break downloads down by direct versus transitive use, and download counts include CI traffic.",
+      "sources": [
+        {
+          "label": "npm downloads API",
+          "url": "https://api.npmjs.org/downloads/point/last-week/fast-uri"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/fastify/fast-uri"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/40680351381",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/5",
+    "dossier_sha256": "4eed5d8412266d2b7a2b48999495f0b412afe3e4c9d392e59278be11483f25b5",
+    "generated_at": "2026-10-28T11:38:12.495Z"
+  }
+}

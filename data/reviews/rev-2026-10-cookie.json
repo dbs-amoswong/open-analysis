@@ -1,0 +1,144 @@
+{
+  "id": "rev-2026-10-cookie",
+  "package_id": "pkg-cookie",
+  "requirement_id": "req-http-request",
+  "reviewed_at": "2026-10-28",
+  "reviewed_version": "2.0.1",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 74,
+  "summary": "Clean, zero-dependency, provenance-signed cookie header parser/serialiser, but no axios edge is recorded while the requester reports it arrives through other libraries such as Firebase, it is ESM-only with engines node >=22, it ships no types, and its publish workflow was not measured, so it should stay on hold rather than be adopted into the stack.",
+  "reasoning": [
+    "cookie@2.0.1 parses and serialises Cookie/Set-Cookie headers; it is not an HTTP client. The dossier records no direct or peer dependency relationship with axios, and the requester reports it is pulled in by other libraries such as Firebase, but that parent chain is unverified, so it only earns a direct place in this requirement for an explicit server-side cookie-handling need.",
+    "Security posture is clean on the recorded facts: the vulnerabilities list is empty, there are no install scripts, the licence is MIT and the npm tarball carries a provenance attestation.",
+    "Release integrity is only partly verifiable: npm_provenance is true, but the dossier contains no workflow file, so the OIDC-versus-token choice, protected environment and action pinning were not assessed.",
+    "Maintenance looks healthy: 2.0.1 was published 2026-06-30, the repository was pushed 2026-07-08, it has three maintainers, 1,537 stars and is not archived; 14 open issues is modest for 209M weekly downloads.",
+    "Fit is the weak dimension: the package is ESM-only, declares engines node >=22 and has no bundled declarations, which adds integration work for CommonJS consumers, older Node runtimes and TypeScript callers.",
+    "No hard failure applies, since there is no unfixed advisory, no install script, an active release and a provenance attestation, so the verdict is not capped; the unmeasured pipeline, install size and parsing behaviour are what keep it at hold."
+  ],
+  "caveats": [
+    "ESM-only build: CommonJS callers must use a dynamic import() rather than require().",
+    "engines.node is >=22, so services on Node 20 or earlier cannot install it without ignoring the engine constraint.",
+    "No bundled TypeScript declarations; typings must come from elsewhere and will not automatically track 2.0.x.",
+    "Install size was not measured (unpacked size is 59 KB), and no behavioural tests of malformed or oversized cookie headers are recorded in the dossier.",
+    "Three maintainers and no release since 2026-06-30: a security fix depends on that small team shipping, and the 14 open issues were not triaged in the dossier.",
+    "No axios edge is recorded, but the requester reports cookie is pulled in by other libraries such as Firebase, so it may already arrive transitively; verify that parent chain before adding it directly, and do not drop it merely for lacking an axios edge."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured. The dossier records no workflow file or publish job, so OIDC versus long-lived token, release environment and action pinning could not be checked; the presence of an npm attestation indicates an automated build but does not establish the pipeline's controls.",
+      "sources": [
+        {
+          "label": "repository",
+          "url": "https://github.com/jshttp/cookie"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "pass",
+      "detail": "npm_provenance is true and the registry publishes an attestation for cookie@2.0.1; the dossier does not include the attestation's builder, source repository or workflow fields.",
+      "sources": [
+        {
+          "label": "npm attestation",
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/cookie@2.0.1"
+        },
+        {
+          "label": "npm tarball",
+          "url": "https://registry.npmjs.org/cookie/-/cookie-2.0.1.tgz"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier's vulnerabilities list is empty; no advisory is recorded against 2.0.1.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/cookie"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "2.0.1 published 2026-06-30; repository pushed 2026-07-08; 14 open issues; 1,537 stars; not archived; three maintainers (ulisesgascon, blakeembrey, dougwilson).",
+      "sources": [
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/jshttp/cookie"
+        },
+        {
+          "label": "npm downloads",
+          "url": "https://api.npmjs.org/downloads/point/last-week/cookie"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies (empty dependencies map), no install scripts, 59 KB unpacked; install size was not measured.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/cookie"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "warn",
+      "detail": "types: none. The published package carries no bundled declarations, so TypeScript consumers need external typings.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/cookie"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour and compatibility",
+      "status": "warn",
+      "detail": "ESM-only ('formats': ['esm']); engines.node is >=22. Scope is cookie header parsing and serialisation, not request execution. No behavioural or fuzz testing of untrusted cookie input is recorded in the dossier.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/cookie"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT, matching the repository licence and the permissive-licence constraint for the stack.",
+      "sources": [
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/jshttp/cookie"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/40680351381",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/5",
+    "dossier_sha256": "87e13737308a85af5da5662d1ae46b7c43dc64660caaa20a6fcce84c6f756b68",
+    "generated_at": "2026-10-28T11:38:12.451Z"
+  }
+}

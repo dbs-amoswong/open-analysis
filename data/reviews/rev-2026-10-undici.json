@@ -1,0 +1,171 @@
+{
+  "id": "rev-2026-10-undici",
+  "package_id": "pkg-undici",
+  "requirement_id": "req-http-request",
+  "reviewed_at": "2026-10-28",
+  "reviewed_version": "8.12.3",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 76,
+  "summary": "undici 8.12.3 is a well-maintained, zero-dependency package with npm provenance, bundled types and no recorded advisories, but it is Node-only and CJS-only, and although the requester reports it reaches applications through other libraries such as Firebase, no such parent edge is recorded in the dossier, so it is held rather than adopted for a requirement that needs browser and Node support through the existing axios stack.",
+  "reasoning": [
+    "8.12.3 was published on 2026-10-19, nine days before this review, and the repository was pushed to on 2026-10-28; the package has 315 published versions, so it is under active maintenance.",
+    "The dossier records 201,797,163 weekly downloads, which reflects extremely broad production use and therefore heavy external scrutiny of the code path.",
+    "The dossier's vulnerabilities array is empty and no advisory is recorded against 8.12.3, so the requirement's 'no unfixed high or critical advisories' constraint is not triggered.",
+    "npm_provenance is true for 8.12.3 and the npm attestation endpoint for that exact version is listed in the dossier's sources; the attestation contents (builder identity, source repo, workflow) were not transcribed into the dossier, and no repository workflow file was collected, so the publish pipeline itself was not inspected.",
+    "The package has zero runtime dependencies, an empty install_scripts list, has_install_script false, MIT in both registry metadata and GitHub, and bundled TypeScript types; the only unmeasured footprint fact is install size.",
+    "Fit is the weak dimension: the dossier records formats as ['cjs'] and engines as node >=22.19.0 with no browser field or ESM build, so the requirement's 'works in both browser and Node environments' constraint is only half satisfied.",
+    "The dossier records no dependency relationship between undici and axios or any other sibling in this batch, and no shared maintainer with them. The requester reports that undici is pulled in by other libraries such as Firebase, but no Firebase or other upstream edge was collected, so the parent chain is unverified and the package cannot yet be cleared as a monitored transitive dependency.",
+    "The request's own alternative - native fetch - is effectively the same runtime: undici is the Node.js project's HTTP client and adding it as a direct dependency duplicates the copy already embedded in modern Node, while adding nothing for browser code paths.",
+    "Node engine floor of >=22.19.0 raises the minimum runtime for every consumer of this repository and any CI image that installs it.",
+    "No hard failure applies (no unfixed advisory, no install script, maintained package, provenance present); the hold is driven by fit and duplication, not by a security defect, which is why risk is medium rather than high."
+  ],
+  "caveats": [
+    "Node-only package: browser code in this requirement must keep using axios/XMLHttpRequest or fetch, so undici cannot be the single client the requirement asks for.",
+    "engines requires node >=22.19.0; adopting it as a direct dependency sets that floor for CI images, containers and any downstream consumer on an older Node line.",
+    "Only a CJS build is recorded; ESM consumers depend on default-import interop and there are no named ESM exports to rely on.",
+    "Install size was not measured (only 2,117 KB unpacked is recorded), so the real footprint of adding it is unknown.",
+    "The repository shows 420 open issues; triage depth and the actual response time to security reports were not measured in this dossier.",
+    "Publish pipeline details were not collected and the provenance attestation contents were not read, so CI-only publishing is inferred from the provenance flag rather than directly verified.",
+    "Adding it as a direct dependency alongside axios creates two HTTP stacks to patch and monitor, which works against the requirement's 'avoid duplicate or unnecessary packages' constraint.",
+    "The parent chain is unverified: the requester states undici is pulled in by other libraries such as Firebase, but the dossier contains no dependency edge to Firebase or any other upstream package. Keep it on hold until a tree walk shows where it arrives from.",
+    "The dossier records no compatibility statement for the existing axios interceptor, global config and mocking approach, so integration effort is unquantified."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured: the dossier contains no workflow file or release configuration for the repository, so it is not recorded whether publishing runs in CI, what credentials it uses, or whether actions are pinned.",
+      "sources": [
+        {
+          "label": "nodejs/undici repository",
+          "url": "https://github.com/nodejs/undici"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "pass",
+      "detail": "Dossier records npm_provenance: true for 8.12.3 and lists the npm attestations endpoint for that exact version; the attestation body (builder, source repository, workflow, ref) was not transcribed, so the claim rests on the recorded flag.",
+      "sources": [
+        {
+          "label": "npm attestation",
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/undici@8.12.3"
+        },
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/undici"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier's vulnerabilities array is empty: no advisory of any severity is recorded against undici, and the reviewed version 8.12.3 is the current latest.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/undici"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/undici"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "8.12.3 published 2026-10-19 with last_publish 2026-10-19T14:02:57Z; repository pushed 2026-10-28, not archived, 7,726 stars, 963 forks, 315 published versions, 3 maintainers.",
+      "sources": [
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/nodejs/undici"
+        },
+        {
+          "label": "GitHub API repo metadata",
+          "url": "https://api.github.com/repos/nodejs/undici"
+        },
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/undici"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, empty dependencies map, no peer or optional dependencies, has_install_script false with an empty install_scripts list, 2,117 KB unpacked; install size was not measured.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/undici"
+        },
+        {
+          "label": "tarball",
+          "url": "https://registry.npmjs.org/undici/-/undici-8.12.3.tgz"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Registry metadata records types as bundled, so no @types package is required; the dossier contains no type-check probe, so strict-mode behaviour was not independently exercised.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/undici"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime fit and portability",
+      "status": "fail",
+      "detail": "Recorded formats are ['cjs'] and engines is node >=22.19.0, with no browser field; the requirement needs a client that works in both browser and Node, and the dossier evidences a Node-only, CJS-only build with a recent Node floor.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/undici"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/undici"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT in both the npm registry metadata and the GitHub repository metadata; no install script or transitive dependency introduces a different license.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/undici"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/nodejs/undici"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/40680351381",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/5",
+    "dossier_sha256": "550acb29221948a85f30a9608989dfe21141640d4ee9f6c64375b5888ae7dc6b",
+    "generated_at": "2026-10-28T11:38:12.676Z"
+  }
+}

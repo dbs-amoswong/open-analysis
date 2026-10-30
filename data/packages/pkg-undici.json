@@ -1,0 +1,25 @@
+{
+  "id": "pkg-undici",
+  "name": "undici",
+  "ecosystem": "npm",
+  "latest_version": "8.12.3",
+  "published_at": "2026-10-19",
+  "repo": "https://github.com/nodejs/undici",
+  "registry": "https://www.npmjs.com/package/undici",
+  "license": "MIT",
+  "weekly_downloads": 201797163,
+  "runtime_deps": 0,
+  "install_size_kb": null,
+  "unpacked_size_kb": 2117,
+  "maintainers": [
+    "matteo.collina",
+    "ronag",
+    "ethan_arrowood"
+  ],
+  "types": "bundled",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Facts collected from the npm registry on 2026-10-28. Install size was not measured.",
+  "npm_provenance": true
+}

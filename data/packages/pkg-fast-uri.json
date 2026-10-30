@@ -1,0 +1,28 @@
+{
+  "id": "pkg-fast-uri",
+  "name": "fast-uri",
+  "ecosystem": "npm",
+  "latest_version": "4.2.3",
+  "published_at": "2026-10-19",
+  "repo": "https://github.com/fastify/fast-uri",
+  "registry": "https://www.npmjs.com/package/fast-uri",
+  "license": "BSD-3-Clause",
+  "weekly_downloads": 139676160,
+  "runtime_deps": 0,
+  "install_size_kb": null,
+  "unpacked_size_kb": 324,
+  "maintainers": [
+    "jsumners",
+    "delvedor",
+    "matteo.collina",
+    "eomm",
+    "climba03003",
+    "zekth"
+  ],
+  "types": "bundled",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Facts collected from the npm registry on 2026-10-28. Install size was not measured.",
+  "npm_provenance": true
+}
