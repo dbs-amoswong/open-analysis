@@ -1,0 +1,148 @@
+{
+  "id": "rev-2026-10-follow-redirects",
+  "package_id": "pkg-follow-redirects",
+  "requirement_id": "req-http-request",
+  "reviewed_at": "2026-10-28",
+  "reviewed_version": "1.16.2",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 74,
+  "summary": "Hold: 1.16.2 is a small, zero-dependency, MIT-licensed Node transport with recent releases and no recorded advisories, but the dossier shows no npm provenance and no publish-pipeline facts, so the release-integrity half of the rubric is unverified and the package is only acceptable in the axios stack with exact pinning and a recorded gap.",
+  "reasoning": [
+    "Purpose and fit: the request names follow-redirects as part of the axios stack, where it is reached transitively rather than imported by application code; the review therefore asks whether it is acceptable to keep in that stack, not whether it should be added as a direct dependency.",
+    "Footprint is minimal for this requirement: 0 runtime dependencies, an empty dependencies object, 31 KB unpacked, and an empty install_scripts list, so it adds no install-time execution and no transitive tree to the axios stack.",
+    "Security surface as recorded: the dossier's vulnerabilities array is empty for 1.16.2 and no warnings were emitted during collection, so there is no known unfixed advisory to cap the verdict.",
+    "Maintenance looks active: 1.16.2 was published 2026-10-25, the repository was pushed 2026-10-25, it is not archived, and 73 versions have been published by two npm maintainers.",
+    "Release integrity is the gap: npm_provenance is false and the provenance note says no npm attestation was found, and the dossier contains no workflow or release-job facts, so CI publishing cannot be confirmed or denied from the measured evidence.",
+    "The requirement explicitly allows an npm provenance gap only if exact versions are pinned and the gap is recorded; this review records the gap but cannot verify that pinning is enforced downstream.",
+    "Fit is constrained by packaging: types is \"none\" and formats is [\"cjs\"], so TypeScript consumers get no declarations from the package and ESM projects rely on CommonJS interop.",
+    "The 93,968,125 weekly downloads are recorded but not treated as a quality signal: download counts include CI and transitive installs, and the dossier does not attribute them to direct use.",
+    "The dossier does not measure install size (install_size_kb is null) and does not exercise redirect behaviour, so footprint and runtime behaviour conclusions are limited to the 31 KB unpacked figure and registry metadata."
+  ],
+  "caveats": [
+    "No npm attestation for 1.16.2: the requirement permits this only with exact version pinning and a recorded provenance gap. Pin 1.16.2 exactly and re-check provenance on each upgrade.",
+    "CI publishing was not measured in the dossier. If a human review finds that releases are cut manually, the no-CI-publishing hard failure applies and the verdict should drop to avoid.",
+    "No bundled TypeScript declarations (types: \"none\") and CJS-only output; TypeScript and ESM consumers need their own typings strategy and interop checks.",
+    "The dossier provides no browser or bundler evidence; treat this as the Node-side transport in the axios stack rather than a browser HTTP client.",
+    "Install size was not measured (null); only the 31 KB unpacked figure is available, so total cost in the axios tree is unknown from this dossier.",
+    "Two npm maintainers and 21 open issues on a repository with 581 stars: small enough that responsiveness to a future advisory depends on a short cadence, not on depth of maintainer bench.",
+    "Historical advisories are not represented in the dossier's empty vulnerabilities list, so the empty result should not be read as a claim that the package has never had a redirect-handling issue."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured. The dossier contains registry, download and GitHub repository facts but no workflow or release-job data, so it is not possible to confirm that 1.16.2 was built and published by CI.",
+      "sources": [
+        {
+          "label": "repository",
+          "url": "https://github.com/follow-redirects/follow-redirects"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false; the provenance note states that no npm attestation was found for the published package when facts were collected.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/follow-redirects"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier records an empty vulnerabilities array for 1.16.2 and no collection warnings, so no advisory is known against the reviewed version in this dossier.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/follow-redirects"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "1.16.2 published 2026-10-25; repository pushed 2026-10-25; not archived; 73 versions; 21 open issues; 581 stars; 194 forks; two npm maintainers (rubenverborgh, olalonde).",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/follow-redirects"
+        },
+        {
+          "label": "GitHub API",
+          "url": "https://api.github.com/repos/follow-redirects/follow-redirects"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, empty dependencies object, empty install_scripts list, 31 KB unpacked. Install size was not measured (null).",
+      "sources": [
+        {
+          "label": "npm tarball",
+          "url": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.16.2.tgz"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "warn",
+      "detail": "types is \"none\"; the package ships CJS only and the dossier identifies no bundled declarations.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/follow-redirects"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour",
+      "status": "info",
+      "detail": "Not measured. The dossier records CJS format and engines node >=4 but contains no runtime or redirect-handling test results.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/follow-redirects"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT, both in npm metadata and in the GitHub repository metadata; no copyleft or proprietary terms recorded.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/follow-redirects"
+        },
+        {
+          "label": "GitHub API",
+          "url": "https://api.github.com/repos/follow-redirects/follow-redirects"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/40680351381",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/5",
+    "dossier_sha256": "e433d087cc67272e4c782c88f0d1e8671452590b6a333186f9437c52cec91f00",
+    "generated_at": "2026-10-28T11:38:12.544Z"
+  }
+}

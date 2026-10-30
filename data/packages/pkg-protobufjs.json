@@ -1,0 +1,25 @@
+{
+  "id": "pkg-protobufjs",
+  "name": "protobufjs",
+  "ecosystem": "npm",
+  "latest_version": "8.8.1",
+  "published_at": "2026-10-11",
+  "repo": "https://github.com/protobufjs/protobuf.js",
+  "registry": "https://www.npmjs.com/package/protobufjs",
+  "license": "BSD-3-Clause",
+  "weekly_downloads": 81629217,
+  "runtime_deps": 1,
+  "install_size_kb": null,
+  "unpacked_size_kb": 3690,
+  "maintainers": [
+    "dcode",
+    "fenster",
+    "google-wombot"
+  ],
+  "types": "bundled",
+  "formats": [
+    "cjs"
+  ],
+  "notes": "Facts collected from the npm registry on 2026-10-28. Install size was not measured.",
+  "npm_provenance": true
+}
