@@ -2,7 +2,7 @@
   "id": "req-http-request",
   "slug": "http-request",
   "title": "HTTP requests from browser and Node",
-  "summary": "Make HTTP requests from browser and Node with interceptors, global configuration, mocking and cookie handling. Monitor the axios dependency stack for maintenance, advisories, duplication and unnecessary packages, and compare the role of each candidate with native fetch.",
+  "summary": "Make HTTP requests from browser and Node with interceptors, global configuration, mocking and cookie handling. Monitor axios and the packages commonly pulled in by other application libraries, such as Firebase, for maintenance, advisories, duplication and unnecessary packages, and compare the role of each candidate with native fetch.",
   "owner": "dbs-amoswong",
   "criticality": "high",
   "status": "active",
@@ -15,7 +15,7 @@
     "Compatible with the existing axios interceptors, global config and mocking approach",
     "Permissive license across the full dependency tree",
     "No install scripts in the dependency tree",
-    "Avoid duplicate or unnecessary packages in the axios dependency stack",
+    "Avoid duplicate or unnecessary direct dependencies; treat an unverified parent chain as context, not proof of use",
     "If npm provenance is unavailable, pin exact versions and record the gap"
   ],
   "out_of_scope": [
@@ -23,5 +23,5 @@
     "GraphQL and gRPC transports",
     "Detailed performance benchmark against every HTTP client"
   ],
-  "notes": "This is a monitoring batch for the axios dependency stack: axios, follow-redirects, undici, fast-uri, js-cookie, protobufjs and cookie. The candidates have different roles; compare each package's purpose, maintenance, advisories, licence, install scripts and overlap with the rest of the stack rather than treating them as interchangeable HTTP clients. Native fetch is the considered alternative, but it is not a candidate in this batch."
+  "notes": "This is a mixed monitoring batch: axios, follow-redirects, undici, fast-uri, js-cookie, protobufjs and cookie. Only axios -> follow-redirects is a verified edge in the collected dossiers. The requester reports that the other five are pulled in by other libraries such as Firebase; walk those parent chains before treating them as verified members. The candidates have different roles; compare each package's purpose, maintenance, advisories, licence, install scripts and overlap with the rest of the stack rather than treating them as interchangeable HTTP clients. Native fetch is the considered alternative, but it is not a candidate in this batch."
 }

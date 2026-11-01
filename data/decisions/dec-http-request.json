@@ -1,0 +1,22 @@
+{
+  "id": "dec-http-request",
+  "requirement_id": "req-http-request",
+  "status": "pending",
+  "primary_package_id": "pkg-axios",
+  "adopted": [],
+  "hold": [
+    "pkg-axios",
+    "pkg-follow-redirects",
+    "pkg-undici",
+    "pkg-fast-uri",
+    "pkg-js-cookie",
+    "pkg-protobufjs",
+    "pkg-cookie"
+  ],
+  "rejected": [],
+  "dropped": [],
+  "rationale": "Hold the entire HTTP request batch. axios is the anchor, but its dependency tree and publish pipeline remain unverified: form-data, proxy-from-env and https-proxy-agent are not in this batch, and the tree-wide licence, install-script and advisory checks are incomplete. follow-redirects is the only confirmed axios edge; keep it only with an exact 1.16.2 pin and a recorded provenance gap. undici, fast-uri, js-cookie, protobufjs and cookie are reported by the requester as transitives of other libraries such as Firebase; their parent chains are unverified, so keep them under monitoring and do not adopt them directly. No package is approved for this requirement yet.",
+  "decided_at": "2026-11-01",
+  "decided_by": "dbs-amoswong",
+  "expires_at": "2027-01-30"
+}
