@@ -16,9 +16,9 @@
     "neo4j-bloom-publisher",
     "neo4j-organization"
   ],
-  "types": "bundled",
+  "types": "none",
   "formats": [
-    "esm"
+    "dual"
   ],
   "notes": "Proprietary. ESM with extensionless imports; bundler required. Depends on @dagrejs/dagre, not the @neo4j-bloom fork.",
   "npm_provenance": false,

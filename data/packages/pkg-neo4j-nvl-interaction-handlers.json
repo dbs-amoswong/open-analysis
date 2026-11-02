@@ -18,7 +18,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "bundler-only"
+    "cjs"
   ],
   "notes": "Proprietary. Same bundler-only packaging as the React wrapper: ESM syntax in .js under a commonjs package with extensionless imports.",
   "npm_provenance": false,

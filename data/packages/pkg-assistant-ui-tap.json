@@ -18,7 +18,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "esm"
+    "dual"
   ],
   "notes": "React hook engine reimplemented so hooks can run outside a React tree. Zero dependencies, 752 KB unpacked. Required peer of core and store; not intended as a direct application dependency.",
   "npm_provenance": true,

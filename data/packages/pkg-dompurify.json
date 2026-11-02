@@ -6,7 +6,7 @@
   "published_at": "2026-10-12",
   "repo": "https://github.com/cure53/DOMPurify",
   "registry": "https://www.npmjs.com/package/dompurify",
-  "license": "MPL-2.0 OR Apache-2.0",
+  "license": "(MPL-2.0 OR Apache-2.0)",
   "weekly_downloads": 45309875,
   "runtime_deps": 1,
   "install_size_kb": 1652,
@@ -16,9 +16,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "esm",
-    "cjs",
-    "umd"
+    "dual"
   ],
   "notes": "Browser-first DOM sanitizer. Dual MPL-2.0/Apache-2.0; choose Apache-2.0. Publishes SLSA provenance and Sigstore signatures on GitHub release artifacts, but npm tarballs carry no provenance. 11.7 KB gzip.",
   "npm_provenance": false,

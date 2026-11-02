@@ -2,8 +2,8 @@
   "id": "pkg-assistant-ui-react",
   "name": "@assistant-ui/react",
   "ecosystem": "npm",
-  "latest_version": "0.15.31",
-  "published_at": "2026-10-22",
+  "latest_version": "0.15.32",
+  "published_at": "2026-10-28",
   "repo": "https://github.com/assistant-ui/assistant-ui",
   "registry": "https://www.npmjs.com/package/@assistant-ui/react",
   "license": "MIT",
@@ -18,7 +18,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "esm"
+    "dual"
   ],
   "notes": "Main entry point for the assistant-ui suite. ESM-only with bundled types and React 18/19 peers. Measured 54.5 MB install and ~135 KB gzip for a minimal runtime plus thread primitive bundle. 0.x versioning with roughly 30 releases per quarter.",
   "npm_provenance": true,

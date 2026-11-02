@@ -17,8 +17,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "esm",
-    "cjs"
+    "dual"
   ],
   "notes": "WebGL renderer for large graphs, built around the graphology ecosystem. No built-in layout algorithms. Requires WebGL2 and browser globals at import, so it is client-only.",
   "npm_provenance": false,

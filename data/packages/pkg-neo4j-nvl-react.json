@@ -16,9 +16,9 @@
     "neo4j-bloom-publisher",
     "neo4j-organization"
   ],
-  "types": "bundled",
+  "types": "none",
   "formats": [
-    "bundler-only"
+    "cjs"
   ],
   "notes": "Proprietary Neo4j client software. Publisher lists no repository. ESM syntax in .js under a commonjs package with extensionless imports, so Node require and import both fail; a bundler is required. React peer is 18.0.0 || ^19.0.0, which excludes React 18.2/18.3.",
   "npm_provenance": false,

@@ -18,7 +18,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "esm"
+    "cjs"
   ],
   "notes": "Proprietary renderer. Imports @segment/analytics-next unconditionally; analytics needs an explicit API key. Touches document at import time, so no SSR. 13 direct dependencies, several pinned exactly.",
   "npm_provenance": false,

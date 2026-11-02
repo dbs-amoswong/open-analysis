@@ -15,7 +15,7 @@
     "jdalton",
     "mathias"
   ],
-  "types": "@types",
+  "types": "none",
   "formats": [
     "cjs"
   ],
