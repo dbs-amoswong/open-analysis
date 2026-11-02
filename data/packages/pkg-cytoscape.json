@@ -21,9 +21,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "esm",
-    "cjs",
-    "umd"
+    "dual"
   ],
   "notes": "General-purpose graph renderer and analysis library. Zero runtime dependencies, SLSA provenance, canvas renderer, layouts via extensions (dagre, cose-bilkent, fcose). 138 KB gzip.",
   "npm_provenance": true,

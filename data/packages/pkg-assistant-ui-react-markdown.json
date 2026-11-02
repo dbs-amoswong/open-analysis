@@ -18,7 +18,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "esm"
+    "dual"
   ],
   "notes": "Optional markdown renderer built on react-markdown 10.1. Adds about 87 packages and ~72 KB gzip to the bundle. Raw HTML is not enabled by default. Family alternatives: react-streamdown and react-syntax-highlighter. Measured 63.2 MB install with React.",
   "npm_provenance": true,

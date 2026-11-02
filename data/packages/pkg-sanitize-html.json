@@ -14,9 +14,10 @@
   "maintainers": [
     "alexgilbert",
     "boutell",
+    "romanek",
     "bodonkey"
   ],
-  "types": "@types",
+  "types": "none",
   "formats": [
     "cjs"
   ],

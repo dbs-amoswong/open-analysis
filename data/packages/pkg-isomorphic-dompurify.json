@@ -16,7 +16,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "cjs"
+    "dual"
   ],
   "notes": "Runs DOMPurify on jsdom for server-side use. Pulls 27.4 MB and 28 packages, so its exposure includes jsdom's own advisory stream. Single-maintainer wrapper.",
   "npm_provenance": false,

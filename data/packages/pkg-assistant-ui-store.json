@@ -18,7 +18,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "esm"
+    "dual"
   ],
   "notes": "Required peer of @assistant-ui/core and @assistant-ui/react; installed automatically. Zero dependencies. Added to this review because the other four packages cannot be used without it.",
   "npm_provenance": true,
