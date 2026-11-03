@@ -61,7 +61,7 @@ body:
         - req-deep-merge — Deep merge of nested configuration objects
         - req-assistant-ui — In-app AI assistant chat interface (React)
         - req-html-sanitize — Sanitize untrusted HTML before rendering
-        - req-nvl-graph — Graph visualization with the NVL suite
+        - req-nvl-graph — Graph visualization in a React application (Cytoscape/Sigma)
         - req-graph-editor — Graph visualization and editing
         - req-http-request — HTTP requests from browser and Node
         - New requirement / not sure
