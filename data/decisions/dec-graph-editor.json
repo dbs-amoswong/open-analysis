@@ -3,12 +3,78 @@
   "requirement_id": "req-graph-editor",
   "status": "approved",
   "primary_package_id": "pkg-antv-x6",
-  "adopted": ["pkg-antv-x6"],
+  "adopted": [
+    "pkg-antv-x6"
+  ],
   "hold": [],
   "rejected": [],
   "dropped": [],
   "rationale": "Adopt X6 v3 as the target for the React browser-only graph editor. v2 is deprecated and is not the long-term target. The browser spike passes after adding tslib, the core bundles the official plugins, and the React shape package is available. Native Node/SSR is explicitly not approved: the published v3 package currently fails native ESM and CJS loading. The actual application regression suite must pass before production rollout. maxGraph remains the fallback if the v3 migration fails.",
   "decided_at": "2026-11-04",
   "decided_by": "opencode-review (delegated by dbs-amoswong)",
-  "expires_at": "2027-05-03"
+  "expires_at": "2027-05-03",
+  "criteria": [
+    "Permissive licence; commercial licences are excluded",
+    "React integration and official React shape support",
+    "General diagram editing parity: shapes, ports, selection, transform, undo/redo, clipboard, stencil, export",
+    "Maintained upstream line",
+    "Browser-only deployment with client-side rendering",
+    "Migration cost from X6 v2",
+    "Supply chain, provenance and dependency footprint"
+  ],
+  "alternatives_considered": [
+    {
+      "name": "X6 v3 3.1.8",
+      "outcome": "selected",
+      "reason": "Cheapest migration from the existing React X6 app; maintained line; official React shape package; browser spike passed."
+    },
+    {
+      "name": "maxGraph 0.25.1",
+      "outcome": "fallback",
+      "reason": "Apache-2.0, zero dependencies and provenance, but no official React wrapper and still 0.x; adapter undo/redo is partial."
+    },
+    {
+      "name": "React Flow 12.12.1",
+      "outcome": "rejected",
+      "reason": "Excellent React node/flow editor, but not a general draw.io-style diagram editor."
+    },
+    {
+      "name": "diagram-js",
+      "outcome": "rejected",
+      "reason": "Production BPMN/process modeler toolkit; not a generic shape/stencil library and not React-native."
+    },
+    {
+      "name": "X6 v2 2.19.2",
+      "outcome": "bridge only",
+      "reason": "Deprecated; retain only until the v3 migration and regression pass."
+    },
+    {
+      "name": "GoJS / JointJS+",
+      "outcome": "excluded",
+      "reason": "Commercial licences are not allowed."
+    }
+  ],
+  "conditions": [
+    "Browser-only deployment; native Node/SSR is not approved.",
+    "Add tslib explicitly and verify the bundler.",
+    "Use @antv/x6-react-shape 3.x and getProvider().",
+    "Keep v2 pinned only as a short migration bridge.",
+    "Run the actual application regression across custom React nodes, selection, transform, history, clipboard, stencil, snapline, minimap and export.",
+    "Pin X6 3.1.8 exactly and record the npm provenance gap."
+  ],
+  "confidence": "medium",
+  "unknowns": [
+    "The actual application lockfile and plugin usage were not supplied.",
+    "Custom React shape compatibility has not been exercised in the real app.",
+    "The full application regression suite has not run.",
+    "The upstream native Node packaging fix has no committed date."
+  ],
+  "reversal_cost": "Moderate for X6 v3: import, plugin and React provider changes. High for maxGraph: editor-layer rewrite.",
+  "review_triggers": [
+    "The v3 migration fails in the actual application.",
+    "v3 native packaging remains broken for a required runtime.",
+    "AntV stops maintaining v3 or a relevant security advisory appears.",
+    "maxGraph reaches 1.0 or proves full editing parity.",
+    "The React shape package breaks or stops being maintained."
+  ]
 }

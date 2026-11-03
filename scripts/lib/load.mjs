@@ -297,6 +297,30 @@ export async function loadModel({ today = todayISO() } = {}) {
     if (!ISO_DATE.test(dec.decided_at || "")) err(`${at}.decided_at: expected YYYY-MM-DD`);
     if (!ISO_DATE.test(dec.expires_at || "")) err(`${at}.expires_at: expected YYYY-MM-DD`);
     if (!isNonEmptyString(dec.rationale)) err(`${at}.rationale: required`);
+    if (dec.confidence !== undefined && !["high", "medium", "low"].includes(dec.confidence)) {
+      err(`${at}.confidence: expected high | medium | low when present`);
+    }
+    for (const field of ["criteria", "conditions", "unknowns", "review_triggers"]) {
+      if (dec[field] !== undefined) {
+        if (!Array.isArray(dec[field]) || dec[field].some((item) => !isNonEmptyString(item))) {
+          err(`${at}.${field}: expected array of non-empty strings when present`);
+        }
+      }
+    }
+    if (dec.reversal_cost !== undefined && !isNonEmptyString(dec.reversal_cost)) {
+      err(`${at}.reversal_cost: expected non-empty string when present`);
+    }
+    if (dec.alternatives_considered !== undefined) {
+      if (!Array.isArray(dec.alternatives_considered)) {
+        err(`${at}.alternatives_considered: expected array when present`);
+      } else {
+        for (const [j, alternative] of dec.alternatives_considered.entries()) {
+          if (!isNonEmptyString(alternative?.name)) err(`${at}.alternatives_considered[${j}].name: required`);
+          if (!isNonEmptyString(alternative?.outcome)) err(`${at}.alternatives_considered[${j}].outcome: required`);
+          if (!isNonEmptyString(alternative?.reason)) err(`${at}.alternatives_considered[${j}].reason: required`);
+        }
+      }
+    }
     for (const field of ["adopted", "hold", "rejected"]) {
       if (!Array.isArray(dec[field])) err(`${at}.${field}: expected array`);
     }

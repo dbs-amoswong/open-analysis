@@ -694,6 +694,7 @@ ${
     <div class="verdict-meta">
       <span><strong>Re-review by</strong> ${esc(fmtDate(decision.expires_at))}</span>
       <span><strong>Decided</strong> ${esc(fmtDate(decision.decided_at))} by ${esc(decision.decided_by)}</span>
+      ${decision.confidence ? `<span><strong>Confidence</strong> ${esc(decision.confidence)}</span>` : ""}
       ${
         decision.status === "approved" && decision.adopted.length > 1
           ? `<span><strong>Also adopted</strong> ${decision.adopted
@@ -775,6 +776,49 @@ ${
     <p class="prose">${esc(decision?.rationale ?? "No rationale recorded.")}</p>
   </section>
 </div>
+
+${
+  decision?.criteria?.length || decision?.alternatives_considered?.length || decision?.conditions?.length
+    ? `<section class="panel">
+  <div class="panel-head"><h2>Decision basis</h2><span class="muted small">Why this decision was made and what could reopen it</span></div>
+  <div class="decision-basis">
+    ${
+      decision.criteria?.length
+        ? `<div><h3>Criteria</h3><ul class="check-list">${decision.criteria.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>`
+        : ""
+    }
+    ${
+      decision.conditions?.length
+        ? `<div><h3>Conditions</h3><ul class="caveats">${decision.conditions.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>`
+        : ""
+    }
+    ${
+      decision.unknowns?.length
+        ? `<div><h3>Unknowns</h3><ul class="muted-list">${decision.unknowns.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>`
+        : ""
+    }
+    ${
+      decision.review_triggers?.length
+        ? `<div><h3>Review triggers</h3><ul class="muted-list">${decision.review_triggers.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>`
+        : ""
+    }
+  </div>
+  ${
+    decision.alternatives_considered?.length
+      ? `<div class="table-wrap" style="margin-top:1rem"><table class="data-table">
+        <thead><tr><th>Alternative</th><th>Outcome</th><th>Why</th></tr></thead>
+        <tbody>${decision.alternatives_considered.map((alt) => `<tr><td>${esc(alt.name)}</td><td>${pill(alt.outcome, alt.outcome === "selected" ? "ok" : alt.outcome === "fallback" ? "warn" : "neutral")}</td><td>${esc(alt.reason)}</td></tr>`).join("")}</tbody>
+      </table></div>`
+      : ""
+  }
+  ${
+    decision.reversal_cost
+      ? `<p class="prose small"><strong>Reversal cost:</strong> ${esc(decision.reversal_cost)}</p>`
+      : ""
+  }
+</section>`
+    : ""
+}
 
 <section class="panel">
   <div class="panel-head"><h2>Buckets</h2><span class="muted small">Every reviewed package is classified once</span></div>

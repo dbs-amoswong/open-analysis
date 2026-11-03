@@ -893,3 +893,15 @@ p { margin: 0; }
   font-size: 0.82rem;
 }
 .eval-shortlist a span { color: var(--muted); font-size: 0.72rem; }
+.decision-basis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.decision-basis h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}

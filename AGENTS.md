@@ -8,8 +8,10 @@ changing data or automation.
 1. **Requirements are human-owned.** They define the constraints a package is
    judged against. Do not let an AI workflow invent constraints and then review
    against them silently.
-2. **Decisions are human-owned.** AI may draft `data/reviews/`, but only a human
-   writes `data/decisions/`. A review is evidence; a decision is accountability.
+2. **Decisions require an accountable owner.** AI may research, evaluate, draft and
+   record decisions when explicitly delegated. Every decision must record its
+   criteria, alternatives considered, conditions, confidence, accountable owner
+   and expiry. A review is evidence; a decision is accountability.
 3. **One JSON object per file.** The data model is record-based:
    - `data/requirements/<id>.json`
    - `data/packages/<id>.json`
@@ -62,7 +64,8 @@ requirement -> issue form -> AI draft PR -> human review -> merge
 - Spike screenshots belong in `assets/evaluations/`; spike source belongs in
   `spikes/`. Do not put generated screenshots in `dist/`.
 - Use `ai/` for scratch files. It is ignored.
-- Do not edit `data/decisions/` from an automated review.
+- Do not edit `data/decisions/` unless the decision is explicitly delegated;
+  record the delegation in `decided_by` and include the decision basis.
 - Do not edit `data/packages/` or `data/requirements/` from the review agent.
 - Do not commit `dist/`, `.env`, credentials or model keys.
 - Pin model IDs and action versions. Do not use moving aliases.
