@@ -150,6 +150,9 @@ export async function loadModel({ today = todayISO() } = {}) {
             err(`${at}.prior_versions[${j}].recommendation: invalid`);
           }
           if (!isNonEmptyString(prior.note)) err(`${at}.prior_versions[${j}].note: required`);
+          if (prior.remove_by !== undefined && !ISO_DATE.test(prior.remove_by)) {
+            err(`${at}.prior_versions[${j}].remove_by: expected YYYY-MM-DD when present`);
+          }
         }
       }
     }
@@ -469,6 +472,25 @@ export async function loadModel({ today = todayISO() } = {}) {
         detail: `Due ${view.next_review_at} (${view.days_until_review} days).`,
         href: `packages/${pkg.id}.html`,
         sort: view.days_until_review,
+      });
+    }
+  }
+
+  for (const pkg of pkgById.values()) {
+    for (const prior of pkg.prior_versions ?? []) {
+      if (!prior.remove_by) continue;
+      const daysLeft = diffDays(prior.remove_by, today);
+      if (daysLeft > 30) continue;
+      attention.push({
+        kind: "prior_version",
+        severity: daysLeft < 0 ? "overdue" : "due_soon",
+        title: `Prior version must be removed: ${pkg.name} ${prior.version}`,
+        detail:
+          daysLeft < 0
+            ? `Removal deadline was ${prior.remove_by} (${Math.abs(daysLeft)} days ago).`
+            : `Remove by ${prior.remove_by} (${daysLeft} days).`,
+        href: `packages/${pkg.id}.html`,
+        sort: daysLeft,
       });
     }
   }

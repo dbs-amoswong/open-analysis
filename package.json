@@ -10,6 +10,7 @@
     "validate": "node scripts/validate.mjs",
     "check": "node scripts/test-pipeline.mjs && node scripts/check.mjs",
     "test:pipeline": "node scripts/test-pipeline.mjs",
+    "audit:lockfile": "node scripts/audit-lockfile.mjs",
     "serve": "node scripts/serve.mjs",
     "review:prepare": "node scripts/prepare-request.mjs",
     "review:collect": "node scripts/collect.mjs",

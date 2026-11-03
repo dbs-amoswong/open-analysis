@@ -41,6 +41,7 @@
       "version": "2.19.2",
       "published_at": "2025-11-17",
       "recommendation": "replace",
+      "remove_by": "2026-11-17",
       "note": "Deprecated v2 bridge for the existing application. Pin 2.19.2 with compatible 2.x plugins and record the no-provenance gap. The 12-month maintenance window closes on 2026-11-17, so remove v2 by that date or record a new time-boxed exception. Do not mix 2.x plugins with v3."
     }
   ]

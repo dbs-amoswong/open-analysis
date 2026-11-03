@@ -10,6 +10,7 @@ npm run dev       # rebuild on change + serve at http://localhost:4173
 npm run validate  # data checks only
 npm run check     # pipeline test + data + links + allowlist
 npm run serve     # serve the existing dist/
+npm run audit:lockfile -- /path/to/app/package-lock.json  # check reviewed packages and parents
 ```
 
 Open `dist/index.html`, or run `npm run dev`.
@@ -104,6 +105,7 @@ scripts/
   build.mjs              data → dist/
   dev.mjs                watch + rebuild + serve
   check.mjs              data + link integrity
+  audit-lockfile.mjs     find reviewed packages, versions and parents in an app lockfile
   serve.mjs              zero-dependency static server
   validate.mjs           data validation CLI
   migrate-data.mjs       one-time array → per-record migration (npm run migrate:data)
@@ -168,7 +170,7 @@ Facts about the artifact, not opinions.
 | `signed_release` | optional; `true` when release artifacts carry Sigstore signatures |
 | `provenance_note` | optional explanation shown on the package page |
 | `build_vs_buy` | optional; `scope`, `difficulty`, `commodity`, `integration` (1–5), `effort`, `rationale`; score and verdict are derived. Packages ingested automatically stay unrated until a reviewer adds it |
-| `prior_versions` | optional list of earlier versions with `version`, `published_at`, `recommendation`, `note` |
+| `prior_versions` | optional list of earlier versions with `version`, `published_at`, `recommendation`, `note`, and optional `remove_by` to surface a removal deadline in Needs attention |
 | `notes` | one or two sentences of context |
 
 Licence category is derived from the SPDX string, not stored by hand: permissive (MIT, ISC, BSD, Apache-2.0, 0BSD), weak copyleft (MPL, LGPL), strong copyleft (GPL, AGPL), and proprietary (`SEE LICENSE IN …`, unlicensed, commercial). A dual licence is classified by its most permissive arm, because that is the arm you can choose. An SPDX exception such as `Apache-2.0 WITH LLVM-exception` keeps the permissive category of its base licence; the exception only removes permissions, it does not add copyleft obligations.
@@ -216,7 +218,7 @@ Each evidence item:
 
 `status` is `pass` · `warn` · `fail` · `info`. Reuse these keys so the comparison table stays meaningful: `publish_pipeline`, `provenance`, `cve`, `maintenance`, `dependencies`, `types`, `behaviour`, `license`.
 
-Reviews are **version-scoped**. Every review records the exact `reviewed_version`; the package page shows the current latest separately and flags drift. An older version that differs materially gets a `prior_versions` entry with its own verdict and note instead of silently inheriting the latest verdict. If the difference is large enough to need new evidence, model it as a separate package entry.
+Reviews are **version-scoped**. Every review records the exact `reviewed_version`; the package page shows the current latest separately and flags drift. An older version that differs materially gets a `prior_versions` entry with its own verdict and note instead of silently inheriting the latest verdict. A bridge version can also carry `remove_by`; a deadline inside 30 days appears in **Needs attention**. If the difference is large enough to need new evidence, model it as a separate package entry.
 
 ### `data/decisions/<id>.json`
 
@@ -324,6 +326,21 @@ Nothing is hardcoded as "current". On every build:
 With the seeded 180-day cadence, the current review is due **18 Apr 2027**. On 19 Apr 2027 the site will show it as overdue without anyone editing a file.
 
 ---
+
+## Auditing an application lockfile
+
+`npm run audit:lockfile -- /path/to/app/package-lock.json` reports the reviewed
+HTTP and graph packages that actually resolve, the versions, whether they are
+dev/optional/peer, and which package declares them. Pass package names to narrow
+it, or `--json` for a machine-readable report:
+
+```bash
+npm run audit:lockfile -- ../app/package-lock.json axios protobufjs @antv/x6
+npm run audit:lockfile -- ../app/package-lock.json --json > ai/lockfile-audit.json
+```
+
+Use it to close the HTTP parent-chain holds and to check the X6 v2 bridge before
+the 17 Nov 2026 removal deadline.
 
 ## Adding a review
 

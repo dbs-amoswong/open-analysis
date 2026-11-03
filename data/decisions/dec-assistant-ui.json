@@ -61,7 +61,8 @@
     "No local browser spike was run for assistant-ui; the evidence is static tree, bundle and pipeline measurement.",
     "The 0.x API surface changes frequently; exact pins and deliberate upgrades are required.",
     "assistant-cloud is MIT and opt-in, but using the hosted service would be a separate commercial decision.",
-    "The full 183-package install footprint is large even though bundlers discard source and source maps."
+    "The full 183-package install footprint is large even though bundlers discard source and source maps.",
+    "The latest patches at audit time were @assistant-ui/react 0.15.32 and @assistant-ui/core 0.3.32; the decision pins the reviewed 0.15.31 and 0.3.31 until a patch re-review."
   ],
   "reversal_cost": "Moderate: the chat surface is a bounded UI layer, but replacing it means rebuilding thread, composer and markdown integration.",
   "review_triggers": [
@@ -69,6 +70,7 @@
     "A new advisory or install script appears anywhere in the tree.",
     "The OIDC publish pipeline or provenance attestations change.",
     "The suite enables telemetry or a default network call.",
+    "A patch release changes peer ranges, telemetry or the install-script tree.",
     "A 1.0 release or a maintained competitor makes the 0.x churn unacceptable."
   ]
 }
