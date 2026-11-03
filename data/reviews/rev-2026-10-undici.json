@@ -8,7 +8,7 @@
   "recommendation": "hold",
   "risk": "medium",
   "score": 76,
-  "summary": "undici 8.12.3 is a well-maintained, zero-dependency package with npm provenance, bundled types and no recorded advisories, but it is Node-only and CJS-only. The Firebase 13.2.0 tree does not contain it, so its parent chain in the actual application is still unverified; it is held rather than adopted for a requirement that needs browser and Node support through the existing axios stack.",
+  "summary": "Package-level undici 8.12.3 is healthy: MIT, zero dependencies, npm provenance, bundled types, active and no recorded advisories. The hold is a fit decision for req-http-request, not a safety finding: it is Node-only and CJS-only, and the Firebase 13.2.0 tree does not contain it. Review it against a Node-only HTTP requirement if one exists.",
   "reasoning": [
     "8.12.3 was published on 2026-10-19, nine days before this review, and the repository was pushed to on 2026-10-28; the package has 315 published versions, so it is under active maintenance.",
     "The dossier records 201,797,163 weekly downloads, which reflects extremely broad production use and therefore heavy external scrutiny of the code path.",

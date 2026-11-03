@@ -8,7 +8,7 @@
   "recommendation": "hold",
   "risk": "medium",
   "score": 76,
-  "summary": "Clean, tiny and well-adopted browser cookie helper — zero dependencies, MIT, no install scripts, no recorded advisories and SLSA provenance on 3.0.8 — but the dossier contains no CI publish facts, no bundled types and no evidence of Node support. The Firebase 13.2.0 tree does not contain it, so it cannot yet be adopted into this stack without a verified parent chain or a concrete direct need.",
+  "summary": "Package-level js-cookie 3.0.8 is healthy: MIT, zero dependencies, SLSA provenance, active and no recorded advisories or install scripts. The hold is a fit decision: it is a browser-only cookie helper with no bundled types and no Node evidence, and the Firebase 13.2.0 tree does not contain it. Review it against a browser-cookie requirement if one exists.",
   "reasoning": [
     "3.0.8 (published 2026-05-29) carries an npm provenance attestation, so the registry tarball is tied to a builder and a source repository rather than published opaquely.",
     "The dependency and install surface is minimal: 0 runtime dependencies, no preinstall/install/postinstall scripts, 25 KB unpacked.",

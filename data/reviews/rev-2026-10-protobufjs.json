@@ -8,7 +8,7 @@
   "recommendation": "hold",
   "risk": "low",
   "score": 74,
-  "summary": "protobufjs 8.8.1 is a healthy, provenance-published protobuf codec, but it supplies none of the HTTP request, interceptor, retry or cookie behaviour this requirement is about. Firebase 13.2.0 resolves protobufjs 7.6.6 through @grpc/proto-loader, not the reviewed 8.8.1, so it stays on hold as a monitored transitive rather than being added to the HTTP request allowlist.",
+  "summary": "Package-level protobufjs 8.8.1 is healthy: BSD-3-Clause, npm provenance, active and no recorded advisories. The hold is a fit decision: it is a protobuf codec, not an HTTP client. Firebase 13.2.0 resolves protobufjs 7.6.6 through @grpc/proto-loader, not the reviewed 8.8.1, so review 7.6.6 separately if protobuf handling becomes in scope.",
   "reasoning": [
     "Purpose mismatch is the decisive factor: req-http-request covers making HTTP requests from browser and Node with interceptors, global configuration, mocking and cookie handling, while the dossier describes protobufjs only as a message serialisation library. Nothing in the measured facts shows request dispatch, interceptor support, retry logic or cookie handling.",
     "The requirement notes call this a monitoring batch for the axios dependency stack and ask for comparison by role. The dossier records a single runtime dependency on long ^5.3.2 and lists no link, peer relationship or shared maintainer with axios, follow-redirects, undici, fast-uri, js-cookie or cookie. A 2026-11-04 install of firebase@13.2.0 resolves protobufjs 7.6.6 through @grpc/proto-loader, so the package is a verified Firebase transitive, but not at the reviewed 8.8.1 version.",

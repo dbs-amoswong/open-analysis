@@ -8,7 +8,7 @@
   "recommendation": "hold",
   "risk": "low",
   "score": 78,
-  "summary": "Clean supply chain on 4.2.3 - zero dependencies, npm provenance, six Fastify maintainers, no recorded advisories and no install scripts - but it is a URI handling utility with only a CommonJS build and no HTTP request, interceptor or cookie capability. The Firebase 13.2.0 tree does not contain it, so hold it as a transitive candidate whose parent chain is unverified rather than adopting it for this requirement.",
+  "summary": "Package-level fast-uri 4.2.3 is healthy: BSD-3-Clause, zero dependencies, npm provenance, six Fastify maintainers, active and no recorded advisories or install scripts. The hold is a fit decision: it is a URI utility, not an HTTP client, and the Firebase 13.2.0 tree does not contain it. Review it against a URI-parsing requirement if one exists.",
   "reasoning": [
     "No hard failure applies: 4.2.3 has no recorded advisories, the package is actively released (2026-10-19, repository pushed the same day, 4 open issues), it declares no install scripts, and npm_provenance is true, which requires a CI builder.",
     "Security posture is clean on the evidence available: the dossier records zero vulnerabilities for 4.2.3 and zero runtime dependencies, so the package adds no transitive advisory surface to the monitored stack.",

@@ -8,7 +8,7 @@
   "recommendation": "hold",
   "risk": "medium",
   "score": 74,
-  "summary": "Clean, zero-dependency, provenance-signed cookie header parser/serialiser, but no axios edge is recorded and the Firebase 13.2.0 tree does not contain it. It is ESM-only with engines node >=22, it ships no types, and its publish workflow was not measured, so it should stay on hold rather than be adopted into the stack.",
+  "summary": "Package-level cookie 2.0.1 is healthy: MIT, zero dependencies, npm provenance, active and no recorded advisories or install scripts. The hold is a fit decision: it is a cookie header parser/serialiser, ESM-only with Node >=22 and no bundled types, and the Firebase 13.2.0 tree does not contain it. Review it against a server-cookie requirement if one exists.",
   "reasoning": [
     "cookie@2.0.1 parses and serialises Cookie/Set-Cookie headers; it is not an HTTP client. The dossier records no direct or peer dependency relationship with axios, and a 2026-11-04 install of firebase@13.2.0 does not contain cookie, so it only earns a direct place in this requirement for an explicit server-side cookie-handling need.",
     "Security posture is clean on the recorded facts: the vulnerabilities list is empty, there are no install scripts, the licence is MIT and the npm tarball carries a provenance attestation.",
