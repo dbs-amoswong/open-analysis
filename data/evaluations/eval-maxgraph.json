@@ -9,11 +9,12 @@
   "license": "Apache-2.0",
   "maintenance": "Active; 0.x",
   "published_at": "2026-10-21",
-  "summary": "The strongest open-source, permissive, framework-agnostic editing alternative. The spike rendered and batch-inserted the same graph with zero runtime dependencies. It is a rewrite, not a drop-in, and is still pre-1.0.",
+  "summary": "The strongest open-source, permissive, framework-agnostic editing alternative. maxGraph is the successor to mxGraph, the library behind draw.io, and our spike rendered and batch-inserted the same graph with zero runtime dependencies. It is a rewrite, not a drop-in, and is still pre-1.0.",
   "gains": [
     "Apache-2.0",
     "Zero runtime dependencies",
     "npm provenance present",
+    "Successor to mxGraph, the library behind draw.io",
     "Full diagram editing, layouts, undo/redo and custom shapes",
     "Framework-agnostic"
   ],

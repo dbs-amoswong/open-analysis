@@ -1,0 +1,59 @@
+{
+  "id": "eval-diagram-js",
+  "requirement_id": "req-graph-editor",
+  "name": "diagram-js",
+  "version": "15.28.1",
+  "kind": "library",
+  "verdict": "candidate",
+  "fit_score": 82,
+  "license": "MIT",
+  "maintenance": "Active",
+  "published_at": "2026-10-07",
+  "summary": "The modeling toolkit behind bpmn-js and Camunda Modeler. It has a production-proven command stack, selection, palette, context pad, outline, keyboard and modeling architecture. It is a modeler framework rather than a ready-made draw.io shape library: you supply the shapes and rules.",
+  "gains": [
+    "MIT",
+    "Active",
+    "Used by bpmn-js and Camunda Modeler",
+    "Strong command/undo and editor architecture",
+    "558k weekly downloads"
+  ],
+  "losses": [
+    "Not a general shape/stencil library out of the box",
+    "BPMN/modeler orientation",
+    "Custom shape/rule work",
+    "No local spike yet"
+  ],
+  "features": {
+    "general_editing": "custom",
+    "ports": "custom",
+    "undo_redo": "native",
+    "clipboard": "custom",
+    "stencil": "custom",
+    "snaplines": "unknown",
+    "minimap": "none",
+    "export": "custom",
+    "layouts": "none",
+    "custom_nodes": "custom",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "not-spiked",
+    "tested_at": "2026-11-04",
+    "scenario": "Documented ecosystem analysis; no local browser spike.",
+    "notes": "No screenshot. The assessment is based on the project documentation, public adoption and package metadata."
+  },
+  "sources": [
+    {
+      "label": "diagram-js@15.28.1",
+      "url": "https://www.npmjs.com/package/diagram-js/v/15.28.1"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/bpmn-io/diagram-js"
+    },
+    {
+      "label": "bpmn-js",
+      "url": "https://bpmn.io/toolkit/bpmn-js/"
+    }
+  ]
+}

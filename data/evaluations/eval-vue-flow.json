@@ -1,0 +1,62 @@
+{
+  "id": "eval-vue-flow",
+  "requirement_id": "req-graph-editor",
+  "name": "Vue Flow",
+  "version": "1.48.2",
+  "kind": "library",
+  "verdict": "reject",
+  "fit_score": 68,
+  "license": "MIT",
+  "maintenance": "Active",
+  "published_at": "2026-01-28",
+  "summary": "The Vue counterpart to React Flow. It is used by n8n for workflow editing and is excellent for Vue node/flow editors, but it is framework-specific and not a general diagram editor.",
+  "gains": [
+    "MIT",
+    "Active",
+    "Used by n8n",
+    "Good Vue node/flow integration"
+  ],
+  "losses": [
+    "Vue-only",
+    "Node/flow editor, not a general diagram editor",
+    "No built-in general layouts/stencil",
+    "Framework migration required"
+  ],
+  "blockers": [
+    "Vue-only.",
+    "Node/flow editor, not a general diagram editor."
+  ],
+  "features": {
+    "general_editing": "custom",
+    "ports": "custom",
+    "undo_redo": "custom",
+    "clipboard": "custom",
+    "stencil": "custom",
+    "snaplines": "custom",
+    "minimap": "native",
+    "export": "custom",
+    "layouts": "none",
+    "custom_nodes": "native",
+    "framework_independent": "none"
+  },
+  "spike": {
+    "status": "not-spiked",
+    "tested_at": "2026-11-04",
+    "scenario": "Documented ecosystem analysis; no local browser spike.",
+    "notes": "Not spiked because the existing application and new-project framing are not committed to Vue."
+  },
+  "sources": [
+    {
+      "label": "@vue-flow/core@1.48.2",
+      "url": "https://www.npmjs.com/package/@vue-flow/core/v/1.48.2"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/bcakmakoglu/vue-flow"
+    },
+    {
+      "label": "n8n usage",
+      "url": "https://github.com/n8n-io/n8n"
+    }
+  ]
+}

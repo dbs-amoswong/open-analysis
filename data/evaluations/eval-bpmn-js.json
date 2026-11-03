@@ -1,0 +1,58 @@
+{
+  "id": "eval-bpmn-js",
+  "requirement_id": "req-graph-editor",
+  "name": "bpmn-js",
+  "version": "18.31.1",
+  "kind": "library",
+  "verdict": "reject",
+  "fit_score": 50,
+  "license": "MIT with bpmn.io watermark",
+  "maintenance": "Active",
+  "published_at": "2026-10-21",
+  "summary": "A production BPMN 2.0 modeler built on diagram-js and used by Camunda/bpmn.io. It is excellent when the model is BPMN, but it is not a general draw.io-style editor, and the licence includes a bpmn.io watermark clause.",
+  "gains": [
+    "BPMN 2.0 modeler",
+    "Camunda/bpmn.io adoption",
+    "Active",
+    "Strong process-modeling UI"
+  ],
+  "losses": [
+    "BPMN-specific",
+    "Not a general diagram editor",
+    "Watermark clause",
+    "Customizing beyond BPMN is high effort"
+  ],
+  "blockers": [
+    "BPMN-specific editor, not a general diagram editor.",
+    "bpmn.io watermark licence clause."
+  ],
+  "features": {
+    "general_editing": "custom",
+    "ports": "custom",
+    "undo_redo": "native",
+    "clipboard": "native",
+    "stencil": "custom",
+    "snaplines": "unknown",
+    "minimap": "none",
+    "export": "custom",
+    "layouts": "native",
+    "custom_nodes": "custom",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "not-spiked",
+    "tested_at": "2026-11-04",
+    "scenario": "Documented ecosystem analysis; no local browser spike.",
+    "notes": "Not spiked as a general editor: BPMN-only and watermark clause. Use bpmn-js only for BPMN/process modeling."
+  },
+  "sources": [
+    {
+      "label": "bpmn-js@18.31.1",
+      "url": "https://www.npmjs.com/package/bpmn-js/v/18.31.1"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/bpmn-io/bpmn-js"
+    }
+  ]
+}

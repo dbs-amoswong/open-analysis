@@ -1,0 +1,58 @@
+{
+  "id": "eval-excalidraw",
+  "requirement_id": "req-graph-editor",
+  "name": "Excalidraw",
+  "version": "0.18.1",
+  "kind": "reference",
+  "verdict": "reject",
+  "fit_score": 45,
+  "license": "MIT",
+  "maintenance": "Active",
+  "published_at": "2026-04-20",
+  "summary": "A React whiteboard, not a graph editor. It is excellent for freeform sketching and diagram-like collaboration, but it has no graph model, ports, edge routing, stencils or model-based editing.",
+  "gains": [
+    "MIT",
+    "Active",
+    "Large adoption",
+    "Great freeform whiteboard UX"
+  ],
+  "losses": [
+    "React-only",
+    "Whiteboard, not a graph editor",
+    "No graph model/ports/edge routing",
+    "Not a draw.io-style editor"
+  ],
+  "blockers": [
+    "React-only whiteboard.",
+    "Does not provide a graph/editor model."
+  ],
+  "features": {
+    "general_editing": "none",
+    "ports": "none",
+    "undo_redo": "native",
+    "clipboard": "native",
+    "stencil": "custom",
+    "snaplines": "none",
+    "minimap": "none",
+    "export": "native",
+    "layouts": "none",
+    "custom_nodes": "custom",
+    "framework_independent": "none"
+  },
+  "spike": {
+    "status": "not-spiked",
+    "tested_at": "2026-11-04",
+    "scenario": "Documented ecosystem analysis; no local browser spike.",
+    "notes": "Reference only: freeform whiteboard, not a graph/model editor."
+  },
+  "sources": [
+    {
+      "label": "@excalidraw/excalidraw@0.18.1",
+      "url": "https://www.npmjs.com/package/@excalidraw/excalidraw/v/0.18.1"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/excalidraw/excalidraw"
+    }
+  ]
+}
