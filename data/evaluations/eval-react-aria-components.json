@@ -1,0 +1,40 @@
+{
+  "id": "eval-react-aria-components",
+  "requirement_id": "req-react-ui-primitives",
+  "name": "React Aria Components",
+  "version": "1.22.1",
+  "kind": "stack",
+  "verdict": "retain",
+  "fit_score": 90,
+  "license": "Apache-2.0",
+  "summary": "The broadest accessible primitive set. React 19 dialog spike passed with role=dialog, an accessible label and focus inside; 277.23 KB / 88.22 KB gzip. The costs are a 68 MB install with React and no npm provenance.",
+  "gains": [
+    "Broadest component and hook coverage",
+    "Strong keyboard, focus and screen-reader behaviour",
+    "Internationalization and collections",
+    "Tables, date/time and drag-and-drop",
+    "No required CSS-in-JS runtime",
+    "Active Apache-2.0 project"
+  ],
+  "losses": [
+    "About 68 MB installed with React 19",
+    "No npm provenance",
+    "More verbose composition than copy-paste systems",
+    "Only the dialog primitive was spiked"
+  ],
+  "blockers": [],
+  "features": {},
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "Dialog, React 19.2.0, plain CSS, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": { "mount_ms": 124, "bundle_kb": 277.23, "gzip_kb": 88.22 },
+    "screenshot": "react-aria.png",
+    "code_path": "spikes/react-aria/src/main.jsx",
+    "notes": "role=dialog, labelledby present, focus inside the dialog. aria-modal was not observed on the role=dialog element in this simple composition."
+  },
+  "sources": [
+    { "label": "npm package", "url": "https://www.npmjs.com/package/react-aria-components/v/1.22.1" },
+    { "label": "spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/react-aria/src/main.jsx" }
+  ]
+}

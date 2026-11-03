@@ -1,0 +1,99 @@
+{
+  "id": "rev-2026-11-react-aria",
+  "package_id": "pkg-react-aria",
+  "requirement_id": "req-react-ui-primitives",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "3.53.1",
+  "reviewer": "opencode-review",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 88,
+  "summary": "The lower-level accessibility hooks beneath React Aria Components. Apache-2.0, active, React 18/19 compatible, and useful when the component layer is too opinionated. It has the same no-provenance gap and a large install footprint.",
+  "reasoning": [
+    "Active release line: 3.53.1 published 2026-10-09, released with react-aria-components 1.22.1.",
+    "Peers React 16.8-19; the component spike exercised this hook layer through React Aria Components.",
+    "Apache-2.0 with a permissive tree.",
+    "Provides the accessibility behaviour for custom primitives: focus, press, keyboard, overlays, collections, selection and internationalization.",
+    "No install scripts and no recorded OSV advisories.",
+    "No npm provenance; pin 3.53.1 exactly and record the gap.",
+    "About 58 MB installed with React 19; use it only when the component layer cannot express the needed primitive."
+  ],
+  "caveats": [
+    "No npm provenance.",
+    "Large install footprint (about 58 MB with React 19).",
+    "React Aria Components already includes this layer; do not add both unless you are writing custom primitives.",
+    "Hooks are lower-level and require more accessibility knowledge than the component APIs.",
+    "No separate spike for a custom hook-only primitive; the component spike exercised the same runtime."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "Apache-2.0; the isolated tree is permissive.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/react-aria" }
+      ]
+    },
+    {
+      "key": "react_peer",
+      "label": "React compatibility",
+      "status": "pass",
+      "detail": "peerDependencies react/react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1. The component spike used React 19.2.0.",
+      "sources": [
+        { "label": "npm package", "url": "https://www.npmjs.com/package/react-aria/v/3.53.1" }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "9 runtime dependencies; about 58 MB installed with React 19; 15.4 MB unpacked.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/react-aria" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script in the isolated tree."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories for 3.53.1.",
+      "sources": [
+        { "label": "OSV", "url": "https://osv.dev/" }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "3.53.1 published 2026-10-09; repository pushed 2026-11-03.",
+      "sources": [
+        { "label": "GitHub repository", "url": "https://github.com/adobe/react-spectrum" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "warn",
+      "detail": "No npm attestation for 3.53.1; published from the Adobe npm account."
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour",
+      "status": "pass",
+      "detail": "Exercised through react-aria-components 1.22.1 in the dialog spike; the dialog opened with an accessible label and focus inside."
+    }
+  ]
+}

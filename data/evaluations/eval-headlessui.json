@@ -1,0 +1,38 @@
+{
+  "id": "eval-headlessui",
+  "requirement_id": "req-react-ui-primitives",
+  "name": "Headless UI",
+  "version": "2.2.10",
+  "kind": "library",
+  "verdict": "candidate",
+  "fit_score": 74,
+  "license": "MIT",
+  "summary": "Clean MIT headless components with good dialog ergonomics and aria-modal=true in the spike, but a narrower catalogue and about 63 MB installed with React.",
+  "gains": [
+    "MIT and npm attestation",
+    "React 18/19",
+    "Good dialog/menu/listbox ergonomics",
+    "aria-modal=true in the dialog spike",
+    "Tailwind-friendly"
+  ],
+  "losses": [
+    "Narrower component catalogue",
+    "About 63 MB installed with React",
+    "Provenance is from a personal npm account, not OIDC"
+  ],
+  "blockers": [],
+  "features": {},
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "Dialog, React 19.2.0, plain CSS, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": { "mount_ms": 123, "bundle_kb": 239.38, "gzip_kb": 76.76 },
+    "screenshot": "headlessui.png",
+    "code_path": "spikes/headlessui/src/main.jsx",
+    "notes": "role=dialog, aria-modal=true, labelledby and describedby present, focus inside the dialog."
+  },
+  "sources": [
+    { "label": "npm package", "url": "https://www.npmjs.com/package/@headlessui/react/v/2.2.10" },
+    { "label": "spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/headlessui/src/main.jsx" }
+  ]
+}

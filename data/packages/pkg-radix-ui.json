@@ -1,0 +1,19 @@
+{
+  "id": "pkg-radix-ui",
+  "name": "radix-ui",
+  "ecosystem": "npm",
+  "latest_version": "1.8.1",
+  "published_at": "2026-10-12",
+  "repo": "https://github.com/radix-ui/primitives",
+  "registry": "https://www.npmjs.com/package/radix-ui",
+  "license": "MIT",
+  "weekly_downloads": 25631705,
+  "runtime_deps": 55,
+  "install_size_kb": 16384,
+  "unpacked_size_kb": 103,
+  "maintainers": ["chancestrickland", "mark-workos"],
+  "types": "bundled",
+  "formats": ["cjs", "esm"],
+  "notes": "Unified entry point for Radix Primitives. MIT, React 16.8-19, provenance-signed. It lists 55 primitive packages as dependencies and installs about 16 MB; individual @radix-ui/react-* packages are smaller if only a few primitives are needed.",
+  "npm_provenance": true
+}

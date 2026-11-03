@@ -1,0 +1,40 @@
+{
+  "id": "eval-radix-ui",
+  "requirement_id": "req-react-ui-primitives",
+  "name": "Radix UI",
+  "version": "1.8.1",
+  "kind": "library",
+  "verdict": "candidate",
+  "fit_score": 78,
+  "license": "MIT",
+  "summary": "Mature, provenance-signed primitives and the smallest dialog bundle (235.03 KB / 74.66 KB gzip). Held because the unified package installs 76 packages and complex table/date-time coverage is narrower.",
+  "gains": [
+    "Mature and widely adopted",
+    "MIT and npm provenance",
+    "Smallest dialog bundle in the batch",
+    "Excellent dialog/menu/popover primitives",
+    "React 16.8-19"
+  ],
+  "losses": [
+    "Unified package installs 76 packages",
+    "Narrower complex-widget coverage",
+    "Only the dialog primitive was spiked"
+  ],
+  "blockers": [
+    "Use individual @radix-ui/react-* packages if Radix is chosen; the unified package is a large install."
+  ],
+  "features": {},
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "Dialog, React 19.2.0, plain CSS, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": { "mount_ms": 110, "bundle_kb": 235.03, "gzip_kb": 74.66 },
+    "screenshot": "radix-ui.png",
+    "code_path": "spikes/radix-ui/src/main.jsx",
+    "notes": "role=dialog, labelledby and describedby present, focus inside the dialog. aria-modal was not observed on the role=dialog element."
+  },
+  "sources": [
+    { "label": "npm package", "url": "https://www.npmjs.com/package/radix-ui/v/1.8.1" },
+    { "label": "spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/radix-ui/src/main.jsx" }
+  ]
+}

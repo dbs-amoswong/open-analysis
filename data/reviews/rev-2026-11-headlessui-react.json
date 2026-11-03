@@ -1,0 +1,105 @@
+{
+  "id": "rev-2026-11-headlessui-react",
+  "package_id": "pkg-headlessui-react",
+  "requirement_id": "req-react-ui-primitives",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "2.2.10",
+  "reviewer": "opencode-review",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 74,
+  "summary": "Clean, MIT, provenance-signed headless components with good dialog/menu/listbox ergonomics, but a narrower component set than React Aria or Base UI and a surprisingly large install (about 63 MB with React 19). Hold it for simple Tailwind-style overlays; use React Aria for a broader foundation.",
+  "reasoning": [
+    "Active release line: 2.2.10 published 2026-04-07; repository pushed 2026-04-13; 28.8k stars and 122 open issues.",
+    "Peers React 18 and 19.",
+    "MIT with a permissive tree; no required CSS runtime.",
+    "An npm attestation is present, but the publisher is a personal npm account rather than a trusted OIDC publisher.",
+    "No install scripts and no recorded OSV advisories.",
+    "The React 19 dialog spike opened with role=dialog and aria-modal=true, and moved focus inside.",
+    "The bundle was 239.38 KB / 76.76 KB gzip, but the install is about 63 MB with React 19.",
+    "The component set is narrower: dialogs, menus, listboxes, comboboxes, tabs, disclosures and form controls, without the broader table/date/time/drag-and-drop coverage of React Aria."
+  ],
+  "caveats": [
+    "Narrower component catalogue.",
+    "Install footprint is about 63 MB with React 19.",
+    "Provenance is present but not from an OIDC trusted publisher.",
+    "Good fit for Tailwind-based simple overlays, not for a broad greenfield design-system foundation."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT; the isolated tree is MIT, Apache-2.0 and 0BSD only.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@headlessui%2Freact" }
+      ]
+    },
+    {
+      "key": "react_peer",
+      "label": "React compatibility",
+      "status": "pass",
+      "detail": "peerDependencies react/react-dom: ^18 || ^19. The spike used React 19.2.0."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "5 runtime dependencies including React Aria focus/interactions; about 63 MB installed with React 19; 994 KB unpacked.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@headlessui%2Freact" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script in the isolated tree."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories for 2.2.10.",
+      "sources": [
+        { "label": "OSV", "url": "https://osv.dev/" }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "2.2.10 published 2026-04-07; repository pushed 2026-04-13; active.",
+      "sources": [
+        { "label": "GitHub repository", "url": "https://github.com/tailwindlabs/headlessui" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "warn",
+      "detail": "An npm attestation is present for 2.2.10, but the publisher is a personal npm account rather than a trusted OIDC publisher."
+    },
+    {
+      "key": "behaviour",
+      "label": "React browser spike",
+      "status": "pass",
+      "detail": "A Vite production build rendered an open dialog in Chrome 1200x800 with role=dialog, aria-modal=true and focus inside. The JS bundle was 239.38 KB / 76.76 KB gzip including React 19.",
+      "sources": [
+        { "label": "Spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/headlessui/src/main.jsx" }
+      ]
+    },
+    {
+      "key": "coverage",
+      "label": "Component coverage",
+      "status": "warn",
+      "detail": "Narrower than React Aria: no broad table, date/time, drag-and-drop or internationalized collection layer."
+    }
+  ]
+}

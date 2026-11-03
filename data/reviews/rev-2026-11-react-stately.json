@@ -1,0 +1,85 @@
+{
+  "id": "rev-2026-11-react-stately",
+  "package_id": "pkg-react-stately",
+  "requirement_id": "req-react-ui-primitives",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "3.51.0",
+  "reviewer": "opencode-review",
+  "recommendation": "adopt",
+  "risk": "low",
+  "score": 88,
+  "summary": "The state layer beneath React Aria. Apache-2.0, active, React 18/19 compatible and required by react-aria and react-aria-components. It ships as a normal runtime dependency rather than an application import.",
+  "reasoning": [
+    "Active release line: 3.51.0 published 2026-10-08, released with react-aria 3.53.1.",
+    "Peers React 16.8-19.",
+    "Apache-2.0 with a permissive tree.",
+    "Provides selection, overlay, collection, table, date and form state for the React Aria hooks and components.",
+    "No install scripts and no recorded OSV advisories.",
+    "No npm provenance; pin 3.51.0 exactly and record the gap.",
+    "Arrives automatically with react-aria-components; do not add it as a direct dependency unless using the hooks directly."
+  ],
+  "caveats": [
+    "No npm provenance.",
+    "Required runtime, not an application-facing API surface in most apps.",
+    "No separate spike; exercised through react-aria-components."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "Apache-2.0; the isolated tree is permissive.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/react-stately" }
+      ]
+    },
+    {
+      "key": "react_peer",
+      "label": "React compatibility",
+      "status": "pass",
+      "detail": "peerDependencies react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "6 runtime dependencies; about 14 MB installed with React 19; 5.8 MB unpacked.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/react-stately" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script in the isolated tree."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories for 3.51.0."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "3.51.0 published 2026-10-08; repository pushed 2026-11-03.",
+      "sources": [
+        { "label": "GitHub repository", "url": "https://github.com/adobe/react-spectrum" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "warn",
+      "detail": "No npm attestation for 3.51.0; published from the Adobe npm account."
+    }
+  ]
+}

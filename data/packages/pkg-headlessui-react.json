@@ -1,0 +1,19 @@
+{
+  "id": "pkg-headlessui-react",
+  "name": "@headlessui/react",
+  "ecosystem": "npm",
+  "latest_version": "2.2.10",
+  "published_at": "2026-04-07",
+  "repo": "https://github.com/tailwindlabs/headlessui",
+  "registry": "https://www.npmjs.com/package/@headlessui/react",
+  "license": "MIT",
+  "weekly_downloads": 9717744,
+  "runtime_deps": 5,
+  "install_size_kb": 64512,
+  "unpacked_size_kb": 994,
+  "maintainers": ["reinink", "adamwathan", "malfaitrobin"],
+  "types": "bundled",
+  "formats": ["cjs", "esm"],
+  "notes": "Tailwind Labs' headless components for dialogs, menus, listboxes, comboboxes, tabs and form controls. MIT, React 18/19, active. The component set is narrower than React Aria or Base UI; it depends on React Aria focus/interactions packages.",
+  "npm_provenance": true
+}

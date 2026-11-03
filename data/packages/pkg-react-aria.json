@@ -1,0 +1,20 @@
+{
+  "id": "pkg-react-aria",
+  "name": "react-aria",
+  "ecosystem": "npm",
+  "latest_version": "3.53.1",
+  "published_at": "2026-10-09",
+  "repo": "https://github.com/adobe/react-spectrum",
+  "registry": "https://www.npmjs.com/package/react-aria",
+  "license": "Apache-2.0",
+  "weekly_downloads": 15512631,
+  "runtime_deps": 9,
+  "install_size_kb": 59392,
+  "unpacked_size_kb": 15378,
+  "maintainers": ["devongovett", "aspro83"],
+  "types": "bundled",
+  "formats": ["cjs", "esm"],
+  "notes": "The lower-level accessibility hooks beneath React Aria Components. Use it for custom primitives when the component layer is too opinionated. Installs about 58 MB with React 19.",
+  "npm_provenance": false,
+  "provenance_note": "No npm attestation was found; published from the Adobe npm account."
+}

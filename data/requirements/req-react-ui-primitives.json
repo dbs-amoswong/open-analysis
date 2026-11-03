@@ -1,0 +1,31 @@
+{
+  "id": "req-react-ui-primitives",
+  "slug": "react-ui-primitives",
+  "title": "Accessible React UI primitives",
+  "summary": "Build accessible, themeable React interfaces from unstyled primitives: dialogs, menus, popovers, tabs, forms, tables, date/time and drag-and-drop. Compare React Aria, Base UI, Radix, Headless UI, Ark UI and Ariakit; styled design systems are reference alternatives.",
+  "owner": "frontend-platform",
+  "criticality": "high",
+  "status": "active",
+  "created_at": "2026-11-04",
+  "review_cadence_days": 180,
+  "constraints": [
+    "Permissive license across the full dependency tree",
+    "React 18 and 19 supported",
+    "Accessible primitives with keyboard, focus management and ARIA semantics",
+    "Unstyled or minimally styled primitives; no required CSS-in-JS runtime",
+    "Actively maintained: a release within 12 months",
+    "No unfixed high or critical advisories",
+    "No install scripts in the dependency tree",
+    "Client-only rendering is acceptable; React Server Components are not required",
+    "If npm provenance is unavailable, pin exact versions and record the gap",
+    "Commercial licenses are excluded"
+  ],
+  "out_of_scope": [
+    "Visual design, theming and brand tokens",
+    "A complete styled design system",
+    "React Native primitives",
+    "Choosing a date library or data-grid vendor",
+    "Application-specific accessibility testing"
+  ],
+  "notes": "This requirement is for headless or minimally styled primitives, not a finished design system. Styled systems such as Mantine, Chakra UI, MUI, Ant Design, HeroUI, Fluent UI and React Spectrum S2 are reference alternatives and are not reviewed here as headless options. React Aria Components is the component layer; react-aria and react-stately are the lower-level hooks and state packages beneath it. Base UI is the renamed @base-ui/react package; @base-ui-components/react is deprecated. Ariakit is the renamed @ariakit/react package. Radix UI is distributed both as the unified radix-ui package and as individual @radix-ui/react-* packages."
+}

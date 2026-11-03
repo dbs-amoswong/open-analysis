@@ -1,0 +1,19 @@
+{
+  "id": "pkg-ariakit-react",
+  "name": "@ariakit/react",
+  "ecosystem": "npm",
+  "latest_version": "0.4.42",
+  "published_at": "2026-10-14",
+  "repo": "https://github.com/ariakit/ariakit",
+  "registry": "https://www.npmjs.com/package/@ariakit/react",
+  "license": "MIT",
+  "weekly_downloads": 1837656,
+  "runtime_deps": 1,
+  "install_size_kb": 18432,
+  "unpacked_size_kb": 1069,
+  "maintainers": ["diegohaz", "ariakit-bot", "benrodrs", "daniguardiola"],
+  "types": "bundled",
+  "formats": ["cjs", "esm"],
+  "notes": "Composable, accessibility-focused headless components. MIT, React 17/18/19, active and provenance-signed. One runtime dependency and about 18 MB with React 19, but the package is still 0.x and has a smaller component catalogue.",
+  "npm_provenance": true
+}

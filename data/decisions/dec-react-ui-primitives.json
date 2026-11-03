@@ -1,0 +1,101 @@
+{
+  "id": "dec-react-ui-primitives",
+  "requirement_id": "req-react-ui-primitives",
+  "status": "approved",
+  "primary_package_id": "pkg-react-aria-components",
+  "adopted": [
+    "pkg-react-aria-components",
+    "pkg-react-aria",
+    "pkg-react-stately",
+    "pkg-base-ui-react"
+  ],
+  "hold": [
+    "pkg-radix-ui",
+    "pkg-headlessui-react",
+    "pkg-ark-ui-react",
+    "pkg-ariakit-react"
+  ],
+  "rejected": [],
+  "dropped": [],
+  "rationale": "Adopt React Aria Components as the primary accessible primitive layer, with react-aria and react-stately as its lower-level hooks/state runtime. It has the broadest coverage in this batch: collections, tables, date/time, drag-and-drop, overlays, menus, forms and internationalization, all unstyled and Apache-2.0. The React 19 dialog spike opened with role=dialog, an accessible label and focus inside; the bundle was 277.23 KB / 88.22 KB gzip. The trade-offs are a 68 MB install with React and no npm provenance, so pin exact versions and record the gap. Base UI is adopted as the approved alternative: MIT, provenance-signed, React 17/18/19, about 30 MB installed, and a 257.79 KB / 82.46 KB gzip dialog spike with role=dialog, labelledby, describedby and focus inside. Radix, Headless UI, Ark UI and Ariakit are held, not rejected: they are viable for focused surfaces or existing codebases, but Radix is narrower and the unified package installs 76 packages, Headless UI has a narrower catalogue, Ark UI pins 69 @zag-js packages, and Ariakit is still 0.x. Styled systems such as Mantine, Chakra UI, MUI, Ant Design, HeroUI, Fluent UI and React Spectrum S2 are reference alternatives, not headless primitives.",
+  "decided_at": "2026-11-04",
+  "decided_by": "opencode-review (delegated by dbs-amoswong)",
+  "expires_at": "2027-05-03",
+  "scope": "Library selection for React DOM UI primitives. Visual design, theming, application-specific accessibility testing and styled design systems are consumer obligations.",
+  "criteria": [
+    "Permissive license across the full dependency tree",
+    "React 18 and 19 supported",
+    "Accessible primitives with keyboard, focus management and ARIA semantics",
+    "Unstyled or minimally styled primitives; no required CSS-in-JS runtime",
+    "Actively maintained: a release within 12 months",
+    "No unfixed high or critical advisories",
+    "No install scripts in the dependency tree",
+    "Client-only rendering is acceptable; React Server Components are not required",
+    "If npm provenance is unavailable, pin exact versions and record the gap",
+    "Commercial licenses are excluded"
+  ],
+  "alternatives_considered": [
+    {
+      "name": "React Aria Components 1.22.1 + react-aria 3.53.1 + react-stately 3.51.0",
+      "outcome": "selected primary",
+      "reason": "Broadest accessible coverage, Apache-2.0, active, React 18/19, unstyled and no CSS runtime. Dialog spike passed with role, label and focus. Costs: 68 MB install with React and no npm provenance."
+    },
+    {
+      "name": "Base UI 1.9.0",
+      "outcome": "adopted alternative",
+      "reason": "MIT, provenance-signed, active, React 17/18/19, about 30 MB installed and a clean dialog spike. Broader than Radix but less comprehensive than React Aria for complex tables and date/time."
+    },
+    {
+      "name": "Radix UI 1.8.1",
+      "outcome": "hold",
+      "reason": "Mature, active and provenance-signed with the smallest dialog bundle, but the unified package installs 76 packages and coverage of complex tables/date-time is narrower. Use individual @radix-ui/react-* packages for focused surfaces or existing Radix codebases."
+    },
+    {
+      "name": "Headless UI 2.2.10",
+      "outcome": "hold",
+      "reason": "Clean MIT headless components and a good dialog spike, but a narrower catalogue and about 63 MB installed with React. Good for simple Tailwind overlays, not a broad foundation."
+    },
+    {
+      "name": "Ark UI 5.40.0",
+      "outcome": "hold",
+      "reason": "Broad, active and provenance-signed, but 69 pinned @zag-js dependencies and about 44 MB installed. Good fallback if its state-machine API fits."
+    },
+    {
+      "name": "Ariakit 0.4.42",
+      "outcome": "hold",
+      "reason": "Composable, provenance-signed and only about 18 MB installed, but still 0.x and narrower than React Aria or Base UI."
+    },
+    {
+      "name": "Mantine / Chakra UI / MUI / Ant Design / HeroUI / Fluent UI / React Spectrum S2",
+      "outcome": "reference",
+      "reason": "Styled design systems, not headless primitives. They are outside this requirement's scope."
+    }
+  ],
+  "conditions": [
+    "Pin react-aria-components 1.22.1, react-aria 3.53.1 and react-stately 3.51.0 exactly; pin @base-ui/react 1.9.0 if it is used.",
+    "Record the missing npm provenance for the React Aria packages and pin exact versions.",
+    "Use React Aria Components for complex widgets and react-aria hooks only when the component layer cannot express the primitive.",
+    "Do not mix React Aria and Base UI primitives in the same overlay, focus scope or form surface.",
+    "Do not add a CSS-in-JS runtime for these primitives; supply plain CSS, CSS modules or an existing styling layer.",
+    "Run an application-specific accessibility check with a screen reader and keyboard before release.",
+    "If Base UI is used, import from @base-ui/react and its component subpaths; do not use the deprecated @base-ui-components/react package.",
+    "If Radix is used for an existing surface, prefer individual @radix-ui/react-* packages rather than the unified radix-ui meta-package."
+  ],
+  "confidence": "medium",
+  "unknowns": [
+    "The dialog spike covered one primitive; tables, date/time, drag-and-drop, combobox and screen-reader output were not exercised.",
+    "React 18 was not spiked; the peer ranges cover it, but the consuming application should verify React 18 if used.",
+    "React Aria does not publish npm provenance; the exact tarballs need pinning and review.",
+    "Install sizes include React 19 and vary with deduping and the consuming application's package manager.",
+    "Styled design systems were not reviewed in depth because they are outside the headless scope."
+  ],
+  "reversal_cost": "Moderate: swapping the primitive layer means replacing component imports and re-testing focus, overlays and keyboard behaviour. Base UI is the cheapest alternative because it is already adopted.",
+  "review_triggers": [
+    "A new high or critical advisory affects React Aria, Base UI, Radix, Headless UI, Ark UI or Ariakit.",
+    "A package stops releasing within 12 months or drops React 18/19.",
+    "The npm provenance or publish pipeline changes for the adopted packages.",
+    "The application needs a complex widget that React Aria supports poorly.",
+    "Base UI reaches a major release with materially better coverage or stability.",
+    "A styled design system becomes the preferred path and this requirement is re-scoped."
+  ]
+}

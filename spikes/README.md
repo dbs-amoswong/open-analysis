@@ -54,8 +54,12 @@ npx playwright screenshot --channel chrome \
   The shared `lottie-assets/` directory holds the JSON and `.lottie` fixture.
   The DotLottie spike self-hosts the WASM runtime; `npm run build` copies it
   from the installed package before Vite runs.
+- `react-aria/`, `base-ui/`, `radix-ui/`, `headlessui/`, `ark-ui/` and
+  `ariakit/` are the React UI primitive audit. Each renders a dialog with a
+  shared plain-CSS shell and reports role, labels and focus placement.
 - The formal comparison and caveats are in `data/evaluations/`,
-  `docs/x6-v2-v3-audit.md` and `docs/lottie-audit.md`.
+  `docs/x6-v2-v3-audit.md`, `docs/lottie-audit.md` and
+  `docs/react-ui-primitives-audit.md`.
 
 ## Adapter prototype
 

@@ -1,0 +1,20 @@
+{
+  "id": "pkg-react-stately",
+  "name": "react-stately",
+  "ecosystem": "npm",
+  "latest_version": "3.51.0",
+  "published_at": "2026-10-08",
+  "repo": "https://github.com/adobe/react-spectrum",
+  "registry": "https://www.npmjs.com/package/react-stately",
+  "license": "Apache-2.0",
+  "weekly_downloads": 15237194,
+  "runtime_deps": 6,
+  "install_size_kb": 14336,
+  "unpacked_size_kb": 5772,
+  "maintainers": ["devongovett", "aspro83"],
+  "types": "bundled",
+  "formats": ["cjs", "esm"],
+  "notes": "State management hooks for React Aria collections, overlays, selection, tables and date/time. It arrives as a required runtime beneath react-aria and react-aria-components.",
+  "npm_provenance": false,
+  "provenance_note": "No npm attestation was found; published from the Adobe npm account."
+}

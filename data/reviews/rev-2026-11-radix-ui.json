@@ -1,0 +1,110 @@
+{
+  "id": "rev-2026-11-radix-ui",
+  "package_id": "pkg-radix-ui",
+  "requirement_id": "req-react-ui-primitives",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "1.8.1",
+  "reviewer": "opencode-review",
+  "recommendation": "hold",
+  "risk": "low",
+  "score": 78,
+  "summary": "Mature, MIT, provenance-signed headless primitives with the smallest dialog bundle in the batch (235.03 KB / 74.66 KB gzip). It is held because the unified package installs 76 packages, and Radix has narrower coverage of complex widgets such as date/time, data tables and internationalized collections. Use it only for an existing Radix codebase or a focused dialog/menu surface.",
+  "reasoning": [
+    "Active release line: 1.8.1 published 2026-10-12; repository pushed 2026-10-14; 19k stars and 265 open issues.",
+    "Peers React 16.8-19.",
+    "MIT with a permissive tree and no required CSS runtime.",
+    "npm provenance is present via GitHub Actions trusted publishing.",
+    "No install scripts and no recorded OSV advisories.",
+    "The React 19 dialog spike rendered role=dialog, labelledby, describedby and focus inside.",
+    "The dialog bundle was the smallest in the batch: 235.03 KB / 74.66 KB gzip.",
+    "The unified radix-ui package lists 55 primitive dependencies and installs 76 packages / about 16 MB. Individual @radix-ui/react-* packages are smaller and are the right choice if Radix is used.",
+    "Radix is excellent for dialogs, menus, popovers, tabs and form controls, but it is not the broadest option for data tables, date/time and internationalization."
+  ],
+  "caveats": [
+    "The unified radix-ui package installs the full primitive suite even if only one component is used. Prefer individual @radix-ui/react-* packages.",
+    "Narrower coverage than React Aria for complex widgets.",
+    "No local spike for tables, date/time or drag-and-drop.",
+    "Radix is mature and stable, but the decision prefers React Aria for a greenfield design-system foundation."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT; the isolated tree is MIT and 0BSD only.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/radix-ui" }
+      ]
+    },
+    {
+      "key": "react_peer",
+      "label": "React compatibility",
+      "status": "pass",
+      "detail": "peerDependencies react/react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0. The spike used React 19.2.0."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "55 runtime dependencies in the unified package; 76 packages / about 16 MB installed with React 19. Individual primitives are smaller.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/radix-ui" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script in the isolated tree."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories for radix-ui@1.8.1 and @radix-ui/react-dialog@1.3.1.",
+      "sources": [
+        { "label": "OSV", "url": "https://osv.dev/" }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "1.8.1 published 2026-10-12; repository pushed 2026-10-14; active.",
+      "sources": [
+        { "label": "GitHub repository", "url": "https://github.com/radix-ui/primitives" },
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/radix-ui" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "pass",
+      "detail": "SLSA provenance is present on 1.8.1; npm records GitHub Actions as the publisher via a trusted publisher.",
+      "sources": [
+        { "label": "npm attestation", "url": "https://registry.npmjs.org/-/npm/v1/attestations/radix-ui@1.8.1" }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "React browser spike",
+      "status": "pass",
+      "detail": "A Vite production build rendered an open dialog in Chrome 1200x800 with role=dialog, labelledby, describedby and focus inside. The JS bundle was 235.03 KB / 74.66 KB gzip including React 19.",
+      "sources": [
+        { "label": "Spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/radix-ui/src/main.jsx" }
+      ]
+    },
+    {
+      "key": "coverage",
+      "label": "Component coverage",
+      "status": "warn",
+      "detail": "Strong core primitives, but narrower coverage of complex tables, date/time and internationalized collections than React Aria."
+    }
+  ]
+}

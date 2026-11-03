@@ -1,0 +1,39 @@
+{
+  "id": "eval-base-ui",
+  "requirement_id": "req-react-ui-primitives",
+  "name": "Base UI",
+  "version": "1.9.0",
+  "kind": "library",
+  "verdict": "retain",
+  "fit_score": 86,
+  "license": "MIT",
+  "summary": "A strong MIT, provenance-signed alternative. React 19 dialog spike passed with role=dialog, labelledby, describedby and focus inside; 257.79 KB / 82.46 KB gzip. About 30 MB installed with React.",
+  "gains": [
+    "MIT and npm provenance",
+    "React 17/18/19",
+    "About 30 MB installed with React",
+    "Clean dialog semantics and focus",
+    "Broad headless component set",
+    "No CSS runtime"
+  ],
+  "losses": [
+    "Newer 1.x line than Radix",
+    "Less comprehensive than React Aria for complex tables and date/time",
+    "Only the dialog primitive was spiked"
+  ],
+  "blockers": [],
+  "features": {},
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "Dialog, React 19.2.0, plain CSS, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": { "mount_ms": 111, "bundle_kb": 257.79, "gzip_kb": 82.46 },
+    "screenshot": "base-ui.png",
+    "code_path": "spikes/base-ui/src/main.jsx",
+    "notes": "role=dialog, labelledby and describedby present, focus inside the dialog. aria-modal was not observed on the role=dialog element."
+  },
+  "sources": [
+    { "label": "npm package", "url": "https://www.npmjs.com/package/@base-ui/react/v/1.9.0" },
+    { "label": "spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/base-ui/src/main.jsx" }
+  ]
+}

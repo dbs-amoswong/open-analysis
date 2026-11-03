@@ -48,6 +48,16 @@ Twelve packages, each with scored reviews, reasoning, caveats and structured evi
 
 Five packages. `@assistant-ui/store` is included because it is a required peer of core and react and was missing from the original four-package list. The reviews record the measured footprint (63 MB full install, ~135 KB gzip), the OIDC publish pipeline, and the fact that no package in the 183-package tree has an install script.
 
+### Accessible React UI primitives
+
+| | |
+|---|---|
+| **Adopt** | `react-aria-components` 1.22.1 (primary), `react-aria` 3.53.1 and `react-stately` 3.51.0 (hooks/state), `@base-ui/react` 1.9.0 (alternative) |
+| **On hold** | `radix-ui` (narrower complex widgets, 76-package unified install), `@headlessui/react` (narrow catalogue), `@ark-ui/react` (69 pinned Zag deps), `@ariakit/react` (still 0.x) |
+| **Reference only** | Mantine, Chakra UI, MUI, Ant Design, HeroUI, Fluent UI, React Spectrum S2 — styled systems, not headless primitives |
+
+Eight packages. React Aria Components is the broadest accessible option: collections, tables, date/time, drag-and-drop, overlays, menus, forms and internationalization, all unstyled and Apache-2.0. The React 19 dialog spike opened with `role="dialog"`, an accessible label and focus inside; the bundle was 277.23 KB / 88.22 KB gzip. Base UI is the approved alternative: MIT, provenance-signed, React 17/18/19, and a 257.79 KB / 82.46 KB gzip dialog spike. The trade-offs are a 68 MB install with React and no npm provenance for React Aria. See `docs/react-ui-primitives-audit.md`.
+
 ### HTTP requests from browser and Node
 
 | | |

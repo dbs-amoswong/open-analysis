@@ -1,0 +1,38 @@
+{
+  "id": "eval-ariakit",
+  "requirement_id": "req-react-ui-primitives",
+  "name": "Ariakit",
+  "version": "0.4.42",
+  "kind": "library",
+  "verdict": "candidate",
+  "fit_score": 74,
+  "license": "MIT",
+  "summary": "Composable, accessibility-focused headless components with a small install (about 18 MB with React) and a clean dialog spike. Held because it is still 0.x and has a smaller catalogue than React Aria or Base UI.",
+  "gains": [
+    "Composable API",
+    "MIT and npm provenance",
+    "React 17/18/19",
+    "About 18 MB installed with React",
+    "Clean dialog semantics and focus"
+  ],
+  "losses": [
+    "Still 0.x",
+    "Smaller catalogue",
+    "Only the dialog primitive was spiked"
+  ],
+  "blockers": [],
+  "features": {},
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "Dialog, React 19.2.0, plain CSS, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": { "mount_ms": 124, "bundle_kb": 253.93, "gzip_kb": 81.67 },
+    "screenshot": "ariakit.png",
+    "code_path": "spikes/ariakit/src/main.jsx",
+    "notes": "role=dialog, labelledby and describedby present, focus inside the dialog. aria-modal was not observed on the role=dialog element."
+  },
+  "sources": [
+    { "label": "npm package", "url": "https://www.npmjs.com/package/@ariakit/react/v/0.4.42" },
+    { "label": "spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/ariakit/src/main.jsx" }
+  ]
+}
