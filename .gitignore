@@ -2,6 +2,10 @@ node_modules/
 .DS_Store
 *.log
 
+# Generated from @lottiefiles/dotlottie-web by the Lottie spike prebuild step.
+spikes/lottie-assets/dotlottie-player.wasm
+spikes/lottie-assets/dotlottie.worker.js
+
 # Scratch directory for request/dossier/draft files. The CI job uploads these
 # as artifacts; the generated review and package facts are committed instead.
 ai/

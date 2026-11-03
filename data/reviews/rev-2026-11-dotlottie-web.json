@@ -1,0 +1,116 @@
+{
+  "id": "rev-2026-11-dotlottie-web",
+  "package_id": "pkg-dotlottie-web",
+  "requirement_id": "req-lottie",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "0.82.1",
+  "reviewer": "opencode-review",
+  "recommendation": "adopt",
+  "risk": "low",
+  "score": 88,
+  "summary": "The required runtime beneath @lottiefiles/dotlottie-react. It is active, MIT, provenance-signed and dependency-free, and it supports both .lottie and Lottie JSON. The WASM engine is self-hostable; the only material cost is the ~481 KB gzip WASM plus the browser-only canvas runtime.",
+  "reasoning": [
+    "Active release line: 0.82.1 published 2026-11-02, with commits on the same day.",
+    "Zero runtime dependencies and no install scripts.",
+    "MIT, with a permissive runtime tree.",
+    "The npm tarball is provenance-signed and published by GitHub Actions through a trusted publisher.",
+    "Supports .lottie and Lottie JSON, plus the worker variant for off-main-thread rendering.",
+    "The WASM and worker are shipped in the package and can be copied to a self-hosted path; setWasmUrl() and setWorkerUrl() are public APIs.",
+    "The React spike loaded both formats through this runtime and reported 90 frames for each."
+  ],
+  "caveats": [
+    "The WASM engine is about 1.2 MB uncompressed / 481 KB gzip and is fetched separately from the JS. Self-host and cache it.",
+    "The default path fetches the version-pinned WASM from jsDelivr or unpkg. That is an external runtime dependency unless setWasmUrl() is used.",
+    "Strict CSP may need wasm-unsafe-eval; the worker path needs worker-src, or a self-hosted worker via setWorkerUrl().",
+    "Browser/canvas runtime. Node 18.17 can import the package, but this requirement uses it in the browser.",
+    "0.x versioning. Pin 0.82.1 exactly; the React wrapper pins it exactly too.",
+    "The spike covered simple playback, not state machines, themes, audio or very large .lottie files."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT with zero runtime dependencies.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Fdotlottie-web" }
+      ]
+    },
+    {
+      "key": "format_support",
+      "label": "Format support",
+      "status": "pass",
+      "detail": "Loads .lottie data and Lottie JSON strings/objects. The React wrapper exposes the same support through src/data.",
+      "sources": [
+        { "label": "package README", "url": "https://www.npmjs.com/package/@lottiefiles/dotlottie-web/v/0.82.1" }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies; 7 MB installed; 7.1 MB unpacked including the WASM and worker.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Fdotlottie-web" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled dist/index.d.ts for the main entry, plus ./webgl and ./webgpu subpaths."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories for 0.82.1.",
+      "sources": [
+        { "label": "OSV", "url": "https://osv.dev/" }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "0.82.1 published 2026-11-02; repository pushed 2026-11-02; active, 938 stars and 21 open issues.",
+      "sources": [
+        { "label": "GitHub repository", "url": "https://github.com/LottieFiles/dotlottie-web" },
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Fdotlottie-web" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "pass",
+      "detail": "SLSA provenance is present on 0.82.1; npm records GitHub Actions as the publisher via a trusted publisher.",
+      "sources": [
+        { "label": "npm attestation", "url": "https://registry.npmjs.org/-/npm/v1/attestations/@lottiefiles%2fdotlottie-web@0.82.1" }
+      ]
+    },
+    {
+      "key": "runtime_assets",
+      "label": "Self-hostable assets",
+      "status": "pass",
+      "detail": "dotlottie-player.wasm (1.2 MB / 481 KB gzip) and dotlottie.worker.js (73 KB) ship in the package and are exported subpaths. setWasmUrl() and setWorkerUrl() are public APIs.",
+      "sources": [
+        { "label": "package exports", "url": "https://www.npmjs.com/package/@lottiefiles/dotlottie-web/v/0.82.1" }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "React browser spike",
+      "status": "pass",
+      "detail": "The runtime rendered .lottie and JSON side by side through @lottiefiles/dotlottie-react in Chrome 1200x800; both reached 90 frames with no page errors.",
+      "sources": [
+        { "label": "Spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/dotlottie-react/src/main.jsx" }
+      ]
+    }
+  ]
+}

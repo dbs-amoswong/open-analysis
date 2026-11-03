@@ -1,0 +1,28 @@
+{
+  "id": "req-lottie",
+  "slug": "lottie",
+  "title": "Lottie animation playback in React",
+  "summary": "Render and control Lottie animations in a React web application. Compare the JSON-first lottie-web and lottie-react line with the DotLottie player line, including .lottie support, React integration, runtime assets, maintenance, licensing and browser cost.",
+  "owner": "frontend-platform",
+  "criticality": "medium",
+  "status": "active",
+  "created_at": "2026-11-04",
+  "review_cadence_days": 180,
+  "constraints": [
+    "Permissive license across the full dependency tree",
+    "React 18 and 19 supported when a React wrapper is used",
+    "Browser playback; SSR is optional and client-only is acceptable",
+    "Actively maintained: a release within 12 months across the chosen runtime stack",
+    "No unfixed high or critical advisories",
+    "No install scripts in the dependency tree",
+    "Runtime assets such as WASM or workers must be self-hostable; no mandatory CDN dependency",
+    "If npm provenance is unavailable, pin exact versions and record the gap"
+  ],
+  "out_of_scope": [
+    "Authoring Lottie or .lottie files",
+    "Choosing an animation asset pipeline or CDN",
+    "React Native and native mobile players",
+    "Detailed art-direction review of individual animations"
+  ],
+  "notes": "The user prefers React and accepts client-only rendering. lottie-web is the long-standing JSON renderer but has not shipped since May 2025; lottie-react is an active wrapper around it. The DotLottie line is active, provenance-signed and supports both Lottie JSON and .lottie through a WASM player. The WASM and worker assets can be self-hosted with setWasmUrl()/setWorkerUrl(); the default player otherwise fetches a version-pinned WASM file from jsDelivr or unpkg. @lottiefiles/react-lottie-player and @lottiefiles/lottie-player are archived; @dotlottie/react-player is deprecated and pulls sharp. lottie-react-native is out of scope because this requirement is React DOM."
+}

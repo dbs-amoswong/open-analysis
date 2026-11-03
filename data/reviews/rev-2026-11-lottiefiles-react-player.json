@@ -1,0 +1,84 @@
+{
+  "id": "rev-2026-11-lottiefiles-react-player",
+  "package_id": "pkg-lottiefiles-react-lottie-player",
+  "requirement_id": "req-lottie",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "3.6.0",
+  "reviewer": "opencode-review",
+  "recommendation": "avoid",
+  "risk": "high",
+  "score": 38,
+  "summary": "The former LottieFiles React player is deprecated in its own README and its GitHub repository is archived. It still depends on lottie-web, has no npm provenance and has not shipped since January 2025. Do not adopt it; use @lottiefiles/dotlottie-react instead.",
+  "reasoning": [
+    "The package README explicitly marks it deprecated and redirects to @lottiefiles/dotlottie-react.",
+    "The GitHub repository is archived; the last release is 3.6.0 on 2025-01-14.",
+    "It depends on lottie-web ^5.12.2, inheriting the stale JSON renderer and its eval usage.",
+    "No npm provenance.",
+    "The package itself is MIT, has bundled types and no install scripts, but maintenance and release integrity fail the requirement."
+  ],
+  "caveats": [
+    "Archived and deprecated; no future fixes.",
+    "JSON-only and tied to lottie-web.",
+    "No npm provenance."
+  ],
+  "evidence": [
+    {
+      "key": "deprecation",
+      "label": "Deprecation status",
+      "status": "fail",
+      "detail": "The README says the package is deprecated and no longer maintained; the GitHub repository is archived.",
+      "sources": [
+        { "label": "package README", "url": "https://www.npmjs.com/package/@lottiefiles/react-lottie-player/v/3.6.0" },
+        { "label": "GitHub repository", "url": "https://github.com/LottieFiles/lottie-react" }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT; the isolated tree is MIT."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "One runtime dependency, lottie-web ^5.12.2; 35 MB installed with React; 2.9 MB unpacked.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Freact-lottie-player" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script in the isolated tree."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories at the reviewed version."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "3.6.0 published 2025-01-14; repository archived; no release in more than 12 months.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Freact-lottie-player" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "No npm attestation for 3.6.0."
+    }
+  ]
+}

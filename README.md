@@ -59,6 +59,17 @@ Five packages. `@assistant-ui/store` is included because it is a required peer o
 
 Seven packages. The earlier hold on axios was based on an unverified dependency tree and publish pipeline. Both were re-checked: axios publishes from GitHub Actions with OIDC trusted publishing and SLSA provenance, its 27-package runtime tree is entirely MIT with no install scripts, OSV is clean, and a local ESM/CJS interceptor and mock-adapter probe passed. `follow-redirects` is the only verified axios edge; it has no npm provenance, so pin 1.16.2 and record the gap. The other five are held because they do not provide the HTTP client role: `undici` is a Node-only client already embedded in modern Node, `fast-uri` is a URI utility, `js-cookie` and `cookie` are cookie helpers, and `protobufjs` is a codec. Firebase 13.2.0 pulls `protobufjs` 7.6.6 through `@grpc/proto-loader`, not the reviewed 8.8.1, and the Firebase tree shows no edge for the other four; that is monitoring context, not a condition for the HTTP client decision.
 
+### Lottie animation playback in React
+
+| | |
+|---|---|
+| **Adopt** | `@lottiefiles/dotlottie-react` 0.21.1 (primary), `@lottiefiles/dotlottie-web` 0.82.1 (required runtime) |
+| **On hold** | `lottie-react` (active wrapper, stale lottie-web runtime), `lottie-web` (last release May 2025, eval in bundle), `@lottiefiles/dotlottie-wc` (web component, not React-first) |
+| **Rejected** | `@lottiefiles/react-lottie-player` (archived), `@lottiefiles/lottie-player` (archived), `react-lottie` (install script, stale), `@dotlottie/react-player` (deprecated, sharp + LGPL) |
+| **Out of scope** | `lottie-react-native` — React Native, not React DOM |
+
+Nine packages. The DotLottie React player is the only option that combines an active release line, MIT licensing, npm provenance, React 17/18/19 support, both Lottie JSON and `.lottie` support, and a self-hostable WASM runtime. The React 19 spike loaded `.lottie` and JSON side by side from a self-hosted WASM file in 58 ms, with 90 frames each. The JS bundle was 356.93 KB / 93.15 KB gzip plus 481 KB gzip WASM. `lottie-web` is JSON-only, has not shipped since May 2025 and contains `eval()`; `lottie-react` inherits that runtime. See `docs/lottie-audit.md`.
+
 ### Sanitize untrusted HTML before rendering
 
 | | |

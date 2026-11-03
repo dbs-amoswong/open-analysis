@@ -1,0 +1,127 @@
+{
+  "id": "rev-2026-11-dotlottie-react",
+  "package_id": "pkg-dotlottie-react",
+  "requirement_id": "req-lottie",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "0.21.1",
+  "reviewer": "opencode-review",
+  "recommendation": "adopt",
+  "risk": "low",
+  "score": 90,
+  "summary": "The best React path. @lottiefiles/dotlottie-react 0.21.1 is active, MIT, provenance-signed, supports React 17/18/19, and plays both Lottie JSON and .lottie. A React 19 spike loaded both formats from a self-hosted WASM file in about 58 ms, with 90 frames each. The main cost is the 481 KB gzip WASM runtime and the need to self-host it for CSP or offline use.",
+  "reasoning": [
+    "Active release line: 0.21.1 published 2026-11-02, with the dependency pinned exactly to @lottiefiles/dotlottie-web 0.82.1.",
+    "Peers React ^17 || ^18 || ^19, so React 18 and 19 are both covered.",
+    "MIT with a permissive runtime tree: React, React DOM, the React wrapper and the DotLottie web player are all MIT.",
+    "The npm tarball is provenance-signed and published by GitHub Actions through a trusted publisher.",
+    "The player supports .lottie and Lottie JSON through the same component; the spike loaded both formats.",
+    "No preinstall, install or postinstall script in the isolated runtime tree.",
+    "The 1.2 MB WASM (about 481 KB gzip) and 73 KB worker can be self-hosted; the spike used setWasmUrl() and a local wasm file.",
+    "The React 19 spike rendered two canvases, reported 90 frames for each format, and produced no page errors."
+  ],
+  "caveats": [
+    "The WASM runtime is about 481 KB gzip and is fetched separately from the JS bundle. Budget for it and cache it.",
+    "By default the player fetches a version-pinned WASM from jsDelivr or unpkg. Self-host it with setWasmUrl() for CSP, offline or supply-chain control.",
+    "WebAssembly may require wasm-unsafe-eval in a strict CSP; the worker path needs worker-src, or a self-hosted worker via setWorkerUrl().",
+    "Browser-only. The component needs a canvas and is not a server-rendering target; use it in a client component or after mount.",
+    "0.x versioning. Pin 0.21.1 and upgrade deliberately.",
+    "React 18 was not spiked; the peer range covers it, but verify it in the consuming application if React 18 is used.",
+    "The Spike used a simple 90-frame animation; state machines, themes, audio and large .lottie assets were not exercised."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT. The isolated runtime tree is React, React DOM, @lottiefiles/dotlottie-react and @lottiefiles/dotlottie-web, all MIT.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Fdotlottie-react" }
+      ]
+    },
+    {
+      "key": "react_peer",
+      "label": "React compatibility",
+      "status": "pass",
+      "detail": "peerDependencies react: ^17 || ^18 || ^19. The spike used React 19.2.0.",
+      "sources": [
+        { "label": "npm package", "url": "https://www.npmjs.com/package/@lottiefiles/dotlottie-react/v/0.21.1" }
+      ]
+    },
+    {
+      "key": "format_support",
+      "label": "Format support",
+      "status": "pass",
+      "detail": "The component accepts .lottie and .json through src, and JSON strings or .lottie ArrayBuffers through data. The spike loaded both formats.",
+      "sources": [
+        { "label": "package README", "url": "https://www.npmjs.com/package/@lottiefiles/dotlottie-react/v/0.21.1" }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "One exact runtime dependency, @lottiefiles/dotlottie-web 0.82.1. 15 MB installed with React, 503 KB unpacked for the wrapper itself.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Fdotlottie-react" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script in the wrapper or the isolated runtime tree."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled dist/index.d.ts with typed props and re-exported DotLottie types."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories for @lottiefiles/dotlottie-react@0.21.1 or @lottiefiles/dotlottie-web@0.82.1.",
+      "sources": [
+        { "label": "OSV", "url": "https://osv.dev/" }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "0.21.1 published 2026-11-02; repository pushed 2026-11-02; active, 938 stars and 21 open issues.",
+      "sources": [
+        { "label": "GitHub repository", "url": "https://github.com/LottieFiles/dotlottie-web" },
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Fdotlottie-react" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "pass",
+      "detail": "SLSA provenance is present on 0.21.1; npm records GitHub Actions as the publisher via a trusted publisher.",
+      "sources": [
+        { "label": "npm attestation", "url": "https://registry.npmjs.org/-/npm/v1/attestations/@lottiefiles%2fdotlottie-react@0.21.1" }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "React browser spike",
+      "status": "pass",
+      "detail": "A Vite production build rendered .lottie and JSON side by side in Chrome 1200x800. Both canvases reached 90 frames; the page loaded in 58 ms with self-hosted WASM. The JS bundle was 356.93 KB / 93.15 KB gzip; the WASM is 481 KB gzip separately.",
+      "sources": [
+        { "label": "Spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/dotlottie-react/src/main.jsx" }
+      ]
+    },
+    {
+      "key": "runtime_assets",
+      "label": "Self-hosted runtime assets",
+      "status": "pass",
+      "detail": "The spike copied dotlottie-player.wasm and dotlottie.worker.js from the installed package and called setWasmUrl() with the local file; no CDN fetch was used.",
+      "sources": [
+        { "label": "package README", "url": "https://www.npmjs.com/package/@lottiefiles/dotlottie-web/v/0.82.1" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "pkg-lottie-react",
+  "name": "lottie-react",
+  "ecosystem": "npm",
+  "latest_version": "3.1.2",
+  "published_at": "2026-09-07",
+  "repo": "https://github.com/Gamote/lottie-react",
+  "registry": "https://www.npmjs.com/package/lottie-react",
+  "license": "MIT",
+  "weekly_downloads": 4361348,
+  "runtime_deps": 1,
+  "install_size_kb": 33792,
+  "unpacked_size_kb": 358,
+  "maintainers": ["gamote"],
+  "types": "bundled",
+  "formats": ["cjs", "esm"],
+  "notes": "Active React wrapper around lottie-web. Peers React 18.2 and 19; one runtime dependency on lottie-web ^5.13.0, so the stale lottie-web runtime is inherited.",
+  "npm_provenance": false,
+  "provenance_note": "No npm attestation was found when these facts were collected."
+}

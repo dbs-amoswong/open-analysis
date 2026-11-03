@@ -1,0 +1,86 @@
+{
+  "id": "rev-2026-11-lottiefiles-lottie-player",
+  "package_id": "pkg-lottiefiles-lottie-player",
+  "requirement_id": "req-lottie",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "2.0.12",
+  "reviewer": "opencode-review",
+  "recommendation": "avoid",
+  "risk": "high",
+  "score": 42,
+  "summary": "A web-component Lottie player whose GitHub repository is archived. It is MIT and has an npm attestation, but it has not shipped since November 2024, pulls lit, pako, lottie-web and two polyfills, and is not a React-first integration. Do not adopt it for this requirement.",
+  "reasoning": [
+    "The GitHub repository is archived; the last release is 2.0.12 on 2024-11-04.",
+    "It is a custom element, not a React component; using it from React means a web-component bridge.",
+    "It depends on lottie-web ^5.12.2, so it inherits the stale JSON renderer and eval usage.",
+    "It has five runtime dependencies including lit, pako, lottie-web, @types/pako and resize-observer-polyfill.",
+    "The package itself is MIT, the dependency tree is permissive (pako is MIT AND Zlib), it has no install scripts and it has an npm attestation.",
+    "Maintenance and fit fail the requirement."
+  ],
+  "caveats": [
+    "Archived and no release in more than 12 months.",
+    "Web component, not React-first.",
+    "JSON-only and tied to lottie-web.",
+    "Pulls lit and two polyfills."
+  ],
+  "evidence": [
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "2.0.12 published 2024-11-04; repository archived; no release in more than 12 months.",
+      "sources": [
+        { "label": "GitHub repository", "url": "https://github.com/LottieFiles/lottie-player" },
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Flottie-player" }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT. The tree is permissive: lit and resize-observer-polyfill are BSD-3-Clause/MIT, pako is MIT AND Zlib, lottie-web is MIT.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Flottie-player" }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "5 runtime dependencies; 39 MB installed; 6.8 MB unpacked.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Flottie-player" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations."
+    },
+    {
+      "key": "react_integration",
+      "label": "React integration",
+      "status": "fail",
+      "detail": "Web component, not a React component. It requires a custom-element bridge."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories at the reviewed version."
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "pass",
+      "detail": "An npm attestation is present for 2.0.12, although the publisher is a personal npm account rather than an OIDC trusted publisher."
+    }
+  ]
+}

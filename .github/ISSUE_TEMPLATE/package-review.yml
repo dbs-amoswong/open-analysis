@@ -64,6 +64,7 @@ body:
         - req-nvl-graph — Graph visualization in a React application (Cytoscape/Sigma)
         - req-graph-editor — Graph visualization and editing
         - req-http-request — HTTP requests from browser and Node
+        - req-lottie — Lottie animation playback in React
         - New requirement / not sure
       default: 0
 

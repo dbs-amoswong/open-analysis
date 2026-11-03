@@ -1,0 +1,20 @@
+{
+  "id": "pkg-dotlottie-react-player",
+  "name": "@dotlottie/react-player",
+  "ecosystem": "npm",
+  "latest_version": "1.6.19",
+  "published_at": "2024-03-21",
+  "repo": "https://github.com/dotlottie/player-component",
+  "registry": "https://www.npmjs.com/package/@dotlottie/react-player",
+  "license": "MIT",
+  "weekly_downloads": 41411,
+  "runtime_deps": 1,
+  "install_size_kb": 77824,
+  "unpacked_size_kb": 133,
+  "maintainers": ["sam-osb", "jawish", "karamalie"],
+  "types": "bundled",
+  "formats": ["esm"],
+  "notes": "Deprecated in npm in favour of @lottiefiles/dotlottie-react. The dependency tree includes @dotlottie/common -> @dotlottie/dotlottie-js -> sharp 0.33.5 with an install script and LGPL libvips; 76 MB installed.",
+  "npm_provenance": false,
+  "provenance_note": "No npm attestation was found when these facts were collected."
+}

@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "generator": "open-analysis-lottie-audit",
+  "animations": [
+    {
+      "id": "spike",
+      "loop": true,
+      "autoplay": true,
+      "speed": 1,
+      "themeColor": "#3669a8",
+      "direction": 1
+    }
+  ]
+}

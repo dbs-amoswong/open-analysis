@@ -1,0 +1,122 @@
+{
+  "id": "dec-lottie",
+  "requirement_id": "req-lottie",
+  "status": "approved",
+  "primary_package_id": "pkg-dotlottie-react",
+  "adopted": [
+    "pkg-dotlottie-react",
+    "pkg-dotlottie-web"
+  ],
+  "hold": [
+    "pkg-lottie-react",
+    "pkg-lottie-web",
+    "pkg-dotlottie-wc"
+  ],
+  "rejected": [
+    "pkg-lottiefiles-react-lottie-player",
+    "pkg-lottiefiles-lottie-player",
+    "pkg-react-lottie",
+    "pkg-dotlottie-react-player"
+  ],
+  "dropped": [],
+  "rationale": "Adopt @lottiefiles/dotlottie-react 0.21.1 with its required runtime @lottiefiles/dotlottie-web 0.82.1. It is the only React option that combines an active release line, MIT licensing, npm provenance, React 17/18/19 support, both Lottie JSON and .lottie support, and a self-hostable WASM/worker runtime. The React 19 spike loaded .lottie and JSON side by side from a self-hosted WASM file in 58 ms, with 90 frames each and no page errors. The JS bundle was 356.93 KB / 93.15 KB gzip, plus a 481 KB gzip WASM. lottie-react is a clean active wrapper but sits on lottie-web 5.13.0, which has not shipped since May 2025 and contains eval; it is held as a JSON-only legacy fallback. lottie-web itself is held for the same maintenance and CSP reasons. The archived LottieFiles players, the deprecated @dotlottie/react-player and the stale react-lottie wrapper are rejected; @dotlottie/react-player also pulls sharp with an install script and LGPL libvips. @lottiefiles/dotlottie-wc is a viable non-React fallback but is held because it adds lit and is not React-first.",
+  "decided_at": "2026-11-04",
+  "decided_by": "opencode-review (delegated by dbs-amoswong)",
+  "expires_at": "2027-05-03",
+  "scope": "Library selection for React DOM Lottie playback. Animation assets, authoring, CDN choice, React Native and application-specific CSP are consumer obligations.",
+  "criteria": [
+    "Permissive license across the full dependency tree",
+    "React 18 and 19 supported when a React wrapper is used",
+    "Browser playback; SSR is optional and client-only is acceptable",
+    "Actively maintained: a release within 12 months across the chosen runtime stack",
+    "No unfixed high or critical advisories",
+    "No install scripts in the dependency tree",
+    "Runtime assets such as WASM or workers must be self-hostable; no mandatory CDN dependency",
+    "If npm provenance is unavailable, pin exact versions and record the gap"
+  ],
+  "alternatives_considered": [
+    {
+      "name": "@lottiefiles/dotlottie-react 0.21.1",
+      "outcome": "selected",
+      "reason": "Active, MIT, provenance-signed, React 17/18/19, supports .lottie and JSON, self-hostable WASM/worker, clean install and no advisories. React 19 spike passed."
+    },
+    {
+      "name": "@lottiefiles/dotlottie-web 0.82.1",
+      "outcome": "adopted as required runtime",
+      "reason": "The exact runtime dependency beneath the React wrapper; active, MIT, provenance-signed, dependency-free and self-hostable."
+    },
+    {
+      "name": "lottie-react 3.1.2",
+      "outcome": "hold / replace",
+      "reason": "Active wrapper and good types, but it depends on stale lottie-web 5.13.0, is JSON-only, has no provenance and inherits lottie-web's eval usage."
+    },
+    {
+      "name": "lottie-web 5.13.0",
+      "outcome": "hold / replace",
+      "reason": "The long-standing JSON renderer is MIT, fast and dependency-free, but has no release since May 2025, no .lottie support, no provenance and contains eval."
+    },
+    {
+      "name": "@lottiefiles/dotlottie-wc 0.11.1",
+      "outcome": "hold",
+      "reason": "Active, MIT and provenance-signed, but a web component that adds lit and is not React-first. Use only as a fallback behind a React wrapper."
+    },
+    {
+      "name": "@lottiefiles/react-lottie-player 3.6.0",
+      "outcome": "rejected",
+      "reason": "Deprecated in its README, repository archived, last release January 2025, and still tied to lottie-web."
+    },
+    {
+      "name": "@lottiefiles/lottie-player 2.0.12",
+      "outcome": "rejected",
+      "reason": "Archived web component, last release November 2024, five runtime dependencies and no release within 12 months."
+    },
+    {
+      "name": "react-lottie 1.2.10",
+      "outcome": "rejected",
+      "reason": "Stale wrapper, no types, no provenance, and babel-runtime brings core-js 2 with a postinstall script."
+    },
+    {
+      "name": "@dotlottie/react-player 1.6.19",
+      "outcome": "rejected",
+      "reason": "Deprecated, peer stops at React 18, 76 MB installed, sharp install script and LGPL libvips in the tree."
+    },
+    {
+      "name": "lottie-react-native 7.5.0",
+      "outcome": "out of scope",
+      "reason": "The requirement is React DOM, not React Native."
+    },
+    {
+      "name": "@lottiefiles/lottie-interactivity 1.6.2",
+      "outcome": "not required",
+      "reason": "An optional interaction layer, not a player. It has not shipped since 2023 and is not needed for basic playback."
+    }
+  ],
+  "conditions": [
+    "Pin @lottiefiles/dotlottie-react 0.21.1 and @lottiefiles/dotlottie-web 0.82.1 exactly.",
+    "Self-host dotlottie-player.wasm and dotlottie.worker.js from the installed package, or explicitly accept the version-pinned jsDelivr/unpkg fallback.",
+    "Call setWasmUrl() before constructing players. Use setWorkerUrl() and DotLottieWorkerReact if the worker path is used.",
+    "Use the component in a client-only boundary; do not server-render it.",
+    "Verify the consuming application's CSP allows WebAssembly and, if used, the worker. Record whether wasm-unsafe-eval and worker-src are required.",
+    "Use DotLottieWorkerReact for heavy or multiple animations; keep the main-thread player for simple cases.",
+    "Test both .lottie and JSON assets, including the actual asset sizes and any state machines or themes in use.",
+    "Do not use lottie-web or lottie-react for new work unless a legacy JSON dependency requires them; pin 5.13.0 / 3.1.2 and record the provenance gap if so."
+  ],
+  "confidence": "high",
+  "unknowns": [
+    "React 18 was not spiked; the peer range covers it, but the consuming application should verify React 18 if used.",
+    "The spike used a simple 90-frame animation. State machines, themes, audio, worker rendering and very large .lottie files were not exercised.",
+    "The exact CSP cost (wasm-unsafe-eval and worker-src) depends on the consuming application's policy.",
+    "The WASM runtime is about 481 KB gzip; its real-world cache and first-frame cost depend on hosting and network.",
+    "The .lottie assets and their licensing are consumer obligations; the player licence does not grant rights to arbitrary animation assets."
+  ],
+  "reversal_cost": "Low to moderate: @lottiefiles/dotlottie-react is a small React wrapper, but switching to lottie-react means changing the player component and accepting the stale lottie-web runtime. The asset format should remain portable.",
+  "review_triggers": [
+    "A new high or critical advisory affects @lottiefiles/dotlottie-react or @lottiefiles/dotlottie-web.",
+    "The DotLottie React or web package stops releasing within 12 months.",
+    "The WASM or worker URL contract changes, or self-hosting stops being supported.",
+    "The React peer range drops React 18 or 19.",
+    "The licence of the React wrapper or web player changes.",
+    "lottie-web resumes releases or fixes its eval/CSP issue and becomes a viable JSON-only alternative.",
+    "A maintained React wrapper for .lottie appears with a better footprint."
+  ]
+}

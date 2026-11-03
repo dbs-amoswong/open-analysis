@@ -1,0 +1,20 @@
+{
+  "id": "pkg-lottie-web",
+  "name": "lottie-web",
+  "ecosystem": "npm",
+  "latest_version": "5.13.0",
+  "published_at": "2025-05-21",
+  "repo": "https://github.com/airbnb/lottie-web",
+  "registry": "https://www.npmjs.com/package/lottie-web",
+  "license": "MIT",
+  "weekly_downloads": 9919428,
+  "runtime_deps": 0,
+  "install_size_kb": 25600,
+  "unpacked_size_kb": 24820,
+  "maintainers": ["airnan", "aidosmf", "fmalita", "bwils"],
+  "types": "bundled",
+  "formats": ["cjs"],
+  "notes": "The long-standing JSON Lottie renderer, with SVG, canvas and HTML renderers. It has not shipped since May 2025, the repository has been quiet since September 2025, and the browser bundle contains eval(). 25 MB unpacked.",
+  "npm_provenance": false,
+  "provenance_note": "No npm attestation was found when these facts were collected."
+}

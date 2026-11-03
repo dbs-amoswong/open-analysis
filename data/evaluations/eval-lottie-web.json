@@ -1,0 +1,54 @@
+{
+  "id": "eval-lottie-web",
+  "requirement_id": "req-lottie",
+  "name": "lottie-web",
+  "version": "5.13.0",
+  "kind": "library",
+  "verdict": "reject",
+  "fit_score": 60,
+  "license": "MIT",
+  "summary": "The long-standing JSON renderer. It is fast, dependency-free and stable, but it has no release since May 2025, no .lottie support, no npm provenance and eval() in the browser bundle.",
+  "gains": [
+    "MIT and zero runtime dependencies",
+    "Fast SVG/canvas rendering",
+    "Bundled types",
+    "Widely deployed and understood"
+  ],
+  "losses": [
+    "No release since May 2025",
+    "Repository quiet since September 2025",
+    "No .lottie support",
+    "No npm provenance",
+    "eval() in the browser bundle",
+    "25 MB unpacked"
+  ],
+  "blockers": [
+    "Fails the active-maintenance constraint.",
+    "No .lottie support.",
+    "Contains eval()."
+  ],
+  "features": {},
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "90-frame Lottie JSON, SVG renderer, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 5,
+      "bundle_kb": 309.52,
+      "gzip_kb": 79.73
+    },
+    "screenshot": "lottie-web.png",
+    "code_path": "spikes/lottie-web/main.js",
+    "notes": "The animation rendered as SVG in 4–7 ms. The Vite build warned that lottie-web uses eval()."
+  },
+  "sources": [
+    {
+      "label": "npm package",
+      "url": "https://www.npmjs.com/package/lottie-web/v/5.13.0"
+    },
+    {
+      "label": "spike source",
+      "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/lottie-web/main.js"
+    }
+  ]
+}

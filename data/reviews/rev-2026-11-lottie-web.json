@@ -1,0 +1,107 @@
+{
+  "id": "rev-2026-11-lottie-web",
+  "package_id": "pkg-lottie-web",
+  "requirement_id": "req-lottie",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "5.13.0",
+  "reviewer": "opencode-review",
+  "recommendation": "replace",
+  "risk": "medium",
+  "score": 60,
+  "summary": "The long-standing JSON Lottie renderer. It is MIT, dependency-free, stable and fast in the spike, but it has not shipped since May 2025, the repository has been quiet since September 2025, the browser bundle contains eval, and it has no .lottie support or npm provenance. Keep it only for legacy JSON work and replace it with the DotLottie player.",
+  "reasoning": [
+    "MIT and zero runtime dependencies; the React-free spike rendered a 90-frame JSON animation in 4 ms.",
+    "No install scripts, bundled declarations and no recorded OSV advisories.",
+    "Last npm release is 5.13.0 on 2025-05-21, more than 12 months before this review; the repository was last pushed 2025-09-01 and has 861 open issues.",
+    "The Vite build warned that the browser bundle uses eval(), which is a CSP and code-quality concern.",
+    "It supports Lottie JSON only. It does not read .lottie files.",
+    "No npm provenance. Pin 5.13.0 exactly and record the gap if a legacy dependency requires it.",
+    "The JSON-only spike bundle was 309.52 KB / 79.73 KB gzip, but the package is 25 MB unpacked because it includes many builds and examples."
+  ],
+  "caveats": [
+    "Unmaintained for more than a year; no route for future fixes.",
+    "Contains eval in the browser bundle.",
+    "No .lottie support.",
+    "No npm provenance.",
+    "25 MB unpacked; the actual browser bundle is much smaller but the installed footprint is large.",
+    "861 open issues and no release in 18 months."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT with zero runtime dependencies.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/lottie-web" }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies; 25 MB installed; 24.8 MB unpacked including builds and examples.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/lottie-web" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled index.d.ts."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories for 5.13.0.",
+      "sources": [
+        { "label": "OSV", "url": "https://osv.dev/" }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "5.13.0 published 2025-05-21; repository last pushed 2025-09-01; 861 open issues. No release within 12 months.",
+      "sources": [
+        { "label": "GitHub repository", "url": "https://github.com/airbnb/lottie-web" },
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/lottie-web" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "No npm attestation for 5.13.0."
+    },
+    {
+      "key": "format_support",
+      "label": "Format support",
+      "status": "fail",
+      "detail": "Lottie JSON only. No .lottie support."
+    },
+    {
+      "key": "csp",
+      "label": "CSP and eval",
+      "status": "warn",
+      "detail": "Vite warned that node_modules/lottie-web/build/player/lottie.js uses eval(). This is a CSP and code-quality concern."
+    },
+    {
+      "key": "behaviour",
+      "label": "Browser spike",
+      "status": "pass",
+      "detail": "A Vite production build rendered the 90-frame JSON animation as SVG in Chrome 1200x800 in 4 ms. The bundle was 309.52 KB / 79.73 KB gzip.",
+      "sources": [
+        { "label": "Spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/lottie-web/main.js" }
+      ]
+    }
+  ]
+}

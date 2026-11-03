@@ -1,0 +1,89 @@
+{
+  "id": "rev-2026-11-dotlottie-react-player",
+  "package_id": "pkg-dotlottie-react-player",
+  "requirement_id": "req-lottie",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "1.6.19",
+  "reviewer": "opencode-review",
+  "recommendation": "avoid",
+  "risk": "critical",
+  "score": 15,
+  "summary": "Deprecated in npm in favour of @lottiefiles/dotlottie-react. It has not shipped since March 2024, its React peer stops at 18, and its dependency tree brings sharp 0.33.5 with an install script plus LGPL-3.0 libvips. Do not adopt it.",
+  "reasoning": [
+    "npm marks the package deprecated: superseded by @lottiefiles/dotlottie-react.",
+    "Last release 1.6.19 on 2024-03-21; no release in more than 12 months.",
+    "The dependency tree pulls @dotlottie/common -> @dotlottie/dotlottie-js -> sharp 0.33.5, which declares install: node install/check.",
+    "The tree includes @img/sharp-libvips-darwin-arm64 under LGPL-3.0-or-later, which fails the permissive-license constraint.",
+    "The React peer is ^16.8 || ^17 || ^18, excluding React 19.",
+    "76 MB installed."
+  ],
+  "caveats": [
+    "Deprecated.",
+    "Install script and LGPL dependency.",
+    "React 19 not supported by the peer range.",
+    "76 MB installed.",
+    "No provenance."
+  ],
+  "evidence": [
+    {
+      "key": "deprecation",
+      "label": "Deprecation status",
+      "status": "fail",
+      "detail": "npm deprecated field: 'This package is superceded by @lottiefiles/dotlottie-react'.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@dotlottie%2Freact-player" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "fail",
+      "detail": "sharp 0.33.5 declares install: node install/check."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "fail",
+      "detail": "The tree includes @img/sharp-libvips-darwin-arm64 under LGPL-3.0-or-later, plus Apache-2.0 packages. The top-level package is MIT, but the full tree is not permissive.",
+      "sources": [
+        { "label": "dependency tree", "url": "https://registry.npmjs.org/sharp/0.33.5" }
+      ]
+    },
+    {
+      "key": "react_peer",
+      "label": "React compatibility",
+      "status": "fail",
+      "detail": "peerDependencies react: ^16.8.0 || ^17.0.0 || ^18.0.0; React 19 is excluded."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "fail",
+      "detail": "1 direct dependency but 76 MB installed including sharp and libvips.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@dotlottie%2Freact-player" }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "1.6.19 published 2024-03-21; no release in more than 12 months.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@dotlottie%2Freact-player" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "No npm attestation for 1.6.19."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories at the reviewed version."
+    }
+  ]
+}

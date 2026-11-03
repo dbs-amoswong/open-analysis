@@ -1,0 +1,20 @@
+{
+  "id": "pkg-lottiefiles-react-lottie-player",
+  "name": "@lottiefiles/react-lottie-player",
+  "ecosystem": "npm",
+  "latest_version": "3.6.0",
+  "published_at": "2025-01-14",
+  "repo": "https://github.com/LottieFiles/lottie-react",
+  "registry": "https://www.npmjs.com/package/@lottiefiles/react-lottie-player",
+  "license": "MIT",
+  "weekly_downloads": 593986,
+  "runtime_deps": 1,
+  "install_size_kb": 35840,
+  "unpacked_size_kb": 2923,
+  "maintainers": ["jawish"],
+  "types": "bundled",
+  "formats": ["cjs", "esm"],
+  "notes": "Former LottieFiles React player. The README marks it deprecated and points to @lottiefiles/dotlottie-react; the GitHub repository is archived. It depends on lottie-web ^5.12.2.",
+  "npm_provenance": false,
+  "provenance_note": "No npm attestation was found when these facts were collected."
+}

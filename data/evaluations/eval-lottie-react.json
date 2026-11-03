@@ -1,0 +1,53 @@
+{
+  "id": "eval-lottie-react",
+  "requirement_id": "req-lottie",
+  "name": "lottie-react",
+  "version": "3.1.2",
+  "kind": "stack",
+  "verdict": "candidate",
+  "fit_score": 64,
+  "license": "MIT",
+  "summary": "An active React wrapper with good types and React 18/19 support. It is held because it depends on stale lottie-web 5.13.0, is JSON-only, has no npm provenance and inherits eval() in the browser bundle.",
+  "gains": [
+    "Active React wrapper",
+    "React 18.2 and 19 peers",
+    "Bundled types",
+    "Simple component and hook API",
+    "SVG rendering works in the spike"
+  ],
+  "losses": [
+    "Depends on lottie-web 5.13.0, which has not shipped since May 2025",
+    "JSON-only",
+    "No npm provenance",
+    "eval() in the inherited browser bundle",
+    "521 KB / 145 KB gzip including React"
+  ],
+  "blockers": [
+    "The chosen stack fails the 12-month active-maintenance constraint through lottie-web.",
+    "No .lottie support."
+  ],
+  "features": {},
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "90-frame Lottie JSON, React 19.2.0, SVG renderer, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 56,
+      "bundle_kb": 521.17,
+      "gzip_kb": 145.52
+    },
+    "screenshot": "lottie-react.png",
+    "code_path": "spikes/lottie-react/src/main.jsx",
+    "notes": "The component reached SVG output in 56 ms. The bundle includes React 19.2.0; lottie-web is the bulk of it."
+  },
+  "sources": [
+    {
+      "label": "npm package",
+      "url": "https://www.npmjs.com/package/lottie-react/v/3.1.2"
+    },
+    {
+      "label": "spike source",
+      "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/lottie-react/src/main.jsx"
+    }
+  ]
+}

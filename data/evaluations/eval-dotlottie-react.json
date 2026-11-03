@@ -1,0 +1,51 @@
+{
+  "id": "eval-dotlottie-react",
+  "requirement_id": "req-lottie",
+  "name": "@lottiefiles/dotlottie-react",
+  "version": "0.21.1",
+  "kind": "stack",
+  "verdict": "retain",
+  "fit_score": 90,
+  "license": "MIT",
+  "summary": "The DotLottie React player. It supports .lottie and JSON, React 17/18/19, MIT licensing and npm provenance, and its WASM/worker assets can be self-hosted. The React 19 spike loaded both formats from a local WASM file in 58 ms.",
+  "gains": [
+    "Active release line and provenance-signed npm tarball",
+    "React 17, 18 and 19 peers",
+    ".lottie and Lottie JSON support",
+    "Self-hostable WASM and worker",
+    "No install scripts or advisories",
+    "Canvas rendering with events and worker variant"
+  ],
+  "losses": [
+    "481 KB gzip WASM runtime in addition to JS",
+    "Browser/canvas-only",
+    "CSP must allow WebAssembly and worker-src if the worker is used",
+    "0.x versioning",
+    "React 18 not spiked"
+  ],
+  "blockers": [],
+  "features": {},
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "90-frame .lottie and JSON side by side, React 19.2.0, self-hosted WASM, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 58,
+      "bundle_kb": 356.93,
+      "gzip_kb": 93.15
+    },
+    "screenshot": "dotlottie-react.png",
+    "code_path": "spikes/dotlottie-react/src/main.jsx",
+    "notes": "Both canvases reached 90 frames. The JS bundle was 356.93 KB / 93.15 KB gzip; the self-hosted WASM is 481 KB gzip separately. No CDN request was made for the runtime."
+  },
+  "sources": [
+    {
+      "label": "npm package",
+      "url": "https://www.npmjs.com/package/@lottiefiles/dotlottie-react/v/0.21.1"
+    },
+    {
+      "label": "spike source",
+      "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/dotlottie-react/src/main.jsx"
+    }
+  ]
+}

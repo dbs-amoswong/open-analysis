@@ -50,8 +50,12 @@ npx playwright screenshot --channel chrome \
 - `sigma-react/` mounts Sigma 4.0.4 with graphology 0.26.0 through a React 19
   ref wrapper. It renders 20 nodes and 20 edges on WebGL2. This validates the
   technical path; graphology's maintenance status remains a policy hold.
-- The formal comparison and caveats are in `data/evaluations/` and
-  `docs/x6-v2-v3-audit.md`.
+- `lottie-web/`, `lottie-react/` and `dotlottie-react/` are the Lottie audit.
+  The shared `lottie-assets/` directory holds the JSON and `.lottie` fixture.
+  The DotLottie spike self-hosts the WASM runtime; `npm run build` copies it
+  from the installed package before Vite runs.
+- The formal comparison and caveats are in `data/evaluations/`,
+  `docs/x6-v2-v3-audit.md` and `docs/lottie-audit.md`.
 
 ## Adapter prototype
 

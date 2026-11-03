@@ -1,0 +1,86 @@
+{
+  "id": "rev-2026-11-dotlottie-wc",
+  "package_id": "pkg-dotlottie-wc",
+  "requirement_id": "req-lottie",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "0.11.1",
+  "reviewer": "opencode-review",
+  "recommendation": "hold",
+  "risk": "low",
+  "score": 76,
+  "summary": "The active DotLottie web-component wrapper. It is MIT, provenance-signed, supports .lottie and JSON, and is a reasonable fallback if the React wrapper fails. It is held because it adds lit, is not React-first and was not spiked for this requirement.",
+  "reasoning": [
+    "Active release line: 0.11.1 published 2026-11-02 on the same repository as @lottiefiles/dotlottie-web.",
+    "MIT, provenance-signed, no install scripts, bundled types, and two runtime dependencies: lit and the DotLottie web player.",
+    "Supports .lottie and JSON through the underlying player.",
+    "It is a custom element, not a React component. React integration requires a wrapper or custom-element bridge.",
+    "The React wrapper @lottiefiles/dotlottie-react is the preferred path; this is a fallback, not a primary."
+  ],
+  "caveats": [
+    "Not React-first; adds lit.",
+    "No local spike for this requirement.",
+    "Same WASM/CSP considerations as the underlying DotLottie player."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT; the tree is lit, @lottiefiles/dotlottie-web and this wrapper, all MIT.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Fdotlottie-wc" }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "2 runtime dependencies; 14 MB installed; 1.2 MB unpacked.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@lottiefiles%2Fdotlottie-wc" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script in the isolated tree."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories for 0.11.1."
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "0.11.1 published 2026-11-02; active repository; no release gap.",
+      "sources": [
+        { "label": "GitHub repository", "url": "https://github.com/LottieFiles/dotlottie-web" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "pass",
+      "detail": "SLSA provenance present on 0.11.1; published by GitHub Actions via a trusted publisher.",
+      "sources": [
+        { "label": "npm attestation", "url": "https://registry.npmjs.org/-/npm/v1/attestations/@lottiefiles%2fdotlottie-wc@0.11.1" }
+      ]
+    },
+    {
+      "key": "react_integration",
+      "label": "React integration",
+      "status": "warn",
+      "detail": "Custom element, not a React component. Use only as a fallback behind a React wrapper."
+    }
+  ]
+}

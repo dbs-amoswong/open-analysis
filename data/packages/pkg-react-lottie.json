@@ -1,0 +1,20 @@
+{
+  "id": "pkg-react-lottie",
+  "name": "react-lottie",
+  "ecosystem": "npm",
+  "latest_version": "1.2.10",
+  "published_at": "2024-11-30",
+  "repo": "https://github.com/chenqingspring/react-lottie",
+  "registry": "https://www.npmjs.com/package/react-lottie",
+  "license": "MIT",
+  "weekly_downloads": 731886,
+  "runtime_deps": 3,
+  "install_size_kb": 41984,
+  "unpacked_size_kb": 27,
+  "maintainers": ["qchen"],
+  "types": "none",
+  "formats": ["cjs"],
+  "notes": "Older React wrapper with no bundled types. Pulls babel-runtime and prop-types; babel-runtime brings core-js 2 with a postinstall script. The last release was November 2024.",
+  "npm_provenance": false,
+  "provenance_note": "No npm attestation was found when these facts were collected."
+}

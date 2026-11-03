@@ -1,0 +1,19 @@
+{
+  "id": "pkg-dotlottie-react",
+  "name": "@lottiefiles/dotlottie-react",
+  "ecosystem": "npm",
+  "latest_version": "0.21.1",
+  "published_at": "2026-11-02",
+  "repo": "https://github.com/LottieFiles/dotlottie-web",
+  "registry": "https://www.npmjs.com/package/@lottiefiles/dotlottie-react",
+  "license": "MIT",
+  "weekly_downloads": 1858121,
+  "runtime_deps": 1,
+  "install_size_kb": 15360,
+  "unpacked_size_kb": 503,
+  "maintainers": ["jawish", "nattuadnan"],
+  "types": "bundled",
+  "formats": ["esm"],
+  "notes": "React wrapper for the DotLottie player. Peers React 17, 18 and 19; one exact dependency on @lottiefiles/dotlottie-web 0.82.1. Supports .lottie and Lottie JSON, canvas rendering, events, worker and self-hosted WASM. Active and provenance-signed.",
+  "npm_provenance": true
+}

@@ -1,0 +1,20 @@
+{
+  "name": "spike-dotlottie-react",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prebuild": "node scripts/copy-wasm.mjs",
+    "predev": "node scripts/copy-wasm.mjs",
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@lottiefiles/dotlottie-react": "0.21.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.0",
+    "vite": "^7.0.0"
+  }
+}

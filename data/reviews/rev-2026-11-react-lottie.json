@@ -1,0 +1,80 @@
+{
+  "id": "rev-2026-11-react-lottie",
+  "package_id": "pkg-react-lottie",
+  "requirement_id": "req-lottie",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "1.2.10",
+  "reviewer": "opencode-review",
+  "recommendation": "avoid",
+  "risk": "high",
+  "score": 22,
+  "summary": "An older React wrapper with no bundled types, no release since November 2024, no provenance, and a dependency tree that includes babel-runtime -> core-js 2 with a postinstall script. It also inherits lottie-web's stale JSON-only runtime. Do not adopt it.",
+  "reasoning": [
+    "No bundled TypeScript declarations.",
+    "Last release 1.2.10 on 2024-11-30; no release in more than 12 months.",
+    "No npm provenance.",
+    "The dependency tree includes babel-runtime 6.26.0 -> core-js 2.6.12, which declares a postinstall script.",
+    "It depends on lottie-web ^5.12.2, inheriting the stale JSON renderer.",
+    "The React peer is >=15, but React 19 was only installed with --legacy-peer-deps in the audit; the wrapper is not actively tested against current React."
+  ],
+  "caveats": [
+    "Install script in the tree.",
+    "No types.",
+    "No provenance.",
+    "Stale maintenance and lottie-web runtime.",
+    "41 MB installed."
+  ],
+  "evidence": [
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "fail",
+      "detail": "babel-runtime 6.26.0 brings core-js 2.6.12, which declares postinstall: node -e \"try{require('./postinstall')}catch(e){}\".",
+      "sources": [
+        { "label": "dependency tree", "url": "https://registry.npmjs.org/core-js/2.6.12" }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "1.2.10 published 2024-11-30; no release in more than 12 months.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/react-lottie" }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "fail",
+      "detail": "No bundled declarations."
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "No npm attestation for 1.2.10."
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "fail",
+      "detail": "3 direct dependencies including babel-runtime, lottie-web and prop-types; 41 MB installed.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/react-lottie" }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT; the isolated tree is MIT."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories at the reviewed version."
+    }
+  ]
+}

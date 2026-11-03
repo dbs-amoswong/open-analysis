@@ -1,0 +1,19 @@
+{
+  "id": "pkg-lottiefiles-lottie-player",
+  "name": "@lottiefiles/lottie-player",
+  "ecosystem": "npm",
+  "latest_version": "2.0.12",
+  "published_at": "2024-11-04",
+  "repo": "https://github.com/LottieFiles/lottie-player",
+  "registry": "https://www.npmjs.com/package/@lottiefiles/lottie-player",
+  "license": "MIT",
+  "weekly_downloads": 220913,
+  "runtime_deps": 5,
+  "install_size_kb": 39936,
+  "unpacked_size_kb": 6764,
+  "maintainers": ["jawish"],
+  "types": "bundled",
+  "formats": ["cjs", "esm"],
+  "notes": "Web-component Lottie player. The GitHub repository is archived. Pulls lit, pako, lottie-web, @types/pako and resize-observer-polyfill; it is not a React-first integration.",
+  "npm_provenance": true
+}

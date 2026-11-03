@@ -1,0 +1,114 @@
+{
+  "id": "rev-2026-11-lottie-react",
+  "package_id": "pkg-lottie-react",
+  "requirement_id": "req-lottie",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "3.1.2",
+  "reviewer": "opencode-review",
+  "recommendation": "replace",
+  "risk": "medium",
+  "score": 64,
+  "summary": "A clean, active React wrapper with good types and React 18/19 support, but it depends on lottie-web 5.13.0, which has not shipped since May 2025 and contains eval in the browser bundle. It is JSON-only. Keep it as a legacy JSON fallback and replace it with @lottiefiles/dotlottie-react for new work.",
+  "reasoning": [
+    "The wrapper itself is active: 3.1.2 published 2026-09-07; repository pushed 2026-09-07; six open issues.",
+    "Peers React ^18.2.0 || ^19.0.0, and a React 19 spike rendered the JSON animation in 56 ms with SVG output.",
+    "MIT, bundled types, one runtime dependency, and no install scripts.",
+    "The runtime dependency is lottie-web ^5.13.0, whose latest release is May 2025 and whose repository has been quiet since September 2025. The chosen stack therefore fails the 12-month active-maintenance constraint.",
+    "The Vite production build warned about eval() inside lottie-web, which is a CSP and code-quality concern.",
+    "No npm provenance and no .lottie support. The wrapper is a JSON-only path."
+  ],
+  "caveats": [
+    "Inherits lottie-web's stale release cadence and eval usage.",
+    "JSON-only; it cannot play .lottie files.",
+    "No npm provenance. Pin 3.1.2 and record the gap if it is kept as a legacy fallback.",
+    "The bundle was 521.17 KB / 145.52 KB gzip including React 19; lottie-web is the bulk of it.",
+    "The wrapper is active, but a wrapper cannot fix the runtime underneath it."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT. The isolated tree is React, React DOM, lottie-react and lottie-web, all MIT.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/lottie-react" }
+      ]
+    },
+    {
+      "key": "react_peer",
+      "label": "React compatibility",
+      "status": "pass",
+      "detail": "peerDependencies react: ^18.2.0 || ^19.0.0. The spike used React 19.2.0 and rendered SVG.",
+      "sources": [
+        { "label": "npm package", "url": "https://www.npmjs.com/package/lottie-react/v/3.1.2" }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "One runtime dependency, lottie-web ^5.13.0; 33 MB installed with React; 358 KB unpacked for the wrapper.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/lottie-react" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script in the isolated tree."
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled build/index.d.ts."
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories for lottie-react@3.1.2 or lottie-web@5.13.0.",
+      "sources": [
+        { "label": "OSV", "url": "https://osv.dev/" }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "The wrapper is active, but its required runtime lottie-web has not shipped since 2025-05-21 (more than 12 months) and the lottie-web repository was last pushed 2025-09-01. The chosen stack fails the active-maintenance constraint.",
+      "sources": [
+        { "label": "lottie-web npm", "url": "https://registry.npmjs.org/lottie-web" },
+        { "label": "lottie-web repository", "url": "https://github.com/airbnb/lottie-web" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "No npm attestation for lottie-react@3.1.2 or lottie-web@5.13.0."
+    },
+    {
+      "key": "format_support",
+      "label": "Format support",
+      "status": "fail",
+      "detail": "Lottie JSON only. No .lottie support."
+    },
+    {
+      "key": "behaviour",
+      "label": "React browser spike",
+      "status": "pass",
+      "detail": "A Vite production build rendered the JSON animation as SVG in Chrome 1200x800. The component reached SVG output in 56 ms. The bundle was 521.17 KB / 145.52 KB gzip including React 19.",
+      "sources": [
+        { "label": "Spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/lottie-react/src/main.jsx" }
+      ]
+    },
+    {
+      "key": "csp",
+      "label": "CSP and eval",
+      "status": "warn",
+      "detail": "Vite warned that lottie-web uses eval() in the browser bundle. This is a CSP and code-quality concern for a new integration."
+    }
+  ]
+}
