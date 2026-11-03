@@ -1,6 +1,6 @@
 {
   "id": "eval-x6-v3",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "@antv/x6 (v3 core)",
   "version": "3.1.8",
   "kind": "stack",

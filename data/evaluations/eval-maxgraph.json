@@ -1,6 +1,6 @@
 {
   "id": "eval-maxgraph",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "maxGraph",
   "version": "0.25.1",
   "kind": "library",

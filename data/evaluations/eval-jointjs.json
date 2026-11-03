@@ -1,6 +1,6 @@
 {
   "id": "eval-jointjs",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "JointJS core",
   "version": "4.3.4",
   "kind": "library",

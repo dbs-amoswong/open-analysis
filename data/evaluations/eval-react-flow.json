@@ -1,6 +1,6 @@
 {
   "id": "eval-react-flow",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "React Flow",
   "version": "12.12.1",
   "kind": "library",
@@ -9,7 +9,7 @@
   "license": "MIT",
   "maintenance": "Very active",
   "published_at": "2026-11-02",
-  "summary": "A strong React node/edge editor. The spike rendered and fit the graph, but it requires React and does not provide X6-style general diagram editing, layouts, stencils, snaplines or a non-React legacy integration.",
+  "summary": "A strong React node/edge editor. The spike rendered and fit the graph, but it requires React and does not provide X6-style general diagram editing, layouts, stencils, snaplines or a non-React integration.",
   "gains": [
     "MIT",
     "Very active",

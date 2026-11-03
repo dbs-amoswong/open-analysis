@@ -1,6 +1,6 @@
 {
   "id": "eval-gojs",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "GoJS",
   "version": "4.0.5",
   "kind": "library",

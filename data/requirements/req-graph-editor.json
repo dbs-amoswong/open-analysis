@@ -1,0 +1,29 @@
+{
+  "id": "req-graph-editor",
+  "slug": "graph-editor",
+  "title": "Graph visualization and editing",
+  "summary": "Render, edit and interact with graph data in a web application. Compare maintained graph-editor libraries, feature fit, licensing and migration paths. The existing application currently uses AntV X6; the same evaluation applies to new graph-editor projects.",
+  "owner": "dbs-amoswong",
+  "criticality": "high",
+  "status": "active",
+  "created_at": "2026-11-03",
+  "review_cadence_days": 180,
+  "constraints": [
+    "Must run within the target application's browser and runtime baseline; record the exact baseline before judging compatibility",
+    "Preserve existing graph editing, selection, transform, history and export behaviour during any upgrade or migration",
+    "Permissive license across the full dependency tree",
+    "No unfixed high or critical advisories",
+    "Actively maintained (release within 12 months)",
+    "No install scripts in the dependency tree",
+    "Do not mix X6 major lines: v3 core must use its bundled plugins, and 2.x plugins must not be installed with v3",
+    "If the application runtime includes Node or SSR, verify native ESM/CJS loading before adopting X6 v3",
+    "If npm provenance is unavailable, pin exact versions and record the gap"
+  ],
+  "out_of_scope": [
+    "Backend graph database and query language",
+    "Visual design and theming",
+    "Rewriting the application or choosing a new UI framework",
+    "Detailed benchmark against every graph library"
+  ],
+  "notes": "The requirement covers two distinct X6 lines. v2: @antv/x6@2.19.2 plus @antv/x6-common, @antv/x6-geometry and the separate 2.x plugins; this is the stack for existing X6 applications, but the v2 line was marked deprecated at 2.19.0 and is not a long-term option. v3: @antv/x6@3.1.8 bundles common, geometry and the official plugins; it requires Node >=20, changes panning, animation and scroller behaviour, and its npm package currently fails native Node ESM and CJS loading (see docs/x6-v2-v3-audit.md). Do not install the deprecated 3.0.0 plugin packages or mix v3 core with 2.x plugins. D3 is the named alternative, but it does not provide X6's editing/plugin layer. Record the actual lockfile, browser baseline and plugin usage before any migration verdict. Choosing v2 is a time-boxed bridge, not a final destination."
+}

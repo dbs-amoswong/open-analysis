@@ -1,6 +1,6 @@
 {
   "id": "eval-sigma",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "Sigma.js",
   "version": "4.0.4",
   "kind": "reference",

@@ -1,6 +1,6 @@
 {
   "id": "eval-cytoscape",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "Cytoscape.js",
   "version": "3.34.4",
   "kind": "reference",
@@ -9,7 +9,7 @@
   "license": "MIT",
   "maintenance": "Active",
   "published_at": "2026-10-15",
-  "summary": "A graph rendering, analysis and layout library, not an editor. It is a strong read-only/large-graph option and was adopted for the React graph requirement, but it does not replace X6’s editing layer.",
+  "summary": "A graph rendering, analysis and layout library, not an editor. It is a strong read-only/large-graph option and was adopted for the React graph requirement, but it does not replace X6\u2019s editing layer.",
   "gains": [
     "MIT",
     "Zero dependencies",

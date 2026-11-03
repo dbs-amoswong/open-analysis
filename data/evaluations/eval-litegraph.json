@@ -1,6 +1,6 @@
 {
   "id": "eval-litegraph",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "LiteGraph.js",
   "version": "0.7.18",
   "kind": "library",

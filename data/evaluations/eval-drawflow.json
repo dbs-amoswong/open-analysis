@@ -1,6 +1,6 @@
 {
   "id": "eval-drawflow",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "Drawflow",
   "version": "0.0.60",
   "kind": "library",
@@ -9,7 +9,7 @@
   "license": "MIT",
   "maintenance": "Stale; last push 2024",
   "published_at": "2024-09-03",
-  "summary": "A small simple-flow editor. It rendered quickly, but it is far below X6’s editing surface, has no release since 2024 and carries hundreds of open issues.",
+  "summary": "A small simple-flow editor. It rendered quickly, but it is far below X6\u2019s editing surface, has no release since 2024 and carries hundreds of open issues.",
   "gains": [
     "MIT",
     "Tiny bundle",
@@ -48,7 +48,7 @@
     },
     "screenshot": "drawflow.png",
     "code_path": "spikes/drawflow/main.js",
-    "notes": "Last npm release 2024-09-03; repository last pushed 2024-10-19. Not suitable for a mature legacy editor."
+    "notes": "Last npm release 2024-09-03; repository last pushed 2024-10-19. Not suitable for a mature editor."
   },
   "sources": [
     {

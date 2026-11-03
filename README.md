@@ -216,7 +216,7 @@ A comparison record for a library, stack, reference implementation or build opti
 ```json
 {
   "id": "eval-x6-v2",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "@antv/x6",
   "version": "2.19.2",
   "kind": "stack",

@@ -1,20 +1,20 @@
 {
   "id": "eval-build-from-scratch",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "Build from scratch",
   "kind": "build",
   "verdict": "build",
   "fit_score": 40,
   "license": "Owned",
   "maintenance": "Team-owned",
-  "summary": "The highest-control, highest-cost option. A basic editor is not the problem; X6-parity interaction, history, clipboard, stencil, routing, snapping, export, accessibility and browser testing are. Not recommended for a legacy application.",
+  "summary": "The highest-control, highest-cost option. A basic editor is not the problem; X6-parity interaction, history, clipboard, stencil, routing, snapping, export, accessibility and browser testing are. Not recommended for a application.",
   "gains": [
     "Complete control",
     "No third-party licence",
     "Can fit the domain exactly"
   ],
   "losses": [
-    "9–18 engineer-months for X6-like parity",
+    "9\u201318 engineer-months for X6-like parity",
     "Permanent maintenance",
     "High regression risk",
     "Delays the actual application work"
@@ -36,7 +36,7 @@
     "status": "not-applicable",
     "tested_at": "2026-11-04",
     "scenario": "Not spiked: build option, no implementation without a product decision.",
-    "notes": "Use D3/Cytoscape/Sigma as rendering inputs only if you accept a custom editor build. For a legacy app, this is a last resort."
+    "notes": "Use D3/Cytoscape/Sigma as rendering inputs only if you accept a custom editor build. For a application, this is a last resort."
   },
   "sources": [
     {

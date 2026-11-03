@@ -1,6 +1,6 @@
 {
   "id": "eval-d3",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "D3",
   "version": "7.9.1",
   "kind": "reference",

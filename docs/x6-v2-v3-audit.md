@@ -3,7 +3,7 @@
 Date: 2026-11-04
 
 This note audits the X6 v2/v3 comparison against the package registry and the
-actual npm tarballs. It is the evidence behind `req-legacy-graph` and supersedes
+actual npm tarballs. It is the evidence behind `req-graph-editor` and supersedes
 the earlier mixed-version review in PR #10.
 
 ## Scope
@@ -138,14 +138,14 @@ handlers and editor behaviour still need regression testing.
 
 ## Corrected conclusion
 
-- **v2 is the correct short-term bridge for the legacy application today.** Pin
-  `@antv/x6@2.19.2` and compatible 2.x plugins. Record the provenance gap and
-  set an exit/review date; v2 is deprecated and must not become the permanent
-  destination.
+- **v2 is the correct short-term bridge for an existing X6 application today.**
+  Pin `@antv/x6@2.19.2` and compatible 2.x plugins. Record the provenance gap
+  and set an exit/review date; v2 is deprecated and must not become the
+  permanent destination.
 - **v3 is the maintained future path, but not a safe drop-in.** It is blocked
   for native Node/SSR/test environments by the packaging failure, and it
   requires Node >=20 plus behaviour migration.
 - **Do not mix v3 core with 2.x plugins.** Their peer ranges are incompatible.
 - **Do not install the deprecated 3.0.0 plugin packages.**
 - A browser-only bundled proof of concept can still evaluate v3, but the
-  bundle, legacy browser baseline and all editor workflows must be tested.
+  bundle, target browser baseline and all editor workflows must be tested.

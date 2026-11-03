@@ -1,4 +1,4 @@
-import { mkdir, writeFile, copyFile, cp } from "node:fs/promises";
+import { mkdir, writeFile, copyFile, cp, rm } from "node:fs/promises";
 import path from "node:path";
 import { loadModel, DIST_DIR, ASSETS_DIR, todayISO } from "./lib/load.mjs";
 import { renderSite } from "./lib/render.mjs";
@@ -22,6 +22,7 @@ export async function build({ quiet = false } = {}) {
   const pages = renderSite(model);
   const allowlist = buildAllowlist(model);
 
+  await rm(DIST_DIR, { recursive: true, force: true });
   await mkdir(DIST_DIR, { recursive: true });
   await Promise.all([
     ...pages.map(async (page) => {

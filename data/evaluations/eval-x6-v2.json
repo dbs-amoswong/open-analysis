@@ -1,6 +1,6 @@
 {
   "id": "eval-x6-v2",
-  "requirement_id": "req-legacy-graph",
+  "requirement_id": "req-graph-editor",
   "name": "@antv/x6 (v2 stack)",
   "version": "2.19.2",
   "kind": "stack",
@@ -9,7 +9,7 @@
   "license": "MIT",
   "maintenance": "Deprecated line; late patch",
   "published_at": "2025-11-17",
-  "summary": "The legacy-compatible X6 stack. It rendered the 20-node/20-edge spike, has native CJS/ESM loading, and keeps the existing plugin API. It is deprecated and should be treated as a time-boxed bridge, not a destination.",
+  "summary": "The X6 v2 stack for existing applications. It rendered the 20-node/20-edge spike, has native CJS/ESM loading, and keeps the existing plugin API. It is deprecated and should be treated as a time-boxed bridge, not a destination.",
   "gains": [
     "No application rewrite",
     "Existing plugin API and data",
@@ -18,7 +18,7 @@
   ],
   "losses": [
     "v2 line marked deprecated at 2.19.0",
-    "2.x plugins are 2023–2024 releases",
+    "2.x plugins are 2023\u20132024 releases",
     "No npm provenance",
     "No new plugin fixes"
   ],
