@@ -1,0 +1,14 @@
+{
+  "id": "dec-graph-editor",
+  "requirement_id": "req-graph-editor",
+  "status": "approved",
+  "primary_package_id": "pkg-antv-x6",
+  "adopted": ["pkg-antv-x6"],
+  "hold": [],
+  "rejected": [],
+  "dropped": [],
+  "rationale": "Adopt X6 v3 as the target for the React browser-only graph editor. v2 is deprecated and is not the long-term target. The browser spike passes after adding tslib, the core bundles the official plugins, and the React shape package is available. Native Node/SSR is explicitly not approved: the published v3 package currently fails native ESM and CJS loading. The actual application regression suite must pass before production rollout. maxGraph remains the fallback if the v3 migration fails.",
+  "decided_at": "2026-11-04",
+  "decided_by": "opencode-review (delegated by dbs-amoswong)",
+  "expires_at": "2027-05-03"
+}

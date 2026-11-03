@@ -1,0 +1,113 @@
+{
+  "id": "rev-2026-11-antv-x6-v3",
+  "package_id": "pkg-antv-x6",
+  "requirement_id": "req-graph-editor",
+  "reviewed_at": "2026-11-04",
+  "reviewed_version": "3.1.8",
+  "reviewer": "opencode",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 79,
+  "summary": "Adopt X6 v3 as the target for the React browser-only graph editor. The browser spike passed after adding tslib, the core bundles the official plugins, and the React shape package is available. Do not treat this as approval for native Node/SSR: the published v3 package currently fails native ESM and CJS loading.",
+  "reasoning": [
+    "X6 v3 is the maintained AntV line; v2 is deprecated and should not be the long-term target.",
+    "The core renders the 20-node/20-edge spike in a Vite browser build after adding tslib, and includes selection, transform, history, clipboard, scroller, keyboard, export and related plugin code.",
+    "The official React shape package is available at 3.0.1; the React provider API must move from Portal.getProvider() to getProvider().",
+    "The requirement is browser-only and does not require SSR; the native Node packaging failure is therefore a deployment constraint, not a reason to keep v2.",
+    "The browser spike is not the application regression test. Custom shapes, plugin behaviour, panning, animation and export must be tested in the actual app before production.",
+    "X6 has no npm provenance; pin the exact version and record the gap."
+  ],
+  "caveats": [
+    "Native Node ESM fails with export-related errors and native CJS fails without tslib; do not use this package in SSR or Node-side rendering without a fix.",
+    "Add tslib explicitly; the published v3 package does not declare it, and Vite initially failed to resolve it.",
+    "v3 enables panning by default; set panning explicitly where the application expects v2 behaviour.",
+    "transition is removed; replace it with animate.",
+    "Use @antv/x6-react-shape@3.x and the new getProvider() API.",
+    "Do not install the deprecated 3.0.0 plugin packages; import official plugins from @antv/x6.",
+    "No npm provenance; pin the exact version and record the waiver.",
+    "The actual application regression suite has not run yet; this decision approves the target, not the completed migration."
+  ],
+  "evidence": [
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "3.1.8 published 2026-08-11; repository last pushed 2026-10-23; active and not archived.",
+      "sources": [
+        { "label": "npm package", "url": "https://www.npmjs.com/package/@antv/x6/v/3.1.8" },
+        { "label": "GitHub repository", "url": "https://github.com/antvis/X6" }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisory entries for @antv/x6@3.1.8 at review time.",
+      "sources": [
+        { "label": "OSV", "url": "https://osv.dev/" }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "pass",
+      "detail": "MIT, which satisfies the permissive-licence constraint for this package. Transitive licences were not fully inventoried.",
+      "sources": [
+        { "label": "npm package", "url": "https://www.npmjs.com/package/@antv/x6/v/3.1.8" }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "warn",
+      "detail": "No npm attestation was found. Pin 3.1.8 exactly and record the gap.",
+      "sources": [
+        { "label": "npm registry", "url": "https://registry.npmjs.org/@antv%2Fx6" }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "Publish pipeline",
+      "status": "info",
+      "detail": "No workflow or OIDC publishing evidence was collected; provenance absence is recorded but the pipeline was not audited.",
+      "sources": [
+        { "label": "GitHub repository", "url": "https://github.com/antvis/X6" }
+      ]
+    },
+    {
+      "key": "packaging",
+      "label": "Native Node packaging",
+      "status": "warn",
+      "detail": "Native ESM fails because the package declares type module while the main entry is CommonJS; native CJS also needs tslib, which is not declared. Browser bundling works with tslib. This is not approved for SSR or native Node.",
+      "sources": [
+        { "label": "Packaging issue", "url": "https://github.com/antvis/X6/issues/5048" }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Browser spike",
+      "status": "pass",
+      "detail": "A 20-node/20-edge Vite production build rendered in Chrome, with selection and panning, after adding tslib. Mount was 13 ms and the bundle was 584.85 KB JS / 168.82 KB gzip in the spike.",
+      "sources": [
+        { "label": "Evaluation record", "url": "https://dbs-amoswong.github.io/open-analysis/evaluations/eval-x6-v3.html" },
+        { "label": "Spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/x6-v3/main.js" }
+      ]
+    },
+    {
+      "key": "react",
+      "label": "React integration",
+      "status": "pass",
+      "detail": "The official @antv/x6-react-shape package is available at 3.0.1; v3 requires the 3.x package and the getProvider() API.",
+      "sources": [
+        { "label": "React shape package", "url": "https://www.npmjs.com/package/@antv/x6-react-shape/v/3.0.1" }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "lead-analyzer",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "generated_at": "2026-11-04T00:00:00.000Z"
+  }
+}
