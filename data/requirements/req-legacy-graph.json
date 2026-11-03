@@ -1,0 +1,27 @@
+{
+  "id": "req-legacy-graph",
+  "slug": "legacy-graph",
+  "title": "Graph visualization in a legacy application",
+  "summary": "Render, edit and interact with graph data in the existing legacy application. Assess whether the AntV X6 v2/v3 suite and its plugins remain maintained, which capabilities are unique to the suite, and whether D3 or another renderer is a better fit. Preserve existing graph behaviour during any upgrade or migration.",
+  "owner": "dbs-amoswong",
+  "criticality": "high",
+  "status": "active",
+  "created_at": "2026-11-03",
+  "review_cadence_days": 180,
+  "constraints": [
+    "Must run within the legacy application's existing browser and runtime baseline; record the exact baseline before judging compatibility",
+    "Preserve existing graph editing, selection, transform, history and export behaviour during any upgrade or migration",
+    "Permissive license across the full dependency tree",
+    "No unfixed high or critical advisories",
+    "Actively maintained (release within 12 months)",
+    "No install scripts in the dependency tree",
+    "If npm provenance is unavailable, pin exact versions and record the gap"
+  ],
+  "out_of_scope": [
+    "Backend graph database and query language",
+    "Visual design and theming",
+    "Rewriting the legacy application or choosing a new UI framework",
+    "Detailed benchmark against every graph library"
+  ],
+  "notes": "The legacy application currently uses the AntV X6 v2/v3 family and its plugins: @antv/x6, @antv/x6-plugin-selection, @antv/x6-plugin-transform, @antv/x6-plugin-scroller, @antv/x6-plugin-keyboard, @antv/x6-plugin-history, @antv/x6-plugin-clipboard, @antv/x6-plugin-snapline, @antv/x6-plugin-dnd, @antv/x6-plugin-minimap, @antv/x6-plugin-stencil, @antv/x6-plugin-export, @antv/x6-common and @antv/x6-geometry. Assess whether to keep, upgrade or replace the suite. D3 is the named alternative. Compare each plugin's role and overlap rather than treating every package as an interchangeable renderer. The legacy browser/runtime baseline and actual plugin usage must be recorded before a migration verdict."
+}
