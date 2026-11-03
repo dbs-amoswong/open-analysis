@@ -1,0 +1,158 @@
+{
+  "id": "rev-2026-11-antv-x6-react-shape",
+  "package_id": "pkg-antv-x6-react-shape",
+  "requirement_id": "req-graph-editor",
+  "recommendation": "adopt",
+  "risk": "medium",
+  "score": 82,
+  "reviewed_version": "3.0.1",
+  "reviewed_at": "2026-11-04",
+  "cadence_days": 23,
+  "summary": "The official React integration for X6 v3. MIT, zero runtime dependencies, React 18/19 peers and bundled types; a React 19 spike rendered 20 interactive nodes with selection. It is browser-only, has no npm provenance, and its last release is close to the 12-month maintenance boundary.",
+  "reasoning": [
+    "It is the official X6 React shape package, so React nodes use the supported foreignObject path instead of an application-specific DOM hack.",
+    "The peer range is React >=18, React DOM >=18 and @antv/x6 ^3.x, which covers the reviewed X6 3.1.8 and both React 18 and 19.",
+    "The package declares no runtime dependencies; the shipped runtime tree is the X6 core, React and this package, all MIT or permissive.",
+    "A local React 19.2.0 spike rendered 20 React-rendered nodes and 20 edges, mounted in 17 ms, and a button click updated component state; selection also worked.",
+    "The package is MIT, has bundled declarations and no install scripts.",
+    "It is not separately provenance-signed; the decision must pin 3.0.1 exactly and record the gap, as the requirement allows.",
+    "The last npm release was 2025-11-27. That is inside the 12-month window today but expires on 2026-11-27, so the next review must check whether the package has been released again."
+  ],
+  "caveats": [
+    "Browser-only: the package renders through foreignObject and the X6 core still fails native Node ESM/CJS loading. Do not use it in SSR or Node-side rendering.",
+    "No npm provenance. Pin 3.0.1 exactly and record the gap.",
+    "The last release is 2025-11-27. If no new release ships by 2026-11-27, the active-maintenance constraint is no longer met and the React path needs a new decision.",
+    "The React provider API changed in v3; the spike used getProvider() and the 3.x package. Do not pair it with X6 v2 or the deprecated 3.0.0 plugin packages.",
+    "The spike covers rendering, a component state update and selection, not the full application regression suite."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "pass",
+      "detail": "MIT. The runtime tree for the spike is X6 (MIT; its deps are MIT except mousetrap, Apache-2.0 WITH LLVM-exception), tslib (0BSD), React and React DOM (MIT), and this package (MIT). No commercial or copyleft licence is introduced.",
+      "sources": [
+        {
+          "label": "npm package",
+          "url": "https://www.npmjs.com/package/@antv/x6-react-shape/v/3.0.1"
+        }
+      ]
+    },
+    {
+      "key": "react_peer",
+      "label": "React compatibility",
+      "status": "pass",
+      "detail": "peerDependencies: react >=18.0.0, react-dom >=18.0.0, @antv/x6 ^3.x. The spike used React 19.2.0 with X6 3.1.8.",
+      "sources": [
+        {
+          "label": "npm package",
+          "url": "https://www.npmjs.com/package/@antv/x6-react-shape/v/3.0.1"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies. Peers are supplied by the application. Unpacked size is 1,044 KB; install size was not separately measured.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-react-shape"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations are present in the published package.",
+      "sources": [
+        {
+          "label": "npm package",
+          "url": "https://www.npmjs.com/package/@antv/x6-react-shape/v/3.0.1"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "OSV returned no advisories for @antv/x6-react-shape@3.0.1 at review time.",
+      "sources": [
+        {
+          "label": "OSV",
+          "url": "https://osv.dev/"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "3.0.1 published 2025-11-27; the AntV X6 repository was pushed 2026-10-23. The package itself has not shipped in almost 12 months, so the boundary is 2026-11-27.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-react-shape"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/X6"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "warn",
+      "detail": "No npm attestation was found for 3.0.1. Pin the exact version and record the gap.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-react-shape"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "Publish pipeline",
+      "status": "info",
+      "detail": "Not audited. The package is published from the AntV X6 monorepo, but no OIDC or release workflow evidence was collected for this sub-package.",
+      "sources": [
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/X6"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "React browser spike",
+      "status": "pass",
+      "detail": "A Vite production build rendered 20 React-rendered nodes and 20 edges in Chrome 1200x800. Mount was 17 ms, bundle was 782.82 KB JS / 231.62 KB gzip including React 19.2.0, a node button click updated component state, and selection worked.",
+      "sources": [
+        {
+          "label": "Evaluation record",
+          "url": "https://dbs-amoswong.github.io/open-analysis/evaluations/eval-x6-v3-react.html"
+        },
+        {
+          "label": "Spike source",
+          "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/x6-v3-react/src/main.jsx"
+        }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "The package declares no preinstall, install or postinstall script, and it has no runtime dependencies.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-react-shape"
+        }
+      ]
+    }
+  ]
+}

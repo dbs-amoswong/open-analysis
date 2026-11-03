@@ -29,6 +29,100 @@
   ],
   "rationale": "Adopt @fastify/deepmerge as the primary implementation: it is the only candidate that combines OIDC trusted publishing, SLSA provenance, zero runtime dependencies, bundled types, active maintenance and immunity to CVE-2026-93753. deepmerge-ts is approved as the fallback for cyclic inputs or Map/Set merging, at the cost of a long-lived NPM_TOKEN in its release pipeline. deepmerge is dropped because the vulnerability has no upstream fix and is invisible to npm audit. ts-deepmerge, merge-deep, lodash.merge, @corex/deepmerge, deep-extend and the CVE-fork packages are rejected; defu, merge-anything and @75lb/deep-merge remain on hold and are not approved for this requirement.",
   "decided_at": "2026-10-20",
-  "decided_by": "platform-security",
-  "expires_at": "2027-04-18"
+  "decided_by": "platform-security; revalidated by opencode-review (delegated by dbs-amoswong)",
+  "expires_at": "2027-04-18",
+  "criteria": [
+    "Zero runtime dependencies",
+    "CI-published with verifiable provenance",
+    "Bundled or resolvable TypeScript types",
+    "No unfixed high or critical advisories",
+    "Active maintenance (release within 12 months)",
+    "Works from both CommonJS and ESM consumers",
+    "Prototype-safety for parsed JSON inputs"
+  ],
+  "alternatives_considered": [
+    {
+      "name": "@fastify/deepmerge 3.2.4",
+      "outcome": "selected primary",
+      "reason": "OIDC trusted publishing with SLSA provenance, zero dependencies, bundled types, active, fastest measured, and blocks all four CVE-2026-93753 variants."
+    },
+    {
+      "name": "deepmerge-ts 8.0.2",
+      "outcome": "adopted fallback",
+      "reason": "Handles cycles and Map/Set, has strong inference and provenance, but publishes with a long-lived NPM_TOKEN rather than OIDC."
+    },
+    {
+      "name": "deepmerge 4.3.1",
+      "outcome": "dropped",
+      "reason": "Unfixed CVE-2026-93753, no release since 2023 and invisible to npm audit; migrate by 2026-12-31."
+    },
+    {
+      "name": "ts-deepmerge 8.0.0",
+      "outcome": "rejected",
+      "reason": "No CI or publish workflow and no provenance; fails the release-integrity constraint."
+    },
+    {
+      "name": "merge-deep 3.0.3",
+      "outcome": "rejected",
+      "reason": "No release since 2021, three dependencies expanding to 13 packages, no types and no provenance."
+    },
+    {
+      "name": "lodash.merge 4.6.2",
+      "outcome": "rejected",
+      "reason": "Frozen since 2019 and tied to lodash's advisory stream; no path to future fixes."
+    },
+    {
+      "name": "@corex/deepmerge 4.0.43",
+      "outcome": "rejected",
+      "reason": "No repository, no source review and no release since 2023."
+    },
+    {
+      "name": "deep-extend 0.6.0",
+      "outcome": "rejected",
+      "reason": "Unmaintained since 2018, no CI, no types and no provenance. The historical CVE-2018-3750 is fixed in 0.6.0, but the package is not maintained."
+    },
+    {
+      "name": "@stackline/deepmerge 1.1.0",
+      "outcome": "rejected",
+      "reason": "New single-maintainer fork with near-zero adoption and no independent review; its CVE fix is self-asserted."
+    },
+    {
+      "name": "defu 6.1.7",
+      "outcome": "hold",
+      "reason": "Defaults semantics, not overwrite merge; no publish workflow and no provenance."
+    },
+    {
+      "name": "merge-anything 6.0.9",
+      "outcome": "hold",
+      "reason": "ESM-only, one dependency, no declarations and no publish workflow."
+    },
+    {
+      "name": "@75lb/deep-merge 1.1.5",
+      "outcome": "hold",
+      "reason": "Pulls lodash and typical, defeating the zero-dependency constraint; ESM-only and no types."
+    }
+  ],
+  "conditions": [
+    "Use @fastify/deepmerge 3.2.4 as the default; pin it exactly and keep the lockfile.",
+    "Use deepmerge-ts 8.0.2 only when cyclic inputs or Map/Set merging are required; pin it exactly and record the NPM_TOKEN release gap.",
+    "Do not use deepmerge after 2026-12-31; migrate existing call sites to @fastify/deepmerge.",
+    "Keep the four-variant prototype regression in the test suite.",
+    "Configure array handling explicitly; @fastify/deepmerge concatenates arrays by default.",
+    "Use deepmerge-ts for cyclic input; @fastify/deepmerge does not detect cycles."
+  ],
+  "confidence": "high",
+  "unknowns": [
+    "The local benchmark measured the nested-config workload, not every application shape.",
+    "deepmerge-ts still authenticates with a long-lived NPM_TOKEN; provenance is present but the token remains a release risk.",
+    "@fastify/deepmerge is CommonJS-only and relies on ESM default-import interop.",
+    "The deepmerge migration call sites were not enumerated."
+  ],
+  "reversal_cost": "Low: both approved packages use a small merge API, and the existing deepmerge wrapper is a thin layer.",
+  "review_triggers": [
+    "A new advisory or bypass affects @fastify/deepmerge or deepmerge-ts.",
+    "Either package changes its release pipeline or loses provenance.",
+    "The deepmerge migration misses the 2026-12-31 deadline.",
+    "A cyclic-input requirement makes the fallback the primary.",
+    "A maintained zero-dependency alternative with better ESM support appears."
+  ]
 }

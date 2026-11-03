@@ -55,6 +55,21 @@
       "label": "Maintenance",
       "status": "pass",
       "detail": "0.9.24 published 2026-10-19; 68 versions; 1.26M weekly downloads."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT, matching the assistant-ui tree inventory.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@assistant-ui%2Ftap" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script; zero runtime dependencies."
     }
   ],
   "reviewed_version": "0.9.24"

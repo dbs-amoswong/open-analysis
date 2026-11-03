@@ -1,0 +1,72 @@
+{
+  "id": "eval-sigma-react",
+  "requirement_id": "req-nvl-graph",
+  "name": "Sigma.js + React ref wrapper",
+  "version": "4.0.4",
+  "kind": "stack",
+  "verdict": "retain",
+  "fit_score": 82,
+  "license": "MIT",
+  "summary": "The Sigma.js core fallback in a real React component: a thin ref wrapper mounts the WebGL renderer with graphology 0.26.0. The 20-node/20-edge spike rendered on WebGL2 and stayed interactive. The technical path works, but graphology's last release is 2025-01-26, so the full wrapper stack remains a policy hold.",
+  "gains": [
+    "MIT core renderer",
+    "WebGL2 rendering for large graphs",
+    "Active Sigma releases",
+    "Works from a thin React ref wrapper",
+    "20 nodes and 20 edges rendered without errors",
+    "Graphology graph API is straightforward"
+  ],
+  "losses": [
+    "Client-only; WebGL2 and browser globals are required",
+    "No npm provenance for Sigma",
+    "No built-in layouts",
+    "graphology 0.26.0 has not shipped since 2025-01-26",
+    "Bundle includes React, Sigma and graphology: 643.14 KB / 174.91 KB gzip in the spike"
+  ],
+  "blockers": [
+    "graphology 0.26.0 is outside the requirement's 12-month release window, so the full React wrapper stack is held even though the core renderer works.",
+    "Client-only WebGL2; it must be dynamically imported or used in a client component."
+  ],
+  "features": {
+    "general_editing": "none",
+    "ports": "none",
+    "undo_redo": "none",
+    "clipboard": "none",
+    "stencil": "none",
+    "snaplines": "none",
+    "minimap": "none",
+    "export": "custom",
+    "layouts": "none",
+    "custom_nodes": "custom",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, Sigma 4.0.4 with graphology 0.26.0 mounted from a React 19.2.0 ref wrapper, WebGL2, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 112,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 643.14,
+      "gzip_kb": 174.91
+    },
+    "screenshot": "sigma-react.png",
+    "code_path": "spikes/sigma-react/src/main.jsx",
+    "notes": "WebGL2 was available in headless Chrome. The renderer held 20 nodes and 20 edges and produced no console or page errors. This is technical validation of Sigma core plus graphology, not an approval of graphology's maintenance status; that remains held."
+  },
+  "sources": [
+    {
+      "label": "Sigma package",
+      "url": "https://www.npmjs.com/package/sigma/v/4.0.4"
+    },
+    {
+      "label": "graphology package",
+      "url": "https://www.npmjs.com/package/graphology/v/0.26.0"
+    },
+    {
+      "label": "Spike source",
+      "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/sigma-react/src/main.jsx"
+    }
+  ]
+}

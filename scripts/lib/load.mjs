@@ -41,6 +41,13 @@ export function licenseCategory(license) {
   }
   const single = raw.replace(/[()]/g, "").trim();
   if (PERMISSIVE_LICENSES.includes(single)) return "permissive";
+  // SPDX exceptions such as "Apache-2.0 WITH LLVM-exception" keep the
+  // permissive character of the base licence. The exception only removes
+  // permissions; it does not add copyleft obligations.
+  if (single.includes(" WITH ")) {
+    const [base] = single.split(/\s+WITH\s+/);
+    if (PERMISSIVE_LICENSES.includes(base.trim())) return "permissive";
+  }
   if (/AGPL|GPL-3|GPL-2/.test(single)) return "strong-copyleft";
   if (/LGPL|MPL/.test(single)) return "weak-copyleft";
   return "unknown";

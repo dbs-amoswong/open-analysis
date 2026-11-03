@@ -1,12 +1,13 @@
 {
   "id": "dec-http-request",
   "requirement_id": "req-http-request",
-  "status": "pending",
+  "status": "approved",
   "primary_package_id": "pkg-axios",
-  "adopted": [],
-  "hold": [
+  "adopted": [
     "pkg-axios",
-    "pkg-follow-redirects",
+    "pkg-follow-redirects"
+  ],
+  "hold": [
     "pkg-undici",
     "pkg-fast-uri",
     "pkg-js-cookie",
@@ -15,8 +16,83 @@
   ],
   "rejected": [],
   "dropped": [],
-  "rationale": "Hold the entire HTTP request batch. axios is the anchor, but its dependency tree and publish pipeline remain unverified: form-data, proxy-from-env and https-proxy-agent are not in this batch, and the tree-wide licence, install-script and advisory checks are incomplete. follow-redirects is the only confirmed axios edge; keep it only with an exact 1.16.2 pin and a recorded provenance gap. undici, fast-uri, js-cookie, protobufjs and cookie are reported by the requester as transitives of other libraries such as Firebase; their parent chains are unverified, so keep them under monitoring and do not adopt them directly. No package is approved for this requirement yet.",
-  "decided_at": "2026-11-01",
-  "decided_by": "dbs-amoswong",
-  "expires_at": "2027-01-30"
+  "rationale": "Adopt axios 1.21.0 as the HTTP client. The earlier hold was based on an unverified tree and publish pipeline; both are now verified: axios publishes from GitHub Actions with OIDC trusted publishing and SLSA provenance, the runtime tree is 27 MIT packages with no install scripts, OSV is clean, and a local ESM/CJS interceptor and mock-adapter probe passed. follow-redirects 1.16.2 is adopted only as the required Node transport beneath axios; pin it exactly and record the no-provenance gap. The other five stay on hold: Firebase 13.2.0 pulls protobufjs 7.6.6 through @grpc/proto-loader, not the reviewed 8.8.1, and the Firebase tree shows no edge for undici, fast-uri, js-cookie or cookie. Walk the actual application parent chains before treating any of them as verified transitive members or dropping them as unnecessary.",
+  "decided_at": "2026-11-04",
+  "decided_by": "dbs-amoswong; revised by opencode-review (delegated by dbs-amoswong)",
+  "expires_at": "2027-02-02",
+  "criteria": [
+    "Actively maintained and responsive to security reports",
+    "No unfixed high or critical advisories",
+    "Works in both browser and Node environments",
+    "Compatible with the existing axios interceptors, global config and mocking approach",
+    "Permissive license across the full dependency tree",
+    "No install scripts in the dependency tree",
+    "Avoid duplicate or unnecessary direct dependencies",
+    "If npm provenance is unavailable, pin exact versions and record the gap"
+  ],
+  "alternatives_considered": [
+    {
+      "name": "axios 1.21.0",
+      "outcome": "selected",
+      "reason": "Existing interceptor/global-config/mock client; dual browser/Node; OIDC publish workflow and SLSA provenance verified; 27-package MIT tree with no install scripts; clean advisories; local compatibility probe passed."
+    },
+    {
+      "name": "follow-redirects 1.16.2",
+      "outcome": "adopted as required transitive",
+      "reason": "The only verified axios edge; small, zero-dependency MIT Node transport. No npm provenance, so pin exactly and record the gap."
+    },
+    {
+      "name": "undici 8.12.3",
+      "outcome": "hold",
+      "reason": "Healthy Node HTTP client, but Node-only, CJS-only and duplicative of the client embedded in modern Node. No verified parent edge in the current tree."
+    },
+    {
+      "name": "fast-uri 4.2.3",
+      "outcome": "hold",
+      "reason": "URI utility, not an HTTP client. No verified parent edge in the current tree."
+    },
+    {
+      "name": "js-cookie 3.0.8",
+      "outcome": "hold",
+      "reason": "Browser cookie helper; no verified parent edge, no types and no Node evidence."
+    },
+    {
+      "name": "cookie 2.0.1",
+      "outcome": "hold",
+      "reason": "Cookie header parser/serialiser, not an HTTP client; ESM-only, Node >=22 and no types. No verified parent edge."
+    },
+    {
+      "name": "protobufjs 8.8.1",
+      "outcome": "hold",
+      "reason": "Protobuf codec, not an HTTP client. Firebase 13.2.0 resolves 7.6.6 through @grpc/proto-loader, not the reviewed 8.8.1; re-review the version actually used if it is needed."
+    },
+    {
+      "name": "Native fetch",
+      "outcome": "out of scope",
+      "reason": "The requirement explicitly keeps replacing axios with native fetch out of scope."
+    }
+  ],
+  "conditions": [
+    "Pin axios 1.21.0 and follow-redirects 1.16.2 exactly, and commit the lockfile.",
+    "Record follow-redirects' missing npm provenance in the consuming project.",
+    "Keep using axios interceptors, global config and the existing mocking approach; the local probe covered the interceptor and adapter path.",
+    "Do not adopt undici, fast-uri, js-cookie, cookie or protobufjs directly until the actual parent chain is walked and a concrete need is established.",
+    "If Firebase is in the consuming application, record that it resolves protobufjs 7.6.6, not 8.8.1, and review that version separately if protobuf handling becomes in scope.",
+    "Re-check advisories and the axios publish workflow every 90 days."
+  ],
+  "confidence": "high",
+  "unknowns": [
+    "The application-level parent chains for undici, fast-uri, js-cookie and cookie were not supplied.",
+    "Firebase 13.2.0 pulls protobufjs 7.6.6, not the reviewed 8.8.1.",
+    "The browser bundle size and the actual application interceptor/mocking suite were not measured; the probe covered the API path, not the full app.",
+    "axios has a single npm maintainer and 110 open issues."
+  ],
+  "reversal_cost": "Low for axios: it is already the client the requirement is built around. Replacing it with native fetch or another client is a separate requirement.",
+  "review_triggers": [
+    "A new high or critical advisory affects axios or follow-redirects.",
+    "The axios OIDC publish workflow or provenance attestation changes.",
+    "Firebase or another parent starts pulling a different undici, fast-uri, js-cookie, cookie or protobufjs version.",
+    "The application needs a direct cookie or URI utility rather than a transitive one.",
+    "axios changes maintainership, drops dual browser/Node support or removes the interceptor API."
+  ]
 }

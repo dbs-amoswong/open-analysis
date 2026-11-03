@@ -82,6 +82,12 @@
       "label": "License",
       "status": "pass",
       "detail": "MIT."
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script; zero runtime dependencies."
     }
   ],
   "reviewed_version": "3.2.4"

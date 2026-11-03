@@ -61,6 +61,24 @@
       "label": "Runtime behaviour",
       "status": "warn",
       "detail": "Raw HTML disabled by default; enabling rehype-raw would reopen XSS. Per-token parsing cost."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT. The markdown subtree was included in the same installed-tree inventory; the tree is MIT plus one ISC, one BSD-3-Clause and one 0BSD package, with no copyleft or proprietary licence.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@assistant-ui%2Freact-markdown" }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "0.14.24 published 2026-10-22; actively released alongside the assistant-ui suite.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@assistant-ui%2Freact-markdown" }
+      ]
     }
   ],
   "reviewed_version": "0.14.24"

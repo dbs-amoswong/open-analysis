@@ -9,7 +9,7 @@
   "license": "MIT",
   "weekly_downloads": 93929573,
   "runtime_deps": 4,
-  "install_size_kb": null,
+  "install_size_kb": 4096,
   "unpacked_size_kb": 2163,
   "maintainers": [
     "jasonsaayman"
@@ -18,6 +18,6 @@
   "formats": [
     "dual"
   ],
-  "notes": "Facts collected from the npm registry on 2026-10-28. Install size was not measured.",
+  "notes": "Facts collected from the npm registry on 2026-10-28; the runtime tree was re-installed and audited on 2026-11-04. Install size is 4.0 MB across 27 packages, all MIT and with no install scripts.",
   "npm_provenance": true
 }

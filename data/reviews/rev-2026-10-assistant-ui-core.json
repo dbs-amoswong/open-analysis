@@ -62,6 +62,15 @@
       "label": "Maintenance",
       "status": "pass",
       "detail": "0.3.31 published 2026-10-22; 70 versions since 2026-02-20."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT. The assistant-ui tree was inventoried as MIT plus one ISC, one BSD-3-Clause and one 0BSD package; no copyleft or proprietary licence is present.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@assistant-ui%2Fcore" }
+      ]
     }
   ],
   "reviewed_version": "0.3.31"

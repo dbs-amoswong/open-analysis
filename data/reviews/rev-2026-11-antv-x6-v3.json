@@ -8,24 +8,26 @@
   "recommendation": "adopt",
   "risk": "medium",
   "score": 79,
-  "summary": "Adopt X6 v3 as the target for the React browser-only graph editor. The browser spike passed after adding tslib, the core bundles the official plugins, and the React shape package is available. Do not treat this as approval for native Node/SSR: the published v3 package currently fails native ESM and CJS loading.",
+  "summary": "Adopt X6 v3 as the target for the React browser-only graph editor. The browser spike passed after adding tslib, the core bundles the official plugins, and the separately reviewed React shape package rendered 20 interactive React nodes. Do not treat this as approval for native Node/SSR: the published v3 package currently fails native ESM and CJS loading. v2 remains a pinned migration bridge, not a destination.",
   "reasoning": [
-    "X6 v3 is the maintained AntV line; v2 is deprecated and should not be the long-term target.",
+    "X6 v3 is the maintained AntV line; v2 is deprecated and should not be the long-term target. The v2 stack is recorded as a prior version with a bridge deadline instead of being silently inherited.",
     "The core renders the 20-node/20-edge spike in a Vite browser build after adding tslib, and includes selection, transform, history, clipboard, scroller, keyboard, export and related plugin code.",
-    "The official React shape package is available at 3.0.1; the React provider API must move from Portal.getProvider() to getProvider().",
+    "The official React shape package is available at 3.0.1; the React provider API must move from Portal.getProvider() to getProvider(). A React 19.2.0 spike rendered 20 interactive React nodes and 20 edges with selection, in 17 ms and 782.82 KB / 231.62 KB gzip including React.",
+    "The runtime tree was inventoried: dom-align, lodash-es, mousetrap and utility-types are MIT or Apache-2.0 WITH LLVM-exception; tslib is 0BSD; React and the React shape package are MIT. No commercial or copyleft licence is introduced.",
     "The requirement is browser-only and does not require SSR; the native Node packaging failure is therefore a deployment constraint, not a reason to keep v2.",
-    "The browser spike is not the application regression test. Custom shapes, plugin behaviour, panning, animation and export must be tested in the actual app before production.",
-    "X6 has no npm provenance; pin the exact version and record the gap."
+    "The browser spikes are not the application regression test. They used Chrome at 1200x800, not the application browser baseline; custom shapes, plugin behaviour, panning, animation and export must be tested in the actual app before production.",
+    "X6 has no npm provenance; pin 3.1.8 exactly and record the gap. The React shape package has the same gap and its last release is close to the 12-month boundary."
   ],
   "caveats": [
     "Native Node ESM fails with export-related errors and native CJS fails without tslib; do not use this package in SSR or Node-side rendering without a fix.",
     "Add tslib explicitly; the published v3 package does not declare it, and Vite initially failed to resolve it.",
     "v3 enables panning by default; set panning explicitly where the application expects v2 behaviour.",
     "transition is removed; replace it with animate.",
-    "Use @antv/x6-react-shape@3.x and the new getProvider() API.",
+    "Use @antv/x6-react-shape@3.0.1 and the new getProvider() API. Its last release is 2025-11-27, so re-check the package on 2026-11-27.",
     "Do not install the deprecated 3.0.0 plugin packages; import official plugins from @antv/x6.",
-    "No npm provenance; pin the exact version and record the waiver.",
-    "The actual application regression suite has not run yet; this decision approves the target, not the completed migration."
+    "No npm provenance for X6 or the React shape package; pin both exact versions and record the waiver.",
+    "The actual application regression suite has not run yet; this decision approves the target, not the completed migration.",
+    "Keep X6 v2 on 2.19.2 with compatible 2.x plugins only as a short bridge, and remove it by 2026-11-17 when its 12-month maintenance window closes."
   ],
   "evidence": [
     {
@@ -51,9 +53,10 @@
       "key": "license",
       "label": "Licence",
       "status": "pass",
-      "detail": "MIT, which satisfies the permissive-licence constraint for this package. Transitive licences were not fully inventoried.",
+      "detail": "MIT. The runtime tree was inventoried: dom-align (MIT), lodash-es (MIT), mousetrap (Apache-2.0 WITH LLVM-exception), utility-types (MIT), tslib (0BSD), React and React DOM (MIT), and @antv/x6-react-shape (MIT). All are permissive.",
       "sources": [
-        { "label": "npm package", "url": "https://www.npmjs.com/package/@antv/x6/v/3.1.8" }
+        { "label": "npm package", "url": "https://www.npmjs.com/package/@antv/x6/v/3.1.8" },
+        { "label": "React shape package", "url": "https://www.npmjs.com/package/@antv/x6-react-shape/v/3.0.1" }
       ]
     },
     {
@@ -87,18 +90,31 @@
       "key": "behaviour",
       "label": "Browser spike",
       "status": "pass",
-      "detail": "A 20-node/20-edge Vite production build rendered in Chrome, with selection and panning, after adding tslib. Mount was 13 ms and the bundle was 584.85 KB JS / 168.82 KB gzip in the spike.",
+      "detail": "A 20-node/20-edge Vite production build rendered in Chrome, with selection and panning, after adding tslib. Mount was 13 ms and the bundle was 584.85 KB JS / 168.82 KB gzip in the vanilla spike. The React spike rendered 20 React-rendered nodes in 17 ms at 782.82 KB / 231.62 KB gzip including React 19.2.0.",
       "sources": [
-        { "label": "Evaluation record", "url": "https://dbs-amoswong.github.io/open-analysis/evaluations/eval-x6-v3.html" },
-        { "label": "Spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/x6-v3/main.js" }
+        { "label": "Vanilla evaluation", "url": "https://dbs-amoswong.github.io/open-analysis/evaluations/eval-x6-v3.html" },
+        { "label": "React evaluation", "url": "https://dbs-amoswong.github.io/open-analysis/evaluations/eval-x6-v3-react.html" },
+        { "label": "Vanilla spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/x6-v3/main.js" },
+        { "label": "React spike source", "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/x6-v3-react/src/main.jsx" }
       ]
     },
     {
       "key": "react",
       "label": "React integration",
       "status": "pass",
-      "detail": "The official @antv/x6-react-shape package is available at 3.0.1; v3 requires the 3.x package and the getProvider() API.",
+      "detail": "The official @antv/x6-react-shape package is 3.0.1; v3 requires the 3.x package and the getProvider() API. A React 19.2.0 spike rendered 20 React nodes, a button click updated component state, and selection worked.",
       "sources": [
+        { "label": "React shape package", "url": "https://www.npmjs.com/package/@antv/x6-react-shape/v/3.0.1" },
+        { "label": "React evaluation", "url": "https://dbs-amoswong.github.io/open-analysis/evaluations/eval-x6-v3-react.html" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script in X6 or its four runtime dependencies (dom-align, lodash-es, mousetrap, utility-types). The React shape package also declares none.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@antv%2Fx6" },
         { "label": "React shape package", "url": "https://www.npmjs.com/package/@antv/x6-react-shape/v/3.0.1" }
       ]
     }

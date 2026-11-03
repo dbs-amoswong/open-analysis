@@ -32,7 +32,7 @@
       "key": "dependencies",
       "label": "Dependency footprint",
       "status": "fail",
-      "detail": "12 direct dependencies, 104 packages, 88 MB install, 413 KB gzip."
+      "detail": "11 direct dependencies, 104 packages, 88 MB install, 413 KB gzip."
     },
     {
       "key": "maintenance",
@@ -51,6 +51,21 @@
       "label": "TypeScript types",
       "status": "pass",
       "detail": "Bundled declarations."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT. The package is held for maintenance, footprint and fit, not for its licence.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@antv%2Fg6" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script is declared by the top-level package."
     }
   ]
 }

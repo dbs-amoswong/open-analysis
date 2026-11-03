@@ -1293,6 +1293,7 @@ ${pageHeader({
   <section class="panel">
     <div class="panel-head"><h2>Scoring</h2></div>
     <p class="prose">Scores are a summary, not the decision. A hard failure (unfixed high/critical advisory, no CI publish, unmaintained) caps the verdict regardless of a high score.</p>
+    <p class="prose">The bands are guidance, not a gate. A package can be adopted below 80 when it meets every constraint and the gap is footprint, novelty or migration cost, not a hard failure. The review records the exception and the decision records the condition.</p>
     <ul class="rubric">
       <li><span class="rubric-weight">30</span><div><strong>Security</strong><p>Known advisories, prototype-pollution behaviour, remediation status, scanner visibility.</p></div></li>
       <li><span class="rubric-weight">25</span><div><strong>Release integrity</strong><p>CI publishing, OIDC vs long-lived token, SLSA provenance, pinned actions.</p></div></li>

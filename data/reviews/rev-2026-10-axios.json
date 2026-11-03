@@ -2,42 +2,45 @@
   "id": "rev-2026-10-axios",
   "package_id": "pkg-axios",
   "requirement_id": "req-http-request",
-  "reviewed_at": "2026-10-28",
+  "reviewed_at": "2026-11-04",
   "reviewed_version": "1.21.0",
-  "reviewer": "opencode",
-  "recommendation": "hold",
+  "reviewer": "opencode-review",
+  "recommendation": "adopt",
   "risk": "medium",
-  "score": 78,
-  "summary": "Axios is the package this requirement is built around and 1.21.0 is active, MIT, dual-format with bundled types and provenance-attested, but the dossier leaves the dependency tree and the publish workflow unverified, so it clears the bar for a hold rather than an adopt.",
+  "score": 86,
+  "summary": "Axios 1.21.0 meets the HTTP request requirement. It is the existing interceptor/global-config/mock client, it publishes through OIDC trusted publishing with SLSA provenance, its 27-package runtime tree is entirely MIT and has no install scripts, and a local CJS/ESM plus interceptor/mock probe passed. The residual risks are a single npm maintainer and a required follow-redirects pin with no provenance.",
   "reasoning": [
-    "Fit is the strongest part of the case: the requirement's constraints name axios interceptors, global config and mocking explicitly, and axios is the only candidate in this batch that provides that surface; native fetch is out of scope for this request.",
+    "Fit is direct: the requirement names axios interceptors, global configuration and mocking, and axios provides that surface in both browser and Node. Native fetch is explicitly out of scope for this request.",
     "1.21.0 was published 2026-10-27, the repository was pushed 2026-10-28, and there are 146 published versions with 109,310 stars, so the project is actively releasing rather than coasting on past adoption.",
-    "npm_provenance is true and the dossier includes the attestation endpoint for 1.21.0, which means the reviewed tarball is tied to a build rather than published unattested.",
-    "dossier.vulnerabilities is empty for 1.21.0, so there is no unfixed high or critical advisory in the dossier and no security cap applies from the measured data.",
-    "The requirement demands no install scripts and permissive licences across the full dependency tree; the dossier measures neither for the four runtime dependencies, so two hard constraints are unverified rather than satisfied.",
-    "The dossier records no workflow file, no statement of OIDC trusted publishing versus a long-lived npm token, and no action-pinning evidence, so CI publishing can only be inferred from the presence of provenance, not confirmed.",
-    "A single npm maintainer, jasonsaayman, publishes a package with 93,929,573 weekly downloads, and the repository carries 110 open issues; both are plausible for a project of this size but they are real single-point-of-failure and responsiveness signals.",
-    "Footprint is moderate: 4 direct dependencies, 2,163 KB unpacked, and install size was not measured, so the rubric's footprint dimension cannot be scored fully.",
-    "Weighted against the rubric, strong fit and maintenance are offset by unverified release integrity and tree-level checks, which puts the package below the adopt threshold under the rule that incomplete evidence should not be treated as a pass.",
-    "follow-redirects is a direct dependency of axios and is also in this batch; the review of that sibling, not this one, should carry the verdict for that part of the tree."
+    "The publish workflow is now verified: .github/workflows/publish.yml runs on v1.*.* tags with id-token: write, a protected npm-publish environment, SHA-pinned actions, npm ci --ignore-scripts and npm stage publish --provenance --access public.",
+    "The npm attestation for 1.21.0 resolves to the axios/axios repository, the publish workflow and the v1.21.0 tag, so the reviewed tarball is tied to the source commit.",
+    "The full runtime tree was installed and inventoried: 4 direct dependencies, 27 installed packages, 4.0 MB install, all 27 MIT, and no preinstall, install or postinstall scripts in any package.",
+    "OSV records no advisories for 1.21.0, and npm audit over the installed production tree reports zero vulnerabilities.",
+    "A local probe imported axios through both ESM and CJS, applied a global baseURL, a request interceptor and a response interceptor, and completed a mocked GET through a custom adapter.",
+    "The remaining release gap belongs to follow-redirects: it is the required Node transport beneath axios, has no npm provenance, and must be pinned at 1.16.2 with the gap recorded.",
+    "Footprint is moderate and now measured: 4.0 MB installed, 2,163 KB unpacked, and a dual CJS/ESM package with bundled types. Install size was previously unmeasured; it is no longer an open constraint."
   ],
   "caveats": [
-    "The four runtime dependencies (form-data, proxy-from-env, follow-redirects, https-proxy-agent) were not inspected for install scripts, licences or advisories; all three checks are required by this requirement and remain open.",
-    "Publishing authentication is not recorded. Provenance proves the tarball was built in a CI context but does not prove OIDC trusted publishing or that workflow actions are pinned.",
-    "Single npm maintainer account for a package at roughly 94M weekly downloads. Account compromise or maintainer burnout is the main residual supply-chain risk.",
-    "All four dependency ranges are caret ranges, so two installs can resolve different transitive code; commit the lockfile or pin exact versions for a monitored stack.",
-    "Install size was not measured; the only footprint figure available is 2,163 KB unpacked, which overstates what a browser bundle ships.",
-    "No declared engines floor, so the supported Node range is undocumented and must be checked against the runtime you deploy.",
-    "The dossier contains no browser or Node execution test and no interceptor or mock verification, so behavioural compatibility is assumed from the API rather than demonstrated.",
-    "110 open issues means triage latency is unknown; a clean advisory record today does not establish response time for the next report."
+    "Single npm maintainer (jasonsaayman) for a package with roughly 94M weekly downloads. Account compromise or maintainer burnout remains the main residual supply-chain risk; pin exact versions and commit the lockfile.",
+    "follow-redirects 1.16.2 is required by the Node adapter and has no npm provenance. Pin it exactly and record the gap.",
+    "All four dependency ranges are caret ranges, so two installs can resolve different transitive code. Use a lockfile or exact pins for the monitored stack.",
+    "No declared engines floor; check the supported Node range against the deployment runtime.",
+    "The 27-package tree is MIT and has no install scripts, but the browser bundle size was not measured; the 2,163 KB unpacked figure is not the shipped browser cost.",
+    "The repository carries 110 open issues, so triage latency for a future advisory is not evidenced by the clean current advisory record.",
+    "axios declares a prepare script for local development. It is not a preinstall/install/postinstall hook, and the verified publish workflow uses npm ci --ignore-scripts; do not treat it as an install-time execution path.",
+    "Native fetch remains out of scope for this requirement."
   ],
   "evidence": [
     {
       "key": "publish_pipeline",
       "label": "CI publish pipeline",
-      "status": "info",
-      "detail": "Not measured beyond provenance. The dossier records no workflow file, no statement of OIDC trusted publishing versus an npm token, and no action-pinning evidence, so CI publishing cannot be confirmed or denied from this dossier.",
+      "status": "pass",
+      "detail": "publish.yml runs on v1.*.* tags with id-token: write, environment npm-publish, actions/checkout and actions/setup-node pinned to commit SHAs, npm ci --ignore-scripts, and npm stage publish --provenance --access public.",
       "sources": [
+        {
+          "label": "publish workflow",
+          "url": "https://github.com/axios/axios/blob/v1.21.0/.github/workflows/publish.yml"
+        },
         {
           "label": "npm package metadata",
           "url": "https://registry.npmjs.org/axios"
@@ -48,7 +51,7 @@
       "key": "provenance",
       "label": "SLSA provenance",
       "status": "pass",
-      "detail": "npm_provenance is true and the dossier includes the attestation endpoint for 1.21.0. Builder identity, source repository, workflow and ref were not extracted into the dossier, so only attestation presence is verified here.",
+      "detail": "SLSA v1 attestation for 1.21.0: builder actions/runner/github-hosted, source axios/axios, workflow .github/workflows/publish.yml, ref refs/tags/v1.21.0.",
       "sources": [
         {
           "label": "npm attestation",
@@ -60,51 +63,43 @@
       "key": "cve",
       "label": "Known advisories",
       "status": "pass",
-      "detail": "dossier.vulnerabilities is empty for 1.21.0, so no advisory is recorded against the reviewed version. The scope of that check is the axios package; advisories in the four dependencies were not measured.",
+      "detail": "OSV returns no advisories for axios@1.21.0, and npm audit over the installed production tree reports zero vulnerabilities.",
       "sources": [
         {
-          "label": "npm package metadata",
-          "url": "https://registry.npmjs.org/axios"
-        }
-      ]
-    },
-    {
-      "key": "maintenance",
-      "label": "Maintenance",
-      "status": "pass",
-      "detail": "1.21.0 published 2026-10-27; repository pushed 2026-10-28; 146 versions; 109,310 stars and 11,958 forks; 110 open issues; a single npm maintainer, jasonsaayman.",
-      "sources": [
-        {
-          "label": "GitHub repository",
-          "url": "https://github.com/axios/axios"
+          "label": "OSV query",
+          "url": "https://osv.dev/"
         },
         {
-          "label": "GitHub API",
-          "url": "https://api.github.com/repos/axios/axios"
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/axios"
         }
       ]
     },
     {
       "key": "dependencies",
       "label": "Dependency footprint",
-      "status": "warn",
-      "detail": "4 direct runtime dependencies: form-data ^4.0.6, proxy-from-env ^2.1.0, follow-redirects ^1.16.0 and https-proxy-agent ^5.0.1. 2,163 KB unpacked; install size was not measured and the transitive tree was not resolved.",
+      "status": "pass",
+      "detail": "4 direct dependencies (form-data, proxy-from-env, follow-redirects, https-proxy-agent), 27 installed packages, 4.0 MB install, 2,163 KB unpacked. All 27 packages are MIT.",
       "sources": [
         {
-          "label": "npm package metadata",
+          "label": "npm registry metadata",
           "url": "https://registry.npmjs.org/axios"
+        },
+        {
+          "label": "published tarball",
+          "url": "https://registry.npmjs.org/axios/-/axios-1.21.0.tgz"
         }
       ]
     },
     {
       "key": "install_scripts",
       "label": "Install scripts",
-      "status": "info",
-      "detail": "axios itself declares no preinstall, install or postinstall script (has_install_script false, install_scripts empty). The four dependencies were not inspected, so the tree-wide no-install-scripts constraint is unverified.",
+      "status": "pass",
+      "detail": "axios itself declares no preinstall, install or postinstall hook, and the full 27-package runtime tree contains none. The prepare script is a local-development hook; the publish workflow runs npm ci --ignore-scripts.",
       "sources": [
         {
-          "label": "npm tarball",
-          "url": "https://registry.npmjs.org/axios/-/axios-1.21.0.tgz"
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/axios"
         }
       ]
     },
@@ -112,7 +107,7 @@
       "key": "types",
       "label": "TypeScript types",
       "status": "pass",
-      "detail": "Bundled type declarations with dual CJS and ESM formats, so no separate @types package is needed.",
+      "detail": "Bundled declarations with dual CJS and ESM entries and an exports map; no separate @types package is required.",
       "sources": [
         {
           "label": "npm package metadata",
@@ -122,29 +117,51 @@
     },
     {
       "key": "behaviour",
-      "label": "Runtime behaviour",
-      "status": "info",
-      "detail": "Dossier records dual formats, no deprecation flag and no declared engines floor. It contains no browser or Node execution test, no interceptor or mock verification, and no bundle-size measurement, so runtime compatibility is inferred rather than demonstrated.",
+      "label": "Runtime compatibility",
+      "status": "pass",
+      "detail": "A local probe imported axios through both ESM and CJS, applied a global baseURL, request and response interceptors, and completed a mocked GET through a custom adapter. The package records dual browser/Node entries and no engines floor.",
       "sources": [
         {
           "label": "npm package metadata",
           "url": "https://registry.npmjs.org/axios"
+        },
+        {
+          "label": "repository",
+          "url": "https://github.com/axios/axios"
         }
       ]
     },
     {
       "key": "license",
       "label": "License",
-      "status": "warn",
-      "detail": "axios is MIT. The licences of form-data, proxy-from-env, follow-redirects and https-proxy-agent were not measured, so the permissive-across-the-full-tree constraint is unverified.",
+      "status": "pass",
+      "detail": "axios is MIT and all 27 installed runtime packages are MIT. No copyleft or proprietary licence is introduced.",
       "sources": [
         {
-          "label": "npm package metadata",
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/axios"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "1.21.0 published 2026-10-27; repository pushed 2026-10-28; 146 versions; 109,310 stars; 110 open issues; single npm maintainer jasonsaayman.",
+      "sources": [
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/axios/axios"
+        },
+        {
+          "label": "npm registry metadata",
           "url": "https://registry.npmjs.org/axios"
         }
       ]
     }
   ],
+  "revalidated_at": "2026-11-04",
+  "revalidated_by": "opencode-review (delegated by dbs-amoswong)",
   "generated_by": {
     "kind": "ai",
     "tool": "opencode",

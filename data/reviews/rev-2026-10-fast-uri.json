@@ -2,13 +2,13 @@
   "id": "rev-2026-10-fast-uri",
   "package_id": "pkg-fast-uri",
   "requirement_id": "req-http-request",
-  "reviewed_at": "2026-10-28",
+  "reviewed_at": "2026-11-04",
   "reviewed_version": "4.2.3",
   "reviewer": "opencode",
   "recommendation": "hold",
   "risk": "low",
   "score": 78,
-  "summary": "Clean supply chain on 4.2.3 - zero dependencies, npm provenance, six Fastify maintainers, no recorded advisories and no install scripts - but it is a URI handling utility with only a CommonJS build and no HTTP request, interceptor or cookie capability, so hold it as a transitive candidate whose parent chain is unverified rather than adopting it for this requirement.",
+  "summary": "Clean supply chain on 4.2.3 - zero dependencies, npm provenance, six Fastify maintainers, no recorded advisories and no install scripts - but it is a URI handling utility with only a CommonJS build and no HTTP request, interceptor or cookie capability. The Firebase 13.2.0 tree does not contain it, so hold it as a transitive candidate whose parent chain is unverified rather than adopting it for this requirement.",
   "reasoning": [
     "No hard failure applies: 4.2.3 has no recorded advisories, the package is actively released (2026-10-19, repository pushed the same day, 4 open issues), it declares no install scripts, and npm_provenance is true, which requires a CI builder.",
     "Security posture is clean on the evidence available: the dossier records zero vulnerabilities for 4.2.3 and zero runtime dependencies, so the package adds no transitive advisory surface to the monitored stack.",
@@ -17,7 +17,7 @@
     "The hold is a fit decision, not a security one. This requirement is about making HTTP requests with interceptors, global configuration, mocking and cookie handling; the dossier records no HTTP transport, adapter, interceptor or cookie capability, and the package's name and repository indicate URI handling instead.",
     "It is therefore not an alternative to axios or to native fetch, and adopting it would not advance any constraint in req-http-request other than the licence and install-script checks.",
     "Packaging is weaker than the supply chain: only a CommonJS build is published (formats: [\"cjs\"]), no engines floor is declared, and browser compatibility was not measured, against a constraint that requires both browser and Node.",
-    "The dossier contains no dependency or peer edge linking fast-uri to axios or to any sibling in this batch (dependencies {}, peer_dependencies null). The requester reports that fast-uri is pulled in by other libraries such as Firebase, but no Firebase or other upstream edge was collected, so the parent chain is unverified and the reason it appears in the monitored set could not be confirmed here.",
+    "The dossier contains no dependency or peer edge linking fast-uri to axios or to any sibling in this batch (dependencies {}, peer_dependencies null). A 2026-11-04 install of firebase@13.2.0 does not contain fast-uri, so the parent chain is still unverified and the reason it appears in the monitored set could not be confirmed here.",
     "Adoption signals are ambiguous: 139,676,160 weekly downloads against 131 GitHub stars and 82 forks is consistent with heavy transitive installation rather than direct use, and download counts include CI and transitive traffic.",
     "Recommended disposition is to keep it as a transitive dependency if a tree walk shows an upstream package requires it, and to reject it as a direct dependency for request making."
   ],
@@ -28,7 +28,7 @@
     "GitHub reports the repository licence as NOASSERTION while npm declares BSD-3-Clause. Confirm the LICENSE text and the published tarball agree before relying on the permissive classification.",
     "Provenance is asserted rather than verified: the dossier holds the boolean and the attestation URL, but not the builder, workflow or source ref, so the tarball-to-commit link was not checked.",
     "The clean advisory result is a point-in-time snapshot from 2026-10-28; no historical advisory list was collected, and a small URI parser is a plausible target for subsequent URI-parsing advisories.",
-    "No dependency relationship to axios is recorded in the dossier; the requester reports fast-uri is pulled in by other libraries such as Firebase, but that parent chain is unverified. A tree walk should establish the upstream package before it is treated as unnecessary, and it should not be dropped merely for lacking an axios edge.",
+    "No dependency relationship to axios is recorded in the dossier, and the Firebase 13.2.0 tree does not contain fast-uri. A tree walk of the actual application should establish the upstream package before it is treated as unnecessary, and it should not be dropped merely for lacking an axios edge.",
     "No behavioural testing was performed. Any future use for URL normalisation or validation is untested here."
   ],
   "evidence": [
@@ -140,7 +140,7 @@
       "key": "behaviour",
       "label": "Runtime behaviour and role",
       "status": "warn",
-      "detail": "Only a CommonJS build is published (formats: [\"cjs\"]) and no engines field is declared; browser compatibility was not measured. The dossier records no HTTP request, adapter, interceptor, mocking or cookie handling capability, and no dependency or peer edge to axios or to any sibling in this batch; the requester reports it is pulled in by other libraries such as Firebase, but that parent chain is unverified. Either way it cannot serve this requirement's request-making role.",
+      "detail": "Only a CommonJS build is published (formats: [\"cjs\"]) and no engines field is declared; browser compatibility was not measured. The dossier records no HTTP request, adapter, interceptor, mocking or cookie handling capability, and no dependency or peer edge to axios or to any sibling in this batch. The Firebase 13.2.0 tree does not contain fast-uri, so its parent chain remains unverified. Either way it cannot serve this requirement's request-making role.",
       "sources": [
         {
           "label": "npm registry metadata",
@@ -185,6 +185,8 @@
       ]
     }
   ],
+  "revalidated_at": "2026-11-04",
+  "revalidated_by": "opencode-review (delegated by dbs-amoswong)",
   "generated_by": {
     "kind": "ai",
     "tool": "opencode",

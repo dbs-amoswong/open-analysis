@@ -72,6 +72,21 @@
       "label": "TypeScript types",
       "status": "pass",
       "detail": "Bundled declarations for CJS and ESM builds."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "Dual MPL-2.0 OR Apache-2.0; choose the Apache-2.0 arm, which is permissive. The single runtime dependency is an MIT types package.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/dompurify" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script; one runtime dependency."
     }
   ],
   "reviewed_version": "3.4.17"

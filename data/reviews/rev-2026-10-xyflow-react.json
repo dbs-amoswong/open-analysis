@@ -51,6 +51,21 @@
       "label": "Fit for the requirement",
       "status": "warn",
       "detail": "Node/edge editor, not a graph exploration or layout engine; layouts require dagre/elk."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT. The hold is a fit decision, not a licence or security failure.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/@xyflow%2Freact" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script is declared."
     }
   ]
 }

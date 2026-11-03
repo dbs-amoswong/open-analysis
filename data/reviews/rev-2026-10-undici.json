@@ -2,13 +2,13 @@
   "id": "rev-2026-10-undici",
   "package_id": "pkg-undici",
   "requirement_id": "req-http-request",
-  "reviewed_at": "2026-10-28",
+  "reviewed_at": "2026-11-04",
   "reviewed_version": "8.12.3",
   "reviewer": "opencode",
   "recommendation": "hold",
   "risk": "medium",
   "score": 76,
-  "summary": "undici 8.12.3 is a well-maintained, zero-dependency package with npm provenance, bundled types and no recorded advisories, but it is Node-only and CJS-only, and although the requester reports it reaches applications through other libraries such as Firebase, no such parent edge is recorded in the dossier, so it is held rather than adopted for a requirement that needs browser and Node support through the existing axios stack.",
+  "summary": "undici 8.12.3 is a well-maintained, zero-dependency package with npm provenance, bundled types and no recorded advisories, but it is Node-only and CJS-only. The Firebase 13.2.0 tree does not contain it, so its parent chain in the actual application is still unverified; it is held rather than adopted for a requirement that needs browser and Node support through the existing axios stack.",
   "reasoning": [
     "8.12.3 was published on 2026-10-19, nine days before this review, and the repository was pushed to on 2026-10-28; the package has 315 published versions, so it is under active maintenance.",
     "The dossier records 201,797,163 weekly downloads, which reflects extremely broad production use and therefore heavy external scrutiny of the code path.",
@@ -16,7 +16,7 @@
     "npm_provenance is true for 8.12.3 and the npm attestation endpoint for that exact version is listed in the dossier's sources; the attestation contents (builder identity, source repo, workflow) were not transcribed into the dossier, and no repository workflow file was collected, so the publish pipeline itself was not inspected.",
     "The package has zero runtime dependencies, an empty install_scripts list, has_install_script false, MIT in both registry metadata and GitHub, and bundled TypeScript types; the only unmeasured footprint fact is install size.",
     "Fit is the weak dimension: the dossier records formats as ['cjs'] and engines as node >=22.19.0 with no browser field or ESM build, so the requirement's 'works in both browser and Node environments' constraint is only half satisfied.",
-    "The dossier records no dependency relationship between undici and axios or any other sibling in this batch, and no shared maintainer with them. The requester reports that undici is pulled in by other libraries such as Firebase, but no Firebase or other upstream edge was collected, so the parent chain is unverified and the package cannot yet be cleared as a monitored transitive dependency.",
+    "The dossier records no dependency relationship between undici and axios or any other sibling in this batch, and no shared maintainer with them. A 2026-11-04 install of firebase@13.2.0 does not contain undici, so the package cannot be cleared as a Firebase transitive; its parent chain in the actual application remains unverified.",
     "The request's own alternative - native fetch - is effectively the same runtime: undici is the Node.js project's HTTP client and adding it as a direct dependency duplicates the copy already embedded in modern Node, while adding nothing for browser code paths.",
     "Node engine floor of >=22.19.0 raises the minimum runtime for every consumer of this repository and any CI image that installs it.",
     "No hard failure applies (no unfixed advisory, no install script, maintained package, provenance present); the hold is driven by fit and duplication, not by a security defect, which is why risk is medium rather than high."
@@ -29,7 +29,7 @@
     "The repository shows 420 open issues; triage depth and the actual response time to security reports were not measured in this dossier.",
     "Publish pipeline details were not collected and the provenance attestation contents were not read, so CI-only publishing is inferred from the provenance flag rather than directly verified.",
     "Adding it as a direct dependency alongside axios creates two HTTP stacks to patch and monitor, which works against the requirement's 'avoid duplicate or unnecessary packages' constraint.",
-    "The parent chain is unverified: the requester states undici is pulled in by other libraries such as Firebase, but the dossier contains no dependency edge to Firebase or any other upstream package. Keep it on hold until a tree walk shows where it arrives from.",
+    "The parent chain is unverified in the application. The Firebase 13.2.0 tree does not contain undici, so another parent must be identified before it can be treated as a monitored transitive dependency.",
     "The dossier records no compatibility statement for the existing axios interceptor, global config and mocking approach, so integration effort is unquantified."
   ],
   "evidence": [
@@ -158,6 +158,8 @@
       ]
     }
   ],
+  "revalidated_at": "2026-11-04",
+  "revalidated_by": "opencode-review (delegated by dbs-amoswong)",
   "generated_by": {
     "kind": "ai",
     "tool": "opencode",

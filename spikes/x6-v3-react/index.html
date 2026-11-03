@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>X6 v3 React shape spike</title>
+  <style>
+    body { margin: 0; font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f6fa; color: #172033; }
+    header { padding: 18px 24px 10px; }
+    h1 { margin: 0 0 4px; font-size: 22px; }
+    p { margin: 0; color: #526077; }
+    #root { width: calc(100vw - 48px); height: calc(100vh - 170px); min-height: 480px; margin: 10px 24px 24px; }
+    #graph { width: 100%; height: 100%; background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; box-shadow: 0 8px 24px rgba(31,45,70,.08); }
+    footer { padding: 0 24px 18px; color: #526077; font-size: 12px; }
+    .react-node { box-sizing: border-box; width: 130px; height: 54px; border-radius: 9px; border: 1.5px solid #3669a8; background: #e9f1ff; color: #172033; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 10px; font-size: 12px; }
+    .react-node button { border: 1px solid #3669a8; background: #fff; color: #172033; border-radius: 6px; font-size: 11px; padding: 2px 6px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header><h1>X6 v3 + React shape spike</h1><p>20 React-rendered nodes · 20 edges · official `@antv/x6-react-shape` 3.0.1</p></header>
+  <div id="root"></div>
+  <footer id="status">Mounting…</footer>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>

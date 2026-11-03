@@ -4,29 +4,30 @@
   "status": "approved",
   "primary_package_id": "pkg-antv-x6",
   "adopted": [
-    "pkg-antv-x6"
+    "pkg-antv-x6",
+    "pkg-antv-x6-react-shape"
   ],
   "hold": [],
   "rejected": [],
   "dropped": [],
-  "rationale": "Adopt X6 v3 as the target for the React browser-only graph editor. v2 is deprecated and is not the long-term target. The browser spike passes after adding tslib, the core bundles the official plugins, and the React shape package is available. Native Node/SSR is explicitly not approved: the published v3 package currently fails native ESM and CJS loading. The actual application regression suite must pass before production rollout. maxGraph remains the fallback if the v3 migration fails.",
+  "rationale": "Adopt X6 v3 as the target for the React browser-only graph editor, together with the official @antv/x6-react-shape 3.0.1 package. v2 is deprecated and is not the long-term target: it is recorded as a prior version bridge with a removal deadline. The vanilla and React browser spikes pass after adding tslib; the React spike rendered 20 interactive React nodes with selection. The runtime tree was inventoried and is permissive. Native Node/SSR is explicitly not approved: the published v3 package currently fails native ESM and CJS loading. The actual application regression suite must pass before production rollout. maxGraph remains the fallback if the v3 migration fails.",
   "decided_at": "2026-11-04",
   "decided_by": "opencode-review (delegated by dbs-amoswong)",
   "expires_at": "2027-05-03",
   "criteria": [
     "Permissive licence; commercial licences are excluded",
-    "React integration and official React shape support",
+    "React 18 and 19 support through an official React shape package",
     "General diagram editing parity: shapes, ports, selection, transform, undo/redo, clipboard, stencil, export",
     "Maintained upstream line",
-    "Browser-only deployment with client-side rendering",
+    "Browser-only deployment with client-side rendering; SSR is optional",
     "Migration cost from X6 v2",
     "Supply chain, provenance and dependency footprint"
   ],
   "alternatives_considered": [
     {
-      "name": "X6 v3 3.1.8",
+      "name": "X6 v3 3.1.8 + @antv/x6-react-shape 3.0.1",
       "outcome": "selected",
-      "reason": "Cheapest migration from the existing React X6 app; maintained line; official React shape package; browser spike passed."
+      "reason": "Cheapest migration from the existing React X6 app; maintained line; official React shape package; both vanilla and React browser spikes passed; runtime tree is permissive."
     },
     {
       "name": "maxGraph 0.25.1",
@@ -46,7 +47,12 @@
     {
       "name": "X6 v2 2.19.2",
       "outcome": "bridge only",
-      "reason": "Deprecated; retain only until the v3 migration and regression pass."
+      "reason": "Deprecated; retain only until the v3 migration and regression pass, then remove by 2026-11-17 when its 12-month maintenance window closes."
+    },
+    {
+      "name": "Cytoscape.js / Sigma.js",
+      "outcome": "reference",
+      "reason": "Adopted for read-only React graph exploration under req-nvl-graph, but they do not provide X6's editor, stencil or plugin layer."
     },
     {
       "name": "GoJS / JointJS+",
@@ -56,18 +62,22 @@
   ],
   "conditions": [
     "Browser-only deployment; native Node/SSR is not approved.",
-    "Add tslib explicitly and verify the bundler.",
-    "Use @antv/x6-react-shape 3.x and getProvider().",
-    "Keep v2 pinned only as a short migration bridge.",
+    "Record the application browser and runtime baseline before rollout; the spikes used Chrome at 1200x800, not the application baseline.",
+    "Add tslib 2.9.1 explicitly and verify the bundler; it is a 0BSD packaging workaround, not an application import.",
+    "Use @antv/x6-react-shape 3.0.1 and getProvider(). Re-check the package on 2026-11-27, when its 12-month release window closes.",
+    "Keep X6 v2 pinned at 2.19.2 with compatible 2.x plugins only as a short migration bridge, and remove it by 2026-11-17 when its 12-month maintenance window closes.",
     "Run the actual application regression across custom React nodes, selection, transform, history, clipboard, stencil, snapline, minimap and export.",
-    "Pin X6 3.1.8 exactly and record the npm provenance gap."
+    "Pin X6 3.1.8 and @antv/x6-react-shape 3.0.1 exactly and record both npm provenance gaps.",
+    "Do not mix v3 core with 2.x plugins and do not install the deprecated 3.0.0 plugin packages."
   ],
   "confidence": "medium",
   "unknowns": [
-    "The actual application lockfile and plugin usage were not supplied.",
-    "Custom React shape compatibility has not been exercised in the real app.",
+    "The actual application lockfile, browser baseline and plugin usage were not supplied.",
+    "The React shape package rendered in a spike, but custom React node compatibility has not been exercised in the real app.",
     "The full application regression suite has not run.",
-    "The upstream native Node packaging fix has no committed date."
+    "The upstream native Node packaging fix has no committed date.",
+    "@antv/x6-react-shape has not shipped since 2025-11-27; its 12-month maintenance boundary is 2026-11-27.",
+    "The X6 v2 maintenance window closes on 2026-11-17; if the application regression is not complete by then, a new time-boxed exception decision is required."
   ],
   "reversal_cost": "Moderate for X6 v3: import, plugin and React provider changes. High for maxGraph: editor-layer rewrite.",
   "review_triggers": [
@@ -75,6 +85,6 @@
     "v3 native packaging remains broken for a required runtime.",
     "AntV stops maintaining v3 or a relevant security advisory appears.",
     "maxGraph reaches 1.0 or proves full editing parity.",
-    "The React shape package breaks or stops being maintained."
+    "The React shape package breaks, is deprecated, or has no release by 2026-11-27."
   ]
 }

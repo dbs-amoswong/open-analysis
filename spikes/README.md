@@ -41,6 +41,15 @@ npx playwright screenshot --channel chrome \
   evaluation watermark and is not a production licence.
 - The X6 v3 spike needs `tslib` added to the app because the published package
   does not declare it.
+- `x6-v3-react/` is the React 19 + `@antv/x6-react-shape` 3.0.1 integration. It
+  renders 20 React-rendered nodes, a node button updates component state, and
+  selection works. It is browser-only.
+- `cytoscape-react/` mounts Cytoscape 3.34.4 through a React 19 ref wrapper. It
+  renders 20 nodes and 20 edges, selects a node through the core API, and does
+  not use the stale `react-cytoscapejs` package.
+- `sigma-react/` mounts Sigma 4.0.4 with graphology 0.26.0 through a React 19
+  ref wrapper. It renders 20 nodes and 20 edges on WebGL2. This validates the
+  technical path; graphology's maintenance status remains a policy hold.
 - The formal comparison and caveats are in `data/evaluations/` and
   `docs/x6-v2-v3-audit.md`.
 

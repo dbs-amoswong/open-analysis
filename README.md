@@ -41,26 +41,48 @@ Twelve packages, each with scored reviews, reasoning, caveats and structured evi
 
 Five packages. `@assistant-ui/store` is included because it is a required peer of core and react and was missing from the original four-package list. The reviews record the measured footprint (63 MB full install, ~135 KB gzip), the OIDC publish pipeline, and the fact that no package in the 183-package tree has an install script.
 
+### HTTP requests from browser and Node
+
+| | |
+|---|---|
+| **Adopt** | `axios` 1.21.0 (primary), `follow-redirects` 1.16.2 (required Node transport) |
+| **On hold** | `undici`, `fast-uri`, `js-cookie`, `protobufjs`, `cookie` — roles or parent chains not verified |
+| **Rejected** | None |
+| **Out of scope** | Replacing axios with native fetch |
+
+Seven packages. The earlier hold on axios was based on an unverified dependency tree and publish pipeline. Both were re-checked: axios publishes from GitHub Actions with OIDC trusted publishing and SLSA provenance, its 27-package runtime tree is entirely MIT with no install scripts, OSV is clean, and a local ESM/CJS interceptor and mock-adapter probe passed. `follow-redirects` is the only verified axios edge; it has no npm provenance, so pin 1.16.2 and record the gap. Firebase 13.2.0 pulls `protobufjs` 7.6.6 through `@grpc/proto-loader`, not the reviewed 8.8.1, and the Firebase tree shows no edge for the other four.
+
 ### Sanitize untrusted HTML before rendering
 
 | | |
 |---|---|
-| **Adopt** | `dompurify` (browser, primary), `sanitize-html` (Node/SSR), `rehype-sanitize` (markdown pipeline) |
-| **On hold** | `isomorphic-dompurify` (27 MB jsdom), `xss` (escape-not-strip, thin advisory history) |
+| **Adopt** | `dompurify` (browser, primary), `sanitize-html` (Node/SSR) |
+| **On hold** | `rehype-sanitize` (no release since 2023), `isomorphic-dompurify` (27 MB jsdom), `xss` (escape-not-strip, thin advisory history) |
 | **Rejected** | `insane` (abandoned, unfixed ReDoS), `sanitizer` (abandoned since 2015) |
 
-Seven packages. No sanitizer in the category publishes npm provenance, so the decision waives that constraint explicitly and substitutes exact pinning plus a 90-day cadence. The review includes a 25-vector bypass corpus run in headless Chrome: the unsanitized control executed 11 vectors, every tested sanitizer executed none.
+Seven packages. No sanitizer in the category publishes npm provenance, so the decision waives that constraint explicitly and substitutes exact pinning plus a 90-day cadence. `rehype-sanitize` has a strong HAST mechanism, but its last release was August 2023 and its repository has been inactive since September 2023, so it is held under the active-maintenance constraint. The review includes a 25-vector bypass corpus run in headless Chrome: the unsanitized control executed 11 vectors, every tested sanitizer executed none.
 
 ### Graph visualization in a React application
 
 | | |
 |---|---|
-| **Adopt** | `cytoscape` (primary), `sigma` (large-graph fallback) |
-| **On hold** | `@antv/g6` (88 MB install), `@xyflow/react` (node editor, not exploration) |
+| **Adopt** | `cytoscape` (primary), `sigma` (large-graph core fallback) |
+| **On hold** | `@antv/g6` (88 MB install), `@xyflow/react` (node editor, not exploration), `@react-sigma/core` + `graphology` (no graphology release since Jan 2025) |
 | **Denied** | `@neo4j-nvl/react`, `@neo4j-nvl/base`, `@neo4j-nvl/layout-workers`, `@neo4j-nvl/interaction-handlers` — proprietary, no source, no provenance |
 | **Not needed** | `@neo4j-bloom/dagre` — MIT fork, unused by the suite |
 
-Nine packages. NVL is denied at both 2.0.0 and 1.2.2. Cytoscape.js is MIT, zero dependencies and provenance-signed; Sigma.js is the WebGL fallback for large graphs, client-only and without provenance.
+Nine packages. NVL is denied at both 2.0.0 and 1.2.2. Cytoscape.js is MIT, zero dependencies and provenance-signed; use a thin React ref wrapper because `react-cytoscapejs` is stale. A React 19 ref-wrapper spike rendered 20 nodes and 20 edges in 25 ms and selection passed. Sigma.js is the WebGL core fallback for large graphs, client-only and without provenance; a React 19 ref-wrapper spike with `graphology` 0.26.0 rendered 20 nodes and 20 edges on WebGL2 without errors. Do not pair Sigma with `@react-sigma/core`: the wrapper requires `graphology` ^0.26, whose latest release is January 2025, outside the 12-month maintenance window.
+
+### Graph visualization and editing
+
+| | |
+|---|---|
+| **Adopt** | `@antv/x6` 3.1.8 (primary), `@antv/x6-react-shape` 3.0.1 (React nodes) |
+| **Bridge only** | `@antv/x6` 2.19.2 + compatible 2.x plugins — deprecated, remove by 17 Nov 2026 |
+| **Fallback** | `maxGraph` 0.25.1 — Apache-2.0, zero dependencies, but a rewrite and still 0.x |
+| **Excluded** | GoJS, JointJS+ — commercial licences |
+
+Two adopted packages. The vanilla and React browser spikes pass after adding `tslib`; the React spike renders 20 interactive React nodes with selection. Native Node/SSR is explicitly not approved because X6 v3 fails native ESM and CJS loading. The runtime tree is permissive. No npm provenance exists for X6 or the React shape package, so pin both exact versions and record the gaps. The actual application regression suite still has to pass before production rollout.
 
 ---
 
@@ -149,7 +171,7 @@ Facts about the artifact, not opinions.
 | `prior_versions` | optional list of earlier versions with `version`, `published_at`, `recommendation`, `note` |
 | `notes` | one or two sentences of context |
 
-Licence category is derived from the SPDX string, not stored by hand: permissive (MIT, ISC, BSD, Apache-2.0, 0BSD), weak copyleft (MPL, LGPL), strong copyleft (GPL, AGPL), and proprietary (`SEE LICENSE IN …`, unlicensed, commercial). A dual licence is classified by its most permissive arm, because that is the arm you can choose.
+Licence category is derived from the SPDX string, not stored by hand: permissive (MIT, ISC, BSD, Apache-2.0, 0BSD), weak copyleft (MPL, LGPL), strong copyleft (GPL, AGPL), and proprietary (`SEE LICENSE IN …`, unlicensed, commercial). A dual licence is classified by its most permissive arm, because that is the arm you can choose. An SPDX exception such as `Apache-2.0 WITH LLVM-exception` keeps the permissive category of its base licence; the exception only removes permissions, it does not add copyleft obligations.
 
 The board distinguishes two provenance states. **`npm`** means the registry tarball itself is attested and can be verified automatically. **`release`** means only the GitHub release artifacts are attested; this is DOMPurify's case, where the four `dist` files in the npm tarball hash-match the attested subjects byte-for-byte, but `npm install` cannot verify that for you.
 
@@ -255,18 +277,21 @@ Every build writes two files consumers can use:
 - `dist/allowlist.json` — requirements, decisions, and one row per reviewed package
 - `dist/allowlist.csv` — the same rows as CSV
 
-A consumer enforces the policy by taking rows where `decision_status === "approved"`, `expired === false`, and `bucket === "adopted"`, then pinning the exact `version`. Rows in `dropped` carry a `drop_deadline`; `hold` and `rejected` are not permitted.
+A consumer enforces the policy by taking rows where `decision_status === "approved"`, `expired === false`, and `bucket === "adopted"`, then pinning the exact `version`. Rows in `dropped` carry a `drop_deadline`; `hold` and `rejected` are not permitted. Conditional approvals also expose `conditions` on the requirement and `decision_conditions` on each package row; a consumer must apply them, not just the bucket.
 
 ```json
 {
-  "today": "2026-10-28",
+  "today": "2026-11-04",
   "requirements": [
     {
       "id": "req-deep-merge",
       "status": "approved",
       "primary": "@fastify/deepmerge",
       "expires_at": "2027-04-18",
-      "expired": false
+      "expired": false,
+      "conditions": [
+        "Use @fastify/deepmerge 3.2.4 as the default; pin it exactly and keep the lockfile."
+      ]
     }
   ],
   "packages": [
@@ -276,7 +301,10 @@ A consumer enforces the policy by taking rows where `decision_status === "approv
       "version": "3.2.4",
       "bucket": "adopted",
       "decision_status": "approved",
-      "decision_expires_at": "2027-04-18"
+      "decision_expires_at": "2027-04-18",
+      "decision_conditions": [
+        "Use @fastify/deepmerge 3.2.4 as the default; pin it exactly and keep the lockfile."
+      ]
     }
   ]
 }
@@ -464,13 +492,15 @@ Scores summarise five weighted dimensions:
 | 15 | Fit | semantics, type inference, ESM/CJS, cycles, special objects |
 | 10 | Footprint | runtime dependencies, install size, license |
 
-| Score | Verdict |
+| Score | Typical verdict |
 |---:|---|
 | 80–100 | adopt |
 | 60–79 | hold |
 | 0–59 | avoid |
 
 A hard failure — unfixed high/critical advisory, no CI publishing, unmaintained — caps the verdict regardless of the score. That is why `deepmerge` scores 18 despite 59M weekly downloads, and why `ts-deepmerge` scores 62 but is still rejected.
+
+The bands are guidance, not a gate. A package can be adopted below 80 when it meets every constraint and the gap is footprint, novelty or migration cost, not a hard failure. The review records the exception and the decision records the condition. Examples in the current data are `@assistant-ui/tap` (required peer), `@assistant-ui/react-markdown` (optional companion) and X6 v3 (primary with a migration-cost gap).
 
 ---
 

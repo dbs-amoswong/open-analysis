@@ -2,24 +2,27 @@
   "id": "rev-2026-10-rehype-sanitize",
   "package_id": "pkg-rehype-sanitize",
   "requirement_id": "req-html-sanitize",
-  "reviewed_at": "2026-10-27",
+  "reviewed_at": "2026-11-04",
   "reviewer": "research-agent",
-  "recommendation": "adopt",
+  "recommendation": "hold",
   "risk": "medium",
   "score": 78,
-  "summary": "The right choice if content already flows through remark/rehype: it sanitizes the HAST tree against an explicit schema instead of round-tripping through the DOM. Zero advisories, tiny and type-safe, but no release since 2023 and a small community.",
+  "summary": "Technically the best fit when content already flows through remark/rehype: it sanitizes the HAST tree against an explicit schema instead of round-tripping through the DOM. But it has not shipped since August 2023, the repository has been inactive since September 2023 and there is no public security process, so it fails the requirement's active-maintenance constraint. Hold it and use DOMPurify or sanitize-html for approved sanitization.",
   "reasoning": [
     "Schema-based allowlist on the syntax tree, which avoids the HTML serialise/re-parse cycle where mXSS lives.",
     "Two dependencies on hast-util-sanitize, 296 KB install, ESM with bundled types.",
     "No advisories in OSV and no advisory history.",
     "Fits the existing assistant-ui/react-markdown pipeline, which is already remark/rehype based.",
-    "The default schema is restrictive and safe; extending it is explicit."
+    "The default schema is restrictive and safe; extending it is explicit.",
+    "However, 6.0.0 was published 2023-08-26 and the repository was last pushed 2023-09-28. The engine last shipped in October 2024. There is no release within 12 months and no public security process, so the requirement's 'actively maintained with a public security process' constraint is not met.",
+    "The maintenance gap is not offset by the strong mechanism: a sanitizer in a critical path needs a route for future bypass fixes. Hold until the package ships again or the requirement owner explicitly accepts a stale-maintenance exception."
   ],
   "caveats": [
     "Last release 2023 and only 224 stars. The engine, hast-util-sanitize, last shipped 5.0.2 in October 2024.",
     "It only sanitizes HAST. It is not a function you can call on an HTML string.",
     "Schema extensions are easy to get wrong: allowing style or className can reopen injection paths.",
-    "No provenance and no release automation."
+    "No provenance and no release automation.",
+    "Using it would require an explicit exception to the active-maintenance constraint."
   ],
   "evidence": [
     {
@@ -43,8 +46,12 @@
     {
       "key": "maintenance",
       "label": "Maintenance",
-      "status": "warn",
-      "detail": "6.0.0 published 2023-08-26; repo pushed 2023-09-28; engine last updated October 2024."
+      "status": "fail",
+      "detail": "6.0.0 published 2023-08-26; repository last pushed 2023-09-28; engine last updated October 2024. No release in more than 36 months and no public security process, so the requirement's active-maintenance constraint is not met.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/rehype-sanitize" },
+        { "label": "GitHub repository", "url": "https://github.com/rehypejs/rehype-sanitize" }
+      ]
     },
     {
       "key": "publish_pipeline",

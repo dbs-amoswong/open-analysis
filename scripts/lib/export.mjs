@@ -21,6 +21,7 @@ function entryFor(req, pkg, bucket, extra = {}) {
     recommendation: review?.recommendation ?? null,
     risk: review?.risk ?? null,
     bucket,
+    decision_conditions: req.decision?.conditions ?? [],
     ...extra,
   };
 }
@@ -77,6 +78,7 @@ export function buildAllowlist(model) {
         hold,
         dropped,
         rejected,
+        conditions: decision.conditions ?? [],
       };
     });
 
@@ -98,6 +100,7 @@ export function buildAllowlist(model) {
         npm_provenance: Boolean(candidate.package.npm_provenance),
         decision_status: decision?.status ?? null,
         decision_expires_at: decision?.expires_at ?? null,
+        decision_conditions: decision?.conditions ?? [],
         drop_deadline: drop?.deadline ?? null,
       });
     }
@@ -124,6 +127,7 @@ export function buildAllowlist(model) {
     "license_category",
     "npm_provenance",
     "drop_deadline",
+    "decision_conditions",
   ];
 
   const lines = [header.join(",")];
@@ -145,6 +149,7 @@ export function buildAllowlist(model) {
             item.license_category ?? "",
             item.npm_provenance,
             item.drop_deadline ?? "",
+            (item.decision_conditions ?? []).join("; "),
           ]
             .map(csvCell)
             .join(",")

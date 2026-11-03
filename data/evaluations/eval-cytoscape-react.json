@@ -1,0 +1,65 @@
+{
+  "id": "eval-cytoscape-react",
+  "requirement_id": "req-nvl-graph",
+  "name": "Cytoscape.js + React ref wrapper",
+  "version": "3.34.4",
+  "kind": "stack",
+  "verdict": "retain",
+  "fit_score": 90,
+  "license": "MIT",
+  "summary": "The primary Cytoscape.js path in a real React component: the core API owns a ref-mounted container, with a React 19 wrapper and no stale react-cytoscapejs dependency. The 20-node/20-edge spike rendered, selected a node and mounted in 25 ms.",
+  "gains": [
+    "MIT and zero runtime dependencies",
+    "Works with React 18 and 19 through a thin ref wrapper",
+    "No dependency on the stale react-cytoscapejs package",
+    "Selection and graph interaction available through the core API",
+    "Layouts via extensions",
+    "Provenance-signed core package"
+  ],
+  "losses": [
+    "The application owns the wrapper lifecycle and cleanup",
+    "No built-in editor, stencil or history layer",
+    "Layout extensions are separate packages with their own maintenance",
+    "Bundle includes React and Cytoscape: 640.68 KB / 204.31 KB gzip in the spike",
+    "Canvas rendering is slower than WebGL for very large graphs"
+  ],
+  "blockers": [],
+  "features": {
+    "general_editing": "none",
+    "ports": "none",
+    "undo_redo": "none",
+    "clipboard": "none",
+    "stencil": "none",
+    "snaplines": "none",
+    "minimap": "none",
+    "export": "custom",
+    "layouts": "native",
+    "custom_nodes": "custom",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, Cytoscape 3.34.4 mounted from a React 19.2.0 ref wrapper, grid layout, node selection, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 25,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 640.68,
+      "gzip_kb": 204.31
+    },
+    "screenshot": "cytoscape-react.png",
+    "code_path": "spikes/cytoscape-react/src/main.jsx",
+    "notes": "The spike uses the Cytoscape core API directly from a React component, not react-cytoscapejs. A node selection succeeded through the core instance. The bundle includes React 19.2.0; Cytoscape's own 138 KB gzip figure is the library-only cost."
+  },
+  "sources": [
+    {
+      "label": "Cytoscape package",
+      "url": "https://www.npmjs.com/package/cytoscape/v/3.34.4"
+    },
+    {
+      "label": "Spike source",
+      "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/cytoscape-react/src/main.jsx"
+    }
+  ]
+}

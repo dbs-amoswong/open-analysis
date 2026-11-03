@@ -15,6 +15,60 @@
   "dropped": [],
   "rationale": "Adopt @assistant-ui/react as the single direct dependency, plus @assistant-ui/react-markdown only if formatted assistant output is required. @assistant-ui/core, @assistant-ui/tap and @assistant-ui/store arrive transitively and must be allowlisted because they are required peers, not optional extras; @assistant-ui/store was missing from the original four-package list. All five are MIT, provenance-signed, free of install scripts and advisories, and the repository publishes through OIDC trusted publishing with a protected environment. The residual risks are footprint (63 MB full install, about 135 KB gzip) and 0.x churn (roughly 30 releases per quarter), so pin exact versions, import only from @assistant-ui/react, keep rehype-raw disabled, and re-review on the 90-day cadence.",
   "decided_at": "2026-10-27",
-  "decided_by": "frontend-platform",
-  "expires_at": "2027-01-25"
+  "decided_by": "frontend-platform; revalidated by opencode-review (delegated by dbs-amoswong)",
+  "expires_at": "2027-01-25",
+  "criteria": [
+    "Permissive license across the full dependency tree",
+    "CI-published with verifiable provenance",
+    "Bundled TypeScript types",
+    "No install scripts in the dependency tree",
+    "No telemetry or network calls unless explicitly configured",
+    "React 18 and 19 supported"
+  ],
+  "alternatives_considered": [
+    {
+      "name": "Import @assistant-ui/react only",
+      "outcome": "selected",
+      "reason": "The only direct application import; it brings core, store and tap as required peers and keeps the public surface small."
+    },
+    {
+      "name": "Import @assistant-ui/core directly",
+      "outcome": "rejected",
+      "reason": "Core is a transitive runtime beneath react. Importing it directly expands the API surface and bypasses the supported React entry point."
+    },
+    {
+      "name": "@assistant-ui/react-markdown",
+      "outcome": "conditionally adopted",
+      "reason": "Only needed for formatted assistant output; it adds about 87 packages and 72 KB gzip, and raw HTML remains disabled by default."
+    },
+    {
+      "name": "Build a custom chat UI",
+      "outcome": "rejected",
+      "reason": "The streaming, tool-call, attachment, markdown and accessibility surface is large; no local build spike or cheaper maintained alternative was reviewed."
+    }
+  ],
+  "conditions": [
+    "Pin @assistant-ui/react 0.15.31, core 0.3.31, store 0.3.22, tap 0.9.24 and react-markdown 0.14.24 exactly.",
+    "Import only from @assistant-ui/react; do not import core, store or tap directly.",
+    "Allowlist core, store and tap because they are required peers, not optional extras.",
+    "Adopt @assistant-ui/react-markdown only if formatted assistant output is required.",
+    "Keep rehype-raw disabled; raw HTML must go through the approved sanitizer requirement.",
+    "Keep AssistantCloud and telemetry opt-in; do not construct a cloud client unless explicitly configured.",
+    "Re-review on the 90-day cadence because the suite is 0.x and ships roughly 30 releases per quarter."
+  ],
+  "confidence": "medium",
+  "unknowns": [
+    "No local browser spike was run for assistant-ui; the evidence is static tree, bundle and pipeline measurement.",
+    "The 0.x API surface changes frequently; exact pins and deliberate upgrades are required.",
+    "assistant-cloud is MIT and opt-in, but using the hosted service would be a separate commercial decision.",
+    "The full 183-package install footprint is large even though bundlers discard source and source maps."
+  ],
+  "reversal_cost": "Moderate: the chat surface is a bounded UI layer, but replacing it means rebuilding thread, composer and markdown integration.",
+  "review_triggers": [
+    "A package in the suite drops React 18 or 19 support.",
+    "A new advisory or install script appears anywhere in the tree.",
+    "The OIDC publish pipeline or provenance attestations change.",
+    "The suite enables telemetry or a default network call.",
+    "A 1.0 release or a maintained competitor makes the 0.x churn unacceptable."
+  ]
 }

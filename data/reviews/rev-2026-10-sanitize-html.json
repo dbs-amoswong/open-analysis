@@ -71,6 +71,27 @@
       "label": "TypeScript types",
       "status": "warn",
       "detail": "No bundled declarations; requires @types/sanitize-html."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT. The six direct dependencies and the 16-package tree are permissive.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/sanitize-html" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script in the package or its six-dependency tree."
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "No npm attestation on any of the 128 published versions. Pin 2.18.1 exactly and record the gap."
     }
   ],
   "reviewed_version": "2.18.1"

@@ -2,16 +2,16 @@
   "id": "rev-2026-10-protobufjs",
   "package_id": "pkg-protobufjs",
   "requirement_id": "req-http-request",
-  "reviewed_at": "2026-10-28",
+  "reviewed_at": "2026-11-04",
   "reviewed_version": "8.8.1",
   "reviewer": "opencode",
   "recommendation": "hold",
   "risk": "low",
   "score": 74,
-  "summary": "protobufjs 8.8.1 is a healthy, provenance-published protobuf codec, but it supplies none of the HTTP request, interceptor, retry or cookie behaviour this requirement is about, and the dossier shows no dependency link to axios while the requester reports it arrives through other libraries such as Firebase, so it is held rather than added to the HTTP request allowlist.",
+  "summary": "protobufjs 8.8.1 is a healthy, provenance-published protobuf codec, but it supplies none of the HTTP request, interceptor, retry or cookie behaviour this requirement is about. Firebase 13.2.0 resolves protobufjs 7.6.6 through @grpc/proto-loader, not the reviewed 8.8.1, so it stays on hold as a monitored transitive rather than being added to the HTTP request allowlist.",
   "reasoning": [
     "Purpose mismatch is the decisive factor: req-http-request covers making HTTP requests from browser and Node with interceptors, global configuration, mocking and cookie handling, while the dossier describes protobufjs only as a message serialisation library. Nothing in the measured facts shows request dispatch, interceptor support, retry logic or cookie handling.",
-    "The requirement notes call this a monitoring batch for the axios dependency stack and ask for comparison by role. The dossier records a single runtime dependency on long ^5.3.2 and lists no link, peer relationship or shared maintainer with axios, follow-redirects, undici, fast-uri, js-cookie or cookie. The requester reports protobufjs is pulled in by other libraries such as Firebase, but no such parent edge was collected, so it is a plausible transitive package whose parent chain is unverified rather than a tree to drop as unnecessary; the unnecessary-package constraint should be judged after that walk.",
+    "The requirement notes call this a monitoring batch for the axios dependency stack and ask for comparison by role. The dossier records a single runtime dependency on long ^5.3.2 and lists no link, peer relationship or shared maintainer with axios, follow-redirects, undici, fast-uri, js-cookie or cookie. A 2026-11-04 install of firebase@13.2.0 resolves protobufjs 7.6.6 through @grpc/proto-loader, so the package is a verified Firebase transitive, but not at the reviewed 8.8.1 version.",
     "The requirement explicitly places gRPC transports out of scope and this batch does not ask for protobuf payload encoding. That removes the only plausible role protobufjs would play here, which is why the verdict is hold for this requirement rather than a statement about the package's general quality.",
     "Security posture is clean as collected: the dossier lists no advisories for 8.8.1 or the package, the release is 17 days old at review time, and no install script is declared, so there is no hard-failure cap on security grounds.",
     "Release integrity is partially verified: npm records provenance for 8.8.1 and the attestation endpoint for that exact version is present, but the dossier did not collect the publish workflow itself, so how the release is triggered and which credentials it uses is unmeasured rather than confirmed.",
@@ -20,7 +20,7 @@
   ],
   "caveats": [
     "Holding is a fit decision, not a safety finding. If a protobuf or gRPC-Web payload need is ever scoped in, this package should be re-reviewed against that requirement rather than inherited from this verdict.",
-    "The parent chain is unverified: the requester states protobufjs is pulled in by other libraries such as Firebase, but the dossier records no edge to Firebase or any other upstream package. Keep it on hold until a tree walk establishes which parent pulls it in.",
+    "The parent chain is now verified for Firebase 13.2.0, but it resolves protobufjs 7.6.6, not the reviewed 8.8.1. If protobuf handling becomes in scope, review the version actually installed rather than inheriting this verdict.",
     "gRPC transports are out of scope for req-http-request, so adopting protobufjs here would add a 3.7 MB unpacked dependency and its long dependency without covering the HTTP behaviour the requirement actually needs.",
     "Install size was not measured and the licence of the single runtime dependency (long) was not inventoried, so the 'permissive license across the full dependency tree' constraint is only satisfied for protobufjs itself.",
     "The registry reports BSD-3-Clause while the GitHub API reports NOASSERTION; the licence file should be read directly before any adoption, because a mismatch here would matter for the tree-level licence constraint.",
@@ -110,6 +110,18 @@
       ]
     },
     {
+      "key": "adoption",
+      "label": "Parent chain",
+      "status": "info",
+      "detail": "firebase@13.2.0 resolves protobufjs@7.6.6 through @grpc/proto-loader@0.7.15. The reviewed version is 8.8.1, so the Firebase tree and this review are not the same version.",
+      "sources": [
+        {
+          "label": "Firebase package",
+          "url": "https://www.npmjs.com/package/firebase/v/13.2.0"
+        }
+      ]
+    },
+    {
       "key": "types",
       "label": "TypeScript types",
       "status": "pass",
@@ -154,6 +166,8 @@
       ]
     }
   ],
+  "revalidated_at": "2026-11-04",
+  "revalidated_by": "opencode-review (delegated by dbs-amoswong)",
   "generated_by": {
     "kind": "ai",
     "tool": "opencode",

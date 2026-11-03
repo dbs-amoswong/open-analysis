@@ -2,25 +2,27 @@
   "id": "rev-2026-10-sigma",
   "package_id": "pkg-sigma",
   "requirement_id": "req-nvl-graph",
-  "reviewed_at": "2026-10-28",
+  "reviewed_at": "2026-11-04",
   "reviewed_version": "4.0.4",
   "reviewer": "research-agent",
   "recommendation": "adopt",
   "risk": "medium",
-  "score": 84,
-  "summary": "WebGL renderer for large graphs, with the graphology ecosystem. MIT, active, 110 KB gzip, 6.9 MB and 10 packages. No provenance, and it needs WebGL2 and browser globals at import, so use it only in client components.",
+  "score": 80,
+  "summary": "WebGL renderer for large graphs. MIT, active, 110 KB gzip, 6.9 MB and 10 packages. No provenance, and it needs WebGL2 and browser globals at import, so use it only as a client-side core renderer. The @react-sigma/core wrapper is not approved with it: its graphology ^0.26 peer has not shipped since January 2025.",
   "reasoning": [
     "MIT and a public repository; 4.0.4 published 2026-10-27 with 14 releases in 90 days.",
     "WebGL rendering handles graphs far larger than a canvas renderer.",
     "110 KB gzip with graphology; 6.9 MB install and 10 packages.",
     "No OSV advisories for 4.0.4 or graphology 0.26.0.",
-    "React integration is available via @react-sigma/core 6.0.0 (MIT, active, peers sigma ^4 and graphology ^0.26)."
+    "React integration is available via @react-sigma/core 6.0.0 (MIT, active, peers sigma ^4 and graphology ^0.26), but graphology 0.26.0 was published 2025-01-26 and has had no release in more than 12 months. That fails the requirement's active-maintenance constraint for the React wrapper stack, so hold the wrapper and use Sigma core with a thin application-owned React wrapper.",
+    "The core renderer itself meets the package-level constraints: MIT, active, no advisories, no install scripts and a recorded no-provenance gap."
   ],
   "caveats": [
-    "No npm provenance and no publish workflow; releases are manual.",
+    "No npm provenance and no publish workflow; releases are manual. Pin 4.0.4 exactly and record the gap.",
     "Importing sigma in Node fails with 'WebGL2RenderingContext is not defined'. It must be dynamically imported or used in a client component.",
-    "No built-in layouts: pair it with graphology-layout-forceatlas2 or another layout package.",
-    "The React wrapper is a separate package with its own release cadence."
+    "No built-in layouts: pair it with graphology-layout-forceatlas2 or another layout package. Graphology itself has no release since 2025-01-26, so do not treat the full graphology stack as approved.",
+    "The React wrapper @react-sigma/core 6.0.0 is on hold because its required graphology ^0.26 peer fails the 12-month release constraint. Use Sigma core directly in a thin React wrapper, or re-review when graphology ships.",
+    "A browser spike for Sigma core was not run in this audit; the 110 KB gzip figure is from the published bundle and the review is static evidence."
   ],
   "evidence": [
     {
@@ -39,7 +41,21 @@
       "key": "maintenance",
       "label": "Maintenance",
       "status": "pass",
-      "detail": "4.0.4 published 2026-10-27; 14 releases in 90 days; 12.2k stars; 6 open issues."
+      "detail": "4.0.4 published 2026-10-27; 14 releases in 90 days; 12.2k stars; 6 open issues. The core renderer is active.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/sigma" },
+        { "label": "GitHub repository", "url": "https://github.com/jacomyal/sigma.js" }
+      ]
+    },
+    {
+      "key": "react_integration",
+      "label": "React wrapper and graphology",
+      "status": "warn",
+      "detail": "@react-sigma/core 6.0.0 requires graphology ^0.26.0. graphology 0.26.0 was published 2025-01-26, more than 12 months before this review, so the wrapper stack fails the requirement's active-maintenance constraint. Hold the wrapper; use the core renderer with a thin React wrapper or wait for a graphology release.",
+      "sources": [
+        { "label": "React Sigma package", "url": "https://www.npmjs.com/package/@react-sigma/core" },
+        { "label": "graphology package", "url": "https://www.npmjs.com/package/graphology" }
+      ]
     },
     {
       "key": "provenance",
@@ -58,6 +74,21 @@
       "label": "TypeScript types",
       "status": "pass",
       "detail": "Bundled declarations."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT. The runtime tree is MIT; events and graphology-utils are permissive. The graphology peer is addressed separately under react_integration.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/sigma" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script is declared."
     }
   ]
 }

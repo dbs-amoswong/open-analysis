@@ -5,10 +5,10 @@
   "primary_package_id": "pkg-dompurify",
   "adopted": [
     "pkg-dompurify",
-    "pkg-sanitize-html",
-    "pkg-rehype-sanitize"
+    "pkg-sanitize-html"
   ],
   "hold": [
+    "pkg-rehype-sanitize",
     "pkg-isomorphic-dompurify",
     "pkg-xss"
   ],
@@ -17,8 +17,72 @@
     "pkg-sanitizer"
   ],
   "dropped": [],
-  "rationale": "Use DOMPurify wherever a browser DOM is available, because parsing with the real DOM is the strongest defence against mutation XSS. Use sanitize-html for Node and SSR, where jsdom would add 27 MB for the same outcome. Use rehype-sanitize when content already flows through remark/rehype, which is the case for the assistant-ui react-markdown pipeline. Keep isomorphic-dompurify on hold: it is correct, but only worth its jsdom footprint if you need DOMPurify specifically on the server. Keep xss on hold: it is fast and safe in the harness, but its escape-not-strip model and lack of independent advisory coverage make it a weaker default. insane and sanitizer are abandoned and must not be used. No package in this category publishes npm provenance, so pin exact versions, subscribe to advisories for the chosen sanitizer, and re-review every 90 days. A 25-vector headless-Chrome corpus executed 11 vectors unsanitized and zero after every tested sanitizer.",
-  "decided_at": "2026-10-27",
-  "decided_by": "platform-security",
-  "expires_at": "2027-01-25"
+  "rationale": "Use DOMPurify wherever a browser DOM is available, because parsing with the real DOM is the strongest defence against mutation XSS. Use sanitize-html for Node and SSR, where jsdom would add 27 MB for the same outcome. rehype-sanitize is technically a good HAST sanitizer, but 6.0.0 has not shipped since August 2023, the repository has been inactive since September 2023 and it has no public security process; that fails the requirement's active-maintenance constraint, so it moves to hold rather than adopted. Keep isomorphic-dompurify on hold: it is correct, but only worth its jsdom footprint if you need DOMPurify specifically on the server. Keep xss on hold: it is fast and safe in the harness, but its escape-not-strip model and lack of independent advisory coverage make it a weaker default. insane and sanitizer are abandoned and must not be used. No package in this category publishes npm provenance, so pin exact versions, subscribe to advisories for the chosen sanitizer, and re-review every 90 days. A 25-vector headless-Chrome corpus executed 11 vectors unsanitized and zero after every tested sanitizer.",
+  "decided_at": "2026-11-04",
+  "decided_by": "platform-security; revised by opencode-review (delegated by dbs-amoswong)",
+  "expires_at": "2027-01-25",
+  "criteria": [
+    "Removes scripts, event handlers and javascript:/data: URLs",
+    "Resistant to mutation XSS when the output is re-parsed",
+    "Actively maintained with a public security process",
+    "Zero or small dependency tree",
+    "Runs where it is needed: browser DOM or Node",
+    "TypeScript types available",
+    "No npm provenance is available in this category, so exact pinning and advisory monitoring replace it"
+  ],
+  "alternatives_considered": [
+    {
+      "name": "DOMPurify 3.4.17",
+      "outcome": "selected",
+      "reason": "Browser DOM sanitizer; zero executions in the 25-vector harness; active security process; Apache-2.0 arm available. npm tarball is unattested, but the dist files match the attested GitHub release."
+    },
+    {
+      "name": "sanitize-html 2.18.1",
+      "outcome": "selected for Node/SSR",
+      "reason": "Parser sanitizer without jsdom; zero executions in the harness; active in the Apostrophe monorepo; 4.1 MB install and 16 packages."
+    },
+    {
+      "name": "rehype-sanitize 6.0.0",
+      "outcome": "hold",
+      "reason": "Strong HAST mechanism and small footprint, but no release since August 2023, inactive repository and no public security process; fails the active-maintenance constraint."
+    },
+    {
+      "name": "isomorphic-dompurify 4.6.0",
+      "outcome": "hold",
+      "reason": "Correct output, but 27.4 MB and 28 packages through jsdom; only justified by a specific server-side DOMPurify requirement."
+    },
+    {
+      "name": "xss 1.0.17",
+      "outcome": "hold",
+      "reason": "Fast and safe in the harness, but escape-not-strip output and no independent advisory history."
+    },
+    {
+      "name": "insane / sanitizer",
+      "outcome": "rejected",
+      "reason": "Abandoned since 2016 and 2015 respectively; insane also carries an unfixed ReDoS advisory."
+    }
+  ],
+  "conditions": [
+    "Use DOMPurify in the browser and sanitize-html in Node/SSR.",
+    "Pin dompurify 3.4.17 and sanitize-html 2.18.1 exactly; no npm tarball provenance exists for either.",
+    "Add @types/sanitize-html for TypeScript consumers; sanitize-html does not bundle declarations.",
+    "Do not use rehype-sanitize without an explicit exception to the active-maintenance constraint.",
+    "Keep rehype-raw disabled in the assistant-ui/react-markdown pipeline; if HTML must be sanitized, route it through DOMPurify or sanitize-html.",
+    "Re-check advisories and releases every 90 days, and subscribe to the chosen sanitizer's security feed.",
+    "Configure sanitize-html's allowlist deliberately: its defaults drop img and svg."
+  ],
+  "confidence": "high",
+  "unknowns": [
+    "No sanitizer in this category publishes an attested npm tarball.",
+    "sanitize-html's standalone repository is archived; development continues in the Apostrophe monorepo.",
+    "The assistant-ui markdown pipeline does not need rehype-sanitize today because raw HTML is disabled by default."
+  ],
+  "reversal_cost": "Low: both approved sanitizers are small, and the DOMPurify/sanitize-html split follows the runtime boundary.",
+  "review_triggers": [
+    "rehype-sanitize ships a new release or restores an active security process.",
+    "A new high or critical advisory affects DOMPurify or sanitize-html.",
+    "DOMPurify or sanitize-html changes its npm provenance or publish pipeline.",
+    "The assistant-ui pipeline enables raw HTML and needs a HAST-level sanitizer.",
+    "The requirement adds a runtime that neither approved sanitizer covers."
+  ]
 }

@@ -75,6 +75,12 @@
       "label": "License",
       "status": "pass",
       "detail": "BSD-3-Clause."
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script; zero runtime dependencies."
     }
   ],
   "reviewed_version": "8.0.2"

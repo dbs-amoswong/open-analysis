@@ -1,0 +1,66 @@
+{
+  "id": "eval-x6-v3-react",
+  "requirement_id": "req-graph-editor",
+  "name": "@antv/x6 v3 + React shape",
+  "version": "3.1.8 / 3.0.1",
+  "kind": "stack",
+  "verdict": "migrate",
+  "fit_score": 82,
+  "license": "MIT",
+  "summary": "The X6 v3 React path, using the official @antv/x6-react-shape 3.0.1 package. A React 19 spike rendered 20 interactive React nodes and 20 edges with selection; the cost is a browser-only stack, no npm provenance and a React shape package that is close to its 12-month release boundary.",
+  "gains": [
+    "Maintained X6 v3 line",
+    "Official React shape package instead of a custom DOM bridge",
+    "React 18 and 19 peers",
+    "Custom React nodes with working component state",
+    "Selection and panning work in the browser spike",
+    "MIT across the runtime tree"
+  ],
+  "losses": [
+    "Browser-only: native Node ESM/CJS loading still fails",
+    "No npm provenance for X6 or the React shape package",
+    "React shape 3.0.1 is close to 12 months old",
+    "Bundle includes React and X6: 782.82 KB / 231.62 KB gzip in the spike",
+    "React provider API and panning behaviour differ from v2",
+    "Full application regression still required"
+  ],
+  "blockers": [],
+  "features": {
+    "general_editing": "native",
+    "ports": "native",
+    "undo_redo": "native",
+    "clipboard": "native",
+    "stencil": "native",
+    "snaplines": "native",
+    "minimap": "native",
+    "export": "native",
+    "layouts": "unknown",
+    "custom_nodes": "native",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 React-rendered nodes, 20 edges, official @antv/x6-react-shape 3.0.1, React 19.2.0, Selection plugin, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 17,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 782.82,
+      "gzip_kb": 231.62
+    },
+    "screenshot": "x6-v3-react.png",
+    "code_path": "spikes/x6-v3-react/src/main.jsx",
+    "notes": "React nodes render through foreignObject. A node button click updated component state and selection worked. The bundle includes React 19.2.0; the vanilla X6 v3 spike is 584.85 KB / 168.82 KB gzip. Native Node/SSR loading still fails, so this is a browser-only path."
+  },
+  "sources": [
+    {
+      "label": "React shape package",
+      "url": "https://www.npmjs.com/package/@antv/x6-react-shape/v/3.0.1"
+    },
+    {
+      "label": "Spike source",
+      "url": "https://github.com/dbs-amoswong/open-analysis/blob/main/spikes/x6-v3-react/src/main.jsx"
+    }
+  ]
+}

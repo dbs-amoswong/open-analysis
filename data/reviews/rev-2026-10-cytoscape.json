@@ -59,6 +59,21 @@
       "label": "TypeScript types",
       "status": "pass",
       "detail": "Bundled index.d.ts."
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT, with zero runtime dependencies, so the runtime tree is a single permissive package.",
+      "sources": [
+        { "label": "npm registry metadata", "url": "https://registry.npmjs.org/cytoscape" }
+      ]
+    },
+    {
+      "key": "install_scripts",
+      "label": "Install scripts",
+      "status": "pass",
+      "detail": "No preinstall, install or postinstall script is declared."
     }
   ]
 }

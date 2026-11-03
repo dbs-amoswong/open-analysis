@@ -19,8 +19,87 @@
     "pkg-neo4j-bloom-dagre"
   ],
   "dropped": [],
-  "rationale": "The NVL suite is denied: its LICENSE.txt limits use to Neo4j Aura or commercial Neo4j, it publishes no repository, carries no provenance and cannot be loaded by Node in either module system. 1.2.2 was checked separately: same licence and packaging, different layout stack, so the denial applies to both. Adopt Cytoscape.js as the primary renderer: MIT, zero dependencies, SLSA provenance, active, 138 KB gzip, and layouts via extensions. Use the core API with a ref or a thin internal wrapper because react-cytoscapejs is stale. Adopt Sigma.js as the fallback for large graphs: MIT, WebGL, 110 KB gzip and active, but client-only (WebGL2) and without provenance; pair it with graphology and @react-sigma/core. Hold @antv/g6 (88 MB, 104 packages, 413 KB gzip, 333 open issues, no release in 90 days) and @xyflow/react (excellent node editor, but not an exploration or layout engine).",
-  "decided_at": "2026-10-28",
-  "decided_by": "platform-security",
-  "expires_at": "2027-01-26"
+  "rationale": "The NVL suite is denied: its LICENSE.txt limits use to Neo4j Aura or commercial Neo4j, it publishes no repository, carries no provenance and cannot be loaded by Node in either module system. 1.2.2 was checked separately: same licence and packaging, different layout stack, so the denial applies to both. Adopt Cytoscape.js as the primary renderer: MIT, zero dependencies, SLSA provenance, active, 138 KB gzip, and layouts via extensions. Use the core API with a ref or a thin internal React wrapper because react-cytoscapejs is stale; a React 19 ref-wrapper spike rendered 20 nodes and 20 edges in 25 ms and node selection passed. Adopt Sigma.js 4.0.4 only as the client-side core fallback for large graphs: MIT, WebGL, 110 KB gzip and active, but it has no npm provenance and needs a browser. A React 19 ref-wrapper spike with graphology 0.26.0 rendered 20 nodes and 20 edges on WebGL2 without errors; that validates the technical path, not graphology's maintenance status. Do not adopt the @react-sigma/core wrapper or graphology with it: @react-sigma/core 6.0.0 requires graphology ^0.26.0, and graphology's latest release is 2025-01-26, outside the requirement's 12-month maintenance window. Hold @antv/g6 (88 MB, 104 packages, 413 KB gzip, 333 open issues, no release in 90 days) and @xyflow/react (excellent node editor, but not an exploration or layout engine).",
+  "decided_at": "2026-11-04",
+  "decided_by": "platform-security; revised by opencode-review (delegated by dbs-amoswong)",
+  "expires_at": "2027-01-26",
+  "criteria": [
+    "Permissive license across the full dependency tree",
+    "React 18 and 19 supported",
+    "No install scripts in the dependency tree",
+    "No unfixed high or critical advisories",
+    "Actively maintained (release within 12 months)",
+    "Compatible versions across the chosen graph stack",
+    "If npm provenance is unavailable, pin exact versions and record the gap",
+    "Commercial licences are excluded"
+  ],
+  "alternatives_considered": [
+    {
+      "name": "Cytoscape.js 3.34.4",
+      "outcome": "selected primary",
+      "reason": "MIT, zero dependencies, SLSA provenance, active, 138 KB gzip, layouts via extensions. React integration is a thin ref wrapper because react-cytoscapejs is stale."
+    },
+    {
+      "name": "Sigma.js 4.0.4",
+      "outcome": "selected large-graph fallback",
+      "reason": "MIT, WebGL, active and 110 KB gzip; client-only and no npm provenance. Approved as a core renderer, not with the graphology-based React wrapper."
+    },
+    {
+      "name": "@react-sigma/core 6.0.0 + graphology 0.26.0",
+      "outcome": "hold",
+      "reason": "The wrapper is MIT and React 18/19 compatible, but its required graphology peer has not shipped since 2025-01-26, failing the 12-month maintenance constraint."
+    },
+    {
+      "name": "Neo4j NVL 2.0.0",
+      "outcome": "rejected",
+      "reason": "Proprietary licence, no source repository, no provenance and Node-incompatible packaging."
+    },
+    {
+      "name": "Neo4j NVL 1.2.2",
+      "outcome": "rejected",
+      "reason": "Same licence and packaging; different layout stack. The denial applies to both versions."
+    },
+    {
+      "name": "@antv/g6 5.1.1",
+      "outcome": "hold",
+      "reason": "Feature-rich and MIT, but 88 MB, 104 packages, 413 KB gzip, 333 open issues and no release in 90 days."
+    },
+    {
+      "name": "@xyflow/react 12.12.1",
+      "outcome": "hold",
+      "reason": "Excellent React node/flow editor, but not a graph exploration or layout engine."
+    },
+    {
+      "name": "@neo4j-bloom/dagre 3.1.1",
+      "outcome": "rejected",
+      "reason": "MIT but a small fork of dagrejs/dagre pinned at 3.1.1; not used by NVL 2.0.0 and would create a second dagre copy. Use upstream @dagrejs/dagre if a layout extension is needed."
+    }
+  ],
+  "conditions": [
+    "Use Cytoscape.js 3.34.4 as the primary renderer with a thin React ref wrapper, not the stale react-cytoscapejs package. The React 19 ref spike is the baseline.",
+    "Use Sigma.js 4.0.4 only in a client component or after a dynamic import, and only for the large-graph fallback. The React 19 WebGL2 ref spike is the baseline.",
+    "Pin Sigma 4.0.4 exactly and record its missing npm provenance.",
+    "Do not adopt @react-sigma/core or graphology as part of the approved stack until graphology ships a release within 12 months or the requirement owner grants an explicit exception.",
+    "Pin Cytoscape 3.34.4 and the chosen layout extensions exactly; review each extension's licence and advisories.",
+    "Run a local Cytoscape React spike and, if the fallback is used, a Sigma WebGL spike before production adoption.",
+    "Re-check advisories, releases and provenance every 90 days."
+  ],
+  "confidence": "medium",
+  "unknowns": [
+    "The Cytoscape React ref spike passed, but it covers rendering and selection only; the actual application graph workflows have not been exercised.",
+    "The Sigma React ref spike passed on WebGL2, but it covers rendering only; large-graph interaction and layout behaviour were not benchmarked.",
+    "Both React spikes used React 19.2.0; React 18 was not exercised. The wrappers are framework-agnostic, but the peer range should be checked in the real app.",
+    "The actual application graph size and layout needs were not supplied, so the Cytoscape/Sigma threshold is unquantified.",
+    "graphology has no release since 2025-01-26; the React wrapper path is blocked until that changes.",
+    "The layout extension versions for Cytoscape were not selected.",
+    "react-cytoscapejs is stale, so the thin wrapper must be owned and tested by the application."
+  ],
+  "reversal_cost": "Low for Cytoscape: it is the primary and has a small API surface. Moderate for Sigma: it is a fallback renderer and may need a different graph adapter.",
+  "review_triggers": [
+    "graphology ships a release and the @react-sigma/core wrapper can be re-reviewed.",
+    "Cytoscape or Sigma releases a new major, drops maintenance or receives a high/critical advisory.",
+    "The application graph sizes show Cytoscape is insufficient and the Sigma fallback is needed.",
+    "A maintained React wrapper for Cytoscape replaces react-cytoscapejs.",
+    "The NVL licence changes or the suite becomes open source."
+  ]
 }

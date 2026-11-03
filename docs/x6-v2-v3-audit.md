@@ -119,6 +119,23 @@ import { Selection, Transform, Scroller } from '@antv/x6'
 
 The deprecated 3.0.0 plugin packages must not be installed.
 
+## React shape spike
+
+On 2026-11-04 the official `@antv/x6-react-shape@3.0.1` was exercised with
+`@antv/x6@3.1.8`, React 19.2.0 and Vite:
+
+- 20 React-rendered nodes and 20 edges rendered in Chrome at 1200x800.
+- Mount took 17 ms.
+- The production bundle was 782.82 KB JS / 231.62 KB gzip including React.
+- A button inside a node updated its React component state.
+- Selection worked.
+- The spike is browser-only; native Node/SSR loading still fails.
+
+The spike source is `spikes/x6-v3-react/` and the screenshot is
+`assets/evaluations/x6-v3-react.png`. The React shape package peers React >=18
+but last shipped on 2025-11-27, so its 12-month maintenance boundary is
+2026-11-27.
+
 ## Behavioural changes in v3
 
 From the official upgrade guide:
@@ -140,8 +157,9 @@ handlers and editor behaviour still need regression testing.
 
 - **v2 is the correct short-term bridge for an existing X6 application today.**
   Pin `@antv/x6@2.19.2` and compatible 2.x plugins. Record the provenance gap
-  and set an exit/review date; v2 is deprecated and must not become the
-  permanent destination.
+  and remove it by 2026-11-17, when its 12-month maintenance window closes;
+  v2 is deprecated and must not become the permanent destination. Keeping it
+  longer requires a new time-boxed exception.
 - **v3 is the maintained future path, but not a safe drop-in.** It is blocked
   for native Node/SSR/test environments by the packaging failure, and it
   requires Node >=20 plus behaviour migration.

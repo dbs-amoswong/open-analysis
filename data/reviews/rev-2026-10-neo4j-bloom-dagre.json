@@ -35,7 +35,7 @@
       "key": "provenance",
       "label": "Provenance",
       "status": "fail",
-      "detail": "0 attested versions in the npm registry; no publish workflow is visible without a repository."
+      "detail": "0 attested versions in the npm registry; no release workflow is visible in the public fork."
     },
     {
       "key": "cve",

@@ -2,15 +2,15 @@
   "id": "rev-2026-10-cookie",
   "package_id": "pkg-cookie",
   "requirement_id": "req-http-request",
-  "reviewed_at": "2026-10-28",
+  "reviewed_at": "2026-11-04",
   "reviewed_version": "2.0.1",
   "reviewer": "opencode",
   "recommendation": "hold",
   "risk": "medium",
   "score": 74,
-  "summary": "Clean, zero-dependency, provenance-signed cookie header parser/serialiser, but no axios edge is recorded while the requester reports it arrives through other libraries such as Firebase, it is ESM-only with engines node >=22, it ships no types, and its publish workflow was not measured, so it should stay on hold rather than be adopted into the stack.",
+  "summary": "Clean, zero-dependency, provenance-signed cookie header parser/serialiser, but no axios edge is recorded and the Firebase 13.2.0 tree does not contain it. It is ESM-only with engines node >=22, it ships no types, and its publish workflow was not measured, so it should stay on hold rather than be adopted into the stack.",
   "reasoning": [
-    "cookie@2.0.1 parses and serialises Cookie/Set-Cookie headers; it is not an HTTP client. The dossier records no direct or peer dependency relationship with axios, and the requester reports it is pulled in by other libraries such as Firebase, but that parent chain is unverified, so it only earns a direct place in this requirement for an explicit server-side cookie-handling need.",
+    "cookie@2.0.1 parses and serialises Cookie/Set-Cookie headers; it is not an HTTP client. The dossier records no direct or peer dependency relationship with axios, and a 2026-11-04 install of firebase@13.2.0 does not contain cookie, so it only earns a direct place in this requirement for an explicit server-side cookie-handling need.",
     "Security posture is clean on the recorded facts: the vulnerabilities list is empty, there are no install scripts, the licence is MIT and the npm tarball carries a provenance attestation.",
     "Release integrity is only partly verifiable: npm_provenance is true, but the dossier contains no workflow file, so the OIDC-versus-token choice, protected environment and action pinning were not assessed.",
     "Maintenance looks healthy: 2.0.1 was published 2026-06-30, the repository was pushed 2026-07-08, it has three maintainers, 1,537 stars and is not archived; 14 open issues is modest for 209M weekly downloads.",
@@ -23,7 +23,7 @@
     "No bundled TypeScript declarations; typings must come from elsewhere and will not automatically track 2.0.x.",
     "Install size was not measured (unpacked size is 59 KB), and no behavioural tests of malformed or oversized cookie headers are recorded in the dossier.",
     "Three maintainers and no release since 2026-06-30: a security fix depends on that small team shipping, and the 14 open issues were not triaged in the dossier.",
-    "No axios edge is recorded, but the requester reports cookie is pulled in by other libraries such as Firebase, so it may already arrive transitively; verify that parent chain before adding it directly, and do not drop it merely for lacking an axios edge."
+    "No axios edge is recorded, and the Firebase 13.2.0 tree does not contain cookie; verify the actual application parent chain before adding it directly, and do not drop it merely for lacking an axios edge."
   ],
   "evidence": [
     {
@@ -131,6 +131,8 @@
       ]
     }
   ],
+  "revalidated_at": "2026-11-04",
+  "revalidated_by": "opencode-review (delegated by dbs-amoswong)",
   "generated_by": {
     "kind": "ai",
     "tool": "opencode",

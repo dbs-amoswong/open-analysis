@@ -19,7 +19,7 @@
   "formats": [
     "dual"
   ],
-  "notes": "WebGL renderer for large graphs, built around the graphology ecosystem. No built-in layout algorithms. Requires WebGL2 and browser globals at import, so it is client-only.",
+  "notes": "WebGL renderer for large graphs, built around the graphology ecosystem. No built-in layout algorithms. Requires WebGL2 and browser globals at import, so it is client-only. The @react-sigma/core wrapper is not approved with it because its graphology ^0.26 peer has not shipped since 2025-01-26.",
   "npm_provenance": false,
   "build_vs_buy": {
     "scope": 5,

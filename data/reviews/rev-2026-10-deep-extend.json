@@ -5,13 +5,14 @@
   "reviewed_at": "2026-10-20",
   "reviewer": "research-agent",
   "recommendation": "avoid",
-  "risk": "critical",
-  "score": 15,
-  "summary": "Unmaintained since 2018 and the subject of a critical prototype-pollution advisory. Do not use.",
+  "risk": "high",
+  "score": 20,
+  "summary": "Unmaintained since 2018 with no CI, types or provenance. The historical critical prototype-pollution CVE is fixed in 0.6.0, but the package has no maintenance path. Do not use.",
   "reasoning": [
-    "CVE-2018-3750 (critical) affected versions before 0.5.1.",
-    "No release since 0.6.0 in May 2018.",
-    "No CI, no provenance, no types."
+    "CVE-2018-3750 (critical) affected versions before 0.5.1; reviewed 0.6.0 includes the fix and is not currently vulnerable to that CVE.",
+    "No release since 0.6.0 in May 2018, so there is no route for a future bypass or advisory fix.",
+    "No CI, no provenance, no types.",
+    "The rejection is driven by unmaintained status and release-integrity gaps, not by an unfixed current advisory."
   ],
   "caveats": [
     "High download volume reflects transitive use by older CLI tooling, not active adoption."
@@ -20,8 +21,8 @@
     {
       "key": "cve",
       "label": "Known advisories",
-      "status": "fail",
-      "detail": "CVE-2018-3750, prototype pollution, CVSS critical, fixed only in 0.5.1."
+      "status": "info",
+      "detail": "CVE-2018-3750, prototype pollution, CVSS critical, affected versions before 0.5.1. Reviewed 0.6.0 contains the fix and has no current recorded advisory; the rejection is for unmaintained status, not an unfixed vulnerability."
     },
     {
       "key": "maintenance",
