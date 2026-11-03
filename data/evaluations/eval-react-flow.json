@@ -1,0 +1,63 @@
+{
+  "id": "eval-react-flow",
+  "requirement_id": "req-legacy-graph",
+  "name": "React Flow",
+  "version": "12.12.1",
+  "kind": "library",
+  "verdict": "reject",
+  "fit_score": 70,
+  "license": "MIT",
+  "maintenance": "Very active",
+  "published_at": "2026-11-02",
+  "summary": "A strong React node/edge editor. The spike rendered and fit the graph, but it requires React and does not provide X6-style general diagram editing, layouts, stencils, snaplines or a non-React legacy integration.",
+  "gains": [
+    "MIT",
+    "Very active",
+    "Excellent React developer experience",
+    "Built-in minimap, controls and background"
+  ],
+  "losses": [
+    "React-only",
+    "Node/edge editor, not a general diagram editor",
+    "No built-in general layouts or stencil",
+    "Framework migration required"
+  ],
+  "features": {
+    "general_editing": "custom",
+    "ports": "custom",
+    "undo_redo": "custom",
+    "clipboard": "custom",
+    "stencil": "custom",
+    "snaplines": "custom",
+    "minimap": "native",
+    "export": "custom",
+    "layouts": "none",
+    "custom_nodes": "native",
+    "framework_independent": "none"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, React 19, React Flow fitView, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 17,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 381.04,
+      "gzip_kb": 122.25
+    },
+    "screenshot": "react-flow.png",
+    "code_path": "spikes/react-flow/main.jsx",
+    "notes": "Bundle excludes the separate 15.87 KB CSS file. React 19 was used; the package supports React 18/19 via peers."
+  },
+  "sources": [
+    {
+      "label": "@xyflow/react@12.12.1",
+      "url": "https://www.npmjs.com/package/@xyflow/react/v/12.12.1"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/xyflow/xyflow"
+    }
+  ]
+}

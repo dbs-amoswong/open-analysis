@@ -1,0 +1,8 @@
+{
+  "name": "spike-jointjs",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "vite build", "dev": "vite" },
+  "dependencies": { "@joint/core": "4.3.4" },
+  "devDependencies": { "vite": "^7.0.0" }
+}

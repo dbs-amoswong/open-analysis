@@ -19,7 +19,7 @@ let failed = false;
 
 try {
   const model = await loadModel({ today });
-  console.log(`Data: valid (${model.counts.packages} packages, ${model.counts.requirements} active requirement(s))`);
+  console.log(`Data: valid (${model.counts.packages} packages, ${model.counts.requirements} active requirement(s), ${model.counts.evaluations} evaluations)`);
   for (const w of model.warnings) console.log(`  ! ${w}`);
 } catch (err) {
   if (err.name === "ValidationError") {
@@ -44,9 +44,9 @@ const broken = [];
 
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");
-  for (const match of html.matchAll(/href="([^"]+)"/g)) {
+  for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const href = match[1];
-    if (/^(https?:|mailto:|#)/.test(href)) continue;
+    if (/^(https?:|mailto:|#|data:)/.test(href)) continue;
     const target = path.resolve(path.dirname(file), href.split("#")[0]);
     try {
       await access(target);

@@ -72,6 +72,7 @@ data/                    source of truth (one JSON object per file)
   packages/<id>.json     registry metadata and packaging facts
   reviews/<id>.json      verdict, score, reasoning, caveats, evidence
   decisions/<id>.json    adopted / hold / dropped / rejected buckets
+  evaluations/<id>.json  alternatives, feature fit, spike metrics, screenshots
 
 scripts/
   lib/data.mjs           per-record read/write helpers
@@ -92,9 +93,12 @@ scripts/
   collect-suite.mjs      build a related-package suite context
   verify-suite.mjs       validate suite notes
 
+spikes/                   small browser integrations used by evaluations/
+
 assets/
   style.css              light/dark, print styles
   app.js                 client-side search and filtering
+  evaluations/*.png      spike screenshots copied into dist/
 
 dist/                    generated; not committed. CI builds and deploys it.
 ```
@@ -204,6 +208,42 @@ The whitelist outcome for a requirement. Every reviewed package must appear in *
 | `rejected` | not permitted for this requirement |
 
 `status` is `approved` · `denied` · `pending`, and `expires_at` drives the expiry warnings.
+
+### `data/evaluations/<id>.json`
+
+A comparison record for a library, stack, reference implementation or build option. Evaluations are intentionally separate from reviews: a review judges a package for a requirement; an evaluation compares alternatives and records a small browser spike.
+
+```json
+{
+  "id": "eval-x6-v2",
+  "requirement_id": "req-legacy-graph",
+  "name": "@antv/x6",
+  "version": "2.19.2",
+  "kind": "stack",
+  "verdict": "retain",
+  "fit_score": 85,
+  "license": "MIT",
+  "summary": "Why this option fits or does not.",
+  "gains": ["What improves"],
+  "losses": ["What gets worse"],
+  "features": {
+    "general_editing": "native",
+    "undo_redo": "plugin",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, production build.",
+    "metrics": { "mount_ms": 14, "bundle_kb": 479.61, "gzip_kb": 137.67 },
+    "screenshot": "x6-v2.png",
+    "code_path": "spikes/x6-v2/main.js",
+    "notes": "What the spike did and did not test."
+  }
+}
+```
+
+Screenshots live in `assets/evaluations/` and are copied to `dist/evaluations/` by the build. Spike source lives under `spikes/`. The evaluation page is generated at `/evaluations/` and linked from every requirement.
 
 ---
 

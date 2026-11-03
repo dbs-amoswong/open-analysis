@@ -1,0 +1,54 @@
+{
+  "id": "eval-sigma",
+  "requirement_id": "req-legacy-graph",
+  "name": "Sigma.js",
+  "version": "4.0.4",
+  "kind": "reference",
+  "verdict": "reference",
+  "fit_score": 60,
+  "license": "MIT",
+  "maintenance": "Active",
+  "published_at": "2026-10-27",
+  "summary": "A WebGL renderer for large graphs, not an editor. It has no layouts or editing model and is client-only.",
+  "gains": [
+    "MIT",
+    "WebGL scale",
+    "Active",
+    "Graphology ecosystem"
+  ],
+  "losses": [
+    "No editor",
+    "No layouts",
+    "No npm provenance",
+    "WebGL/client-only"
+  ],
+  "features": {
+    "general_editing": "none",
+    "ports": "none",
+    "undo_redo": "none",
+    "clipboard": "none",
+    "stencil": "none",
+    "snaplines": "none",
+    "minimap": "none",
+    "export": "custom",
+    "layouts": "none",
+    "custom_nodes": "custom",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "not-applicable",
+    "tested_at": "2026-11-04",
+    "scenario": "Not spiked: not an editing library.",
+    "notes": "Reference only. Existing repo decision uses Sigma as the large-graph fallback for the React requirement."
+  },
+  "sources": [
+    {
+      "label": "sigma@4.0.4",
+      "url": "https://www.npmjs.com/package/sigma/v/4.0.4"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/jacomyal/sigma.js"
+    }
+  ]
+}

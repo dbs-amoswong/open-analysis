@@ -1,0 +1,8 @@
+{
+  "name": "spike-drawflow",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "vite build", "dev": "vite" },
+  "dependencies": { "drawflow": "0.0.60" },
+  "devDependencies": { "vite": "^7.0.0" }
+}

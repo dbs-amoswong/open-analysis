@@ -1,0 +1,67 @@
+{
+  "id": "eval-gojs",
+  "requirement_id": "req-legacy-graph",
+  "name": "GoJS",
+  "version": "4.0.5",
+  "kind": "library",
+  "verdict": "candidate",
+  "fit_score": 71,
+  "license": "Commercial",
+  "maintenance": "Active; commercial licence",
+  "published_at": "2026-10-02",
+  "summary": "The most complete feature match. The evaluation build rendered the graph and shows the GoJS evaluation watermark. It is the safest parity choice only if the commercial licence is acceptable; it fails the current permissive-licence constraint.",
+  "gains": [
+    "Full diagram editing and layouts",
+    "Mature documentation and support",
+    "Framework-agnostic",
+    "Canvas/SVG and server-side options"
+  ],
+  "losses": [
+    "Commercial licence fails the requirement",
+    "Closed source",
+    "No npm provenance",
+    "Migration is still a rewrite"
+  ],
+  "features": {
+    "general_editing": "native",
+    "ports": "native",
+    "undo_redo": "native",
+    "clipboard": "native",
+    "stencil": "native",
+    "snaplines": "native",
+    "minimap": "native",
+    "export": "native",
+    "layouts": "native",
+    "custom_nodes": "native",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, grid layout, Vite production build, evaluation licence, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 31,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 1030.89,
+      "gzip_kb": 282.66
+    },
+    "screenshot": "gojs.png",
+    "code_path": "spikes/gojs/main.js",
+    "notes": "Screenshot includes the GoJS evaluation watermark. Production use requires a licence; this spike is not a licence grant."
+  },
+  "sources": [
+    {
+      "label": "gojs@4.0.5",
+      "url": "https://www.npmjs.com/package/gojs/v/4.0.5"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/NorthwoodsSoftware/GoJS"
+    },
+    {
+      "label": "GoJS licensing",
+      "url": "https://gojs.net/latest/license.html"
+    }
+  ]
+}

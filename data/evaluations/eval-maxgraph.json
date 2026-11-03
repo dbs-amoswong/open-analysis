@@ -1,0 +1,65 @@
+{
+  "id": "eval-maxgraph",
+  "requirement_id": "req-legacy-graph",
+  "name": "maxGraph",
+  "version": "0.25.1",
+  "kind": "library",
+  "verdict": "candidate",
+  "fit_score": 83,
+  "license": "Apache-2.0",
+  "maintenance": "Active; 0.x",
+  "published_at": "2026-10-21",
+  "summary": "The strongest open-source, permissive, framework-agnostic editing alternative. The spike rendered and batch-inserted the same graph with zero runtime dependencies. It is a rewrite, not a drop-in, and is still pre-1.0.",
+  "gains": [
+    "Apache-2.0",
+    "Zero runtime dependencies",
+    "npm provenance present",
+    "Full diagram editing, layouts, undo/redo and custom shapes",
+    "Framework-agnostic"
+  ],
+  "losses": [
+    "Still 0.x",
+    "ES2020 baseline",
+    "Smaller ecosystem than X6 or GoJS",
+    "X6 custom shapes and React shape packages do not carry over",
+    "Some X6 plugin-level features need a parity spike"
+  ],
+  "features": {
+    "general_editing": "native",
+    "ports": "native",
+    "undo_redo": "native",
+    "clipboard": "unknown",
+    "stencil": "native",
+    "snaplines": "unknown",
+    "minimap": "unknown",
+    "export": "unknown",
+    "layouts": "native",
+    "custom_nodes": "native",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, batch insert, panning, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 17,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 429.76,
+      "gzip_kb": 114.01
+    },
+    "screenshot": "maxgraph.png",
+    "code_path": "spikes/maxgraph/main.js",
+    "notes": "Basic editing model rendered. Clipboard, snap lines, minimap and image export were not exercised; treat those as parity-spike gaps."
+  },
+  "sources": [
+    {
+      "label": "@maxgraph/core@0.25.1",
+      "url": "https://www.npmjs.com/package/@maxgraph/core/v/0.25.1"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/maxGraph/maxGraph"
+    }
+  ]
+}

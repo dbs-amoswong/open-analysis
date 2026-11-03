@@ -1,0 +1,11 @@
+{
+  "name": "spike-x6-v2",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "vite build", "dev": "vite" },
+  "dependencies": {
+    "@antv/x6": "2.19.2",
+    "@antv/x6-plugin-selection": "2.2.2"
+  },
+  "devDependencies": { "vite": "^7.0.0" }
+}

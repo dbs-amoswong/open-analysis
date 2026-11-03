@@ -1,0 +1,54 @@
+{
+  "id": "eval-rete",
+  "requirement_id": "req-legacy-graph",
+  "name": "Rete.js",
+  "version": "2.0.6",
+  "kind": "library",
+  "verdict": "reject",
+  "fit_score": 67,
+  "license": "MIT",
+  "maintenance": "Active",
+  "published_at": "2025-06-30",
+  "summary": "A modular visual-programming node editor, not a general diagram editor. It was excluded after the packaging/feature gate: its postinstall script violates the no-install-scripts constraint and it does not provide X6-style stencils, snaplines or general shapes.",
+  "gains": [
+    "MIT",
+    "Active",
+    "Provenance present",
+    "Good node/dataflow architecture"
+  ],
+  "losses": [
+    "postinstall script",
+    "Node/flow editor only",
+    "Not a general diagram editor",
+    "Migration is a rewrite"
+  ],
+  "features": {
+    "general_editing": "custom",
+    "ports": "native",
+    "undo_redo": "plugin",
+    "clipboard": "custom",
+    "stencil": "none",
+    "snaplines": "none",
+    "minimap": "plugin",
+    "export": "custom",
+    "layouts": "none",
+    "custom_nodes": "native",
+    "framework_independent": "custom"
+  },
+  "spike": {
+    "status": "not-spiked",
+    "tested_at": "2026-11-04",
+    "scenario": "Not browser-spiked: excluded before rendering.",
+    "notes": "Excluded because the requirement forbids install scripts and this is not a general diagram editor. The postinstall script prints a message but still violates the policy as written."
+  },
+  "sources": [
+    {
+      "label": "rete@2.0.6",
+      "url": "https://www.npmjs.com/package/rete/v/2.0.6"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/retejs/rete"
+    }
+  ]
+}

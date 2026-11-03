@@ -1,0 +1,63 @@
+{
+  "id": "eval-litegraph",
+  "requirement_id": "req-legacy-graph",
+  "name": "LiteGraph.js",
+  "version": "0.7.18",
+  "kind": "library",
+  "verdict": "reject",
+  "fit_score": 56,
+  "license": "MIT",
+  "maintenance": "Stale; last push 2024",
+  "published_at": "2024-01-08",
+  "summary": "A Canvas2D Blueprints-style node editor. It rendered quickly, but it is a node-graph editor rather than a general diagram editor and has not been released or actively pushed since 2024.",
+  "gains": [
+    "MIT",
+    "No dependencies",
+    "Fast Canvas2D rendering",
+    "Subgraphs and live mode"
+  ],
+  "losses": [
+    "Stale maintenance",
+    "Node-graph model only",
+    "No provenance",
+    "No general shapes/stencils/snaplines"
+  ],
+  "features": {
+    "general_editing": "custom",
+    "ports": "native",
+    "undo_redo": "custom",
+    "clipboard": "custom",
+    "stencil": "none",
+    "snaplines": "none",
+    "minimap": "none",
+    "export": "custom",
+    "layouts": "none",
+    "custom_nodes": "native",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, custom node, Canvas2D, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 9,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 502.62,
+      "gzip_kb": 124.51
+    },
+    "screenshot": "litegraph.png",
+    "code_path": "spikes/litegraph/main.js",
+    "notes": "Shows a node graph editor, not a general diagram editor. Last npm release 2024-01-08; last repository push 2024-08-01."
+  },
+  "sources": [
+    {
+      "label": "litegraph.js@0.7.18",
+      "url": "https://www.npmjs.com/package/litegraph.js/v/0.7.18"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/jagenjo/litegraph.js"
+    }
+  ]
+}

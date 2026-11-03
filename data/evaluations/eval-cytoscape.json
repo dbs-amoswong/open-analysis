@@ -1,0 +1,53 @@
+{
+  "id": "eval-cytoscape",
+  "requirement_id": "req-legacy-graph",
+  "name": "Cytoscape.js",
+  "version": "3.34.4",
+  "kind": "reference",
+  "verdict": "reference",
+  "fit_score": 64,
+  "license": "MIT",
+  "maintenance": "Active",
+  "published_at": "2026-10-15",
+  "summary": "A graph rendering, analysis and layout library, not an editor. It is a strong read-only/large-graph option and was adopted for the React graph requirement, but it does not replace X6’s editing layer.",
+  "gains": [
+    "MIT",
+    "Zero dependencies",
+    "Provenance present",
+    "Strong graph analysis and layouts"
+  ],
+  "losses": [
+    "No editor or stencil model",
+    "No ports/transform/history plugins",
+    "Different rendering model"
+  ],
+  "features": {
+    "general_editing": "none",
+    "ports": "none",
+    "undo_redo": "none",
+    "clipboard": "none",
+    "stencil": "none",
+    "snaplines": "none",
+    "minimap": "none",
+    "export": "custom",
+    "layouts": "native",
+    "custom_nodes": "custom",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "not-applicable",
+    "tested_at": "2026-11-04",
+    "scenario": "Not spiked: not an editing library.",
+    "notes": "Reference only. Existing repo decision uses Cytoscape for read-only graph exploration in the React requirement."
+  },
+  "sources": [
+    {
+      "label": "cytoscape@3.34.4",
+      "url": "https://www.npmjs.com/package/cytoscape/v/3.34.4"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/cytoscape/cytoscape.js"
+    }
+  ]
+}

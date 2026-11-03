@@ -1,0 +1,68 @@
+{
+  "id": "eval-x6-v3",
+  "requirement_id": "req-legacy-graph",
+  "name": "@antv/x6 (v3 core)",
+  "version": "3.1.8",
+  "kind": "stack",
+  "verdict": "migrate",
+  "fit_score": 79,
+  "license": "MIT",
+  "maintenance": "Active",
+  "published_at": "2026-08-11",
+  "summary": "The maintained X6 line. The core bundles the official plugins and rendered the spike after adding tslib manually. Native Node ESM and CJS loading fail in the published package, so this is a browser-bundle-first migration with a packaging gate.",
+  "gains": [
+    "Maintained line",
+    "One package includes common, geometry and official plugins",
+    "New animate API and virtual scroller",
+    "Browser bundle works after tslib workaround"
+  ],
+  "losses": [
+    "Native Node ESM fails",
+    "Native Node CJS fails without tslib",
+    "Node >=20 requirement",
+    "Panning and animation behavior changes",
+    "Shape packages must move to 3.x"
+  ],
+  "features": {
+    "general_editing": "native",
+    "ports": "native",
+    "undo_redo": "native",
+    "clipboard": "native",
+    "stencil": "native",
+    "snaplines": "native",
+    "minimap": "native",
+    "export": "native",
+    "layouts": "unknown",
+    "custom_nodes": "native",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, bundled Selection, panning, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 13,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 584.85,
+      "gzip_kb": 168.82
+    },
+    "screenshot": "x6-v3.png",
+    "code_path": "spikes/x6-v3/main.js",
+    "notes": "Vite initially failed on unresolved tslib. Adding tslib to the app fixed the browser build. Native Node ESM and CJS tests still fail; see docs/x6-v2-v3-audit.md."
+  },
+  "sources": [
+    {
+      "label": "@antv/x6@3.1.8",
+      "url": "https://www.npmjs.com/package/@antv/x6/v/3.1.8"
+    },
+    {
+      "label": "Upgrade guide",
+      "url": "https://x6.antv.antgroup.com/en/tutorial/update/"
+    },
+    {
+      "label": "Packaging issue #5048",
+      "url": "https://github.com/antvis/X6/issues/5048"
+    }
+  ]
+}

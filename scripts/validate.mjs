@@ -10,7 +10,7 @@ try {
   console.log("Data is valid.");
   console.log(
     `  ${c.packages} packages · ${c.requirements} active requirements · ${c.adopted} adopted · ` +
-      `${c.dropped} dropped · ${c.hold} hold · ${c.rejected} rejected`
+      `${c.dropped} dropped · ${c.hold} hold · ${c.rejected} rejected · ${c.evaluations} evaluations`
   );
 
   if (model.attention.length) {

@@ -15,6 +15,7 @@ changing data or automation.
    - `data/packages/<id>.json`
    - `data/reviews/<id>.json`
    - `data/decisions/<id>.json`
+   - `data/evaluations/<id>.json`
 4. **`dist/` is generated and ignored.** Never commit it. `site.yml` builds and
    deploys it.
 5. **One writer per worktree.** If another agent or process is editing `data/`,
@@ -57,6 +58,9 @@ requirement -> issue form -> AI draft PR -> human review -> merge
 ## Rules for agents
 
 - Read `data/requirements/` before judging fit.
+- Treat `data/evaluations/` as comparative evidence, not as a decision.
+- Spike screenshots belong in `assets/evaluations/`; spike source belongs in
+  `spikes/`. Do not put generated screenshots in `dist/`.
 - Use `ai/` for scratch files. It is ignored.
 - Do not edit `data/decisions/` from an automated review.
 - Do not edit `data/packages/` or `data/requirements/` from the review agent.

@@ -1,0 +1,8 @@
+{
+  "name": "spike-litegraph",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "vite build", "dev": "vite" },
+  "dependencies": { "litegraph.js": "0.7.18" },
+  "devDependencies": { "vite": "^7.0.0" }
+}

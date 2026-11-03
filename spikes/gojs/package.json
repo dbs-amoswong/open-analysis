@@ -1,0 +1,8 @@
+{
+  "name": "spike-gojs",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "vite build", "dev": "vite" },
+  "dependencies": { "gojs": "4.0.5" },
+  "devDependencies": { "vite": "^7.0.0" }
+}

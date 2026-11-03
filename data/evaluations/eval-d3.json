@@ -1,0 +1,54 @@
+{
+  "id": "eval-d3",
+  "requirement_id": "req-legacy-graph",
+  "name": "D3",
+  "version": "7.9.1",
+  "kind": "reference",
+  "verdict": "reference",
+  "fit_score": 58,
+  "license": "ISC",
+  "maintenance": "Very active",
+  "published_at": "2026-11-03",
+  "summary": "A visualization toolkit, not an editor. It is the strongest option only if the requirement drops editing and the team is prepared to build interaction, selection, history, clipboard, stencils and export itself.",
+  "gains": [
+    "ISC",
+    "Very active",
+    "Provenance present",
+    "Unmatched custom visualization flexibility"
+  ],
+  "losses": [
+    "No graph editor",
+    "No built-in editing model",
+    "Thirty runtime dependencies",
+    "Build-from-scratch cost"
+  ],
+  "features": {
+    "general_editing": "none",
+    "ports": "none",
+    "undo_redo": "none",
+    "clipboard": "none",
+    "stencil": "none",
+    "snaplines": "none",
+    "minimap": "none",
+    "export": "custom",
+    "layouts": "custom",
+    "custom_nodes": "custom",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "not-applicable",
+    "tested_at": "2026-11-04",
+    "scenario": "Not spiked: not an editing library.",
+    "notes": "Reference only. A D3 editor would be a from-scratch build using D3 for rendering primitives."
+  },
+  "sources": [
+    {
+      "label": "d3@7.9.1",
+      "url": "https://www.npmjs.com/package/d3/v/7.9.1"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/d3/d3"
+    }
+  ]
+}

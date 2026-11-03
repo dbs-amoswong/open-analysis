@@ -7,6 +7,11 @@ const RISKS = ["low", "medium", "high", "critical"];
 const CRITICALITIES = ["low", "medium", "high", "critical"];
 const EVIDENCE_STATUSES = ["pass", "warn", "fail", "info"];
 const DECISION_STATUSES = ["approved", "denied", "pending"];
+const EVALUATION_KINDS = ["library", "stack", "build", "reference"];
+const EVALUATION_VERDICTS = ["retain", "migrate", "candidate", "reject", "reference", "build"];
+const SPIKE_STATUSES = ["spike-pass", "spike-partial", "spike-fail", "not-spiked", "not-applicable"];
+const FEATURE_STATES = ["native", "plugin", "custom", "none", "unknown", "not-applicable"];
+const FEATURE_KEYS = ["general_editing", "ports", "undo_redo", "clipboard", "stencil", "snaplines", "minimap", "export", "layouts", "custom_nodes", "framework_independent"];
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 const DAY_MS = 86400000;
@@ -63,11 +68,12 @@ function isNonEmptyString(v) {
 }
 
 export async function loadModel({ today = todayISO() } = {}) {
-  const [packages, requirements, reviews, decisions] = await Promise.all([
+  const [packages, requirements, reviews, decisions, evaluations] = await Promise.all([
     readCollection("packages"),
     readCollection("requirements"),
     readCollection("reviews"),
     readCollection("decisions"),
+    readCollection("evaluations"),
   ]);
 
   const errors = [];
@@ -78,6 +84,7 @@ export async function loadModel({ today = todayISO() } = {}) {
   if (!Array.isArray(requirements)) err("requirements.json must be an array");
   if (!Array.isArray(reviews)) err("reviews.json must be an array");
   if (!Array.isArray(decisions)) err("decisions.json must be an array");
+  if (!Array.isArray(evaluations)) err("evaluations.json must be an array");
   if (errors.length) throw new ValidationError(errors, warnings);
 
   const seen = new Set();
@@ -168,7 +175,86 @@ export async function loadModel({ today = todayISO() } = {}) {
       err(`${at}.review_cadence_days: expected positive integer`);
     }
     if (!Array.isArray(r.constraints)) err(`${at}.constraints: expected array`);
-    reqById.set(r.id, { ...r, reviews: [], candidates: [], decision: null });
+    reqById.set(r.id, { ...r, reviews: [], candidates: [], decision: null, evaluations: [] });
+  }
+
+  const evaluationById = new Map();
+  for (const [i, evaluation] of evaluations.entries()) {
+    const at = `evaluations[${i}]`;
+    if (!isNonEmptyString(evaluation.id)) err(`${at}.id: required`);
+    if (evaluationById.has(evaluation.id)) err(`${at}: duplicate evaluation id ${evaluation.id}`);
+    if (!reqById.has(evaluation.requirement_id)) {
+      err(`${at}.requirement_id: unknown requirement "${evaluation.requirement_id}"`);
+    }
+    if (!isNonEmptyString(evaluation.name)) err(`${at}.name: required`);
+    if (evaluation.version !== undefined && !isNonEmptyString(evaluation.version)) {
+      err(`${at}.version: expected non-empty string when present`);
+    }
+    if (!EVALUATION_KINDS.includes(evaluation.kind)) err(`${at}.kind: invalid`);
+    if (!EVALUATION_VERDICTS.includes(evaluation.verdict)) err(`${at}.verdict: invalid`);
+    if (!isNonEmptyString(evaluation.license)) err(`${at}.license: required`);
+    if (!Number.isInteger(evaluation.fit_score) || evaluation.fit_score < 0 || evaluation.fit_score > 100) {
+      err(`${at}.fit_score: expected 0-100`);
+    }
+    if (!isNonEmptyString(evaluation.summary)) err(`${at}.summary: required`);
+    for (const field of ["gains", "losses"]) {
+      if (!Array.isArray(evaluation[field]) || evaluation[field].some((item) => !isNonEmptyString(item))) {
+        err(`${at}.${field}: expected array of non-empty strings`);
+      }
+    }
+    if (!evaluation.features || typeof evaluation.features !== "object" || Array.isArray(evaluation.features)) {
+      err(`${at}.features: expected object`);
+    } else {
+      for (const [key, state] of Object.entries(evaluation.features)) {
+        if (!FEATURE_KEYS.includes(key)) err(`${at}.features.${key}: unknown feature`);
+        if (!FEATURE_STATES.includes(state)) err(`${at}.features.${key}: invalid state`);
+      }
+    }
+    if (!evaluation.spike || typeof evaluation.spike !== "object" || Array.isArray(evaluation.spike)) {
+      err(`${at}.spike: expected object`);
+    } else {
+      const spike = evaluation.spike;
+      if (!SPIKE_STATUSES.includes(spike.status)) err(`${at}.spike.status: invalid`);
+      if (spike.tested_at !== undefined && !ISO_DATE.test(spike.tested_at)) {
+        err(`${at}.spike.tested_at: expected YYYY-MM-DD when present`);
+      }
+      if (spike.screenshot !== undefined && !/^[a-z0-9][a-z0-9._-]*\.(png|jpg|webp)$/i.test(spike.screenshot)) {
+        err(`${at}.spike.screenshot: expected a local image filename`);
+      }
+      if (spike.code_path !== undefined && !/^spikes\//.test(spike.code_path)) {
+        err(`${at}.spike.code_path: expected a path under spikes/`);
+      }
+      if (spike.notes !== undefined && !isNonEmptyString(spike.notes)) {
+        err(`${at}.spike.notes: expected non-empty string when present`);
+      }
+      if (spike.metrics !== undefined) {
+        if (!spike.metrics || typeof spike.metrics !== "object" || Array.isArray(spike.metrics)) {
+          err(`${at}.spike.metrics: expected object when present`);
+        } else {
+          for (const key of ["mount_ms", "nodes", "edges", "bundle_kb", "gzip_kb"]) {
+            if (spike.metrics[key] !== undefined && typeof spike.metrics[key] !== "number") {
+              err(`${at}.spike.metrics.${key}: expected number when present`);
+            }
+          }
+        }
+      }
+    }
+    if (evaluation.sources !== undefined) {
+      if (!Array.isArray(evaluation.sources)) err(`${at}.sources: expected array when present`);
+      else {
+        for (const [j, source] of evaluation.sources.entries()) {
+          if (!isNonEmptyString(source.label)) err(`${at}.sources[${j}].label: required`);
+          if (!isNonEmptyString(source.url) || !/^https:\/\//.test(source.url)) {
+            err(`${at}.sources[${j}].url: expected https URL`);
+          }
+        }
+      }
+    }
+    evaluationById.set(evaluation.id, evaluation);
+    if (reqById.has(evaluation.requirement_id)) reqById.get(evaluation.requirement_id).evaluations.push(evaluation);
+    if (evaluation.spike?.status === "spike-pass" && !evaluation.spike.screenshot) {
+      warnings.push(`${at}: spiked but has no screenshot`);
+    }
   }
 
   const reviewById = new Map();
@@ -406,6 +492,7 @@ export async function loadModel({ today = todayISO() } = {}) {
     reviews: [...reviews],
     review_views: reviewViews,
     decisions: [...decisionByReq.values()],
+    evaluations: [...evaluations],
     attention,
     warnings,
     errors,
@@ -415,6 +502,7 @@ export async function loadModel({ today = todayISO() } = {}) {
   const counts = {
     packages: model.packages.length,
     requirements: model.requirements.filter((r) => r.status === "active").length,
+    evaluations: model.evaluations.length,
     adopted: adopted.length,
     dropped: dropped.length,
     hold: held.length,

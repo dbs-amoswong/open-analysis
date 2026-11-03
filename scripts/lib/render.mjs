@@ -114,6 +114,89 @@ export const bucketPill = (bucket) => {
   return pill(cfg.label, cfg.tone);
 };
 
+const EVAL_VERDICT = {
+  retain: { label: "Retain", tone: "ok" },
+  migrate: { label: "Migrate", tone: "info" },
+  candidate: { label: "Candidate", tone: "warn" },
+  reject: { label: "Reject", tone: "bad" },
+  reference: { label: "Reference", tone: "neutral" },
+  build: { label: "Build", tone: "warn" },
+};
+
+const SPIKE_STATUS = {
+  "spike-pass": { label: "Spike passed", tone: "ok" },
+  "spike-partial": { label: "Spike partial", tone: "warn" },
+  "spike-fail": { label: "Spike failed", tone: "bad" },
+  "not-spiked": { label: "Not spiked", tone: "neutral" },
+  "not-applicable": { label: "Not applicable", tone: "neutral" },
+};
+
+const FEATURE_STATE = {
+  native: { label: "Native", tone: "ok" },
+  plugin: { label: "Plugin", tone: "info" },
+  custom: { label: "Custom", tone: "warn" },
+  none: { label: "None", tone: "bad" },
+  unknown: { label: "Unverified", tone: "neutral" },
+  "not-applicable": { label: "N/A", tone: "neutral" },
+};
+
+const FEATURE_LABEL = {
+  general_editing: "General diagram editing",
+  ports: "Ports and connections",
+  undo_redo: "Undo / redo",
+  clipboard: "Clipboard",
+  stencil: "Stencil / palette",
+  snaplines: "Snaplines / guides",
+  minimap: "Minimap",
+  export: "Export",
+  layouts: "Automatic layouts",
+  custom_nodes: "Custom nodes",
+  framework_independent: "Framework-independent",
+};
+
+export const evalVerdictPill = (verdict) => {
+  const cfg = EVAL_VERDICT[verdict] ?? { label: verdict, tone: "neutral" };
+  return pill(cfg.label, cfg.tone);
+};
+
+export const spikeStatusPill = (status) => {
+  const cfg = SPIKE_STATUS[status] ?? { label: status, tone: "neutral" };
+  return pill(cfg.label, cfg.tone);
+};
+
+export const featureStatePill = (state) => {
+  const cfg = FEATURE_STATE[state] ?? { label: state, tone: "neutral" };
+  return pill(cfg.label, cfg.tone);
+};
+
+const licenseTone = (license) => {
+  const raw = String(license || "").toUpperCase();
+  if (/COMMERCIAL|PROPRIETARY|SEE LICENSE/.test(raw)) return "bad";
+  if (/MPL|LGPL/.test(raw)) return "warn";
+  if (/MIT|ISC|APACHE|BSD|0BSD|UNLICENSE|CC0/.test(raw)) return "ok";
+  return "neutral";
+};
+
+function evalCard(evaluation, root) {
+  const shot = evaluation.spike?.screenshot
+    ? `<a class="eval-card-shot" href="${root}evaluations/${esc(evaluation.id)}.html"><img src="${root}evaluations/${esc(evaluation.spike.screenshot)}" alt="" loading="lazy"></a>`
+    : `<div class="eval-card-shot eval-card-placeholder"><span>No browser screenshot</span></div>`;
+  return `<article class="eval-card">
+  ${shot}
+  <div class="eval-card-body">
+    <div class="eval-card-kicker">${esc(evaluation.kind)}${evaluation.version ? ` · ${esc(evaluation.version)}` : ""}</div>
+    <h2><a href="${root}evaluations/${esc(evaluation.id)}.html">${esc(evaluation.name)}</a></h2>
+    <p>${esc(evaluation.summary)}</p>
+    <div class="chip-row">
+      ${evalVerdictPill(evaluation.verdict)}
+      ${spikeStatusPill(evaluation.spike?.status)}
+      ${pill(`Fit ${evaluation.fit_score}/100`, evaluation.fit_score >= 80 ? "ok" : evaluation.fit_score >= 65 ? "warn" : "bad")}
+      ${pill(evaluation.license, licenseTone(evaluation.license))}
+    </div>
+  </div>
+</article>`;
+}
+
 const LICENSE_TONE = {
   permissive: "ok",
   "weak-copyleft": "warn",
@@ -223,6 +306,7 @@ function layout({ title, description, active, root, model, body }) {
     ${navItem("Overview", `${root}index.html`, active === "overview")}
     ${navItem("Requirements", `${root}requirements/index.html`, active === "requirements")}
     ${navItem("Packages", `${root}packages/index.html`, active === "packages")}
+    ${navItem("Evaluations", `${root}evaluations/index.html`, active === "evaluations")}
     ${navItem("Whitelist", `${root}whitelist.html`, active === "whitelist")}
     ${navItem("Method", `${root}method.html`, active === "method")}
   </nav>
@@ -648,6 +732,32 @@ ${
   </div>
   ${candidates.length ? '<p class="table-note">Build vs buy scores the capability, not this package. A rejected package can still be a capability worth buying from a maintained alternative.</p>' : ""}
 </section>
+
+${
+  req.evaluations?.length
+    ? `<section class="panel">
+  <div class="panel-head"><h2>Alternatives and spikes</h2><a class="panel-link" href="../evaluations/index.html">All evaluations</a></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Option</th><th>Verdict</th><th>Fit</th><th>Spike</th><th>Licence</th></tr></thead>
+      <tbody>${req.evaluations
+        .slice()
+        .sort((a, b) => b.fit_score - a.fit_score)
+        .map(
+          (evaluation) => `<tr>
+        <td><a href="../evaluations/${esc(evaluation.id)}.html">${esc(evaluation.name)}</a>${evaluation.version ? `<br><span class="muted small">${esc(evaluation.version)}</span>` : ""}</td>
+        <td>${evalVerdictPill(evaluation.verdict)}</td>
+        <td>${evaluation.fit_score}/100</td>
+        <td>${spikeStatusPill(evaluation.spike?.status)}</td>
+        <td>${pill(evaluation.license, licenseTone(evaluation.license))}</td>
+      </tr>`
+        )
+        .join("")}</tbody>
+    </table>
+  </div>
+</section>`
+    : ""
+}
 
 <div class="two-col">
   <section class="panel">
@@ -1250,6 +1360,7 @@ ${pageHeader({
         <tr><td><code>data/packages/</code></td><td>Registry metadata and packaging facts.</td></tr>
         <tr><td><code>data/reviews/</code></td><td>Verdict, score, reasoning, caveats, evidence.</td></tr>
         <tr><td><code>data/decisions/</code></td><td>Adopted, hold, dropped and rejected buckets per requirement.</td></tr>
+        <tr><td><code>data/evaluations/</code></td><td>Alternatives, feature fit, browser spikes, metrics and screenshots.</td></tr>
       </tbody>
     </table>
   </div>
@@ -1266,6 +1377,135 @@ ${pageHeader({
   });
 }
 
+export function renderEvaluationsIndex(model) {
+  const evaluations = model.evaluations
+    .slice()
+    .sort((a, b) => b.fit_score - a.fit_score || a.name.localeCompare(b.name));
+  const spiked = evaluations.filter((e) => e.spike?.status === "spike-pass").length;
+  const body = `
+${pageHeader({
+  eyebrow: "Evaluations",
+  title: "Alternatives, spikes and feature fit",
+  lede: "Each record combines a short browser spike, registry facts, licence and feature fit for the same requirement. The spike is deliberately small: it proves the integration path and captures a screenshot; it is not a full product benchmark.",
+  meta: `<span class="chip">${evaluations.length} evaluations</span><span class="chip">${spiked} browser spikes</span>`,
+})}
+
+<section class="panel">
+  <div class="panel-head"><h2>Spike method</h2><span class="muted small">Same scenario for every editor</span></div>
+  <div class="grid-3">
+    <div><strong>Scenario</strong><p class="muted small">20 nodes, 20 edges, programmatic insertion, panning where supported, Vite production build, 1200×800 Chrome screenshot.</p></div>
+    <div><strong>What is measured</strong><p class="muted small">Mount time, production JS size, gzip size, nodes, edges and whether the library renders the scenario.</p></div>
+    <div><strong>What is not measured</strong><p class="muted small">Full X6 plugin parity, accessibility, large-graph performance, mobile behaviour, export fidelity and production licence review.</p></div>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Comparison</h2><span class="muted small">High score means better fit for the legacy editing requirement</span></div>
+  <div class="eval-grid">${evaluations.map((evaluation) => evalCard(evaluation, "../")).join("")}</div>
+</section>
+`;
+
+  return layout({
+    title: "Evaluations",
+    description: "Browser spikes and feature-fit comparison for graph editor alternatives.",
+    active: "evaluations",
+    root: "../",
+    model,
+    body,
+  });
+}
+
+export function renderEvaluation(model, evaluation) {
+  const req = model.requirements.find((r) => r.id === evaluation.requirement_id);
+  const spike = evaluation.spike ?? {};
+  const metrics = spike.metrics ?? {};
+  const featureRows = Object.entries(FEATURE_LABEL)
+    .filter(([key]) => evaluation.features?.[key])
+    .map(
+      ([key, label]) => `<tr><td>${esc(label)}</td><td>${featureStatePill(evaluation.features[key])}</td></tr>`
+    )
+    .join("");
+  const sourceRows = (evaluation.sources ?? [])
+    .map((source) => `<li><a href="${esc(source.url)}">${esc(source.label)}</a></li>`)
+    .join("");
+  const code = spike.code_path
+    ? `<p><a href="https://github.com/dbs-amoswong/open-analysis/blob/main/${esc(spike.code_path)}">View spike source</a></p>`
+    : "";
+  const body = `
+${breadcrumbs([
+  { label: "Evaluations", href: "../evaluations/index.html" },
+  { label: evaluation.name },
+])}
+
+${pageHeader({
+  eyebrow: `${evaluation.kind} evaluation${req ? ` · ${req.title}` : ""}`,
+  title: `${evaluation.name}${evaluation.version ? ` ${evaluation.version}` : ""}`,
+  lede: evaluation.summary,
+  meta: `<span class="chip">Fit ${evaluation.fit_score}/100</span><span class="chip">${evaluation.license}</span>${evaluation.maintenance ? `<span class="chip">${esc(evaluation.maintenance)}</span>` : ""}`,
+})}
+
+<div class="chip-row eval-verdict-row">
+  ${evalVerdictPill(evaluation.verdict)}
+  ${spikeStatusPill(spike.status)}
+  ${evaluation.published_at ? `<span class="chip">Published ${esc(fmtDate(evaluation.published_at))}</span>` : ""}
+</div>
+
+${
+  spike.screenshot
+    ? `<figure class="eval-figure">
+  <img src="${esc(spike.screenshot)}" alt="${esc(evaluation.name)} spike screenshot">
+  <figcaption>${esc(spike.scenario ?? "Browser spike screenshot")}</figcaption>
+</figure>`
+    : `<section class="banner banner-warn"><strong>No browser screenshot.</strong> ${esc(spike.notes ?? "This option was excluded before a browser spike.")}</section>`
+}
+
+<section class="panel">
+  <div class="panel-head"><h2>Spike result</h2><span class="muted small">${esc(spike.tested_at ?? "Not run")}</span></div>
+  <div class="metric-grid">
+    ${typeof metrics.mount_ms === "number" ? `<div class="metric"><strong>${fmtNum(metrics.mount_ms)} ms</strong><span>Mount</span></div>` : ""}
+    ${typeof metrics.bundle_kb === "number" ? `<div class="metric"><strong>${fmtSize(metrics.bundle_kb)}</strong><span>JS bundle</span></div>` : ""}
+    ${typeof metrics.gzip_kb === "number" ? `<div class="metric"><strong>${fmtSize(metrics.gzip_kb)}</strong><span>JS gzip</span></div>` : ""}
+    ${typeof metrics.nodes === "number" ? `<div class="metric"><strong>${fmtNum(metrics.nodes)}</strong><span>Nodes</span></div>` : ""}
+    ${typeof metrics.edges === "number" ? `<div class="metric"><strong>${fmtNum(metrics.edges)}</strong><span>Edges</span></div>` : ""}
+  </div>
+  <p class="prose">${esc(spike.notes ?? "No spike notes recorded.")}</p>
+  ${code}
+</section>
+
+<div class="two-col">
+  <section class="panel">
+    <div class="panel-head"><h2>Gains</h2></div>
+    <ul class="check-list">${(evaluation.gains ?? []).map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2>Losses / gaps</h2></div>
+    <ul class="caveats">${(evaluation.losses ?? []).map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+  </section>
+</div>
+
+<section class="panel">
+  <div class="panel-head"><h2>Feature fit</h2><span class="muted small">Verified in the spike or from the documented API</span></div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Feature</th><th>State</th></tr></thead>
+      <tbody>${featureRows || '<tr><td colspan="2" class="muted">No feature data.</td></tr>'}</tbody>
+    </table>
+  </div>
+</section>
+
+${sourceRows ? `<section class="panel"><div class="panel-head"><h2>Sources</h2></div><ul class="link-list">${sourceRows}</ul></section>` : ""}
+`;
+
+  return layout({
+    title: `${evaluation.name} evaluation`,
+    description: evaluation.summary,
+    active: "evaluations",
+    root: "../",
+    model,
+    body,
+  });
+}
+
 export function renderSite(model) {
   const pages = [];
   pages.push({ path: "index.html", html: renderOverview(model) });
@@ -1276,6 +1516,10 @@ export function renderSite(model) {
   pages.push({ path: "packages/index.html", html: renderPackagesIndex(model) });
   for (const pkg of model.packages) {
     pages.push({ path: `packages/${pkg.id}.html`, html: renderPackage(model, pkg) });
+  }
+  pages.push({ path: "evaluations/index.html", html: renderEvaluationsIndex(model) });
+  for (const evaluation of model.evaluations) {
+    pages.push({ path: `evaluations/${evaluation.id}.html`, html: renderEvaluation(model, evaluation) });
   }
   pages.push({ path: "whitelist.html", html: renderWhitelist(model) });
   pages.push({ path: "method.html", html: renderMethod(model) });

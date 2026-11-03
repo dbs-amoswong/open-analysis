@@ -11,7 +11,7 @@ export const DATA_DIR = process.env.PRB_DATA_DIR
 export const DIST_DIR = path.join(ROOT, "dist");
 export const ASSETS_DIR = path.join(ROOT, "assets");
 
-export const COLLECTIONS = ["packages", "requirements", "reviews", "decisions"];
+export const COLLECTIONS = ["packages", "requirements", "reviews", "decisions", "evaluations"];
 
 const COLLECTION_SET = new Set(COLLECTIONS);
 

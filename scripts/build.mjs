@@ -1,4 +1,4 @@
-import { mkdir, writeFile, copyFile } from "node:fs/promises";
+import { mkdir, writeFile, copyFile, cp } from "node:fs/promises";
 import path from "node:path";
 import { loadModel, DIST_DIR, ASSETS_DIR, todayISO } from "./lib/load.mjs";
 import { renderSite } from "./lib/render.mjs";
@@ -31,6 +31,7 @@ export async function build({ quiet = false } = {}) {
     }),
     copyFile(path.join(ASSETS_DIR, "style.css"), path.join(DIST_DIR, "style.css")),
     copyFile(path.join(ASSETS_DIR, "app.js"), path.join(DIST_DIR, "app.js")),
+    cp(path.join(ASSETS_DIR, "evaluations"), path.join(DIST_DIR, "evaluations"), { recursive: true, force: true }),
     writeFile(path.join(DIST_DIR, "allowlist.json"), `${JSON.stringify(allowlist.json, null, 2)}\n`, "utf8"),
     writeFile(path.join(DIST_DIR, "allowlist.csv"), allowlist.csv, "utf8"),
   ]);

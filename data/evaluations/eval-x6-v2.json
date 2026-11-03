@@ -1,0 +1,63 @@
+{
+  "id": "eval-x6-v2",
+  "requirement_id": "req-legacy-graph",
+  "name": "@antv/x6 (v2 stack)",
+  "version": "2.19.2",
+  "kind": "stack",
+  "verdict": "retain",
+  "fit_score": 85,
+  "license": "MIT",
+  "maintenance": "Deprecated line; late patch",
+  "published_at": "2025-11-17",
+  "summary": "The legacy-compatible X6 stack. It rendered the 20-node/20-edge spike, has native CJS/ESM loading, and keeps the existing plugin API. It is deprecated and should be treated as a time-boxed bridge, not a destination.",
+  "gains": [
+    "No application rewrite",
+    "Existing plugin API and data",
+    "Native Node CJS and ESM loading",
+    "MIT licence"
+  ],
+  "losses": [
+    "v2 line marked deprecated at 2.19.0",
+    "2.x plugins are 2023–2024 releases",
+    "No npm provenance",
+    "No new plugin fixes"
+  ],
+  "features": {
+    "general_editing": "native",
+    "ports": "native",
+    "undo_redo": "plugin",
+    "clipboard": "plugin",
+    "stencil": "plugin",
+    "snaplines": "plugin",
+    "minimap": "plugin",
+    "export": "plugin",
+    "layouts": "unknown",
+    "custom_nodes": "native",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, selection plugin, panning, Vite production build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 14,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 479.61,
+      "gzip_kb": 137.67
+    },
+    "screenshot": "x6-v2.png",
+    "code_path": "spikes/x6-v2/main.js",
+    "notes": "Native ESM and CJS both passed. The screenshot is the generic graph-edit scenario, not a parity benchmark for every X6 plugin."
+  },
+  "sources": [
+    {
+      "label": "@antv/x6@2.19.2",
+      "url": "https://www.npmjs.com/package/@antv/x6/v/2.19.2"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/antvis/X6"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "id": "eval-jointjs",
+  "requirement_id": "req-legacy-graph",
+  "name": "JointJS core",
+  "version": "4.3.4",
+  "kind": "library",
+  "verdict": "reject",
+  "fit_score": 64,
+  "license": "MPL-2.0",
+  "maintenance": "Active; advanced editing is paid",
+  "published_at": "2026-10-27",
+  "summary": "The free core rendered the graph and is a solid SVG diagramming foundation, but undo/redo, clipboard, multi-select, snaplines and editor UI are JointJS+ features. MPL-2.0 is not permissive under this requirement.",
+  "gains": [
+    "SVG diagramming model",
+    "Framework-agnostic",
+    "Zero dependencies",
+    "Active project"
+  ],
+  "losses": [
+    "MPL-2.0, not permissive",
+    "Advanced editing requires paid JointJS+",
+    "No npm provenance",
+    "Not a complete free X6 replacement"
+  ],
+  "features": {
+    "general_editing": "native",
+    "ports": "native",
+    "undo_redo": "none",
+    "clipboard": "none",
+    "stencil": "none",
+    "snaplines": "none",
+    "minimap": "none",
+    "export": "unknown",
+    "layouts": "unknown",
+    "custom_nodes": "native",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-pass",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, SVG paper, core-only Vite build, 1200x800 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 22,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 431.97,
+      "gzip_kb": 130.55
+    },
+    "screenshot": "jointjs.png",
+    "code_path": "spikes/jointjs/main.js",
+    "notes": "The screenshot is the free core, not JointJS+. No undo/redo, clipboard, stencil or snapline was tested because those are JointJS+ features."
+  },
+  "sources": [
+    {
+      "label": "@joint/core@4.3.4",
+      "url": "https://www.npmjs.com/package/@joint/core/v/4.3.4"
+    },
+    {
+      "label": "GitHub repository",
+      "url": "https://github.com/clientIO/joint"
+    },
+    {
+      "label": "JointJS licensing",
+      "url": "https://www.jointjs.com/license"
+    }
+  ]
+}
