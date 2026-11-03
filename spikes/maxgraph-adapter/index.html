@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>maxGraph adapter spike</title>
+  <style>
+    body { margin: 0; font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f6fa; color: #172033; }
+    header { padding: 18px 24px 10px; }
+    h1 { margin: 0 0 4px; font-size: 22px; }
+    p { margin: 0; color: #526077; }
+    .layout { display: grid; grid-template-columns: 1fr 360px; gap: 16px; padding: 10px 24px 24px; }
+    #graph { height: calc(100vh - 175px); min-height: 520px; background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; box-shadow: 0 8px 24px rgba(31,45,70,.08); overflow: hidden; }
+    aside { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+    button { border: 1px solid #b9c6d6; background: #fff; border-radius: 8px; padding: 7px 10px; font: inherit; cursor: pointer; }
+    button:hover { background: #eef4fb; }
+    pre { margin: 0; padding: 12px; min-height: 160px; max-height: 330px; overflow: auto; background: #101826; color: #d9e5f1; border-radius: 10px; font: 11px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; }
+    footer { padding: 0 24px 18px; color: #526077; font-size: 12px; }
+    @media (max-width: 850px) { .layout { grid-template-columns: 1fr; } #graph { height: 500px; } }
+  </style>
+</head>
+<body>
+  <header><h1>maxGraph adapter spike</h1><p>One interface · load, add, select, undo, redo, snapshot</p></header>
+  <div class="layout">
+    <div id="graph"></div>
+    <aside>
+      <div class="buttons">
+        <button data-action="load">Load 20/20</button>
+        <button data-action="add-node">Add node</button>
+        <button data-action="add-edge">Add edge</button>
+        <button data-action="select">Select last</button>
+        <button data-action="undo">Undo</button>
+        <button data-action="redo">Redo</button>
+        <button data-action="snapshot">Snapshot</button>
+      </div>
+      <pre id="output">Mounting…</pre>
+    </aside>
+  </div>
+  <footer id="status">Mounting…</footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

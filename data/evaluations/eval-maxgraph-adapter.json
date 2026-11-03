@@ -1,0 +1,63 @@
+{
+  "id": "eval-maxgraph-adapter",
+  "requirement_id": "req-graph-editor",
+  "name": "maxGraph adapter prototype",
+  "version": "0.25.1",
+  "kind": "prototype",
+  "verdict": "candidate",
+  "fit_score": 83,
+  "license": "Apache-2.0",
+  "maintenance": "Active; 0.x",
+  "published_at": "2026-10-21",
+  "summary": "A concrete GraphAdapter boundary over maxGraph. Loading 20 nodes/20 edges, adding nodes and edges, selecting and snapshotting passed. Undo/redo integration is only partial, so this is an implementation spike, not a finished adapter.",
+  "gains": [
+    "A stable engine boundary the application can own",
+    "Load, add, select and snapshot work through one interface",
+    "Apache-2.0 and zero runtime dependencies",
+    "Makes an incremental maxGraph migration possible"
+  ],
+  "losses": [
+    "Undo/redo needs more integration work",
+    "X6 custom shapes and HTML nodes need a mapping layer",
+    "Feature parity still needs the full editor regression suite",
+    "Still pre-1.0"
+  ],
+  "features": {
+    "general_editing": "native",
+    "ports": "native",
+    "undo_redo": "custom",
+    "clipboard": "unknown",
+    "stencil": "native",
+    "snaplines": "unknown",
+    "minimap": "unknown",
+    "export": "unknown",
+    "layouts": "native",
+    "custom_nodes": "native",
+    "framework_independent": "native"
+  },
+  "spike": {
+    "status": "spike-partial",
+    "tested_at": "2026-11-04",
+    "scenario": "20 nodes, 20 edges, adapter load/add/select/snapshot, Vite production build, 1400x900 Chrome screenshot.",
+    "metrics": {
+      "mount_ms": 17,
+      "nodes": 20,
+      "edges": 20,
+      "bundle_kb": 433.86,
+      "gzip_kb": 115.24
+    },
+    "screenshot": "maxgraph-adapter.png",
+    "code_path": "spikes/maxgraph-adapter/src/main.ts",
+    "notes": "The adapter renders the graph and exposes load/addNode/addEdge/select/snapshot. Undo/redo is marked partial: clicking undo did not reduce the cell counts in the test, and redo produced an extra edge. Do not claim undo/redo parity until the UndoManager integration is fixed."
+  },
+  "sources": [
+    {
+      "label": "npm package",
+      "url": "https://www.npmjs.com/package/@maxgraph/core/v/0.25.1"
+    },
+    {
+      "label": "maxGraph repository",
+      "url": "https://github.com/maxGraph/maxGraph"
+    }
+  ]
+}

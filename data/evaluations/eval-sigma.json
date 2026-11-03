@@ -50,5 +50,8 @@
       "label": "GitHub repository",
       "url": "https://github.com/jacomyal/sigma.js"
     }
+  ],
+  "blockers": [
+    "Not an editing library."
   ]
 }

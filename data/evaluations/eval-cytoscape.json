@@ -49,5 +49,8 @@
       "label": "GitHub repository",
       "url": "https://github.com/cytoscape/cytoscape.js"
     }
+  ],
+  "blockers": [
+    "Not an editing library."
   ]
 }

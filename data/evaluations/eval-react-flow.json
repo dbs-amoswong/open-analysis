@@ -59,5 +59,9 @@
       "label": "GitHub repository",
       "url": "https://github.com/xyflow/xyflow"
     }
+  ],
+  "blockers": [
+    "Requires React.",
+    "Node/flow editor only, not a general diagram editor."
   ]
 }

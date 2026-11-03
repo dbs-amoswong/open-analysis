@@ -4,12 +4,12 @@
   "name": "GoJS",
   "version": "4.0.5",
   "kind": "library",
-  "verdict": "candidate",
+  "verdict": "reject",
   "fit_score": 71,
   "license": "Commercial",
   "maintenance": "Active; commercial licence",
   "published_at": "2026-10-02",
-  "summary": "The most complete feature match. The evaluation build rendered the graph and shows the GoJS evaluation watermark. It is the safest parity choice only if the commercial licence is acceptable; it fails the current permissive-licence constraint.",
+  "summary": "Technically the strongest feature match, but rejected because the commercial licence is not allowed by this requirement. The evaluation build rendered the graph and shows the GoJS evaluation watermark; it is not a production licence.",
   "gains": [
     "Full diagram editing and layouts",
     "Mature documentation and support",
@@ -63,5 +63,8 @@
       "label": "GoJS licensing",
       "url": "https://gojs.net/latest/license.html"
     }
+  ],
+  "blockers": [
+    "Commercial licence is not allowed by the requirement."
   ]
 }

@@ -43,5 +43,8 @@
       "label": "X6 feature reference",
       "url": "https://x6.antv.antgroup.com/en/tutorial/about/"
     }
+  ],
+  "blockers": [
+    "Build-from-scratch cost is 9\u201318 engineer-months for X6-like parity."
   ]
 }

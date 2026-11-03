@@ -226,6 +226,7 @@ A comparison record for a library, stack, reference implementation or build opti
   "summary": "Why this option fits or does not.",
   "gains": ["What improves"],
   "losses": ["What gets worse"],
+  "blockers": ["Commercial licence is not allowed"],
   "features": {
     "general_editing": "native",
     "undo_redo": "plugin",

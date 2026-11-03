@@ -192,6 +192,7 @@ function evalCard(evaluation, root) {
       ${spikeStatusPill(evaluation.spike?.status)}
       ${pill(`Fit ${evaluation.fit_score}/100`, evaluation.fit_score >= 80 ? "ok" : evaluation.fit_score >= 65 ? "warn" : "bad")}
       ${pill(evaluation.license, licenseTone(evaluation.license))}
+      ${evaluation.blockers?.length ? pill("Blocked", "bad") : ""}
     </div>
   </div>
 </article>`;
@@ -1393,7 +1394,7 @@ export function renderEvaluationsIndex(model) {
 ${pageHeader({
   eyebrow: "Evaluations",
   title: "Alternatives, spikes and feature fit",
-  lede: "Evaluations are grouped by requirement. Each record combines registry facts, licence, feature fit and a small browser spike. Adding a record with a different requirement_id creates a new group automatically; the spike is deliberately small and is not a full product benchmark.",
+  lede: "Evaluations are grouped by requirement. Start with the eligible shortlist: fit is technical fit, blockers are policy exclusions, and spike status says whether the integration actually rendered. Each record combines registry facts, licence, feature fit and a small browser spike; the spike is deliberately small and is not a full product benchmark.",
   meta: `<span class="chip">${evaluations.length} evaluations</span><span class="chip">${groups.length} requirement group${groups.length === 1 ? "" : "s"}</span><span class="chip">${spiked} browser spikes</span>`,
 })}
 
@@ -1412,6 +1413,14 @@ ${groups.map(({ req, evaluations: items }) => `<section class="panel">
     <a class="panel-link" href="../requirements/${esc(req.slug)}.html">Requirement</a>
   </div>
   <p class="prose muted">${esc(req.summary)}</p>
+  <div class="eval-shortlist">
+    <strong>Eligible shortlist</strong>
+    ${items
+      .filter((evaluation) => evaluation.kind !== "prototype" && !evaluation.blockers?.length && ["retain", "migrate", "candidate"].includes(evaluation.verdict))
+      .sort((a, b) => b.fit_score - a.fit_score)
+      .map((evaluation) => `<a href="../evaluations/${esc(evaluation.id)}.html">${esc(evaluation.name)} <span>${evaluation.fit_score}/100</span></a>`)
+      .join("") || '<span class="muted">No unblocked option.</span>'}
+  </div>
   <div class="eval-grid">${items.map((evaluation) => evalCard(evaluation, "../")).join("")}</div>
 </section>`).join("") || '<section class="panel"><div class="empty">No evaluations recorded.</div></section>'}
 `;
@@ -1482,6 +1491,12 @@ ${
   <p class="prose">${esc(spike.notes ?? "No spike notes recorded.")}</p>
   ${code}
 </section>
+
+${
+  evaluation.blockers?.length
+    ? `<section class="banner banner-warn"><strong>Blockers</strong><ul class="caveats">${evaluation.blockers.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></section>`
+    : ""
+}
 
 <div class="two-col">
   <section class="panel">

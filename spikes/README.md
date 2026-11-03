@@ -43,3 +43,13 @@ npx playwright screenshot --channel chrome \
   does not declare it.
 - The formal comparison and caveats are in `data/evaluations/` and
   `docs/x6-v2-v3-audit.md`.
+
+## Adapter prototype
+
+`maxgraph-adapter/` demonstrates the application-owned `GraphAdapter` boundary:
+`load`, `addNode`, `addEdge`, `select`, `snapshot`, `undo` and `redo`.
+
+The load/add/select/snapshot path passes. Undo/redo is marked **partial**: the
+prototype records edits through maxGraph's `UndoManager`, but the observed
+undo/redo counts did not match the expected cell counts. Treat this as an
+adapter-shape spike, not a finished undo implementation.

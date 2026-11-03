@@ -50,5 +50,9 @@
       "label": "GitHub repository",
       "url": "https://github.com/retejs/rete"
     }
+  ],
+  "blockers": [
+    "Declares a postinstall script.",
+    "Node/flow editor only, not a general diagram editor."
   ]
 }

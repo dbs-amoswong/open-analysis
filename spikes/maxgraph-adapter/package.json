@@ -1,0 +1,8 @@
+{
+  "name": "spike-maxgraph-adapter",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "vite build", "dev": "vite" },
+  "dependencies": { "@maxgraph/core": "0.25.1" },
+  "devDependencies": { "typescript": "^5.9.0", "vite": "^7.0.0" }
+}

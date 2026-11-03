@@ -63,5 +63,9 @@
       "label": "JointJS licensing",
       "url": "https://www.jointjs.com/license"
     }
+  ],
+  "blockers": [
+    "MPL-2.0 is not permissive under the requirement.",
+    "Undo/redo, clipboard, multi-select and editing UI require paid JointJS+."
   ]
 }

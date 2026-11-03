@@ -50,5 +50,8 @@
       "label": "GitHub repository",
       "url": "https://github.com/d3/d3"
     }
+  ],
+  "blockers": [
+    "Not an editing library."
   ]
 }

@@ -7,7 +7,7 @@ const RISKS = ["low", "medium", "high", "critical"];
 const CRITICALITIES = ["low", "medium", "high", "critical"];
 const EVIDENCE_STATUSES = ["pass", "warn", "fail", "info"];
 const DECISION_STATUSES = ["approved", "denied", "pending"];
-const EVALUATION_KINDS = ["library", "stack", "build", "reference"];
+const EVALUATION_KINDS = ["library", "stack", "prototype", "build", "reference"];
 const EVALUATION_VERDICTS = ["retain", "migrate", "candidate", "reject", "reference", "build"];
 const SPIKE_STATUSES = ["spike-pass", "spike-partial", "spike-fail", "not-spiked", "not-applicable"];
 const FEATURE_STATES = ["native", "plugin", "custom", "none", "unknown", "not-applicable"];
@@ -200,6 +200,11 @@ export async function loadModel({ today = todayISO() } = {}) {
     for (const field of ["gains", "losses"]) {
       if (!Array.isArray(evaluation[field]) || evaluation[field].some((item) => !isNonEmptyString(item))) {
         err(`${at}.${field}: expected array of non-empty strings`);
+      }
+    }
+    if (evaluation.blockers !== undefined) {
+      if (!Array.isArray(evaluation.blockers) || evaluation.blockers.some((item) => !isNonEmptyString(item))) {
+        err(`${at}.blockers: expected array of non-empty strings when present`);
       }
     }
     if (!evaluation.features || typeof evaluation.features !== "object" || Array.isArray(evaluation.features)) {
