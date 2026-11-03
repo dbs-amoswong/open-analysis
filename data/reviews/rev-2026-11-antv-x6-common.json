@@ -1,0 +1,159 @@
+{
+  "id": "rev-2026-11-antv-x6-common",
+  "package_id": "pkg-antv-x6-common",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.0.17",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 67,
+  "summary": "Clean on licensing, advisories and install scripts, but @antv/x6-common is X6 support plumbing with no capability of its own, has no npm provenance, and its release cadence cannot be confirmed because the dossier shows 2.0.17 from 2024-01-10 next to a registry publish on 2026-09-21 — keep it only as a pinned, suite-managed dependency and reconcile the maintenance facts before any adopt.",
+  "reasoning": [
+    "MIT licence on the package and on the GitHub repository (6751 stars, not archived), and the dossier records an empty vulnerability list, so nothing in the measured evidence blocks use on security grounds.",
+    "Release integrity is the main gap: npm_provenance is false and the provenance note says no attestation was found at collection, so every install of this package is unverifiable; the requirement tolerates that only if exact versions are pinned and the gap is recorded.",
+    "The maintenance facts conflict and cannot both be true of the same version: latest_version 2.0.17 carries published_at 2024-01-10, which is more than 12 months before this review, while facts.last_publish is 2026-09-21 and the repository was pushed 2026-10-23. The dossier does not say which version was published in September 2026, so the 'release within 12 months' constraint is unconfirmed rather than passed.",
+    "If a human confirms that 2.0.17 really is the newest release, the 12-month maintenance constraint fails and that hard failure caps this package at avoid regardless of the score; the hold below assumes the 2026-09-21 publish is real and only the latest_version field is stale.",
+    "No install scripts: has_install_script is false and install_scripts is empty. The two direct runtime dependencies are lodash-es and utility-types; the licence and install-script status of that transitive tree was not measured, so 'permissive across the full dependency tree' is only established for the direct deps.",
+    "Install size was not measured; unpacked size is 1973 KB, which is large for a utility package and is most likely several build artefacts rather than a single shipped bundle.",
+    "TypeScript declarations are bundled and the package ships dual ESM/CJS formats, which matters for a legacy runtime, but engines is null and the dossier never records the legacy application's exact browser/runtime baseline, so compatibility cannot be judged here.",
+    "Fit is weak as a standalone package: the registry page, repository and homepage place it inside the X6 project, and the dossier records no API or behaviour description, so it supplies no graph rendering, editing, selection, history or export behaviour of its own and no capability that D3 lacks. D3 is a rendering toolkit, not a drop-in for X6's editing and plugin behaviour, and the dossier contains no D3 facts to compare against.",
+    "Sixty-four maintainers can publish this package, a broad publish surface for a library that consumers mostly receive transitively; that raises supply-chain exposure without a corresponding continuity problem.",
+    "Batch context: siblings @antv/x6, the eleven X6 plugins and @antv/x6-geometry are part of the same request, but this dossier does not record which of them depend on x6-common, so the coupling direction must be confirmed before this package is treated as an unavoidable transitive install.",
+    "Score 67 reflects security 27/30, release integrity 16/25, maintenance 10/20, fit 8/15 and footprint 6/10, which lands in the hold band: usable as a pinned part of an existing X6 suite, not something to adopt or standardise on for the graph requirement."
+  ],
+  "caveats": [
+    "No npm provenance on 2.0.17 (or any recorded version); pin the exact version and keep the lockfile entry pinned, per the requirement's provenance gap rule.",
+    "The registry facts disagree on recency (latest_version published 2024-01-10 versus last_publish 2026-09-21), so the package's real release cadence is unknown until reconciled.",
+    "Sixty-four maintainers hold publish rights; a bad or accidental release would reach the legacy application through the suite rather than through a direct dependency decision.",
+    "156 open issues on the repository; a stalled or backlogged suite is a maintenance risk even while commits continue.",
+    "Pinning x6-common independently of @antv/x6 risks version skew if the suite moves from v2 to v3, since the dossier does not state which suite version requires which x6-common range.",
+    "Transitive dependency count, licences and install size were not measured; only the two direct dependencies are known.",
+    "The legacy browser/runtime baseline is not recorded, and no engines floor is declared, so dual-format output alone does not prove the legacy runtime is supported.",
+    "Holding is a suite-level statement, not a recommendation to keep using X6: the sibling @antv/x6 and plugin reviews, and the D3 alternative, are assessed separately."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "pass",
+      "detail": "MIT for the package and for the antvis/x6 repository. Direct dependencies are lodash-es and utility-types; licences of the wider dependency tree were not measured.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-common"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured. The dossier records no workflow, publisher or release-automation evidence for this package, so CI publishing cannot be confirmed or excluded.",
+      "sources": [
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false; the dossier note says no npm attestation was found when facts were collected, so the 2.0.17 tarball cannot be verified against a build.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-common"
+        },
+        {
+          "label": "2.0.17 tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-common/-/x6-common-2.0.17.tgz"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier's vulnerabilities array is empty for the collected facts. The advisory source and the versions scanned are not recorded, so this covers what was collected and not an independent audit.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-common"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "Conflicting facts: latest_version 2.0.17 was published 2024-01-10, but last_publish is 2026-09-21 and the repository was pushed 2026-10-23 with 156 open issues. 32 versions exist. The 12-month release rule cannot be confirmed from the dossier.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-common"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "2 runtime dependencies (lodash-es, utility-types), no install scripts and no peer or optional dependencies. Unpacked size is 1973 KB; install size and transitive package count were not measured.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-common"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Types are bundled and the package ships dual ESM/CJS formats. No engines floor is declared.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-common"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Functional scope and fit",
+      "status": "info",
+      "detail": "The dossier records no API or behaviour description and no plugin usage from the legacy application. It is a support package inside the X6 family, so no graph rendering or editing capability, and nothing uniquely absent from D3, can be asserted from this evidence.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-common"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "dfb7d7c43c239d47927df6ba9d6e7369b4a27daa399107203e133f788eb8f96e",
+    "generated_at": "2026-11-03T11:35:21.448Z"
+  }
+}

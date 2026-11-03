@@ -1,0 +1,153 @@
+{
+  "id": "rev-2026-11-antv-x6",
+  "package_id": "pkg-antv-x6",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "3.1.8",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 71,
+  "summary": "Hold @antv/x6 3.1.8 for the legacy graph requirement: MIT, no known advisories and an active repository, but the legacy browser baseline is unrecorded, npm provenance is absent, and dependency-tree licensing and install scripts were not measured.",
+  "reasoning": [
+    "3.1.8 is MIT, has no deprecated flag, and the dossier records no advisories, so the 'no unfixed high or critical advisories' constraint is not triggered at this version.",
+    "Release recency meets the 12-month maintenance constraint: version 3.1.8 is dated 2026-08-11, the registry last publish is 2026-09-21, and the repository was pushed 2026-10-23 with 6,751 stars and 18 npm maintainers.",
+    "No npm attestation was found, so provenance is unavailable; the requirement's fallback is to pin the exact version and record the gap, which this review does at 3.1.8.",
+    "Publish-pipeline evidence was not collected, so this review cannot confirm CI/OIDC publishing, and the absence of provenance alone does not prove token-based publishing.",
+    "The requirement's first constraint is to record the legacy browser and runtime baseline before judging compatibility; that baseline is not in the dossier, and the package declares engines node >=20.0.0, so compatibility with the existing legacy runtime is unresolved.",
+    "The requirement asks whether the suite still preserves editing, selection, transform, history and export behaviour, but the dossier contains no behaviour, plugin-compatibility or upgrade-path evidence for the sibling @antv/x6-plugin-* packages, so that constraint cannot be assessed from this dossier.",
+    "Explicit version pinning matters here because 427 versions exist and the reviewed version is a specific 3.x release; drift away from 3.1.8 would invalidate this verdict.",
+    "D3 was named as an alternative, but no D3 facts were collected in this dossier, so this review does not recommend a replacement and does not compare the two.",
+    "Score 71 (hold band): security 26/30 for a clean advisory record, release integrity 13/25 for the provenance and pipeline gaps, maintenance 17/20, fit 9/15 for the unresolved baseline, and footprint 6/10 for 4 runtime dependencies against an 8.2 MB unpacked size with install size unmeasured."
+  ],
+  "caveats": [
+    "The legacy browser and runtime baseline must be recorded before any upgrade; the package declares node >=20.0.0 and only CJS/ESM dual output is recorded, so confirm build and runtime compatibility first.",
+    "Without npm provenance, pin exactly 3.1.8 and document the waiver, per the requirement's provenance constraint; do not float on a caret range.",
+    "Only the four direct runtime dependencies (dom-align, lodash-es, mousetrap, utility-types) are recorded; licence compliance and install scripts across the full dependency tree were not measured, so the permissive-tree and no-install-script constraints remain unverified.",
+    "Install size was not measured and the unpacked size is 8,363 KB, so the browser bundle cost for the legacy application is unknown.",
+    "The v2 to v3 upgrade path and plugin compatibility are not evidenced; verify selection, transform, history, clipboard, snapline, minimap, stencil and export behaviour on 3.1.8 before committing.",
+    "156 open issues and an 18-maintainer roster reduce bus-factor risk but do not guarantee consistent release review.",
+    "96,653 weekly downloads is a popularity proxy that includes CI and transitive installs, not a measure of fitness for this application.",
+    "This package is reviewed independently of its sibling @antv/x6-plugin-* packages in the same batch; no verdict is implied for them."
+  ],
+  "evidence": [
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier records an empty vulnerabilities list for 3.1.8 and no deprecated flag, so no unfixed high or critical advisory is known at this version.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "warn",
+      "detail": "The package is MIT and the repository reports MIT, which satisfies the permissive-license constraint for this package. The licences of the four runtime dependencies and the wider tree were not collected, so 'permissive across the full dependency tree' is unverified.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "No npm attestation was found when the facts were collected; npm_provenance is false. The requirement's fallback is to pin exact versions and record the gap, which this review does at 3.1.8.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "Publish pipeline",
+      "status": "info",
+      "detail": "The dossier contains no publish-pipeline or CI/OIDC evidence for this package, so the pipeline cannot be assessed. Absence of provenance does not by itself prove token-based publishing.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "pass",
+      "detail": "Version 3.1.8 is dated 2026-08-11 with a registry last publish of 2026-09-21, inside the 12-month window. The repository is not archived and was pushed 2026-10-23, with 6,751 stars, 1,895 forks, 156 open issues, 427 published versions and 18 npm maintainers.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "warn",
+      "detail": "Four direct runtime dependencies (dom-align, lodash-es, mousetrap, utility-types), no declared peer or optional dependencies, and no install script on this package (install_scripts is empty). Install size was not measured and unpacked size is 8,363 KB; install scripts and licences for the transitive tree were not collected.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled type declarations with dual CJS/ESM output.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Fit for the requirement",
+      "status": "info",
+      "detail": "The dossier holds no runtime, rendering or plugin-compatibility evidence, and the legacy browser/runtime baseline that the requirement says must be recorded first is not present. The package declares engines node >=20.0.0. The constraint to preserve editing, selection, transform, history and export behaviour therefore cannot be judged from this dossier, and D3 was not evaluated.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6"
+        },
+        {
+          "label": "package tarball",
+          "url": "https://registry.npmjs.org/@antv/x6/-/x6-3.1.8.tgz"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "1220a0f06614ec0aadaf3676c646546f606f42f078efa60fed2521139ef2c757",
+    "generated_at": "2026-11-03T11:35:22.166Z"
+  }
+}

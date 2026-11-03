@@ -1,0 +1,164 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-clipboard",
+  "package_id": "pkg-antv-x6-plugin-clipboard",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "3.0.0",
+  "reviewer": "opencode",
+  "recommendation": "avoid",
+  "risk": "high",
+  "score": 55,
+  "summary": "npm marks @antv/x6-plugin-clipboard deprecated and its latest version, 3.0.0, has not changed since 2022-11-25, so it fails the requirement's 12-month maintenance constraint and is capped at avoid despite a clean licence, zero runtime dependencies and no recorded advisories.",
+  "reasoning": [
+    "The registry facts record the package as deprecated (\"this package has been deprecated\"), which is an upstream signal that it is no longer a supported target for the legacy graph editor.",
+    "The latest version is 3.0.0, published 2022-11-25 — roughly four years before this review — so the requirement constraint \"Actively maintained (release within 12 months)\" is not met; this is the maintenance hard failure that caps the verdict.",
+    "The dossier also shows last_publish 2026-09-21 while latest_version remains 3.0.0 from 2022-11-25; that newer publish is not reflected in the latest tag, so it should be checked against the registry before anyone assumes a maintained release exists.",
+    "Repository activity does not rescue the package: antvis/x6 was pushed on 2026-10-23 and is not archived (6,751 stars, 1895 forks, 156 open issues), but that activity is monorepo-wide and the plugin itself is deprecated.",
+    "Licence and supply-chain hygiene are otherwise clean: MIT in the registry and in the repository, a single 2 KB unpacked artifact, zero runtime dependencies and an empty install-script list.",
+    "The dossier records no known advisories for 3.0.0 (the vulnerabilities array is empty), but no advisory scan detail is included, so this is an absence of recorded findings rather than a positive security review.",
+    "npm_provenance is false and the provenance note says no attestation was found; the requirement permits that only if exact versions are pinned and the gap is recorded, which adds manual handling to every install.",
+    "Fit is conditional: the only peer dependency is @antv/x6 ^3.x, and the dossier does not record whether the legacy application runs X6 v2 or v3 or what its browser baseline is, so compatibility and behaviour preservation are unproven.",
+    "No replacement candidate is evidenced here — the request names D3, but the dossier contains no facts about D3 or any other clipboard-capable plugin — so this review rejects the package without naming a specific substitute."
+  ],
+  "caveats": [
+    "A deprecated package can be unpublished or frozen by the registry owner at any time, which would break reproducible installs of the legacy application.",
+    "There is no npm attestation, so the tarball must be pinned to 3.0.0 and its integrity hash recorded per the requirement's provenance exception.",
+    "The peer dependency is @antv/x6 ^3.x; if the legacy application is pinned to X6 v2, this version is not installable without also upgrading the core editor.",
+    "Clipboard behaviour that the legacy app may rely on — copy/cut/paste of nodes and edges and its interaction with selection and history — is not verified in the dossier and needs a regression pass before any change.",
+    "The 156 open issues and the monorepo release process mean plugin-level fixes are not guaranteed even though the repository itself is active.",
+    "Install size was not measured; 2 KB unpacked describes the package artifact, not the cost inside the legacy bundle.",
+    "The apparent 2026-09-21 publish date is not attached to the latest version in the dossier and is unverified."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "pass",
+      "detail": "MIT in both the npm registry metadata and the antvis/x6 repository metadata, which satisfies the permissive-licence constraint.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-clipboard"
+        },
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier records an empty vulnerabilities list for 3.0.0, so no advisory is known; the dossier does not include advisory-scan scope, so this is not proof of absence.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-clipboard"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false and the dossier's provenance note states no npm attestation was found for these facts.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-clipboard"
+        },
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-clipboard"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "The dossier contains no publish-workflow evidence for this package; only the registry tarball URL is recorded, so CI publishing could not be confirmed or ruled out.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-clipboard"
+        },
+        {
+          "label": "package tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-clipboard/-/x6-plugin-clipboard-3.0.0.tgz"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "Package is marked deprecated; latest version 3.0.0 was published 2022-11-25, far outside the 12-month release window, although the parent repository was pushed 2026-10-23 with 156 open issues.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-clipboard"
+        },
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "Zero runtime dependencies, one 2 KB unpacked artifact, no install scripts, and a single peer dependency of @antv/x6 ^3.x; install size was not measured.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-clipboard"
+        },
+        {
+          "label": "weekly downloads",
+          "url": "https://api.npmjs.org/downloads/point/last-week/@antv%2Fx6-plugin-clipboard"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "The registry facts record bundled type declarations and dual module formats for 3.0.0.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-clipboard"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Fit with the legacy graph editor",
+      "status": "info",
+      "detail": "The dossier records no legacy browser/runtime baseline and no test of clipboard, selection or history behaviour, so behavioural preservation for req-legacy-graph is unmeasured; only the @antv/x6 ^3.x peer range ties it to the existing suite.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-clipboard"
+        },
+        {
+          "label": "source repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "8d12b0a736e50dbd1e9a44a66d48676cf2e1884c356215fcfb554b7db387e0a7",
+    "generated_at": "2026-11-03T11:35:21.558Z"
+  }
+}

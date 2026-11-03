@@ -1,0 +1,155 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-export",
+  "package_id": "pkg-antv-x6-plugin-export",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.1.6",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 65,
+  "summary": "A thin MIT export plugin with zero runtime dependencies and no known advisories, but the reviewed 2.1.6 dates from 2023-04-12, carries no npm provenance and has no measured export behaviour, so hold it, pin it exactly and confirm what the 2026-09-21 publish actually covers before relying on it to preserve export in the legacy app.",
+  "reasoning": [
+    "The requirement asks whether the X6 suite still preserves export behaviour during an upgrade, and no other package in the batch is named for export, so this is a fit-driven review rather than a renderer comparison against D3.",
+    "License is MIT for both the npm package and the antvis/x6 repository, and the package has zero runtime dependencies with an empty dependency map, so the permissive-license-across-the-tree and no-install-scripts constraints pass on the evidence collected.",
+    "The dossier's OSV result is an empty advisory list for 2.1.6, so the no-unfixed-high-or-critical-advisory constraint is not triggered, but this reflects only what OSV returned for the package, not a behavioural audit.",
+    "Release recency is the problem: facts.version 2.1.6 is dated 2023-04-12, roughly three and a half years before this review, which does not by itself satisfy the requirement's 'release within 12 months' constraint.",
+    "The dossier also records last_publish 2026-09-21 alongside a 2023-04-12 published_at for 2.1.6, and it does not map that timestamp to a version; one of these two dates must be resolved against the registry before maintenance can be called healthy or dead.",
+    "Repository activity is current and independent of the plugin's release history: antvis/X6 is not archived, was pushed to on 2026-10-23, has 6,751 stars, 1,895 forks and 156 open issues, which shows the monorepo is alive but says nothing about this plugin's own publish cadence.",
+    "npm provenance is absent (npm_provenance false, provenance_note records no attestation found), so the requirement's fallback applies: pin the exact version and record the gap rather than treating the tarball as verifiable.",
+    "The package is structurally bound to the suite: its only peer dependency is @antv/x6 ^2.x, so it cannot be carried into an X6 v3 upgrade without checking that range, and it provides no portable value if the alternative path is D3 or another renderer.",
+    "Footprint is small and low risk: 0 runtime dependencies, 73 KB unpacked, dual CJS/ESM formats and bundled TypeScript declarations; install size was not measured (null) and is not claimed here.",
+    "Evidence is incomplete in three places that matter for a high-criticality legacy system: no install-size measurement, no export-behaviour or API measurement, and no browser/runtime baseline recorded, so the score is capped at hold rather than adopt.",
+    "Sibling context only, no verdict assigned: @antv/x6 is this package's declared peer, so the plugin's usable version range moves with the core suite review."
+  ],
+  "caveats": [
+    "The reviewed 2.1.6 is a 2023-04-12 release and the dossier separately records a 2026-09-21 last_publish that is not tied to a version; resolve which is current before treating the package as maintained within 12 months.",
+    "No npm provenance or attestation was found, so pin 2.1.6 exactly and verify the tarball against the registry record; do not float a range.",
+    "The peer dependency is @antv/x6 ^2.x, so an upgrade of the core package to v3 would leave this plugin outside its declared support range.",
+    "Export behaviour is not measured anywhere in the dossier; the legacy export flows must be re-tested against the recorded browser/runtime baseline before and after any upgrade.",
+    "Install size was not measured; only the 73 KB unpacked size of this package is known, and that figure excludes nothing only because there are zero runtime dependencies.",
+    "The npm maintainer list has 64 entries on a shared AntV account, which is a broad publish surface even though it reduces bus-factor risk.",
+    "The 156 open issues and the absence of plugin-level release data make it hard to tell whether export defects reported against X6 v2 are being fixed.",
+    "If the 2026-09-21 timestamp turns out not to be a release of this package's own code, the 12-month maintenance constraint fails outright and this verdict should move to avoid."
+  ],
+  "evidence": [
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier's vulnerability collection returned no advisories for @antv/x6-plugin-export 2.1.6.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-export"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false and the provenance note records that no npm attestation was found when facts were collected on 2026-11-03.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-export"
+        },
+        {
+          "label": "published tarball 2.1.6",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-export/-/x6-plugin-export-2.1.6.tgz"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "Publish pipeline",
+      "status": "info",
+      "detail": "The dossier does not record whether releases go through CI, an OIDC workflow or a local npm publish for this package; only the absence of an npm attestation was measured, so no CI claim is made either way.",
+      "sources": [
+        {
+          "label": "antvis/x6 repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "Reviewed version 2.1.6 is dated 2023-04-12, outside the requirement's 12-month window, while the dossier separately records last_publish 2026-09-21 without mapping it to a version; the repo is not archived, last pushed 2026-10-23, 6,751 stars, 156 open issues and 64 npm maintainers.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-export"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "Zero runtime dependencies and an empty dependency map; the only peer is @antv/x6 ^2.x. Unpacked size is 73 KB; install size was not measured (null). No install script is declared (install_scripts is empty).",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-export"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "TypeScript declarations are bundled and the package ships dual CJS/ESM formats.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-export"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Export behaviour and fit",
+      "status": "info",
+      "detail": "The dossier records no measurement of the plugin's export API, output fidelity or interaction with the graph instance, so the requirement's preserve-export-behaviour constraint cannot be confirmed from the collected evidence.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-export"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "The npm package declares MIT and the antvis/X6 repository is also MIT, which is permissive and compatible with the requirement's license constraint.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-export"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "ed1618c22387fd47277c38850f4421c5ab29ce7d209fbab820551b997e7f3367",
+    "generated_at": "2026-11-03T11:35:21.664Z"
+  }
+}

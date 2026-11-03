@@ -1,0 +1,168 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-snapline",
+  "package_id": "pkg-antv-x6-plugin-snapline",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.1.7",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 61,
+  "summary": "@antv/x6-plugin-snapline 2.1.7 is a small MIT, zero-dependency alignment-guide plugin whose snap-line behaviour is only realisable inside an @antv/x6 v2 core, and with no npm provenance, an unreconciled maintenance signal (version dated 2023-04-12 against a 2026-09-21 last_publish timestamp) and no recorded legacy browser/runtime baseline, it is held rather than endorsed for the req-legacy-graph migration.",
+  "reasoning": [
+    "Fit is narrow but real: the package name and the recorded homepage path (x6.antv.antgroup.com/tutorial/plugins/snapline) identify it as the X6 snapline plugin, the alignment-guide behaviour of the graph editor, and req-legacy-graph requires existing editing behaviour to be preserved during any upgrade or migration. The dossier contains no behavioural description beyond that name and path, so the exact UI effect is an inference from the plugin's name rather than a measured fact.",
+    "The unique-benefit question from the request is answered by the peer dependency, not by marketing: it declares @antv/x6 ^2.x as a peer and has no runtime dependencies, so it cannot be used standalone and provides nothing outside an X6 v2 core. If the legacy application moved to D3 or another renderer, this package would be replaced by custom guide logic rather than reused, so its value is X6-specific glue rather than a portable capability.",
+    "No hard failure is recorded on security, licence or install-script grounds: the dossier's vulnerabilities array is empty for 2.1.7, MIT is reported by both the registry and the GitHub API, no install scripts are declared and there are zero runtime dependencies. The empty advisory list covers the collected snapshot of this tarball only; the peer @antv/x6 is a separate package reviewed in the same batch.",
+    "Release integrity is the weakest measured area: npm_provenance is false and the provenance note records that no attestation was found for this version, while no workflow file or release process was collected at all, so CI publishing cannot be confirmed either way. The requirement explicitly allows this gap provided exact versions are pinned and the gap is recorded, so it is a tracked gap rather than the 'no CI publishing' hard failure, but it is still a gap.",
+    "Maintenance is ambiguous and is why this is held rather than adopted. The reviewed version 2.1.7 carries published_at 2023-04-12 and the package has 12 published versions, yet last_publish is 2026-09-21T08:47:03.913Z; the latest version is still 2.1.7, so the 2026 timestamp is not evidence of a new release. The shared monorepo is clearly alive (pushed 2026-10-23, not archived, 6,751 stars), but monorepo activity does not demonstrate that this plugin still ships, and the requirement's 'release within 12 months' constraint is therefore unconfirmed rather than satisfied.",
+    "Footprint is small and fully consistent with a plugin of this role: 163 KB unpacked, dual ESM/CJS formats, bundled type declarations and no transitive dependencies. Install size was not measured, so the published tarball cost is unknown, but 9,688 weekly downloads show the plugin is still widely consumed at this version.",
+    "The requirement sets a gate this review cannot clear: 'record the exact baseline before judging compatibility', plus the note that the legacy browser/runtime baseline and actual plugin usage must be recorded before a migration verdict. The dossier records no engines field, no browser support statement and no inventory of how snapline is used in the application, so neither compatibility nor the cost of removing it can be scored.",
+    "Batch context only, no sibling verdict: @antv/x6, the peer this plugin binds to, is part of the same 14-package request and shares the same repository and maintainer pool. Whatever happens to the core decides whether this plugin remains usable, so the two must be decided together even though each is reviewed on its own record."
+  ],
+  "caveats": [
+    "Pin 2.1.7 exactly and record the provenance gap, as the requirement permits: with no npm attestation, a later 2.1.x could be published without any verifiable build chain and would be indistinguishable from this one at install time.",
+    "The peer range is ^2.x. If the legacy application upgrades the core to a v3 line, this plugin's compatibility is unverified and the dossier contains no evidence either way; the plugin would have to be re-reviewed against the new core rather than assumed to follow it.",
+    "The two maintenance timestamps disagree. If last_publish 2026-09-21 is a metadata-only change, then the last real release is 2023-04-12, which fails the 'release within 12 months' constraint and should move this review from hold to avoid for the migration path.",
+    "No browser or runtime baseline is recorded, and the package declares no engines field, so the first requirement constraint ('must run within the legacy application's existing browser and runtime baseline') is untested for this plugin.",
+    "Install size was not measured; only the 163 KB unpacked figure is known, which understates the installed footprint once the @antv/x6 core peer is installed alongside it.",
+    "156 open issues exist on the shared monorepo. Snapline-specific triage and response time were not measured, so the backlog number says nothing about this plugin's own support level.",
+    "The empty advisory list is a snapshot for this package. It does not cover the peer core or the rest of the plugin suite, so it must not be read as a clean bill of health for the whole tree.",
+    "The permissive-licence constraint is verified for this package only (MIT on both registry and repository). The rest of the dependency tree's licences were not inventoried in this dossier."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured: the dossier collected no workflow file, tag process or release configuration, so it is unknown whether 2.1.7 was produced by CI or from a maintainer workstation. That the registry reports no provenance for it is consistent with an unattested publish path but does not prove one.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-snapline"
+        },
+        {
+          "label": "repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false and the provenance note states that no npm attestation was found when the facts were collected for 2.1.7. The requirement tolerates this only if exact versions are pinned and the gap is recorded, so it is a documented gap rather than a clean pass.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-snapline"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-snapline"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The vulnerabilities array is empty and the package is not marked deprecated (deprecated is null). No advisory was recorded against the package when the dossier was collected on 2026-11-03; advisory data covers this package only, not the @antv/x6 peer.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-snapline"
+        },
+        {
+          "label": "published tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-snapline/-/x6-plugin-snapline-2.1.7.tgz"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "Reviewed version 2.1.7 has published_at 2023-04-12 and the package has 12 versions, but last_publish is recorded as 2026-09-21T08:47:03.913Z with the latest version still 2.1.7, so no newer release explains that timestamp. The shared repository is not archived, was pushed 2026-10-23, has 6,751 stars, 1,895 forks and 156 open issues. The 'release within 12 months' constraint is therefore unconfirmed for this plugin.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-snapline"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "Zero runtime dependencies, one peer dependency (@antv/x6 ^2.x), no optional dependencies and no install scripts. Unpacked size 163 KB; install size was not measured. The peer edge means the plugin is inert without an X6 v2 core, which is a fit constraint rather than a footprint cost.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-snapline"
+        },
+        {
+          "label": "npm download statistics",
+          "url": "https://api.npmjs.org/downloads/point/last-week/@antv%2Fx6-plugin-snapline"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Types are bundled and the package ships dual (ESM/CJS) formats, so no separate @types package is needed. Type accuracy against the peer core was not probed.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-snapline"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour and fit",
+      "status": "warn",
+      "detail": "The package is the X6 snapline alignment-guide plugin and only functions against the @antv/x6 ^2.x peer. It requires no install scripts and declares no engines field, and no browser or runtime baseline was collected, so the requirement's compatibility condition cannot be tested. Nothing in the dossier measures D3 or any other renderer, so the alternative comparison asked for in the request has no evidence behind it yet.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-snapline"
+        },
+        {
+          "label": "repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT is reported by both the registry metadata and the GitHub repository API, and the repository is not archived. The licence of the peer core and of the wider tree was not inventoried here, so only this package's leg of the permissive-licence constraint is verified.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-snapline"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "a7e538ec3ef1a2b96a2b958ecede7988eb4baa08b5be2b9e52815009d34da157",
+    "generated_at": "2026-11-03T11:35:21.992Z"
+  }
+}

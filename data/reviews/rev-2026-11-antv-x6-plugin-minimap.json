@@ -1,0 +1,158 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-minimap",
+  "package_id": "pkg-antv-x6-plugin-minimap",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.0.7",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 66,
+  "summary": "A small, MIT, zero-runtime-dependency overview plugin that only makes sense inside an X6 2.x canvas, but version 2.0.7 is 21 months old, there is no npm provenance and the publish pipeline was not measured, so hold it pinned at 2.0.7 until the legacy browser baseline and the core upgrade path are recorded.",
+  "reasoning": [
+    "Role in this requirement: the minimap is the suite's overview/navigation surface for an X6 canvas, not a renderer. Removing it would not remove graph rendering, but it would remove the whole-canvas overview that the legacy graph UI was built around.",
+    "Unique benefit over a D3 rewrite: the plugin ships as part of the X6 plugin family and is written against the X6 graph model, so an overview surface does not have to be reconstructed as a second renderer with its own coordinate handling. That is a design argument, not a measurement: the requirement puts a detailed library benchmark out of scope and the dossier contains no comparison data.",
+    "The peer dependency is @antv/x6 ^2.x, which ties this plugin to the X6 2.x core. Whether the legacy application stays on 2.x or moves to a v3 core is the deciding question for this package, and the dossier does not record which core version is in use.",
+    "Release recency is the weakest signal: 2.0.7 was published 2024-01-24, about 21 months before today, which is outside the requirement's 12-month maintenance window. Counter-evidence exists — facts.last_publish is 2026-09-21 and the repository was pushed 2026-10-23 — but a registry document timestamp is not a release, and the dossier does not explain the gap between the two dates.",
+    "Supply-chain surface is genuinely small: zero runtime dependencies, zero install scripts, one peer, 76 KB unpacked. There is no transitive tree to audit for licenses or install scripts, which satisfies two of the requirement's constraints on its own terms.",
+    "npm_provenance is false with an explicit note that no attestation was found. The requirement permits this only if exact versions are pinned and the gap is recorded, so provenance is a mitigation item rather than an automatic rejection here.",
+    "Publish pipeline facts were not collected at all: the dossier contains no workflow, OIDC or CI-publishing evidence, so release integrity cannot be confirmed either way and is scored conservatively rather than assumed.",
+    "MIT on both the package and the repository, with bundled type declarations and a dual CJS/ESM build, so license and typing constraints are met without conditions.",
+    "At 3,846 weekly downloads this is a niche plugin; the figure shows the suite's plugins are far less widely exercised than the core, and it is not evidence of quality in either direction.",
+    "The requirement's first constraint — record the legacy browser and runtime baseline before judging compatibility — is unmet in this dossier, so a compatibility verdict cannot be issued and the recommendation stays at hold."
+  ],
+  "caveats": [
+    "If 2.0.7 is confirmed as the latest release with no successor line, the requirement's 12-month maintenance constraint is not met and this verdict should move to avoid rather than stay on hold.",
+    "No npm attestation exists, so the tarball cannot be verified against a source commit by npm install; pin exactly 2.0.7 and record the provenance gap as the requirement demands.",
+    "Publishing method is unverified. A manual or long-lived-token release path cannot be ruled out from this dossier.",
+    "The peer range ^2.x means the plugin may not install at all if the application upgrades the X6 core to v3, which would force either a replacement or a fork.",
+    "The minimap renders an overview that depends on canvas/DOM behaviour in the legacy browser; that baseline is not recorded, so support for it is unverified.",
+    "The npm package lists 64 maintainers, so publish access is broad even though the project is org-owned; a compromised account is a wider exposure than a single-maintainer package is usually assumed to be.",
+    "The repository carries 156 open issues and no plugin-specific triage was measured, so response time for minimap defects is unknown.",
+    "Install size was not measured; only the 76 KB unpacked figure is available, so total install cost in the legacy build is unknown."
+  ],
+  "evidence": [
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier's vulnerability collection is empty for 2.0.7, and the package has zero runtime dependencies, so there is no transitive advisory surface. The dossier does not name the scanner behind the empty result.",
+      "sources": [
+        {
+          "label": "npm registry document",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-minimap"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false. The provenance note states that no npm attestation was found when the facts were collected, so the published tarball cannot be tied to a source commit or builder.",
+      "sources": [
+        {
+          "label": "npm registry document",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-minimap"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-minimap"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "Publish pipeline",
+      "status": "info",
+      "detail": "Not measured. The dossier records no workflow, OIDC or CI-publishing facts for this plugin, only the absence of an attestation on the published tarball. CI publishing can be neither confirmed nor denied from this evidence.",
+      "sources": [
+        {
+          "label": "source repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "2.0.7 was published 2024-01-24, roughly 21 months before the review date and outside the requirement's 12-month window. Repository activity continues (pushed_at 2026-10-23, not archived, 156 open issues, 6,751 stars) and facts.last_publish is 2026-09-21, but the dossier does not show a plugin release in that period or explain the gap.",
+      "sources": [
+        {
+          "label": "npm registry document",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-minimap"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "Zero runtime dependencies and one peer, @antv/x6 ^2.x. Unpacked size is 76 KB; install size was not measured and is null in the dossier. No install scripts are declared.",
+      "sources": [
+        {
+          "label": "npm registry document",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-minimap"
+        },
+        {
+          "label": "published tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-minimap/-/x6-plugin-minimap-2.0.7.tgz"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled type declarations, published as a dual CJS/ESM package, so no separate @types package is required.",
+      "sources": [
+        {
+          "label": "npm registry document",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-minimap"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT for the package and MIT for the source repository, which is permissive under the requirement. The full peer tree was not audited; the only peer is @antv/x6.",
+      "sources": [
+        {
+          "label": "npm registry document",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-minimap"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Fit and runtime behaviour",
+      "status": "warn",
+      "detail": "Purpose-built X6 minimap plugin, shipped as a separate package in the X6 plugin family, providing an overview of the canvas graph. Its ^2.x peer range binds it to the X6 2.x core, and the legacy application's browser and runtime baseline is not recorded in the dossier, so compatibility with the existing environment cannot be judged.",
+      "sources": [
+        {
+          "label": "plugin documentation",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-minimap"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "b0961eab7813b688cb84ddc7e02606698459149a81619bdfbc96dd95aba027a8",
+    "generated_at": "2026-11-03T11:35:21.823Z"
+  }
+}

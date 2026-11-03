@@ -1,0 +1,172 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-history",
+  "package_id": "pkg-antv-x6-plugin-history",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.2.4",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 69,
+  "summary": "MIT, zero runtime dependencies, no install scripts and no recorded advisories, but 2.2.4 is dated 2023-10-02 and the dossier pairs that with an unmapped 2026-09-21 last_publish, so the requirement's 12-month maintenance rule is unconfirmed — that hard-failure cap blocks adopt, and the package should be held at an exact pin while history behaviour is regression-tested and the release date is reconciled.",
+  "reasoning": [
+    "Scope: this is the history package in a 14-package batch request against req-legacy-graph. The requester asks whether the X6 suite is still recommended, which capability is unique to it, and whether D3 is a better fit; this review judges only @antv/x6-plugin-history 2.2.4 and assigns no verdict to any sibling.",
+    "Licensing passes on measured evidence: MIT is recorded for the npm package and for the antvis/x6 repository, which satisfies the requirement's permissive-licence constraint at this package. Because runtime dependencies are empty, this package adds no transitive licence surface of its own.",
+    "Install-script constraint passes: has_install_script is false and install_scripts is an empty list, so nothing runs at install time for this package. Its dependency map is also empty, so there is no transitive install-script path through it.",
+    "Advisory constraint is not triggered: the dossier's vulnerabilities array is empty for 2.2.4, so no unfixed high or critical advisory is recorded. The dossier does not record which advisory source or version range was scanned, so this is an absence of findings, not a security audit of the code.",
+    "Maintenance is the blocking issue. The reviewed version 2.2.4 carries published_at 2023-10-02, roughly 37 months before this review, which does not satisfy 'Actively maintained (release within 12 months)' on the face of the version record; on that reading the requirement's hard failure applies and the verdict is capped below adopt regardless of the rest of the score.",
+    "The recency facts conflict and cannot both describe the same release: facts.last_publish is 2026-09-21T08:46:50Z while latest_version is still 2.2.4 with 10 versions published in total, and the dossier does not say which version that 2026 timestamp belongs to. A maintained release is therefore plausible but unproven from this evidence alone.",
+    "Repository activity is real but does not transfer to this plugin: antvis/X6 is not archived, was pushed on 2026-10-23, and shows 6,751 stars, 1,895 forks and 156 open issues, which says the monorepo is alive while saying nothing about whether the history plugin itself is being released or fixed.",
+    "Release integrity has a gap: npm_provenance is false and the provenance note records that no attestation was found when facts were collected, and no publish-workflow evidence was collected at all. The requirement's fallback therefore applies — pin an exact version and record the gap — rather than treating the 2.2.4 tarball as verifiable.",
+    "Fit for this requirement is conditional rather than proven. The only peer dependency is @antv/x6 ^2.x, and the requirement explicitly names history among the behaviours to preserve during an upgrade or migration, but the dossier records no legacy X6 major version, no browser/runtime baseline and no measurement of what history state the application actually relies on.",
+    "The peer range is a migration hazard: at ^2.x this plugin is outside its declared support range if the core suite moves to v3, so a core upgrade could strand history (undo and redo of graph edits) before anything else in the suite breaks. Because the dossier does not map suite major to plugin major, this needs checking against the @antv/x6 review rather than assuming.",
+    "Footprint is small: zero runtime dependencies, 156 KB unpacked, dual CJS/ESM formats and bundled TypeScript declarations, with 7,090 weekly downloads. Install size is null in the dossier, so the installed cost inside the legacy bundle is not claimed here.",
+    "The npm maintainer list holds 64 entries on the shared AntV account. That is a broad publish surface for a package consumed as part of a suite, though it is not a continuity risk.",
+    "Score 69 reflects security 28/30, release integrity 12/25, maintenance 9/20, fit 12/15 and footprint 8/10. That is a hold-band score, and the maintenance cap independently forbids an adopt: no single measured defect is severe, but the release window and the missing attestation are unresolved.",
+    "If a human confirms that 2.2.4 really is the newest release and that the 2026-09-21 timestamp is not a release of this package's own code, the 12-month rule fails outright and this verdict should move to avoid; the hold assumes that ambiguity is resolved in the package's favour.",
+    "The dossier contains no facts about D3 or any other renderer, so no substitution claim is made: what this package supplies for the requirement is the suite's history role, and whether that role is reachable outside X6 cannot be judged from the collected evidence."
+  ],
+  "caveats": [
+    "The maintenance facts disagree (2.2.4 published 2023-10-02 versus last_publish 2026-09-21) and the dossier does not tie the newer timestamp to a version; reconcile it against the registry before treating the package as maintained within 12 months, and move to avoid if 2022-2023 is really the newest release line.",
+    "No npm attestation was found, so pin 2.2.4 exactly with a recorded integrity hash and keep the lockfile entry frozen; do not float a range, per the requirement's provenance gap rule.",
+    "The only peer dependency is @antv/x6 ^2.x, so an upgrade of the core editor to v3 would leave this plugin outside its declared support range and could remove history behaviour from the legacy app.",
+    "History behaviour that the application may depend on — what operations are recorded, how they group, and how they interact with selection and transform — is not measured in the dossier and needs a regression pass against the recorded browser/runtime baseline before and after any upgrade.",
+    "The legacy browser/runtime baseline is not recorded and the package declares no engines floor, so compatibility with the legacy runtime is unproven even though the build is dual-format with bundled types.",
+    "Install size was not measured; the 156 KB figure is the unpacked package artifact, not its cost inside the legacy bundle.",
+    "Sixty-four maintainers can publish this package; an accidental or malicious release would reach the legacy application through the suite rather than through a direct dependency decision.",
+    "156 open issues on the repository and no plugin-level release evidence mean history defects reported against X6 v2 may not be getting fixed.",
+    "This is a per-package hold, not a statement that the X6 suite should be kept: the core package, the other plugins and the D3 alternative are separate reviews, and the dossier contains no D3 facts to compare against."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "pass",
+      "detail": "MIT is recorded for the npm package and for the antvis/x6 repository, which satisfies the requirement's permissive-licence constraint for this package. Zero runtime dependencies means no transitive licence surface is added by it.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-history"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier's vulnerabilities array is empty for 2.2.4, so no unfixed high or critical advisory is recorded and the requirement's advisory constraint is not triggered. The advisory source and scanned version range are not recorded, so this is not proof of absence.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-history"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "Conflicting recency facts: reviewed version 2.2.4 is dated 2023-10-02, outside the 12-month window, while facts.last_publish is 2026-09-21 and the dossier does not map that timestamp to a version (latest_version remains 2.2.4; 10 versions total). The repository is not archived, was pushed 2026-10-23 and shows 6,751 stars, 1,895 forks and 156 open issues. If 2.2.4 is confirmed as the newest release, the 12-month constraint fails and the hard-failure cap moves the verdict to avoid.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-history"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false and the provenance note records that no npm attestation was found when facts were collected on 2026-11-03. Under the requirement, adoption therefore requires an exact version pin with the gap recorded.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-history"
+        },
+        {
+          "label": "published tarball 2.2.4",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-history/-/x6-plugin-history-2.2.4.tgz"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured. The dossier records the registry tarball URL but no workflow, publisher or release-automation evidence, so CI publishing can be neither confirmed nor excluded for this package.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-history"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "Zero runtime dependencies with an empty dependency map; the only peer dependency is @antv/x6 ^2.x. No install script is declared (has_install_script false, install_scripts empty). Unpacked size is 156 KB and 7,090 weekly downloads are recorded; install size was not measured (null).",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-history"
+        },
+        {
+          "label": "weekly downloads",
+          "url": "https://api.npmjs.org/downloads/point/last-week/@antv%2Fx6-plugin-history"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "TypeScript declarations are bundled and the package ships dual CJS/ESM formats. No engines floor is declared, so the legacy runtime baseline is not guaranteed by the package metadata.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-history"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Fit with the legacy graph editor",
+      "status": "info",
+      "detail": "The dossier records no legacy X6 major version, no browser/runtime baseline and no measurement of the plugin's history API or what history state the application depends on. Fit rests only on the declared @antv/x6 ^2.x peer range and on the requirement naming history among the behaviours to preserve, so preservation is unmeasured and the ^2.x range would not survive an X6 v3 upgrade.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-history"
+        },
+        {
+          "label": "source repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "a8b63026af19fdec4a5c4731e1f18b730ac17fb6134c68f47697ee42fcc025fc",
+    "generated_at": "2026-11-03T11:35:21.717Z"
+  }
+}

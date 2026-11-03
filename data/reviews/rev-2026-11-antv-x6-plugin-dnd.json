@@ -1,0 +1,169 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-dnd",
+  "package_id": "pkg-antv-x6-plugin-dnd",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.1.1",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 64,
+  "summary": "Hold rather than newly adopt: @antv/x6-plugin-dnd 2.1.1 is a small MIT plugin with zero runtime dependencies and no recorded advisories, but its latest stable release dates from 2023-09-19 and it ships no npm provenance, so it fails the requirement's 12-month maintenance constraint and is capped at hold pending exact pinning, peer-version reconciliation and the missing browser baseline.",
+  "reasoning": [
+    "Role and unique value are X6-specific: the package is the drag-and-drop member of the X6 plugin family and declares @antv/x6 ^2.x as its only peer dependency, so it adds drop-driven editing to an X6 graph rather than acting as a standalone renderer. The dossier records no API or usage detail, so the exact interaction surface is unmeasured.",
+    "D3 is not a drop-in replacement for this package on the evidence available. D3 is a low-level rendering and interaction toolkit, whereas this plugin is bound to the X6 graph model through its ^2.x peer; the dossier contains no D3 facts, so any D3 comparison would be a suite-level rewrite rather than a plugin swap.",
+    "Licence is clean for this artifact: MIT is recorded both for the npm package and for the antvis/x6 repository. The licence set of the @antv/x6 peer tree was not measured in this dossier, so the requirement's permissive-across-the-full-tree constraint is established only for this package.",
+    "Security evidence is clean but shallow: the dossier's vulnerabilities array is empty for the collected facts, and there are zero runtime dependencies and no install scripts. The advisory scan source and scope are not recorded, so this is an absence of recorded findings rather than an independent audit.",
+    "Maintenance is the decisive failure: the reviewed version, 2.1.1, was published on 2023-09-19, roughly 38 months before this review, while the requirement demands a release within 12 months. The parent repository is active (pushed 2026-10-23, not archived, 6,751 stars, 156 open issues), but that activity does not establish a plugin release; the conflicting facts.last_publish value of 2026-09-21 identifies no version and must be reconciled before the package can be treated as maintained.",
+    "Release integrity is weak: npm_provenance is false and the provenance note says no attestation was found when facts were collected, so the 2.1.1 tarball cannot be tied to a build. The requirement permits this only if exact versions are pinned and the gap is recorded, which adds manual handling to every install.",
+    "CI publishing is unverified: the dossier contains no publish-workflow, publisher or release-automation evidence, so the release path can be neither confirmed nor excluded. No CI-publishing claim can be made either way.",
+    "Footprint is small: 0 runtime dependencies, one peer dependency, 89 KB unpacked, bundled type declarations and dual CJS/ESM formats. Install size was not measured, so 89 KB describes the artifact rather than its cost inside the legacy bundle. The package has 11 published versions and 6,122 weekly downloads, a thin external user base that is unlikely to surface regressions quickly.",
+    "Fit is conditional and unproven for this requirement: the plugin peers on @antv/x6 ^2.x, while the requirement refers to a v2/v3 family and the dossier does not record which core version the legacy application runs. engines is null and the legacy browser/runtime baseline has not been recorded, so compatibility and preservation of existing drag-and-drop, selection and history behaviour cannot be judged from this evidence.",
+    "Score 64 reflects security 28/30, release integrity 8/25, maintenance 8/20, fit 11/15 and footprint 9/10. The maintenance failure caps the verdict below adopt; 64 lands in the hold band, consistent with keeping the package pinned in the existing suite while the baseline and the sibling @antv/x6 decision are resolved.",
+    "Batch context: @antv/x6 is a direct peer dependency and is part of the same request, but this dossier contains no facts about the core package and no verdict is assigned to it here. The plugin's future depends on that suite-level decision, not on an independent adoption of this package."
+  ],
+  "caveats": [
+    "No npm attestation exists for 2.1.1, so pin the exact version and record its integrity hash to satisfy the requirement's provenance exception.",
+    "The maintenance facts conflict: latest_version 2.1.1 carries published_at 2023-09-19 while facts.last_publish is 2026-09-21. Reconcile these against the registry before assuming a maintained release exists.",
+    "The peer range is @antv/x6 ^2.x. If the legacy application runs a different core major, or the suite upgrades, this plugin version may not install or may not match the graph API.",
+    "The legacy browser/runtime baseline is not recorded and no engines floor is declared; dual CJS/ESM output does not prove the legacy runtime is supported.",
+    "Preservation of existing drag-and-drop behaviour is unverified. The dossier contains no test of drop coordinates, node creation, or interaction with selection and history, so a regression pass is required before any upgrade.",
+    "Install size and the peer dependency tree were not measured, so the real cost and the full licence and install-script status inside the legacy bundle are unknown.",
+    "The monorepo has 156 open issues and its release process is not documented in the dossier; plugin-level fixes are not guaranteed even while the repository remains active.",
+    "Sixty-four maintainers hold publish rights, a broad supply-chain surface for a plugin consumed as part of a suite.",
+    "Only 6,122 weekly downloads over 11 versions, so external users are unlikely to catch regressions before the legacy application does.",
+    "D3 is not a like-for-like substitute for this plugin; replacing it means replacing the X6 editing stack, which is a suite-level migration rather than a package swap."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "pass",
+      "detail": "MIT is recorded for the npm package and for the antvis/x6 repository. The licence set of the @antv/x6 peer dependency tree was not measured in this dossier.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-dnd"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured. The dossier records no workflow, publisher or release-automation evidence for this package, so CI publishing can be neither confirmed nor excluded.",
+      "sources": [
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false and the dossier note says no npm attestation was found when facts were collected, so the 2.1.1 tarball cannot be verified against a build.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-dnd"
+        },
+        {
+          "label": "2.1.1 tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-dnd/-/x6-plugin-dnd-2.1.1.tgz"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier's vulnerabilities array is empty for the collected facts. The advisory source and scanned version range are not recorded, so this covers what was collected and not an independent audit.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-dnd"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "Latest version 2.1.1 was published 2023-09-19, about 38 months before this review, so the 12-month release constraint is not met. The repository was pushed 2026-10-23 with 156 open issues, and a last_publish timestamp of 2026-09-21 is not tied to any version in the dossier.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-dnd"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies, no install scripts and one peer dependency (@antv/x6 ^2.x). Unpacked size is 89 KB; install size and the peer dependency tree were not measured.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-dnd"
+        },
+        {
+          "label": "weekly downloads",
+          "url": "https://api.npmjs.org/downloads/point/last-week/@antv%2Fx6-plugin-dnd"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Type declarations are bundled and the package ships dual CJS/ESM formats. No engines floor is declared.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-dnd"
+        },
+        {
+          "label": "2.1.1 tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-dnd/-/x6-plugin-dnd-2.1.1.tgz"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Fit with the legacy graph editor",
+      "status": "info",
+      "detail": "The plugin is bound to an X6 graph through an @antv/x6 ^2.x peer, and the dossier records no API or usage detail, no legacy browser/runtime baseline and no behavioural test. Compatibility with the legacy runtime and preservation of drag-and-drop, selection and history behaviour are therefore unmeasured.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-dnd"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "b7590f584ea57c601f6097f3650946a1f641ec6fa438b9c1616bd433a91693c3",
+    "generated_at": "2026-11-03T11:35:21.611Z"
+  }
+}

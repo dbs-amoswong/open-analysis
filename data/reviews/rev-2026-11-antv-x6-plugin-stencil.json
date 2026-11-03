@@ -1,0 +1,181 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-stencil",
+  "package_id": "pkg-antv-x6-plugin-stencil",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.1.5",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 67,
+  "summary": "Hold: MIT, no install scripts and one runtime dependency keep @antv/x6-plugin-stencil 2.1.5 a low-surface plugin for the legacy X6 stencil role, but absent provenance, a conflicting release date and an unrecorded browser baseline block adoption today.",
+  "reasoning": [
+    "The requirement is the legacy graph application, which already uses this plugin alongside @antv/x6 and the other X6 plugins; this review asks whether to keep, upgrade or replace it, and whether D3 is a better fit.",
+    "The plugin is bound to the X6 v2 suite: peer_dependencies is @antv/x6 ^2.x and its single runtime dependency is @antv/x6-plugin-dnd ^2.x, so it is not a standalone renderer and cannot be swapped for D3 without also replacing the core graph engine.",
+    "License is MIT in both npm facts and the GitHub repository metadata, satisfying the requirement's permissive-license constraint at the package level; the full transitive tree was not audited.",
+    "No advisories are recorded in dossier.vulnerabilities, and has_install_script is false with an empty install_scripts array, so the advisory and install-script constraints are met for this package as measured.",
+    "npm_provenance is false and the dossier's provenance_note says no npm attestation was found; the requirement permits this only if exact versions are pinned and the gap recorded, which is not yet part of an adoption decision.",
+    "Release recency is unresolved: the package's latest_version 2.1.5 is dated 2024-01-10, while facts.last_publish is 2026-09-21 and versions_count is 8. The dossier does not say which release the later timestamp refers to, so the 12-month maintenance constraint cannot be confirmed from this data.",
+    "The repository is not archived, was pushed on 2026-10-23, has 6751 stars and 156 open issues, which shows activity but not a confirmed release of this plugin within the last 12 months.",
+    "Weekly downloads are 2931 and the npm metadata lists 64 maintainers; a broad maintainer set reduces bus-factor risk but widens publish access and complicates release consistency.",
+    "Footprint is small: 235 KB unpacked, one runtime dependency, bundled types and dual ESM/CJS formats; install_size_kb was not measured, so the installed size is unknown.",
+    "No browser or runtime baseline for the legacy application is recorded in the requirement or dossier, and engines is null, so compatibility with the existing baseline is unverified rather than passed.",
+    "No CI publish workflow evidence was collected; absent provenance does not prove there is no CI publishing, so the hard-failure cap for that condition is not applied, but the release-integrity gap remains.",
+    "Rubric scoring: security 24/30, release integrity 12/25, maintenance 12/20, fit 12/15, footprint 7/10, totalling 67, which falls in the 60-79 hold band.",
+    "No hard failure is confirmed: no unfixed high or critical advisory is recorded, no install script is present, and unmaintained status is not established because the release dates conflict; the verdict is driven by incomplete evidence, not by a confirmed blocker."
+  ],
+  "caveats": [
+    "Without npm provenance, the requirement demands pinning 2.1.5 exactly and recording the gap; an unpinned ^2.x range would not satisfy it.",
+    "The peer range is @antv/x6 ^2.x only; if the legacy suite moves to X6 v3, this plugin is outside its declared peer range and a v3-compatible release is not evidenced in the dossier.",
+    "The 2024-01-10 version date and the 2026-09-21 last_publish timestamp disagree, so confirm the intended artifact before pinning.",
+    "No compatibility test was run against the legacy browser/runtime baseline, which is not recorded anywhere in the dossier.",
+    "Only this package's advisories were collected; advisories in the @antv/x6-plugin-dnd or @antv/x6 tree were not audited for this request.",
+    "Install size was not measured, so disk and bundle impact cannot be stated beyond the 235 KB unpacked figure.",
+    "The request asks about D3 as an alternative; the dossier contains no comparison data for D3, so that question is unanswered here.",
+    "Sixty-four npm maintainers share publish rights, so release provenance and review discipline depend on repository policy that was not measured."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publishing",
+      "status": "info",
+      "detail": "No publish workflow or CI release evidence was collected for this package, and the dossier warnings array is empty. CI publishing is therefore unmeasured, so the no-CI-publishing hard-failure cap is not applied either way.",
+      "sources": [
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        },
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-stencil"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false and provenance_note states that no npm attestation was found. No attested version is evidenced, so the requirement's provenance-or-pin constraint is only satisfiable by pinning 2.1.5 exactly and recording the gap.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-stencil"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-stencil"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "dossier.vulnerabilities is empty; no unfixed high or critical advisory is recorded for 2.1.5. Only this package's advisory data was collected, not the full dependency tree.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-stencil"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-stencil"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance and release recency",
+      "status": "warn",
+      "detail": "Latest version 2.1.5 is dated 2024-01-10, but facts.last_publish is 2026-09-21 with versions_count 8, so the dossier conflicts on recency and the 12-month release constraint is unconfirmed. The repository is not archived, was pushed 2026-10-23, and has 156 open issues and 6751 stars; weekly downloads are 2931.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-stencil"
+        },
+        {
+          "label": "npm downloads API",
+          "url": "https://api.npmjs.org/downloads/point/last-week/@antv%2Fx6-plugin-stencil"
+        },
+        {
+          "label": "GitHub API repo metadata",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "One runtime dependency (@antv/x6-plugin-dnd ^2.x) plus a peer dependency on @antv/x6 ^2.x; 235 KB unpacked. install_size_kb is null, so the installed size was not measured.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-stencil"
+        },
+        {
+          "label": "published tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-stencil/-/x6-plugin-stencil-2.1.5.tgz"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types and formats",
+      "status": "pass",
+      "detail": "Types are bundled and the package ships dual ESM/CJS formats, so no separate @types package is required.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-stencil"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Fit to the legacy graph requirement",
+      "status": "warn",
+      "detail": "The plugin is suite-bound: peer dependency @antv/x6 ^2.x and runtime dependency @antv/x6-plugin-dnd ^2.x. It preserves the existing legacy stencil role rather than replacing the X6 engine, and it is not interchangeable with D3. The legacy browser/runtime baseline is unrecorded and engines is null, so compatibility and behaviour preservation were not tested.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-stencil"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-stencil"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT is reported in npm facts and in the GitHub repository metadata, which meets the requirement's permissive-license constraint for this package. The transitive tree's licenses were not audited.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-stencil"
+        },
+        {
+          "label": "GitHub API repo metadata",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "75e7d9c175d341c57c11727d52c335d84a826c89e6f01497592df0a3f07b9736",
+    "generated_at": "2026-11-03T11:35:22.050Z"
+  }
+}

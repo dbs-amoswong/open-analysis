@@ -1,0 +1,168 @@
+{
+  "id": "rev-2026-11-antv-x6-geometry",
+  "package_id": "pkg-antv-x6-geometry",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.0.5",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 64,
+  "summary": "MIT geometry helper with zero runtime dependencies and no known advisories, but the reviewed 2.0.5 has no npm provenance, no measured install size, no recorded browser baseline, and a dossier that contradicts itself on release recency (2.0.5 dated 2023-04-12 while last_publish is 2026-09-21), so pin it as an existing internal dependency of the X6 suite rather than treat it as a package to adopt on its own.",
+  "reasoning": [
+    "Licence and tree depth satisfy the permissive-licence constraint trivially: MIT, and runtime_deps is 0 with an empty dependencies map, so there is no sub-tree to audit below this package.",
+    "Security is clean as measured: the dossier records no vulnerabilities for 2.0.5, satisfying 'no unfixed high or critical advisories' on the evidence collected, and a pure geometry primitive has no recorded install script, no dependencies and no network surface.",
+    "Release recency cannot be confirmed for the version under review. facts.version 2.0.5 is dated 2023-04-12, which is about three and a half years before today and well outside the requirement's 12-month maintenance rule, yet facts.last_publish is 2026-09-21 and versions_count is 25; the dossier never says which version that later publish belongs to, so I will not assume it is 2.0.5.",
+    "Release integrity is unverified rather than proven bad: npm_provenance is false with the note that no attestation was found, and the dossier contains no publish-pipeline facts at all (no workflow path, builder identity, OIDC or pinned-action evidence). The requirement's fallback for this case is exact-version pinning plus a recorded gap, which is why 'no CI publishing' is not asserted here.",
+    "Fit for the legacy task is unproven. The package is a geometry primitive layer behind the X6 engine, not a renderer, and the dossier records no API surface, engines is null and the legacy browser/runtime baseline is not recorded anywhere, which the requirement makes a precondition for any compatibility verdict.",
+    "Footprint is mixed: 0 runtime dependencies, dual CJS/ESM output and bundled types are cheap to consume, but unpacked_size_kb is 1575 with install_size_kb unmeasured, which is large for a geometry helper and suggests duplicated CJS/ESM/type copies in the tarball.",
+    "The D3 alternative named in the request is not a like-for-like substitute at this layer: D3 supplies scales, shapes and layouts to application code, whereas this package exists to serve graph-engine primitives, so the keep-or-replace question belongs to the sibling @antv/x6 core in this batch. I assign no verdict to that sibling here.",
+    "Governance is broad but shallow: the dossier lists dozens of npm maintainer accounts on the antv scope, and the monorepo shows 6751 stars with 156 open issues, pushed 2026-10-23. That lowers bus-factor risk but widens the publishing surface on a low-download helper, which is a familiar supply-chain vector.",
+    "Scored against the rubric the gaps are in release integrity and verified fit, not in security or licence, which lands the package in the hold band rather than avoid: holding preserves existing legacy behaviour while the baseline and the true release date of the reviewed version are established."
+  ],
+  "caveats": [
+    "The version-date contradiction is unresolved. If 2.0.5 really is the newest release, the reviewed version is over three years old and the requirement's 'release within 12 months' constraint fails, which should move this review to avoid rather than hold.",
+    "No npm provenance and no publish-pipeline evidence means `npm install` cannot verify the tarball. Pin exactly 2.0.5 with a lockfile and integrity hash, and record the provenance gap as the requirement demands.",
+    "install_size_kb was not measured, so the real install cost is unknown; unpacked_size_kb of 1575 may overstate or understate what a legacy bundler ends up shipping.",
+    "engines is null and the legacy browser/runtime baseline is unrecorded. Dual CJS/ESM output does not prove the emitted syntax runs on an old runtime; transpilation and polyfill needs must be checked before any upgrade.",
+    "Geometry semantics feed X6's anchor, intersection and hit-testing behaviour. A future 2.x bump could change edge routing or connection points even without a breaking API change, so treat upgrades as behaviour changes and re-test editing, selection, transform and export.",
+    "Clearance of the full dependency tree only covers this package's own tree; any advisory in the sibling @antv/x6 chain will still surface here at runtime.",
+    "Dozens of maintainers publish to one scope, so an account compromise on any one of them affects this low-download helper as well as the rest of the suite."
+  ],
+  "evidence": [
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false; the dossier notes that no npm attestation was found for this package when facts were collected, so the published tarball cannot be verified against a source commit and builder.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-geometry"
+        },
+        {
+          "label": "published tarball 2.0.5",
+          "url": "https://registry.npmjs.org/@antv/x6-geometry/-/x6-geometry-2.0.5.tgz"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured. The dossier carries no workflow path, CI builder, OIDC or pinned-action facts, so whether releases are produced by CI is unknown; only the absence of a provenance attestation is recorded.",
+      "sources": [
+        {
+          "label": "package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-geometry"
+        },
+        {
+          "label": "source repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier records an empty vulnerability list for 2.0.5, so no unfixed high or critical advisory is known against the reviewed version.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-geometry"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "Conflicting dates in the same dossier: reviewed version 2.0.5 is dated 2023-04-12, while last_publish is 2026-09-21 and 25 versions exist. The repository was pushed 2026-10-23 with 156 open issues and 6751 stars, so the monorepo is active but the release recency of the reviewed version is unresolved.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-geometry"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        },
+        {
+          "label": "source repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies and an empty dependencies map, so the dependency tree is this package alone; has_install_script is false with an empty install_scripts list. install_size_kb was not measured and unpacked_size_kb is 1575.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-geometry"
+        },
+        {
+          "label": "published tarball 2.0.5",
+          "url": "https://registry.npmjs.org/@antv/x6-geometry/-/x6-geometry-2.0.5.tgz"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "Licence",
+      "status": "pass",
+      "detail": "MIT on the package and MIT on the repository, which is permissive. With zero runtime dependencies the full recorded dependency tree is permissive.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-geometry"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "types is bundled and formats is dual, so declarations ship with the package and both CJS and ESM entry points are provided.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-geometry"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Legacy runtime fit",
+      "status": "info",
+      "detail": "Not measured. engines is null and the legacy browser/runtime baseline required by the requirement is not recorded, so compatibility cannot be judged. The package is a geometry primitive layer consumed by the X6 engine rather than a renderer, so replacing it with D3 is not a like-for-like swap; the keep-or-replace question applies to the sibling @antv/x6 core.",
+      "sources": [
+        {
+          "label": "package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-geometry"
+        },
+        {
+          "label": "source repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "d5e49064eb74f10ee8d87f59c6cc25b78c81476f65cfadfc8414617eca887fb2",
+    "generated_at": "2026-11-03T11:35:21.504Z"
+  }
+}

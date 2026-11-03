@@ -1,0 +1,152 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-scroller",
+  "package_id": "pkg-antv-x6-plugin-scroller",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.0.10",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 63,
+  "summary": "Hold: 2.0.10 is MIT, zero-dependency and free of known advisories, but it has had no release since 2023-07-11, carries no npm provenance, and the legacy browser baseline and actual plugin usage are unrecorded, so the existing pinned version can stay in place while a suite-level keep/upgrade/replace decision is made, but it should not be adopted for new work.",
+  "reasoning": [
+    "The 12-month release-recency constraint is not met: 2.0.10 is the latest of 27 published versions and was published 2023-07-11, while the registry record was last modified 2026-09-21 and the repository was pushed 2026-10-23. Repository activity is not a release of this package, so this is treated as a hard constraint failure that caps the verdict at hold regardless of the score.",
+    "Zero runtime dependencies and an empty dependencies object; the only coupling is the peer dependency @antv/x6 ^2.x, which ties this plugin to the sibling X6 core package and means it cannot be judged or replaced independently of that renderer.",
+    "Security posture is otherwise clean: the dossier records no advisories, the license is MIT, there are no install scripts, and the package is not deprecated.",
+    "No npm attestation exists for the published tarball and the dossier contains no evidence of a CI publish workflow. The requirement allows this gap only if exact versions are pinned and the gap is recorded, which is the mitigation carried in the caveats.",
+    "Bundled TypeScript declarations and dual CJS/ESM output reduce integration risk in an existing application and preserve the existing build baseline options.",
+    "Fit cannot be confirmed from measurements: the dossier does not record the legacy application's browser/runtime baseline, nor whether the legacy code actually uses this plugin, so the requirement's compatibility and behaviour-preservation constraints are unverified rather than satisfied.",
+    "Footprint is small: no runtime dependencies, 288 KB unpacked, MIT; install size was not measured, so the full on-disk cost is unknown.",
+    "3,760 weekly downloads and 156 open upstream issues indicate a small but non-zero user base; upstream issue triage is not evidence that this specific plugin is maintained.",
+    "The named alternative, D3, is not assessed in this dossier, and nothing in the dossier shows that a lower-level renderer could reproduce this plugin's existing integrated behaviour."
+  ],
+  "caveats": [
+    "No npm provenance: pin 2.0.10 exactly, install from the registry tarball, and record the provenance gap in the suite decision, as the requirement allows.",
+    "No release since 2023-07-11. The plugin line has been effectively frozen for over three years even though the monorepo is active, so fixes for this package may never ship.",
+    "If the legacy app moves to a newer X6 major, this 2.0.10 pin is only declared compatible with @antv/x6 ^2.x and may not upgrade with the core.",
+    "The legacy browser/runtime baseline was not recorded, so compatibility with the existing application cannot be judged from this dossier.",
+    "The dossier does not record whether the legacy app still uses the scroller plugin, so the cost of keeping it is unknown and the actual usage must be confirmed before a migration decision.",
+    "Install size was not measured; only the 288 KB unpacked figure is known.",
+    "64 npm maintainer accounts are an org-level publish permission, not a guarantee that any one person maintains this plugin; 156 upstream issues remain open."
+  ],
+  "evidence": [
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured. The dossier records no publish workflow, OIDC configuration or release automation for this package; only the registry tarball URL is present.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-scroller"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "SLSA provenance",
+      "status": "warn",
+      "detail": "npm_provenance is false and provenance_note states no npm attestation was found when facts were collected. The requirement permits this only with exact version pinning and a recorded gap.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-scroller"
+        },
+        {
+          "label": "registry tarball 2.0.10",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-scroller/-/x6-plugin-scroller-2.0.10.tgz"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier's vulnerability list is empty for 2.0.10; no high or critical advisory is recorded.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-scroller"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "fail",
+      "detail": "2.0.10 published 2023-07-11, no newer version among 27 published. Registry record last modified 2026-09-21 and repository pushed 2026-10-23, but no release within 12 months, so the requirement's recency constraint fails. 156 open issues upstream.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-scroller"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "0 runtime dependencies with an empty dependencies object; peer dependency @antv/x6 ^2.x only. 288 KB unpacked; install size not measured.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-scroller"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled declarations; ships dual CJS/ESM formats.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-scroller"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Runtime behaviour and fit",
+      "status": "info",
+      "detail": "Not measured. The dossier records no API, README or usage data, and does not record the legacy browser/runtime baseline or whether the legacy app still uses this plugin, so behaviour preservation cannot be verified.",
+      "sources": [
+        {
+          "label": "project documentation",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT, matching the repository license; no install scripts in the package.",
+      "sources": [
+        {
+          "label": "npm registry",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-scroller"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "cdee41b3efc219b6896f7f3a5cb48a3ba1dc71bce24cd3af467fb99623fb9da5",
+    "generated_at": "2026-11-03T11:35:21.879Z"
+  }
+}

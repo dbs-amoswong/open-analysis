@@ -1,0 +1,41 @@
+{
+  "id": "pkg-antv-x6",
+  "name": "@antv/x6",
+  "ecosystem": "npm",
+  "latest_version": "3.1.8",
+  "published_at": "2026-08-11",
+  "repo": "https://github.com/antvis/x6",
+  "registry": "https://www.npmjs.com/package/@antv/x6",
+  "license": "MIT",
+  "weekly_downloads": 96653,
+  "runtime_deps": 4,
+  "install_size_kb": null,
+  "unpacked_size_kb": 8363,
+  "maintainers": [
+    "lvisei",
+    "iaaron",
+    "jinke.li",
+    "lzxue",
+    "army8735",
+    "dengfuping",
+    "afc163",
+    "chenluli",
+    "kn9117",
+    "bbsqq",
+    "banxuan",
+    "yanxiong",
+    "atool",
+    "pearl_wang",
+    "alex_zjt",
+    "duxinyue023",
+    "wang1212",
+    "gaofuhong"
+  ],
+  "types": "bundled",
+  "formats": [
+    "dual"
+  ],
+  "notes": "Facts collected from the npm registry on 2026-11-03. Install size was not measured.",
+  "npm_provenance": false,
+  "provenance_note": "No npm attestation was found when these facts were collected."
+}

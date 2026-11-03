@@ -1,0 +1,168 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-keyboard",
+  "package_id": "pkg-antv-x6-plugin-keyboard",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.2.3",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 64,
+  "summary": "MIT, no known advisories and only one runtime dependency, but the recorded release dates for 2.2.3 conflict (2024-01-24 versus a 2026-09-21 last_publish), there is no npm provenance, and keyboard-shortcut parity against the legacy baseline was never measured, so keep the current version pinned rather than re-adopting or upgrading on this evidence.",
+  "reasoning": [
+    "This is the X6 keyboard plugin, not a renderer: the dossier records a peer dependency on @antv/x6 ^2.x, so its unique value is keyboard binding layered on the X6 graph editor the legacy application already uses, and it is not a substitute for D3 or for the rest of the suite.",
+    "No vulnerability fact contradicts use: the dossier's vulnerability list is empty and the package is MIT-licensed, satisfying the no-unfixed-high-or-critical and permissive-license constraints at this package level.",
+    "Footprint is minimal: one runtime dependency (mousetrap ^1.6.5), 61 KB unpacked, has_install_script false with an empty install_scripts list, so the no-install-scripts constraint holds for this package itself.",
+    "Release integrity is unproven: npm_provenance is false with no attestation found, and the dossier measures no publish pipeline, so CI publishing cannot be confirmed; the requirement only tolerates the provenance gap if exact versions are pinned, and no pinning is evidenced.",
+    "Maintenance cannot be confirmed: package metadata gives 2.2.3 a publish date of 2024-01-24, while the same dossier records last_publish 2026-09-21, and 18 total versions; these facts disagree, so a release within 12 months is not established even though the repo shows activity (pushed 2026-10-23) and 10,655 weekly downloads.",
+    "Fit for this requirement is unmeasured: no evidence covers the legacy browser/runtime baseline, the X6 v2 versus v3 target, or whether existing keyboard behaviour would be preserved, and the request's D3 comparison is out of scope for a single-plugin dossier.",
+    "No confirmed hard failure was measured; the hold reflects incomplete and contradictory release evidence plus the missing behaviour baseline, not a proven advisory, install-script or abandonment finding."
+  ],
+  "caveats": [
+    "Version 2.2.3 peers @antv/x6 ^2.x, so an X6 v3 upgrade needs a different plugin release line; that mapping was not measured here.",
+    "The single dependency mousetrap ^1.6.5 was not itself assessed, so the permissive-license-tree and no-install-scripts-in-tree constraints are verified only for this package, not transitively.",
+    "If 2024-01-24 is the true last release rather than the 2026-09-21 last_publish field, the 12-month maintenance constraint fails and the verdict should move to avoid.",
+    "With no npm attestation, an exact version plus lockfile pinning and a recorded gap are required before any install, and install size was not measured (install_size_kb is null).",
+    "Keyboard behaviour was not tested against the legacy application, so shortcut conflicts with the host page or existing handlers remain unknown."
+  ],
+  "evidence": [
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier records an empty vulnerability list for version 2.2.3; no advisory, severity or ID is reported.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-keyboard"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-keyboard"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publishing",
+      "status": "info",
+      "detail": "Not measured. The dossier contains no publish-pipeline fact, so neither CI publishing nor a manual release process can be confirmed; only npm_provenance: false is recorded.",
+      "sources": [
+        {
+          "label": "npm registry tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-keyboard/-/x6-plugin-keyboard-2.2.3.tgz"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "warn",
+      "detail": "No npm attestation was found (npm_provenance is false, provenance_note says none existed at collection). The requirement accepts this only with exact-version pinning and a recorded gap.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-keyboard"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-keyboard"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Release cadence and activity",
+      "status": "warn",
+      "detail": "Version 2.2.3 is recorded as published 2024-01-24 but last_publish is 2026-09-21, and the dossier does not explain the conflict. The repository was pushed 2026-10-23 with 156 open issues, 6,751 stars and 10,655 weekly downloads, so activity exists but a release within 12 months is unproven.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-keyboard"
+        },
+        {
+          "label": "weekly downloads",
+          "url": "https://api.npmjs.org/downloads/point/last-week/@antv%2Fx6-plugin-keyboard"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency and install footprint",
+      "status": "pass",
+      "detail": "One runtime dependency (mousetrap ^1.6.5) alongside the @antv/x6 ^2.x peer; 61 KB unpacked; install size was not measured (install_size_kb is null) and the transitive tree was not enumerated.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-keyboard"
+        },
+        {
+          "label": "npm registry tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-keyboard/-/x6-plugin-keyboard-2.2.3.tgz"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT for the package and MIT for the antvis/x6 repository; the package is not deprecated and declares no install scripts.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-keyboard"
+        },
+        {
+          "label": "GitHub repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Types are bundled and the package ships dual formats.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-keyboard"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Behaviour and compatibility",
+      "status": "info",
+      "detail": "Not measured. The dossier has no keyboard feature inventory, no browser/runtime baseline, and no record of shortcut behaviour; it only shows the @antv/x6 ^2.x peer constraint and a link to the X6 keyboard plugin tutorial.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-keyboard"
+        },
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-keyboard"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "2a03116a806884ce3262d01dfff12a023aa2c7c4f366ae5028f9ebdbe3bd7cf4",
+    "generated_at": "2026-11-03T11:35:21.771Z"
+  }
+}

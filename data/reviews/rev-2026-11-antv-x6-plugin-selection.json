@@ -1,0 +1,162 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-selection",
+  "package_id": "pkg-antv-x6-plugin-selection",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.2.2",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 70,
+  "summary": "An MIT, zero-runtime-dependency X6 v2 selection plugin with no recorded advisories, but no npm provenance and a latest stable release from January 2024 mean adoption should be pinned and the active release line confirmed before upgrading.",
+  "reasoning": [
+    "The package is MIT-licensed with a public, non-archived repository at github.com/antvis/x6 and no install scripts; it declares zero runtime dependencies and only a peer dependency on @antv/x6 ^2.x.",
+    "The dossier records an empty vulnerabilities list for 2.2.2, so the requirement's no-unfixed-high-or-critical-advisory constraint is met on the evidence available.",
+    "Release integrity is the main weakness: npm_provenance is false and no attestation was found, so the requirement's fallback to pin exact versions and record the gap applies.",
+    "Maintenance is ambiguous rather than failed: version 2.2.2 dates from 2024-01-24, but the registry records a later publish on 2026-09-21 and the repository was pushed 2026-10-23; the dossier does not identify which version that 2026 publish represents.",
+    "Fit depends on remaining on X6 v2: this is a companion selection plugin, not a renderer, and its peer range is ^2.x; the dossier does not record the legacy browser/runtime baseline or actual plugin usage, so it cannot confirm that existing selection behaviour will be preserved through an upgrade.",
+    "The request names D3 as an alternative, but the dossier contains no D3 facts and the requirement asks for role-by-role comparison, so no replacement verdict against D3 is supported by this dossier.",
+    "Footprint is small on the evidence available: zero runtime dependencies and 304 KB unpacked, although install size was not measured."
+  ],
+  "caveats": [
+    "No npm provenance: pin 2.2.2 exactly and record the gap, as the requirement requires when provenance is unavailable.",
+    "The latest version is from 2024-01-24 while a later registry publish is recorded on 2026-09-21 without a version name; confirm the supported release line before treating the package as actively maintained.",
+    "The peer dependency is @antv/x6 ^2.x only; compatibility with X6 v3 or other X6 lines is not shown.",
+    "Install size was not measured; only the 304 KB unpacked size is available.",
+    "The legacy browser/runtime baseline and actual selection usage are not recorded, so compatibility and behaviour preservation are unproven.",
+    "The shared X6 repository has 156 open issues, which may affect response time for plugin defects.",
+    "This plugin provides no migration path by itself; replacing it would mean replacing the X6 graph implementation."
+  ],
+  "evidence": [
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false and the dossier records that no npm attestation was found when the facts were collected. The requirement permits this only if exact versions are pinned and the gap is recorded.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-selection"
+        },
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-selection"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "The dossier does not measure the publish pipeline; it records only the absence of an npm attestation. CI publishing therefore cannot be confirmed or ruled out from these facts.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-selection"
+        },
+        {
+          "label": "X6 repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier's vulnerabilities array is empty; no advisories are recorded for 2.2.2.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-selection"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "Latest version 2.2.2 was published 2024-01-24, outside the 12-month window, while the registry records a later publish on 2026-09-21 whose version is not identified. The repository is not archived, was pushed 2026-10-23, and has 6,751 stars and 156 open issues.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-selection"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "Zero runtime dependencies; one peer dependency, @antv/x6 ^2.x; 304 KB unpacked. Install size was not measured.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-selection"
+        },
+        {
+          "label": "published tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-selection/-/x6-plugin-selection-2.2.2.tgz"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled TypeScript declarations.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-selection"
+        }
+      ]
+    },
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT in both the registry metadata and the GitHub repository, which is permissive under the requirement.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-selection"
+        },
+        {
+          "label": "X6 repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Selection behaviour and fit",
+      "status": "info",
+      "detail": "The package is an X6 selection plugin whose peer dependency targets @antv/x6 ^2.x. The dossier does not record the legacy application's actual selection usage, its browser/runtime baseline, or behaviour on X6 v3, so preservation of existing selection behaviour is not demonstrated.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-selection"
+        },
+        {
+          "label": "X6 repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "1bb584bd0c8d0b3d21e5ba0073692e2e740bd59edb471c2ad644996ef7edf196",
+    "generated_at": "2026-11-03T11:35:21.934Z"
+  }
+}

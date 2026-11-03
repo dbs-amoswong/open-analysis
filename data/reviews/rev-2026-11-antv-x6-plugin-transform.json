@@ -1,0 +1,161 @@
+{
+  "id": "rev-2026-11-antv-x6-plugin-transform",
+  "package_id": "pkg-antv-x6-plugin-transform",
+  "requirement_id": "req-legacy-graph",
+  "reviewed_at": "2026-11-03",
+  "reviewed_version": "2.1.8",
+  "reviewer": "opencode",
+  "recommendation": "hold",
+  "risk": "medium",
+  "score": 62,
+  "summary": "Hold: @antv/x6-plugin-transform is MIT, has no runtime dependencies, no install script and no recorded advisories, but 2.1.8 carries no npm provenance, the reviewed release is over three years old while the registry records a later publish, and the legacy browser baseline and transform usage needed to judge behaviour are not recorded.",
+  "reasoning": [
+    "MIT on both the npm package and the antvis/X6 repository, with zero runtime dependencies, no install script, and a single peer declaration of @antv/x6 ^2.x; the dependency tree risk here is the core package, not this plugin.",
+    "The dossier's vulnerabilities list is empty and no advisory identifier is recorded for 2.1.8, so there is no unfixed high or critical advisory in the evidence.",
+    "npm_provenance is false: no attestation was found when the facts were collected, which triggers the requirement's fallback clause (pin exact versions and record the gap) rather than an outright rejection.",
+    "Maintenance evidence is internally inconsistent and therefore unresolved: the reviewed version 2.1.8 is dated 2023-10-02, but the registry last_publish is 2026-09-21 and the repository was pushed on 2026-10-23. The project looks alive, yet release recency of the artifact you would actually pin is not established by the dossier.",
+    "At 6,751 stars and 156 open issues the repository is visibly used, but the issue backlog and the 11-version history give no signal about when this plugin last shipped.",
+    "Fit is narrow and suite-bound: this is a transform interaction plugin for @antv/x6, not a renderer, so it delivers the transform behaviour the requirement must preserve only while the application stays on X6 v2; it is not a substitute for the core library and not comparable to D3.",
+    "The dossier contains no measured facts about D3 or about the legacy browser/runtime baseline, so neither the named alternative nor compatibility can be judged from this evidence.",
+    "Footprint is small: 184 KB unpacked with no dependencies and bundled declarations; install size was explicitly not measured and is treated as unknown, not as zero.",
+    "Score 62 reflects strong licence, advisory and footprint evidence offset by missing release integrity (no provenance, publish pipeline unmeasured) and unresolved maintenance and baseline questions; 62 falls in the hold band."
+  ],
+  "caveats": [
+    "No npm provenance for 2.1.8; the requirement only tolerates this if the exact version is pinned and the gap is recorded in the deployment notes.",
+    "Version chronology is contradictory in the dossier (2.1.8 published 2023-10-02 versus last_publish 2026-09-21). Confirm which version the legacy application resolves before pinning, and re-collect facts if a newer release exists.",
+    "Peer range is ^2.x only, so this plugin constrains the @antv/x6 core version and must be upgraded in lockstep with it.",
+    "The legacy browser/runtime baseline and the actual use of the transform plugin are not recorded, so behaviour preservation is unverified and could break on upgrade.",
+    "Publish pipeline was not measured; there is no evidence of CI/OIDC publishing for this package.",
+    "Install size was not measured, and the 184 KB figure is unpacked package size, not shipped bundle cost.",
+    "No facts about D3 are in the dossier, so the requester's alternative cannot be assessed from this review.",
+    "Repository has 156 open issues; issue triage speed is unknown."
+  ],
+  "evidence": [
+    {
+      "key": "license",
+      "label": "License",
+      "status": "pass",
+      "detail": "MIT for the npm package and for the antvis/X6 repository, satisfying the permissive-license constraint for this package.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-transform"
+        },
+        {
+          "label": "antvis/x6 repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "cve",
+      "label": "Known advisories",
+      "status": "pass",
+      "detail": "The dossier records no vulnerabilities for the package and no advisory identifiers; no unfixed high or critical advisory appears in the collected evidence.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-transform"
+        }
+      ]
+    },
+    {
+      "key": "provenance",
+      "label": "npm provenance",
+      "status": "fail",
+      "detail": "npm_provenance is false; the dossier states no npm attestation was found when facts were collected. The requirement permits this only with exact version pinning and a recorded gap.",
+      "sources": [
+        {
+          "label": "npm package page",
+          "url": "https://www.npmjs.com/package/@antv/x6-plugin-transform"
+        }
+      ]
+    },
+    {
+      "key": "publish_pipeline",
+      "label": "CI publish pipeline",
+      "status": "info",
+      "detail": "Not measured: the dossier contains no workflow or publish-path facts for this package, so CI publishing could not be confirmed or ruled out.",
+      "sources": [
+        {
+          "label": "antvis/x6 repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    },
+    {
+      "key": "maintenance",
+      "label": "Maintenance",
+      "status": "warn",
+      "detail": "Reviewed version 2.1.8 is dated 2023-10-02, while the registry last_publish is 2026-09-21 and the repository was pushed 2026-10-23; 11 versions, 6,751 stars, 156 open issues, not archived. Release recency of the reviewed artifact is unresolved.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-transform"
+        },
+        {
+          "label": "GitHub repository API",
+          "url": "https://api.github.com/repos/antvis/x6"
+        },
+        {
+          "label": "weekly downloads",
+          "url": "https://api.npmjs.org/downloads/point/last-week/@antv%2Fx6-plugin-transform"
+        }
+      ]
+    },
+    {
+      "key": "dependencies",
+      "label": "Dependency footprint",
+      "status": "pass",
+      "detail": "Zero runtime dependencies, empty install_scripts and has_install_script false; one peer dependency, @antv/x6 ^2.x. 184 KB unpacked; install size was not measured. 6,577 weekly downloads.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-transform"
+        },
+        {
+          "label": "npm tarball",
+          "url": "https://registry.npmjs.org/@antv/x6-plugin-transform/-/x6-plugin-transform-2.1.8.tgz"
+        }
+      ]
+    },
+    {
+      "key": "types",
+      "label": "TypeScript types",
+      "status": "pass",
+      "detail": "Bundled type declarations with dual CJS/ESM formats.",
+      "sources": [
+        {
+          "label": "npm registry metadata",
+          "url": "https://registry.npmjs.org/@antv%2Fx6-plugin-transform"
+        }
+      ]
+    },
+    {
+      "key": "behaviour",
+      "label": "Fit for the legacy graph requirement",
+      "status": "warn",
+      "detail": "Transform is a plugin of the @antv/x6 editor (peer @antv/x6 ^2.x), so it supports the transform behaviour the requirement must preserve only while the app stays on X6 v2. The legacy browser/runtime baseline is not recorded in the dossier, so compatibility and behaviour preservation cannot be verified.",
+      "sources": [
+        {
+          "label": "plugin documentation",
+          "url": "https://x6.antv.antgroup.com/tutorial/plugins/transform"
+        },
+        {
+          "label": "antvis/x6 repository",
+          "url": "https://github.com/antvis/x6"
+        }
+      ]
+    }
+  ],
+  "generated_by": {
+    "kind": "ai",
+    "tool": "opencode",
+    "agent": "package-review",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "run_url": "https://github.com/dbs-amoswong/open-analysis/actions/runs/41626306865",
+    "request_issue": "https://github.com/dbs-amoswong/open-analysis/issues/9",
+    "dossier_sha256": "9756b0ee380d2e87b9770e6bc9fefd688f6de381d8b4b1264e50785fc8203e4e",
+    "generated_at": "2026-11-03T11:35:22.110Z"
+  }
+}
