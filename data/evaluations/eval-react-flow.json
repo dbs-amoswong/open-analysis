@@ -9,18 +9,19 @@
   "license": "MIT",
   "maintenance": "Very active",
   "published_at": "2026-11-02",
-  "summary": "A strong React node/edge editor. The spike rendered and fit the graph, but it requires React and does not provide X6-style general diagram editing, layouts, stencils, snaplines or a non-React integration.",
+  "summary": "In a React application this is the strongest node/flow editor. The spike rendered and fit the graph, but React Flow is still a node/edge editor, not a general draw.io-style diagram editor: it lacks built-in shapes/stencils, general layouts, undo/redo, clipboard and export.",
   "gains": [
     "MIT",
     "Very active",
-    "Excellent React developer experience",
-    "Built-in minimap, controls and background"
+    "React-native developer experience",
+    "Built-in minimap, controls and background",
+    "Used by LangFlow, Flowise and other React workflow tools"
   ],
   "losses": [
-    "React-only",
     "Node/edge editor, not a general diagram editor",
-    "No built-in general layouts or stencil",
-    "Framework migration required"
+    "No built-in general layouts or stencil library",
+    "Undo/redo, clipboard and export need custom work",
+    "Requires React"
   ],
   "features": {
     "general_editing": "custom",
@@ -61,7 +62,6 @@
     }
   ],
   "blockers": [
-    "Requires React.",
     "Node/flow editor only, not a general diagram editor."
   ]
 }

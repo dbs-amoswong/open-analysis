@@ -13,6 +13,7 @@
   "gains": [
     "Maintained line",
     "One package includes common, geometry and official plugins",
+    "Official React shape package 3.x",
     "New animate API and virtual scroller",
     "Browser bundle works after tslib workaround"
   ],
@@ -21,7 +22,7 @@
     "Native Node CJS fails without tslib",
     "Node >=20 requirement",
     "Panning and animation behavior changes",
-    "Shape packages must move to 3.x"
+    "React provider API changes"
   ],
   "features": {
     "general_editing": "native",

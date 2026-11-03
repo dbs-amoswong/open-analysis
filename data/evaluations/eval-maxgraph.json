@@ -21,6 +21,7 @@
   "losses": [
     "Still 0.x",
     "ES2020 baseline",
+    "No official React-first wrapper; integrate through a ref/effect boundary",
     "Smaller ecosystem than X6 or GoJS",
     "X6 custom shapes and React shape packages do not carry over",
     "Some X6 plugin-level features need a parity spike"
