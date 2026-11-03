@@ -1381,13 +1381,20 @@ export function renderEvaluationsIndex(model) {
   const evaluations = model.evaluations
     .slice()
     .sort((a, b) => b.fit_score - a.fit_score || a.name.localeCompare(b.name));
+  const groups = model.requirements
+    .map((req) => ({
+      req,
+      evaluations: evaluations.filter((evaluation) => evaluation.requirement_id === req.id),
+    }))
+    .filter((group) => group.evaluations.length > 0)
+    .sort((a, b) => a.req.title.localeCompare(b.req.title));
   const spiked = evaluations.filter((e) => e.spike?.status === "spike-pass").length;
   const body = `
 ${pageHeader({
   eyebrow: "Evaluations",
   title: "Alternatives, spikes and feature fit",
-  lede: "Each record combines a short browser spike, registry facts, licence and feature fit for the same requirement. The spike is deliberately small: it proves the integration path and captures a screenshot; it is not a full product benchmark.",
-  meta: `<span class="chip">${evaluations.length} evaluations</span><span class="chip">${spiked} browser spikes</span>`,
+  lede: "Evaluations are grouped by requirement. Each record combines registry facts, licence, feature fit and a small browser spike. Adding a record with a different requirement_id creates a new group automatically; the spike is deliberately small and is not a full product benchmark.",
+  meta: `<span class="chip">${evaluations.length} evaluations</span><span class="chip">${groups.length} requirement group${groups.length === 1 ? "" : "s"}</span><span class="chip">${spiked} browser spikes</span>`,
 })}
 
 <section class="panel">
@@ -1399,10 +1406,14 @@ ${pageHeader({
   </div>
 </section>
 
-<section class="panel">
-  <div class="panel-head"><h2>Comparison</h2><span class="muted small">High score means better fit for the legacy editing requirement</span></div>
-  <div class="eval-grid">${evaluations.map((evaluation) => evalCard(evaluation, "../")).join("")}</div>
-</section>
+${groups.map(({ req, evaluations: items }) => `<section class="panel">
+  <div class="panel-head">
+    <div><span class="eval-requirement-kicker">${esc(req.id)}</span><h2>${esc(req.title)}</h2></div>
+    <a class="panel-link" href="../requirements/${esc(req.slug)}.html">Requirement</a>
+  </div>
+  <p class="prose muted">${esc(req.summary)}</p>
+  <div class="eval-grid">${items.map((evaluation) => evalCard(evaluation, "../")).join("")}</div>
+</section>`).join("") || '<section class="panel"><div class="empty">No evaluations recorded.</div></section>'}
 `;
 
   return layout({
