@@ -4,6 +4,12 @@ A static, git-backed database of package reviews and whitelist decisions. You re
 
 No server, no database engine, no runtime dependencies. Node.js 24+ only.
 
+**Scope.** The board selects and reviews packages. It does not have access to
+consuming applications, so application lockfiles, browser baselines, migration
+regressions and product-specific thresholds are consumer obligations, not board
+evidence. A decision can approve a package or library target without certifying
+a particular application migration.
+
 ```bash
 npm run build     # validate data → generate dist/
 npm run dev       # rebuild on change + serve at http://localhost:4173
@@ -47,11 +53,11 @@ Five packages. `@assistant-ui/store` is included because it is a required peer o
 | | |
 |---|---|
 | **Adopt** | `axios` 1.21.0 (primary), `follow-redirects` 1.16.2 (required Node transport) |
-| **On hold** | `undici`, `fast-uri`, `js-cookie`, `protobufjs`, `cookie` — roles or parent chains not verified |
+| **On hold** | `undici`, `fast-uri`, `js-cookie`, `protobufjs`, `cookie` — not HTTP clients, or duplicate role |
 | **Rejected** | None |
 | **Out of scope** | Replacing axios with native fetch |
 
-Seven packages. The earlier hold on axios was based on an unverified dependency tree and publish pipeline. Both were re-checked: axios publishes from GitHub Actions with OIDC trusted publishing and SLSA provenance, its 27-package runtime tree is entirely MIT with no install scripts, OSV is clean, and a local ESM/CJS interceptor and mock-adapter probe passed. `follow-redirects` is the only verified axios edge; it has no npm provenance, so pin 1.16.2 and record the gap. Firebase 13.2.0 pulls `protobufjs` 7.6.6 through `@grpc/proto-loader`, not the reviewed 8.8.1, and the Firebase tree shows no edge for the other four.
+Seven packages. The earlier hold on axios was based on an unverified dependency tree and publish pipeline. Both were re-checked: axios publishes from GitHub Actions with OIDC trusted publishing and SLSA provenance, its 27-package runtime tree is entirely MIT with no install scripts, OSV is clean, and a local ESM/CJS interceptor and mock-adapter probe passed. `follow-redirects` is the only verified axios edge; it has no npm provenance, so pin 1.16.2 and record the gap. The other five are held because they do not provide the HTTP client role: `undici` is a Node-only client already embedded in modern Node, `fast-uri` is a URI utility, `js-cookie` and `cookie` are cookie helpers, and `protobufjs` is a codec. Firebase 13.2.0 pulls `protobufjs` 7.6.6 through `@grpc/proto-loader`, not the reviewed 8.8.1, and the Firebase tree shows no edge for the other four; that is monitoring context, not a condition for the HTTP client decision.
 
 ### Sanitize untrusted HTML before rendering
 
@@ -83,7 +89,7 @@ Nine packages. NVL is denied at both 2.0.0 and 1.2.2. Cytoscape.js is MIT, zero 
 | **Fallback** | `maxGraph` 0.25.1 — Apache-2.0, zero dependencies, but a rewrite and still 0.x |
 | **Excluded** | GoJS, JointJS+ — commercial licences |
 
-Two adopted packages. The vanilla and React browser spikes pass after adding `tslib`; the React spike renders 20 interactive React nodes with selection. Native Node/SSR is explicitly not approved because X6 v3 fails native ESM and CJS loading. The runtime tree is permissive. No npm provenance exists for X6 or the React shape package, so pin both exact versions and record the gaps. The actual application regression suite still has to pass before production rollout.
+Two adopted packages. The vanilla and React browser spikes pass after adding `tslib`; the React spike renders 20 interactive React nodes with selection. Native Node/SSR is explicitly not approved because X6 v3 fails native ESM and CJS loading. The runtime tree is permissive. No npm provenance exists for X6 or the React shape package, so pin both exact versions and record the gaps. This is a library recommendation, not a certified migration: the consuming application team owns its lockfile, browser baseline, regression suite and the X6 v2 removal deadline.
 
 ---
 
@@ -291,6 +297,7 @@ A consumer enforces the policy by taking rows where `decision_status === "approv
       "primary": "@fastify/deepmerge",
       "expires_at": "2027-04-18",
       "expired": false,
+      "scope": "Library selection; application integration is a consumer obligation.",
       "conditions": [
         "Use @fastify/deepmerge 3.2.4 as the default; pin it exactly and keep the lockfile."
       ]
@@ -339,8 +346,10 @@ npm run audit:lockfile -- ../app/package-lock.json axios protobufjs @antv/x6
 npm run audit:lockfile -- ../app/package-lock.json --json > ai/lockfile-audit.json
 ```
 
-Use it to close the HTTP parent-chain holds and to check the X6 v2 bridge before
-the 17 Nov 2026 removal deadline.
+Use it to give the consuming team a concrete view of what its application
+actually resolves. The board does not require the application lockfile to make
+the HTTP client decision, and the X6 v2 deadline remains an application-side
+obligation.
 
 ## Adding a review
 

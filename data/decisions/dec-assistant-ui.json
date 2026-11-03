@@ -17,6 +17,7 @@
   "decided_at": "2026-10-27",
   "decided_by": "frontend-platform; revalidated by opencode-review (delegated by dbs-amoswong)",
   "expires_at": "2027-01-25",
+  "scope": "Library and dependency-tree selection for a React application. Application UI integration, runtime adapter behaviour and product content policy are consumer obligations.",
   "criteria": [
     "Permissive license across the full dependency tree",
     "CI-published with verifiable provenance",

@@ -16,10 +16,11 @@
   ],
   "rejected": [],
   "dropped": [],
-  "rationale": "Adopt axios 1.21.0 as the HTTP client. The earlier hold was based on an unverified tree and publish pipeline; both are now verified: axios publishes from GitHub Actions with OIDC trusted publishing and SLSA provenance, the runtime tree is 27 MIT packages with no install scripts, OSV is clean, and a local ESM/CJS interceptor and mock-adapter probe passed. follow-redirects 1.16.2 is adopted only as the required Node transport beneath axios; pin it exactly and record the no-provenance gap. The other five stay on hold: Firebase 13.2.0 pulls protobufjs 7.6.6 through @grpc/proto-loader, not the reviewed 8.8.1, and the Firebase tree shows no edge for undici, fast-uri, js-cookie or cookie. Walk the actual application parent chains before treating any of them as verified transitive members or dropping them as unnecessary.",
+  "rationale": "Adopt axios 1.21.0 as the HTTP client. The earlier hold was based on an unverified tree and publish pipeline; both are now verified: axios publishes from GitHub Actions with OIDC trusted publishing and SLSA provenance, the runtime tree is 27 MIT packages with no install scripts, OSV is clean, and a local ESM/CJS interceptor and mock-adapter probe passed. follow-redirects 1.16.2 is adopted only as the required Node transport beneath axios; pin it exactly and record the no-provenance gap. The other five are held for this requirement because none provides the HTTP client, interceptor, global-config or mocking role: undici is a Node-only client already embedded in modern Node, fast-uri is a URI utility, js-cookie and cookie are cookie helpers, and protobufjs is a protobuf codec. The Firebase 13.2.0 tree is context only: it resolves protobufjs 7.6.6, not the reviewed 8.8.1, and does not contain the other four. The board does not need the consuming application's lockfile to make this HTTP client decision.",
   "decided_at": "2026-11-04",
   "decided_by": "dbs-amoswong; revised by opencode-review (delegated by dbs-amoswong)",
   "expires_at": "2027-02-02",
+  "scope": "HTTP client and required Node transport selection. Application lockfile, bundle measurement and interceptor/mocking regression are consumer obligations.",
   "criteria": [
     "Actively maintained and responsive to security reports",
     "No unfixed high or critical advisories",
@@ -76,15 +77,16 @@
     "Pin axios 1.21.0 and follow-redirects 1.16.2 exactly, and commit the lockfile.",
     "Record follow-redirects' missing npm provenance in the consuming project.",
     "Keep using axios interceptors, global config and the existing mocking approach; the local probe covered the interceptor and adapter path.",
-    "Do not adopt undici, fast-uri, js-cookie, cookie or protobufjs directly until the actual parent chain is walked and a concrete need is established.",
-    "If Firebase is in the consuming application, record that it resolves protobufjs 7.6.6, not 8.8.1, and review that version separately if protobuf handling becomes in scope.",
+    "Do not adopt undici, fast-uri, js-cookie, cookie or protobufjs as HTTP clients for this requirement. If a consuming application needs one for a different role, review it against a separate requirement.",
+    "Consuming applications that include Firebase should record that it resolves protobufjs 7.6.6, not 8.8.1, and review that version separately if protobuf handling becomes in scope.",
+    "Consuming applications own their lockfile, browser bundle measurement and interceptor/mocking regression; this board does not have access to those applications.",
     "Re-check advisories and the axios publish workflow every 90 days."
   ],
   "confidence": "high",
   "unknowns": [
-    "The application-level parent chains for undici, fast-uri, js-cookie and cookie were not supplied.",
+    "The consuming application's parent chains are outside this board's access; they are context for monitoring, not a condition for this HTTP client decision.",
     "Firebase 13.2.0 pulls protobufjs 7.6.6, not the reviewed 8.8.1.",
-    "The browser bundle size and the actual application interceptor/mocking suite were not measured; the probe covered the API path, not the full app.",
+    "The browser bundle size and the full application interceptor/mocking suite were not measured; the probe covered the API path.",
     "axios has a single npm maintainer and 110 open issues."
   ],
   "reversal_cost": "Low for axios: it is already the client the requirement is built around. Replacing it with native fetch or another client is a separate requirement.",
@@ -92,7 +94,7 @@
     "A new high or critical advisory affects axios or follow-redirects.",
     "The axios OIDC publish workflow or provenance attestation changes.",
     "Firebase or another parent starts pulling a different undici, fast-uri, js-cookie, cookie or protobufjs version.",
-    "The application needs a direct cookie or URI utility rather than a transitive one.",
+    "A separate requirement needs a cookie or URI utility.",
     "axios changes maintainership, drops dual browser/Node support or removes the interceptor API."
   ]
 }

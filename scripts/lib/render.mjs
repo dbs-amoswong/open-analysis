@@ -773,6 +773,7 @@ ${
   </section>
   <section class="panel">
     <div class="panel-head"><h2>Decision rationale</h2></div>
+    ${decision?.scope ? `<p class="prose small"><strong>Scope:</strong> ${esc(decision.scope)}</p>` : ""}
     <p class="prose">${esc(decision?.rationale ?? "No rationale recorded.")}</p>
   </section>
 </div>

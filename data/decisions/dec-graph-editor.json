@@ -10,10 +10,11 @@
   "hold": [],
   "rejected": [],
   "dropped": [],
-  "rationale": "Adopt X6 v3 as the target for the React browser-only graph editor, together with the official @antv/x6-react-shape 3.0.1 package. v2 is deprecated and is not the long-term target: it is recorded as a prior version bridge with a removal deadline. The vanilla and React browser spikes pass after adding tslib; the React spike rendered 20 interactive React nodes with selection. The runtime tree was inventoried and is permissive. Native Node/SSR is explicitly not approved: the published v3 package currently fails native ESM and CJS loading. The actual application regression suite must pass before production rollout. maxGraph remains the fallback if the v3 migration fails.",
+  "rationale": "Adopt X6 v3 as the target for the React browser-only graph editor, together with the official @antv/x6-react-shape 3.0.1 package. v2 is deprecated and is not the long-term target: it is recorded as a prior version bridge with a removal deadline. The vanilla and React browser spikes pass after adding tslib; the React spike rendered 20 interactive React nodes with selection. The runtime tree was inventoried and is permissive. Native Node/SSR is explicitly not approved: the published v3 package currently fails native ESM and CJS loading. This decision selects the library and React integration; the consuming application team owns the actual migration regression and browser baseline. maxGraph remains the fallback if the consuming application reports that the v3 migration fails.",
   "decided_at": "2026-11-04",
   "decided_by": "opencode-review (delegated by dbs-amoswong)",
   "expires_at": "2027-05-03",
+  "scope": "Library selection and browser-only React integration. The consuming application owns its lockfile, browser baseline, migration regression and X6 v2 bridge deadline; this board has no access to that application and does not certify the migration.",
   "criteria": [
     "Permissive licence; commercial licences are excluded",
     "React 18 and 19 support through an official React shape package",
@@ -62,26 +63,26 @@
   ],
   "conditions": [
     "Browser-only deployment; native Node/SSR is not approved.",
-    "Record the application browser and runtime baseline before rollout; the spikes used Chrome at 1200x800, not the application baseline.",
+    "The consuming application team must record its browser and runtime baseline before rollout; the spikes used Chrome at 1200x800, not the application baseline.",
     "Add tslib 2.9.1 explicitly and verify the bundler; it is a 0BSD packaging workaround, not an application import.",
     "Use @antv/x6-react-shape 3.0.1 and getProvider(). Re-check the package on 2026-11-27, when its 12-month release window closes.",
-    "Keep X6 v2 pinned at 2.19.2 with compatible 2.x plugins only as a short migration bridge, and remove it by 2026-11-17 when its 12-month maintenance window closes.",
-    "Run the actual application regression across custom React nodes, selection, transform, history, clipboard, stencil, snapline, minimap and export.",
+    "The consuming application team must keep X6 v2 pinned at 2.19.2 with compatible 2.x plugins only as a short migration bridge, and remove it by 2026-11-17 when its 12-month maintenance window closes.",
+    "The consuming application team must run the actual regression across custom React nodes, selection, transform, history, clipboard, stencil, snapline, minimap and export.",
     "Pin X6 3.1.8 and @antv/x6-react-shape 3.0.1 exactly and record both npm provenance gaps.",
     "Do not mix v3 core with 2.x plugins and do not install the deprecated 3.0.0 plugin packages."
   ],
   "confidence": "medium",
   "unknowns": [
-    "The actual application lockfile, browser baseline and plugin usage were not supplied.",
-    "The React shape package rendered in a spike, but custom React node compatibility has not been exercised in the real app.",
-    "The full application regression suite has not run.",
+    "The consuming application's lockfile, browser baseline and plugin usage are outside this board's access; the consuming team owns them.",
+    "The React shape package rendered in a spike, but custom React node compatibility has not been exercised in a real application.",
+    "The full application regression suite has not run and is a consumer obligation.",
     "The upstream native Node packaging fix has no committed date.",
     "@antv/x6-react-shape has not shipped since 2025-11-27; its 12-month maintenance boundary is 2026-11-27.",
-    "The X6 v2 maintenance window closes on 2026-11-17; if the application regression is not complete by then, a new time-boxed exception decision is required."
+    "The X6 v2 maintenance window closes on 2026-11-17; the consuming application must remove it by then or record its own time-boxed exception."
   ],
   "reversal_cost": "Moderate for X6 v3: import, plugin and React provider changes. High for maxGraph: editor-layer rewrite.",
   "review_triggers": [
-    "The v3 migration fails in the actual application.",
+    "The consuming application reports that the v3 migration fails.",
     "v3 native packaging remains broken for a required runtime.",
     "AntV stops maintaining v3 or a relevant security advisory appears.",
     "maxGraph reaches 1.0 or proves full editing parity.",

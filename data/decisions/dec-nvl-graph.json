@@ -23,6 +23,7 @@
   "decided_at": "2026-11-04",
   "decided_by": "platform-security; revised by opencode-review (delegated by dbs-amoswong)",
   "expires_at": "2027-01-26",
+  "scope": "Library and integration-pattern selection for React graph exploration. Application graph size, data shape and rendering thresholds are consumer obligations.",
   "criteria": [
     "Permissive license across the full dependency tree",
     "React 18 and 19 supported",
@@ -81,15 +82,15 @@
     "Pin Sigma 4.0.4 exactly and record its missing npm provenance.",
     "Do not adopt @react-sigma/core or graphology as part of the approved stack until graphology ships a release within 12 months or the requirement owner grants an explicit exception.",
     "Pin Cytoscape 3.34.4 and the chosen layout extensions exactly; review each extension's licence and advisories.",
-    "Run a local Cytoscape React spike and, if the fallback is used, a Sigma WebGL spike before production adoption.",
+    "The React spikes are done; the consuming application team must size-test its own graph data and choose the Cytoscape/Sigma threshold.",
     "Re-check advisories, releases and provenance every 90 days."
   ],
   "confidence": "medium",
   "unknowns": [
     "The Cytoscape React ref spike passed, but it covers rendering and selection only; the actual application graph workflows have not been exercised.",
     "The Sigma React ref spike passed on WebGL2, but it covers rendering only; large-graph interaction and layout behaviour were not benchmarked.",
-    "Both React spikes used React 19.2.0; React 18 was not exercised. The wrappers are framework-agnostic, but the peer range should be checked in the real app.",
-    "The actual application graph size and layout needs were not supplied, so the Cytoscape/Sigma threshold is unquantified.",
+    "Both React spikes used React 19.2.0; React 18 was not exercised. The wrappers are framework-agnostic, but a consuming app on React 18 should verify the peer range.",
+    "The consuming application's graph size and layout needs are outside this board's access; the consuming team must size-test and choose the Cytoscape/Sigma threshold.",
     "graphology has no release since 2025-01-26; the React wrapper path is blocked until that changes.",
     "The layout extension versions for Cytoscape were not selected.",
     "react-cytoscapejs is stale, so the thin wrapper must be owned and tested by the application."

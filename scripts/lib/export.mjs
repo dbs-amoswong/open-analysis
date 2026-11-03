@@ -78,6 +78,7 @@ export function buildAllowlist(model) {
         hold,
         dropped,
         rejected,
+        scope: decision.scope ?? null,
         conditions: decision.conditions ?? [],
       };
     });

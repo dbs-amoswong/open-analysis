@@ -21,6 +21,7 @@
   "decided_at": "2026-11-04",
   "decided_by": "platform-security; revised by opencode-review (delegated by dbs-amoswong)",
   "expires_at": "2027-01-25",
+  "scope": "Library selection for browser-DOM and Node sanitization. Application allowlists, content policy and the exact rendering path are consumer obligations.",
   "criteria": [
     "Removes scripts, event handlers and javascript:/data: URLs",
     "Resistant to mutation XSS when the output is re-parsed",
