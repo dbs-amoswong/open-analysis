@@ -2,7 +2,7 @@
   "id": "req-legacy-graph",
   "slug": "legacy-graph",
   "title": "Graph visualization in a legacy application",
-  "summary": "Render, edit and interact with graph data in the existing legacy application. Assess whether to keep the AntV X6 v2 stack, migrate to the v3 core, or replace the suite. v2 uses separate 2.x plugins; v3 bundles the official plugins and has different runtime and packaging requirements. Preserve existing graph behaviour during any upgrade or migration.",
+  "summary": "Render, edit and interact with graph data in the existing legacy application. Assess whether to keep the deprecated AntV X6 v2 stack as a tactical bridge, migrate to the maintained v3 core, or replace the suite. v2 uses separate 2.x plugins; v3 bundles the official plugins and has different runtime and packaging requirements. Preserve existing graph behaviour during any upgrade or migration.",
   "owner": "dbs-amoswong",
   "criticality": "high",
   "status": "active",
@@ -25,5 +25,5 @@
     "Rewriting the legacy application or choosing a new UI framework",
     "Detailed benchmark against every graph library"
   ],
-  "notes": "The requirement covers two distinct X6 lines. v2: @antv/x6@2.19.2 plus @antv/x6-common, @antv/x6-geometry and the separate 2.x plugins; this is the legacy-compatible stack, but the plugin line is old and none of the packages has npm provenance. v3: @antv/x6@3.1.8 bundles common, geometry and the official plugins; it requires Node >=20, changes panning, animation and scroller behaviour, and its npm package currently fails native Node ESM and CJS loading (see docs/x6-v2-v3-audit.md). Do not install the deprecated 3.0.0 plugin packages or mix v3 core with 2.x plugins. D3 is the named alternative, but it does not provide X6's editing/plugin layer. Record the actual lockfile, browser baseline and plugin usage before any migration verdict."
+  "notes": "The requirement covers two distinct X6 lines. v2: @antv/x6@2.19.2 plus @antv/x6-common, @antv/x6-geometry and the separate 2.x plugins; this is the legacy-compatible stack, but the v2 line was marked deprecated at 2.19.0 and is not a long-term option. v3: @antv/x6@3.1.8 bundles common, geometry and the official plugins; it requires Node >=20, changes panning, animation and scroller behaviour, and its npm package currently fails native Node ESM and CJS loading (see docs/x6-v2-v3-audit.md). Do not install the deprecated 3.0.0 plugin packages or mix v3 core with 2.x plugins. D3 is the named alternative, but it does not provide X6's editing/plugin layer. Record the actual lockfile, browser baseline and plugin usage before any migration verdict. Choosing v2 is a time-boxed bridge, not a final destination."
 }

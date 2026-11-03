@@ -21,6 +21,7 @@ the earlier mixed-version review in PR #10.
 | v2 latest is `2.19.2` | Confirmed |
 | v3 latest is `3.1.8` | Confirmed |
 | v2 core published 2025-11-17 | Confirmed; reaches 12 months on 2026-11-17 |
+| v2 line lifecycle | **Marked deprecated at 2.19.0 (2025-10-20); 2.19.2 is a late patch** |
 | v3 core published 2026-08-11 | Confirmed |
 | v3 bundles common, geometry and official plugins | Confirmed in the tarball |
 | v2 plugins require `@antv/x6 ^2.x` | Confirmed |
@@ -97,9 +98,7 @@ A full suite is:
 @antv/x6-plugin-export
 ```
 
-The core is recent, but only just: as of 2026-11-04 it is inside the 12-month window and reaches the boundary on 2026-11-17. The 2.x plugin packages are from 2023–2024. The v2
-line is therefore the compatible legacy stack, not a line receiving new plugin
-features.
+The core is recent, but only just: as of 2026-11-04 it is inside the 12-month window and reaches the boundary on 2026-11-17. More importantly, the v2 line was marked **deprecated** at 2.19.0. The 2.x plugin packages are from 2023–2024. v2 is therefore a short-term compatibility bridge, not a long-term support line.
 
 `@antv/x6-plugin-clipboard@3.0.0` is deprecated; on v2 the compatible version is
 `2.1.6`.
@@ -139,8 +138,10 @@ handlers and editor behaviour still need regression testing.
 
 ## Corrected conclusion
 
-- **v2 is the correct stack for the legacy application today.** Pin
-  `@antv/x6@2.19.2` and compatible 2.x plugins. Record the provenance gap.
+- **v2 is the correct short-term bridge for the legacy application today.** Pin
+  `@antv/x6@2.19.2` and compatible 2.x plugins. Record the provenance gap and
+  set an exit/review date; v2 is deprecated and must not become the permanent
+  destination.
 - **v3 is the maintained future path, but not a safe drop-in.** It is blocked
   for native Node/SSR/test environments by the packaging failure, and it
   requires Node >=20 plus behaviour migration.
