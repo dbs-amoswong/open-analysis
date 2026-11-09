@@ -11,9 +11,13 @@
   "runtime_deps": 1,
   "install_size_kb": 35840,
   "unpacked_size_kb": 2923,
-  "maintainers": ["jawish"],
+  "maintainers": [
+    "jawish"
+  ],
   "types": "bundled",
-  "formats": ["cjs", "esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "Former LottieFiles React player. The README marks it deprecated and points to @lottiefiles/dotlottie-react; the GitHub repository is archived. It depends on lottie-web ^5.12.2.",
   "npm_provenance": false,
   "provenance_note": "No npm attestation was found when these facts were collected."
