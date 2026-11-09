@@ -32,7 +32,9 @@
     "gaofuhong"
   ],
   "types": "bundled",
-  "formats": ["cjs", "esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "X6 v3 core bundles common, geometry and the official plugins. The browser bundle works with a tslib workaround; native Node ESM/CJS loading fails in the published package. MIT, no install scripts, no npm provenance. React nodes use the separately reviewed @antv/x6-react-shape 3.0.1.",
   "npm_provenance": false,
   "provenance_note": "No npm attestation was found when these facts were collected.",

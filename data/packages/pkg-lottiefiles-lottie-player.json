@@ -11,9 +11,13 @@
   "runtime_deps": 5,
   "install_size_kb": 39936,
   "unpacked_size_kb": 6764,
-  "maintainers": ["jawish"],
+  "maintainers": [
+    "jawish"
+  ],
   "types": "bundled",
-  "formats": ["cjs", "esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "Web-component Lottie player. The GitHub repository is archived. Pulls lit, pako, lottie-web, @types/pako and resize-observer-polyfill; it is not a React-first integration.",
   "npm_provenance": true
 }

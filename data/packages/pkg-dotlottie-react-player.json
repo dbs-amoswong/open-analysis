@@ -11,9 +11,15 @@
   "runtime_deps": 1,
   "install_size_kb": 77824,
   "unpacked_size_kb": 133,
-  "maintainers": ["sam-osb", "jawish", "karamalie"],
+  "maintainers": [
+    "sam-osb",
+    "jawish",
+    "karamalie"
+  ],
   "types": "bundled",
-  "formats": ["esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "Deprecated in npm in favour of @lottiefiles/dotlottie-react. The dependency tree includes @dotlottie/common -> @dotlottie/dotlottie-js -> sharp 0.33.5 with an install script and LGPL libvips; 76 MB installed.",
   "npm_provenance": false,
   "provenance_note": "No npm attestation was found when these facts were collected."

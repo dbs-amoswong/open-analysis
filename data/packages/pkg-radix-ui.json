@@ -11,9 +11,14 @@
   "runtime_deps": 55,
   "install_size_kb": 16384,
   "unpacked_size_kb": 103,
-  "maintainers": ["chancestrickland", "mark-workos"],
+  "maintainers": [
+    "chancestrickland",
+    "mark-workos"
+  ],
   "types": "bundled",
-  "formats": ["cjs", "esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "Unified entry point for Radix Primitives. MIT, React 16.8-19, provenance-signed. It lists 55 primitive packages as dependencies and installs about 16 MB; individual @radix-ui/react-* packages are smaller if only a few primitives are needed.",
   "npm_provenance": true
 }

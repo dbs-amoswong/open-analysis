@@ -11,9 +11,14 @@
   "runtime_deps": 1,
   "install_size_kb": 15360,
   "unpacked_size_kb": 503,
-  "maintainers": ["jawish", "nattuadnan"],
+  "maintainers": [
+    "jawish",
+    "nattuadnan"
+  ],
   "types": "bundled",
-  "formats": ["esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "React wrapper for the DotLottie player. Peers React 17, 18 and 19; one exact dependency on @lottiefiles/dotlottie-web 0.82.1. Supports .lottie and Lottie JSON, canvas rendering, events, worker and self-hosted WASM. Active and provenance-signed.",
   "npm_provenance": true
 }

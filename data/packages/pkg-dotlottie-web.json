@@ -11,9 +11,14 @@
   "runtime_deps": 0,
   "install_size_kb": 7168,
   "unpacked_size_kb": 7116,
-  "maintainers": ["jawish", "nattuadnan"],
+  "maintainers": [
+    "jawish",
+    "nattuadnan"
+  ],
   "types": "bundled",
-  "formats": ["cjs", "esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "DotLottie and Lottie JSON player built on a WASM engine. The 1.2 MB WASM (about 481 KB gzip) and 73 KB worker can be self-hosted; by default the player fetches a version-pinned WASM from jsDelivr or unpkg. Active and provenance-signed.",
   "npm_provenance": true
 }
