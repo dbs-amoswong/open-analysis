@@ -11,9 +11,14 @@
   "runtime_deps": 8,
   "install_size_kb": 69632,
   "unpacked_size_kb": 6773,
-  "maintainers": ["devongovett", "aspro83"],
+  "maintainers": [
+    "devongovett",
+    "aspro83"
+  ],
   "types": "bundled",
-  "formats": ["cjs", "esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "Headless React component layer built on react-aria and react-stately. Broad accessibility, internationalization, focus management, collections, tables, date/time and drag-and-drop. No required CSS runtime. Installs about 68 MB with React 19 and its runtime packages.",
   "npm_provenance": false,
   "provenance_note": "No npm attestation was found; published from the Adobe npm account."

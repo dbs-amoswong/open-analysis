@@ -11,9 +11,20 @@
   "runtime_deps": 5,
   "install_size_kb": 30720,
   "unpacked_size_kb": 10134,
-  "maintainers": ["oliviertassinari", "atomiks", "lukastyla", "janpotoms", "colmtuite", "mnajdova", "michaldudak", "mj12albert"],
+  "maintainers": [
+    "oliviertassinari",
+    "atomiks",
+    "lukastyla",
+    "janpotoms",
+    "colmtuite",
+    "mnajdova",
+    "michaldudak",
+    "mj12albert"
+  ],
   "types": "bundled",
-  "formats": ["cjs", "esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "Headless, unstyled React components from the MUI/Radix/Floating UI team. MIT, React 17/18/19, provenance-signed. Formerly @base-ui-components/react; that package is deprecated. Installs about 30 MB with React 19.",
   "npm_provenance": true
 }

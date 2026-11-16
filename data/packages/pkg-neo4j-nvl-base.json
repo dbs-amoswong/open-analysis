@@ -2,13 +2,13 @@
   "id": "pkg-neo4j-nvl-base",
   "name": "@neo4j-nvl/base",
   "ecosystem": "npm",
-  "latest_version": "2.0.0",
-  "published_at": "2026-09-15",
+  "latest_version": "2.1.0",
+  "published_at": "2026-11-09",
   "repo": null,
   "registry": "https://www.npmjs.com/package/@neo4j-nvl/base",
   "license": "SEE LICENSE IN 'LICENSE.txt'",
   "weekly_downloads": 17490,
-  "runtime_deps": 13,
+  "runtime_deps": 12,
   "install_size_kb": 43848,
   "unpacked_size_kb": 1302,
   "maintainers": [
@@ -18,7 +18,7 @@
   ],
   "types": "bundled",
   "formats": [
-    "cjs"
+    "dual"
   ],
   "notes": "Proprietary renderer. Imports @segment/analytics-next unconditionally; analytics needs an explicit API key. Touches document at import time, so no SSR. 13 direct dependencies, several pinned exactly.",
   "npm_provenance": false,
