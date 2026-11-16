@@ -11,9 +11,14 @@
   "runtime_deps": 9,
   "install_size_kb": 59392,
   "unpacked_size_kb": 15378,
-  "maintainers": ["devongovett", "aspro83"],
+  "maintainers": [
+    "devongovett",
+    "aspro83"
+  ],
   "types": "bundled",
-  "formats": ["cjs", "esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "The lower-level accessibility hooks beneath React Aria Components. Use it for custom primitives when the component layer is too opinionated. Installs about 58 MB with React 19.",
   "npm_provenance": false,
   "provenance_note": "No npm attestation was found; published from the Adobe npm account."

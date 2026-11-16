@@ -2,8 +2,8 @@
   "id": "pkg-dotlottie-web",
   "name": "@lottiefiles/dotlottie-web",
   "ecosystem": "npm",
-  "latest_version": "0.82.1",
-  "published_at": "2026-11-02",
+  "latest_version": "0.83.2",
+  "published_at": "2026-11-12",
   "repo": "https://github.com/LottieFiles/dotlottie-web",
   "registry": "https://www.npmjs.com/package/@lottiefiles/dotlottie-web",
   "license": "MIT",
@@ -11,9 +11,14 @@
   "runtime_deps": 0,
   "install_size_kb": 7168,
   "unpacked_size_kb": 7116,
-  "maintainers": ["jawish", "nattuadnan"],
+  "maintainers": [
+    "jawish",
+    "nattuadnan"
+  ],
   "types": "bundled",
-  "formats": ["cjs", "esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "DotLottie and Lottie JSON player built on a WASM engine. The 1.2 MB WASM (about 481 KB gzip) and 73 KB worker can be self-hosted; by default the player fetches a version-pinned WASM from jsDelivr or unpkg. Active and provenance-signed.",
   "npm_provenance": true
 }

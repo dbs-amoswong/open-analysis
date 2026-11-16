@@ -11,9 +11,14 @@
   "runtime_deps": 69,
   "install_size_kb": 45056,
   "unpacked_size_kb": 3267,
-  "maintainers": ["segunadebayo", "schroetier"],
-  "types": "bundled",
-  "formats": ["esm"],
+  "maintainers": [
+    "segunadebayo",
+    "schroetier"
+  ],
+  "types": "none",
+  "formats": [
+    "esm"
+  ],
   "notes": "Headless components backed by Zag.js state machines. MIT, React 18/19, active and provenance-signed. It lists 69 pinned @zag-js packages and installs about 44 MB with React 19; the dependency graph is the main cost.",
   "npm_provenance": true
 }
