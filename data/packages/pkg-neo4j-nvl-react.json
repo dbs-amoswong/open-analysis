@@ -2,8 +2,8 @@
   "id": "pkg-neo4j-nvl-react",
   "name": "@neo4j-nvl/react",
   "ecosystem": "npm",
-  "latest_version": "2.0.0",
-  "published_at": "2026-09-15",
+  "latest_version": "2.1.0",
+  "published_at": "2026-11-09",
   "repo": null,
   "registry": "https://www.npmjs.com/package/@neo4j-nvl/react",
   "license": "SEE LICENSE IN 'LICENSE.txt'",
@@ -16,9 +16,9 @@
     "neo4j-bloom-publisher",
     "neo4j-organization"
   ],
-  "types": "none",
+  "types": "bundled",
   "formats": [
-    "cjs"
+    "dual"
   ],
   "notes": "Proprietary Neo4j client software. Publisher lists no repository. ESM syntax in .js under a commonjs package with extensionless imports, so Node require and import both fail; a bundler is required. React peer is 18.0.0 || ^19.0.0, which excludes React 18.2/18.3.",
   "npm_provenance": false,
