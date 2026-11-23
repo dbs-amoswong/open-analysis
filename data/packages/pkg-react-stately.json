@@ -11,9 +11,14 @@
   "runtime_deps": 6,
   "install_size_kb": 14336,
   "unpacked_size_kb": 5772,
-  "maintainers": ["devongovett", "aspro83"],
+  "maintainers": [
+    "devongovett",
+    "aspro83"
+  ],
   "types": "bundled",
-  "formats": ["cjs", "esm"],
+  "formats": [
+    "dual"
+  ],
   "notes": "State management hooks for React Aria collections, overlays, selection, tables and date/time. It arrives as a required runtime beneath react-aria and react-aria-components.",
   "npm_provenance": false,
   "provenance_note": "No npm attestation was found; published from the Adobe npm account."

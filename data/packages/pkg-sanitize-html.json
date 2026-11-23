@@ -2,8 +2,8 @@
   "id": "pkg-sanitize-html",
   "name": "sanitize-html",
   "ecosystem": "npm",
-  "latest_version": "2.18.1",
-  "published_at": "2026-10-14",
+  "latest_version": "2.18.2",
+  "published_at": "2026-11-11",
   "repo": "https://github.com/apostrophecms/apostrophe/tree/main/packages/sanitize-html",
   "registry": "https://www.npmjs.com/package/sanitize-html",
   "license": "MIT",
@@ -14,7 +14,6 @@
   "maintainers": [
     "alexgilbert",
     "boutell",
-    "romanek",
     "bodonkey"
   ],
   "types": "none",
